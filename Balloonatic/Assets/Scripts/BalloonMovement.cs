@@ -7,6 +7,7 @@ public class BalloonMovement : MonoBehaviour
     [SerializeField] private Vector2 bounceBoundaries = Vector2.one * 5;
     [SerializeField] private float movementSpeed = 3f;
     private bool dirX, dirY;
+    [SerializeField] private Transform stringAnchor;
 
     void Start()
     {
@@ -20,5 +21,7 @@ public class BalloonMovement : MonoBehaviour
             dirX = !dirX;
         else if (Mathf.Abs(newPos.y) > bounceBoundaries.y)
             dirY = !dirY;
+
+        stringAnchor.position = newPos;
     }
 }
