@@ -14,13 +14,4 @@ public class GameManager : MonoBehaviour
         else
             Instance = this;
     }
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }
