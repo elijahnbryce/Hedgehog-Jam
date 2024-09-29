@@ -35,23 +35,39 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            attacking = true;
-            OnAttackInitiate?.Invoke();
+            AttackInitiate();
         }
-        else if (Input.GetKeyUp(KeyCode.Space))
+        else if (Input.GetKeyUp(KeyCode.Space) && attacking)
         {
-            OnAttackHalt?.Invoke();
-            //
+            AttackHalt();
+        }
+        //
+        if (attacking)
+        {
+            if (attackPower < attackMax)
+            {
+                attackPower += Time.deltaTime;
+            }
+            else
+                AttackHalt();
+        }
+    }
 
-            var newProjectile = Instantiate(projectilePrefab, launchPoint.position, Quaternion.identity);
-            newProjectile.GetComponent<Rigidbody2D>().AddForce((PlayerMovement.Instance.FacingDir ? Vector2.left : Vector2.right) * 1000f * attackPower);
-            //
-            attacking = false;
-            attackPower = 0;
-        }
-        if (attacking && attackPower < attackMax)
-        {
-            attackPower += Time.deltaTime;
-        }
+    void AttackInitiate()
+    {
+        attacking = true;
+        OnAttackInitiate?.Invoke();
+    }
+
+    void AttackHalt()
+    {
+        OnAttackHalt?.Invoke();
+        //
+
+        var newProjectile = Instantiate(projectilePrefab, launchPoint.position, Quaternion.identity);
+        newProjectile.GetComponent<Rigidbody2D>().AddForce((PlayerMovement.Instance.FacingDir ? Vector2.left : Vector2.right) * 1000f * attackPower);
+        //
+        attacking = false;
+        attackPower = 0;
     }
 }

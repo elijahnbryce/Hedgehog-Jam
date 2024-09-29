@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         var timer = 0f;
         while(timer < 2.5f)
         {
+            Debug.Log("attack streching");
             yield return null;
             followingDistance+= Time.deltaTime * 1.2f;
         }
@@ -75,6 +76,17 @@ public class PlayerMovement : MonoBehaviour
         //implement raycast later
         secondTargetPos = PlayerPosition + new Vector2(facingDir ? 1 : -1, 0) * followingDistance;
         secondHand.position = secondCurrentPos = Vector3.Slerp(secondCurrentPos, secondTargetPos, Time.deltaTime * followingSpeed);
+
+
+        //optimize later
+        Vector3 mouseScreenPosition = Input.mousePosition;
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.nearClipPlane));
+        Vector3 direction = mouseWorldPosition - transform.position;
+
+        //direction.Normalize();
+
+        Debug.DrawRay(transform.position, direction, Color.green);
+        Debug.DrawRay(transform.position, direction*-1, Color.red);
     }
 
     public void SnapPosition(Vector3 newPosition)
