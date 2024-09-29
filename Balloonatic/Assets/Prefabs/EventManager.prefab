@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2457337626904455803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8197033558625998339}
+  - component: {fileID: 3653077792176442422}
+  - component: {fileID: 1175560561448030281}
+  m_Layer: 0
+  m_Name: EventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8197033558625998339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2457337626904455803}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3653077792176442422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2457337626904455803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29eb6ca03c88a034db1b9f199dac8e3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMen: {fileID: 0}
+  winCan: {fileID: 0}
+  loseCan: {fileID: 0}
+  ovrCan: {fileID: 0}
+  nxtCan: {fileID: 0}
+  loseScore: {fileID: 0}
+  winScore: {fileID: 0}
+  goalText: {fileID: 0}
+  healthText: {fileID: 0}
+  hsText: {fileID: 0}
+  timerText: {fileID: 0}
+  hsInput: {fileID: 0}
+  pC: {fileID: 0}
+  levBall: {fileID: 0}
+  cam: {fileID: 0}
+  timerObject: {fileID: 0}
+  enemyHolder: {fileID: 0}
+  pickupHolder: {fileID: 0}
+  levEnemies: []
+  levPickups: []
+  health: 3
+  count: 5
+  levels:
+  - {fileID: 7593641865376910225, guid: 12f617b31514f1847a64b514aafab2c9, type: 3}
+  - {fileID: 1295157753981191280, guid: 4b34d27719f726749b161e6ff6ae8d22, type: 3}
+  - {fileID: 1295157753981191280, guid: 8880e85c4eafb4c418bb5e9a43c9e25b, type: 3}
+  currLVL: 0
+--- !u!114 &1175560561448030281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2457337626904455803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c75b5406c70a64eb7cae5b3a161577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeIsRunning: 0
+  time: 0
