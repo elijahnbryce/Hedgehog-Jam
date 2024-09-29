@@ -42,6 +42,9 @@ public class DragController : MonoBehaviour
         {
             endPos = secondHand.position;
             line.SetPosition(1, endPos);
+
+            startPos = firstHand.position;
+            line.SetPosition(0, startPos);
         }
     }
 
