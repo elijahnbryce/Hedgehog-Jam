@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Timeline;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    //[SerializeField] private Transform
     private Transform playerTransform;
+    private float currentZoom, targetZoom;
 
     public static CameraManager Instance { get; private set; }
     private void Awake()
@@ -16,7 +15,10 @@ public class CameraManager : MonoBehaviour
     }
     void Start()
     {
+        currentZoom = targetZoom = 5;
         playerTransform = PlayerMovement.Instance.transform;
+        PlayerAttack.OnAttackInitiate += AttackStart;
+        PlayerAttack.OnAttackHalt += AttackEnd;
     }
 
     void Update()
@@ -24,5 +26,17 @@ public class CameraManager : MonoBehaviour
         var newPos = Vector2.Lerp(transform.position, playerTransform.position, 5f * Time.deltaTime);
         //ass code fix later
         transform.position = new Vector3(newPos.x, newPos.y, -10);
+
+        //GetComponent<Camera>().orthographicSize = currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * 0.5f);
+    }
+
+    private void AttackStart()
+    {
+        targetZoom = 3f;
+    }
+
+    private void AttackEnd()
+    {
+        targetZoom = 5f;
     }
 }

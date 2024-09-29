@@ -1,9 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [SerializeField] private Slider attackSlider;
+    [SerializeField] private GameObject projectilePrefab;
+    private Transform launchPoint;
+
+    private bool attacking;
+    private float attackPower;
+    private float attackMax = 2.5f;
+
+    public static event Action OnAttackInitiate;
+    public static event Action OnAttackHalt;
+
+
     public static PlayerAttack Instance { get; private set; }
     private void Awake()
     {
@@ -12,11 +26,32 @@ public class PlayerAttack : MonoBehaviour
     }
     void Start()
     {
-        
+        launchPoint = transform.GetChild(0).GetChild(0);
     }
 
     void Update()
     {
-        
+        attackSlider.value = attackPower / attackMax;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            attacking = true;
+            OnAttackInitiate?.Invoke();
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            OnAttackHalt?.Invoke();
+            //
+
+            var newProjectile = Instantiate(projectilePrefab, launchPoint.position, Quaternion.identity);
+            newProjectile.GetComponent<Rigidbody2D>().AddForce((PlayerMovement.Instance.FacingDir ? Vector2.left : Vector2.right) * 1000f * attackPower);
+            //
+            attacking = false;
+            attackPower = 0;
+        }
+        if (attacking && attackPower < attackMax)
+        {
+            attackPower += Time.deltaTime;
+        }
     }
 }

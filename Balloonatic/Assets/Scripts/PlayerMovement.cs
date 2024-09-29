@@ -10,9 +10,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Transform secondHand;
+    [SerializeField] private float followingDistance = 5f;
+    private float followingSpeed = 2.5f;
     private Rigidbody2D rigidBody;
     [HideInInspector] public Vector2 PlayerPosition;
     private bool facingDir = true;
+    public bool FacingDir { get { return facingDir; } }
     [HideInInspector] public bool CanMove;
     [HideInInspector] public bool Moving;
     [HideInInspector] public Vector2 currentPos, targetPos;
@@ -29,6 +32,36 @@ public class PlayerMovement : MonoBehaviour
     {
         CanMove = true;
         rigidBody = GetComponent<Rigidbody2D>();
+
+        PlayerAttack.OnAttackInitiate += AttackStart;
+        PlayerAttack.OnAttackHalt += AttackEnd;
+    }
+
+    //cleanup later
+    private void AttackStart()
+    {
+        followingDistance = 0.5f;
+        followingSpeed = 8f;
+        StartCoroutine(nameof(AttackStretch));
+    }
+
+    //cleanup later
+    private IEnumerator AttackStretch()
+    {
+        var timer = 0f;
+        while(timer < 2.5f)
+        {
+            yield return null;
+            followingDistance+= Time.deltaTime * 1.2f;
+        }
+    }
+
+    //cleanup later
+    private void AttackEnd()
+    {
+        StopCoroutine(nameof(AttackStretch));
+        followingDistance = 5f;
+        followingSpeed = 2.5f;
     }
 
     void Update()
@@ -40,8 +73,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //implement raycast later
-        secondTargetPos = PlayerPosition + new Vector2(facingDir ? 1 : -1, 0) * 5f;
-        secondHand.position = secondCurrentPos = Vector3.Slerp(secondCurrentPos, secondTargetPos, Time.deltaTime * 2.5f);
+        secondTargetPos = PlayerPosition + new Vector2(facingDir ? 1 : -1, 0) * followingDistance;
+        secondHand.position = secondCurrentPos = Vector3.Slerp(secondCurrentPos, secondTargetPos, Time.deltaTime * followingSpeed);
     }
 
     public void SnapPosition(Vector3 newPosition)
@@ -71,14 +104,6 @@ public class PlayerMovement : MonoBehaviour
         }
         if (movement.magnitude > 1) movement /= movement.magnitude;
         rigidBody.velocity = movement * movementSpeed;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //switch (collision.gameObject.tag)
-        //{
-
-        //}
     }
 
     public void ForceMovePlayer(Vector2 newPosition)
