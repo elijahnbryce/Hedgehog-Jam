@@ -74,19 +74,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //implement raycast later
-        secondTargetPos = PlayerPosition + new Vector2(facingDir ? 1 : -1, 0) * followingDistance;
+        //secondTargetPos = PlayerPosition + new Vector2(facingDir ? 1 : -1, 0) * followingDistance;
         secondHand.position = secondCurrentPos = Vector3.Slerp(secondCurrentPos, secondTargetPos, Time.deltaTime * followingSpeed);
-
-
-        //optimize later
-        Vector3 mouseScreenPosition = Input.mousePosition;
-        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.nearClipPlane));
-        Vector3 direction = mouseWorldPosition - transform.position;
-
-        //direction.Normalize();
-
-        Debug.DrawRay(transform.position, direction, Color.green);
-        Debug.DrawRay(transform.position, direction*-1, Color.red);
     }
 
     public void SnapPosition(Vector3 newPosition)
@@ -100,6 +89,31 @@ public class PlayerMovement : MonoBehaviour
         if (!CanMove) return;
         var movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
+
+        //optimize later
+        Vector3 mouseScreenPosition = Input.mousePosition;
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.nearClipPlane));
+        Vector3 direction = mouseWorldPosition - transform.position;
+
+
+        Debug.DrawRay(transform.position, direction, Color.green);
+        Debug.DrawRay(transform.position, direction * -1, Color.red);
+
+        direction.Normalize();
+
+        int layer = 6;
+        int layerMask = 1 << layer;
+        layerMask = ~layerMask;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -direction, 5, layerMask);
+        Debug.Log(hit.rigidbody);
+        if (hit.collider != null)
+        {
+            secondTargetPos = hit.point;
+        }
+        else
+        {
+            secondTargetPos = transform.position + direction * -5;
+        }
 
         Moving = movement.magnitude > 0;
         if (Moving)
