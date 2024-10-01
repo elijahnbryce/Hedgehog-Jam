@@ -45,27 +45,32 @@ public class PlayerMovement : MonoBehaviour
         attacking = true;
         followingDistance = 0.5f;
         followingSpeed = 8f;
-        StartCoroutine(nameof(AttackStretch));
+        //StartCoroutine(nameof(AttackStretch));
     }
 
     //cleanup later
-    private IEnumerator AttackStretch()
-    {
-        var timer = 0f;
-        while (timer < 2.5f)
-        {
-            yield return null;
-            followingDistance += Time.deltaTime * 1.2f;
-        }
-    }
+    //private IEnumerator AttackStretch()
+    //{
+    //    var timer = 0f;
+    //    while (timer < 2.5f)
+    //    {
+    //        yield return null;
+    //        followingDistance += Time.deltaTime * 1.2f;
+    //    }
+    //}
 
     //cleanup later
     private void AttackEnd()
     {
-        StopCoroutine(nameof(AttackStretch));
+        //StopCoroutine(nameof(AttackStretch));
         attacking = false;
         followingDistance = 5f;
         followingSpeed = 2.5f;
+    }
+
+    public float GetAttackPower()
+    {
+        return (secondHand.position - transform.position).magnitude / 5f;
     }
 
     void Update()
@@ -95,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.nearClipPlane));
         facingDir = transform.position.x > mouseWorldPosition.x;
-        spriteRenderer.transform.rotation = Quaternion.Euler(new Vector3(0, facingDir ? 0 : 180, -90));
+        spriteRenderer.transform.rotation = Quaternion.Euler(new Vector3(0, facingDir ? 180 : 0, -90));
 
         Moving = movement.magnitude > 0;
         if (Moving)
@@ -116,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!attacking)
         {
-            secondTargetPos = PlayerPosition + new Vector2(facingDir ? 1 : -1, 0) * 5f;
+            secondTargetPos = PlayerPosition + new Vector2(!facingDir ? 1 : -1, 0) * 5f;
             return;
         }
 
@@ -143,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            secondTargetPos = transform.position + direction * -5;
+            secondTargetPos = transform.position + direction * 5;
         }
     }
 

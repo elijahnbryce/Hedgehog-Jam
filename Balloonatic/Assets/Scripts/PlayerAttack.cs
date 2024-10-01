@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private Slider attackSlider;
+    private float sliderValue;
     [SerializeField] private GameObject projectilePrefab;
     private Transform launchPoint;
 
@@ -31,13 +32,14 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        attackSlider.value = attackPower / attackMax;
+        sliderValue = Mathf.Lerp(sliderValue, attackPower, Time.deltaTime * 2.5f);
+        attackSlider.value = Mathf.Clamp01(sliderValue);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
             AttackInitiate();
         }
-        else if (Input.GetKeyUp(KeyCode.Space) && attacking)
+        else if (Input.GetMouseButtonUp(0) && attacking)
         {
             AttackHalt();
         }
@@ -46,7 +48,8 @@ public class PlayerAttack : MonoBehaviour
         {
             if (attackPower < attackMax)
             {
-                attackPower += Time.deltaTime;
+                //attackPower += Time.deltaTime;
+                attackPower = PlayerMovement.Instance.GetAttackPower();
             }
             else
                 AttackHalt();
@@ -65,7 +68,7 @@ public class PlayerAttack : MonoBehaviour
         //
 
         var newProjectile = Instantiate(projectilePrefab, launchPoint.position, Quaternion.identity);
-        newProjectile.GetComponent<Rigidbody2D>().AddForce((PlayerMovement.Instance.GetDirectionToMouse()) * 300f * attackPower);
+        newProjectile.GetComponent<Rigidbody2D>().AddForce(-(PlayerMovement.Instance.GetDirectionToMouse()) * 300f * attackPower);
         //
         attacking = false;
         attackPower = 0;
