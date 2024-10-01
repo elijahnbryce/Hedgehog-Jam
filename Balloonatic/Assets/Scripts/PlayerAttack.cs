@@ -8,12 +8,13 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private Slider attackSlider;
     private float sliderValue;
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject projectile; 
     private Transform launchPoint;
 
     private bool attacking;
     private float attackPower;
     private float attackMax = 2.5f;
+    private int attackState = 0;
 
     public static event Action OnAttackInitiate;
     public static event Action OnAttackHalt;
@@ -32,8 +33,14 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        sliderValue = Mathf.Lerp(sliderValue, attackPower, Time.deltaTime * 2.5f);
-        attackSlider.value = Mathf.Clamp01(sliderValue);
+        sliderValue = Mathf.Clamp01(Mathf.Lerp(sliderValue, attackPower, Time.deltaTime * 2.5f));
+        attackSlider.value = sliderValue;
+
+        int flooredValue = Mathf.FloorToInt(sliderValue * 4); // Multiplies by 4 to split into 4 ranges (0-0.25, 0.25-0.5, etc.)
+        attackState = flooredValue;
+
+        attackSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = AttackStateToColor(flooredValue);
+
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -67,10 +74,43 @@ public class PlayerAttack : MonoBehaviour
         OnAttackHalt?.Invoke();
         //
 
-        var newProjectile = Instantiate(projectilePrefab, launchPoint.position, Quaternion.identity);
+        var newProjectile = Instantiate(projectile, launchPoint.position, Quaternion.identity);
+        newProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = AttackStateToColor(attackState);
+
+        switch (attackState)
+        {
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            default: //and 0
+
+                break;
+        }
+
         newProjectile.GetComponent<Rigidbody2D>().AddForce(-(PlayerMovement.Instance.GetDirectionToMouse()) * 300f * attackPower);
         //
         attacking = false;
         attackPower = 0;
+    }
+
+    private Color AttackStateToColor(int state)
+    {
+        switch (state)
+        {
+            case 1:
+                return Color.yellow;
+            case 2:
+                return Color.green;
+            case 3:
+                return Color.magenta;
+            default: //and 0
+                return Color.red;
+        }
     }
 }
