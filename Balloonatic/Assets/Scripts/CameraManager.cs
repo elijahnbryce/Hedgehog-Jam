@@ -26,7 +26,7 @@ public class CameraManager : MonoBehaviour
         var newPos = Vector2.Lerp(transform.position, playerTransform.position, 5f * Time.deltaTime);
         //ass code fix later
         transform.position = new Vector3(newPos.x, newPos.y, -10);
-
+        //transform.localScale = Vector2.one * currentZoom;
         //GetComponent<Camera>().orthographicSize = currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * 0.5f);
     }
 

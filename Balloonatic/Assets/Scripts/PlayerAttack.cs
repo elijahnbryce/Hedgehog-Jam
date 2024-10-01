@@ -65,7 +65,7 @@ public class PlayerAttack : MonoBehaviour
         //
 
         var newProjectile = Instantiate(projectilePrefab, launchPoint.position, Quaternion.identity);
-        newProjectile.GetComponent<Rigidbody2D>().AddForce((PlayerMovement.Instance.FacingDir ? Vector2.left : Vector2.right) * 1000f * attackPower);
+        newProjectile.GetComponent<Rigidbody2D>().AddForce((PlayerMovement.Instance.GetDirectionToMouse()) * 300f * attackPower);
         //
         attacking = false;
         attackPower = 0;

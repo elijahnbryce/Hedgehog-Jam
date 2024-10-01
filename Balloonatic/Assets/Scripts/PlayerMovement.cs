@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool Moving;
     [HideInInspector] public Vector2 currentPos, targetPos;
     private Vector2 secondCurrentPos, secondTargetPos;
+    private Vector2 cachedDirection;
     float counter;
 
     public static PlayerMovement Instance { get; private set; }
@@ -51,10 +52,10 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator AttackStretch()
     {
         var timer = 0f;
-        while(timer < 2.5f)
+        while (timer < 2.5f)
         {
             yield return null;
-            followingDistance+= Time.deltaTime * 1.2f;
+            followingDistance += Time.deltaTime * 1.2f;
         }
     }
 
@@ -91,12 +92,17 @@ public class PlayerMovement : MonoBehaviour
         if (!CanMove) return;
         var movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
+        Vector3 mouseScreenPosition = Input.mousePosition;
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.nearClipPlane));
+        facingDir = transform.position.x > mouseWorldPosition.x;
+        spriteRenderer.transform.rotation = Quaternion.Euler(new Vector3(0, facingDir ? 0 : 180, -90));
+
         Moving = movement.magnitude > 0;
         if (Moving)
         {
-            facingDir = movement.x < 0;
+            //facingDir = movement.x < 0;
+
             //facingdir true : looking left
-            spriteRenderer.transform.rotation = Quaternion.Euler(new Vector3(0, facingDir ? 0 : 180, -90));
             //sprite flipx doesnt work
             if (counter > 0.15f)
             {
@@ -116,9 +122,9 @@ public class PlayerMovement : MonoBehaviour
 
         //second hand movement
         //optimize later
-        Vector3 mouseScreenPosition = Input.mousePosition;
-        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.nearClipPlane));
+
         Vector3 direction = mouseWorldPosition - transform.position;
+        cachedDirection = direction;
 
 
         Debug.DrawRay(transform.position, direction, Color.green);
@@ -148,5 +154,10 @@ public class PlayerMovement : MonoBehaviour
     public void TeleportPlayer(Vector2 newPosition)
     {
         transform.position = newPosition;
+    }
+
+    public Vector2 GetDirectionToMouse()
+    {
+        return cachedDirection;
     }
 }
