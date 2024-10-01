@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rigidBody;
     [HideInInspector] public Vector2 PlayerPosition;
     private bool facingDir = true;
+    private bool attacking = false;
     public bool FacingDir { get { return facingDir; } }
     [HideInInspector] public bool CanMove;
     [HideInInspector] public bool Moving;
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     //cleanup later
     private void AttackStart()
     {
+        attacking = true;
         followingDistance = 0.5f;
         followingSpeed = 8f;
         StartCoroutine(nameof(AttackStretch));
@@ -51,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
         var timer = 0f;
         while(timer < 2.5f)
         {
-            Debug.Log("attack streching");
             yield return null;
             followingDistance+= Time.deltaTime * 1.2f;
         }
@@ -61,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     private void AttackEnd()
     {
         StopCoroutine(nameof(AttackStretch));
+        attacking = false;
         followingDistance = 5f;
         followingSpeed = 2.5f;
     }
@@ -89,32 +91,6 @@ public class PlayerMovement : MonoBehaviour
         if (!CanMove) return;
         var movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-
-        //optimize later
-        Vector3 mouseScreenPosition = Input.mousePosition;
-        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.nearClipPlane));
-        Vector3 direction = mouseWorldPosition - transform.position;
-
-
-        Debug.DrawRay(transform.position, direction, Color.green);
-        Debug.DrawRay(transform.position, direction * -1, Color.red);
-
-        direction.Normalize();
-
-        int layer = 6;
-        int layerMask = 1 << layer;
-        layerMask = ~layerMask;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, -direction, 5, layerMask);
-        Debug.Log(hit.rigidbody);
-        if (hit.collider != null)
-        {
-            secondTargetPos = hit.point;
-        }
-        else
-        {
-            secondTargetPos = transform.position + direction * -5;
-        }
-
         Moving = movement.magnitude > 0;
         if (Moving)
         {
@@ -130,6 +106,39 @@ public class PlayerMovement : MonoBehaviour
         }
         if (movement.magnitude > 1) movement /= movement.magnitude;
         rigidBody.velocity = movement * movementSpeed;
+
+
+        if (!attacking)
+        {
+            secondTargetPos = PlayerPosition + new Vector2(facingDir ? 1 : -1, 0) * 5f;
+            return;
+        }
+
+        //second hand movement
+        //optimize later
+        Vector3 mouseScreenPosition = Input.mousePosition;
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.nearClipPlane));
+        Vector3 direction = mouseWorldPosition - transform.position;
+
+
+        Debug.DrawRay(transform.position, direction, Color.green);
+        Debug.DrawRay(transform.position, direction * -1, Color.red);
+
+        direction.Normalize();
+
+        int layer = 6;
+        int layerMask = 1 << layer;
+        layerMask = ~layerMask;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -direction, followingDistance, layerMask);
+        //Debug.Log(hit.rigidbody);
+        if (hit.collider != null)
+        {
+            secondTargetPos = hit.point;
+        }
+        else
+        {
+            secondTargetPos = transform.position + direction * -5;
+        }
     }
 
     public void ForceMovePlayer(Vector2 newPosition)
