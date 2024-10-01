@@ -20,7 +20,8 @@ public class EventHandler : MonoBehaviour
     //[SerializeField] public GameObject timerObject;
 
     [Header("Game Status")]
-    public int health = 5;
+    public int health = 0;
+    public int healthMax = 3;
     public bool gameOver, gameActive, gamePaused, noPausing;
     private int levelScore, totalScore = 0;
 
@@ -51,6 +52,7 @@ public class EventHandler : MonoBehaviour
         //timer = 0
 
         UpdateScore(0);
+        health = healthMax;
         UpdateHealth(0);
 
         //highestScore = Mathf.RoundToInt((1 + phFull / (float)(phFull / 2)) * (1 - (1 - 10f / 10f)) * (1 + (startEnemies - 0) / startEnemies) * ((startPickups - 0) / startPickups) * 1017);
@@ -198,6 +200,7 @@ private void IncLevel()
     public void UpdateHealth(int change = -1)
     {
         health += change;
+        health = Mathf.Clamp(health, 0, healthMax);
         healthText.text = "Lives: " + health.ToString();
 
         if (health <= 0)

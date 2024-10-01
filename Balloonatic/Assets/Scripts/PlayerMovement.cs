@@ -116,7 +116,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         if (movement.magnitude > 1) movement /= movement.magnitude;
-        rigidBody.velocity = movement * movementSpeed;
+        //i dont know how to use the event handler that was added
+        //fix this later
+        var evnt = GameObject.Find("EventManager").GetComponent<EventHandler>();
+        var speedMult = (float)evnt.health / evnt.healthMax;
+        rigidBody.velocity = movement * movementSpeed * speedMult;
 
 
         if (!attacking)
