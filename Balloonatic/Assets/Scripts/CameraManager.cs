@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,5 +46,11 @@ public class CameraManager : MonoBehaviour
         targetZoom = 5f;
     }
 
+    public void ScreenShake() => ScreenShake(0.25f);
+    public void ScreenShake(float amount)
+    {
+        //cleanup later
+        transform.parent.DOShakePosition(0.15f, amount).OnComplete(() => transform.parent.localPosition = Vector3.zero);
+    }
 
 }

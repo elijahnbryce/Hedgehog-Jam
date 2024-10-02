@@ -393,7 +393,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1557625079
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &502482192
@@ -497,8 +497,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -615315909
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 943e97c6e7b583947bf80b81d200f152, type: 3}
   m_Color: {r: 0.7924528, g: 0.6794212, b: 0.5337843, a: 1}
@@ -658,7 +658,7 @@ GameObject:
   - component: {fileID: 621003316}
   - component: {fileID: 621003315}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: demo wall
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -774,8 +774,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 550146273
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.6264151, b: 0.6264151, a: 1}
@@ -1751,11 +1751,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1384521959
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a3262ceb689ae244ca99e067d84a8fc0, type: 3}
-  m_Color: {r: 0.07771921, g: 0, b: 1, a: 0.27058825}
+  m_Color: {r: 0.56913745, g: 1, b: 0, a: 0.27058825}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2381,8 +2381,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -615315909
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 943e97c6e7b583947bf80b81d200f152, type: 3}
   m_Color: {r: 0.7924528, g: 0.6794212, b: 0.5337843, a: 1}
@@ -2418,6 +2418,7 @@ SceneRoots:
   - {fileID: 1404883620}
   - {fileID: 1562355221}
   - {fileID: 1857016821}
+  - {fileID: 1748600574}
   - {fileID: 619850928}
   - {fileID: 158979404}
   - {fileID: 790782076}
@@ -2425,4 +2426,3 @@ SceneRoots:
   - {fileID: 1821101315}
   - {fileID: 772873608}
   - {fileID: 621003318}
-  - {fileID: 1748600574}

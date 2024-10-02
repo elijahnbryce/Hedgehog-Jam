@@ -71,7 +71,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 839808035120542771}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 53a27e1b694203648b7dd4ab36dccd28, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -110,6 +110,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whiteMat: {fileID: 2100000, guid: 14e101fe50cb36347a5b44d432d07764, type: 2}
+  initialSpeed: 400
+  spiralGrowthRate: 7
+  rotationSpeed: 300
+  attackPower: 6
 --- !u!1 &4435838740883492816
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +125,7 @@ GameObject:
   - component: {fileID: 8072471590711015507}
   - component: {fileID: 1194941083234348312}
   m_Layer: 7
-  m_Name: GameObject
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,8 +184,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 179542409
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2068a908d0a63eb4b821eefd16f4ba26, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}

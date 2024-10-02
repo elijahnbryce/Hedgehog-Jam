@@ -76,6 +76,7 @@ public class PlayerAttack : MonoBehaviour
 
         var newProjectile = Instantiate(projectile, launchPoint.position, Quaternion.identity);
         newProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = AttackStateToColor(attackState);
+        newProjectile.GetComponent<RubberBand>().InitializeProjectile(attackState);
 
         switch (attackState)
         {

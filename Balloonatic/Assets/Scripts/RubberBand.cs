@@ -10,30 +10,94 @@ public class RubberBand : MonoBehaviour
     private SpriteRenderer sr;
     private float lifetime = 1f;
     private int bounces = 0;
+    private bool spiral = false;
+
+    //this code sucks, cleanup later
+    public float initialSpeed = 5f;       
+    public float spiralGrowthRate = 0.5f;  
+    public float rotationSpeed = 100f;    
+    public float attackPower = 1f;      
+    private float currentAngle = 0f;     
+    private float currentRadius = 0f;   
+
+    private Rigidbody2D rb;
     void Start()
     {
         sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
         StartCoroutine(nameof(TimedDestroy));
+
+        rb = GetComponent<Rigidbody2D>();
+        // Initialize the bullet's velocity (optional, can be adjusted to match other bullet types)
+        Vector2 initialDirection = PlayerMovement.Instance.GetDirectionToMouse();
+        rb.velocity = initialDirection * initialSpeed;
     }
 
     void Update()
     {
+        // Update the spiral parameters over time
+        currentAngle -= rotationSpeed * Time.deltaTime; // Decrease angle for clockwise motion
+        currentRadius += spiralGrowthRate * Time.deltaTime; // Increase radius for outward motion
 
+        // Convert polar coordinates (angle, radius) to Cartesian coordinates (x, y)
+        float angleInRadians = currentAngle * Mathf.Deg2Rad;
+        Vector2 spiralDirection = new Vector2(Mathf.Cos(angleInRadians), Mathf.Sin(angleInRadians));
+
+        // Apply the spiral force, adjusting for attack power and growth rate
+        rb.velocity = spiralDirection * currentRadius * attackPower;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (dead) return;
+
+        if (collision.gameObject.layer == 6)
+        {
+            Physics2D.IgnoreCollision(collision.collider, collision.otherCollider);
+        }
         //ass code fix later
         if (collision.gameObject.tag == "Wall")
         {
-            bounces--;
+            CameraManager.Instance.ScreenShake();
             if (bounces <= 0)
             {
                 dead = true;
                 StartCoroutine(nameof(DestroyProjectileCoroutine));
             }
+            else
+            {
+                bounces--;
+                StartCoroutine(nameof(FlashWhite));
+            }
         }
+    }
+
+    public void InitializeProjectile(int state)
+    {
+        switch (state)
+        {
+            case 1:
+                bounces = 1;
+                break;
+            case 2:
+                break;
+            case 3:
+                spiral = true;
+                break;
+            default: //and 0
+                
+                break;
+        }
+    }
+
+    private IEnumerator FlashWhite()
+    {
+        var prevMat = sr.material;
+        var prevColor = sr.color;
+        sr.material = whiteMat;
+        sr.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+        sr.material = prevMat;
+        sr.color = prevColor;
     }
 
     private IEnumerator TimedDestroy()
