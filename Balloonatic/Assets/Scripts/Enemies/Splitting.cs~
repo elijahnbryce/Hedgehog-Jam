@@ -18,9 +18,6 @@ public class Splitting : MonoBehaviour
    	target = 25;    
 
 	player = GameObject.Find("Player");
-
-	if (gameObject.tag == "Small")
-		smaller = null;
 		
     }
 
@@ -30,15 +27,11 @@ public class Splitting : MonoBehaviour
 	
       distance = Vector2.Distance(transform.position, player.transform.position);
 	
-      if (gameObject.tag == "Big") {
+      
       	if (distance > target)
 	     Split();
       	else 
 	     Chase();
-      } else if (gameObject.tag == "Small") {
-              //	player = GameObject.Find("Player");
-             Chase();
-      }	
     }
 
     void Chase()
@@ -60,7 +53,7 @@ public class Splitting : MonoBehaviour
 
 	Destroy(this.gameObject);
 	
-	Vector3 offset = new Vector3(1, 1, 0);
+	Vector3 offset = new Vector3(4, 4, 0);
 	Instantiate(smaller, transform.position + offset, transform.rotation);
 	Instantiate(smaller, transform.position, transform.rotation);
     }

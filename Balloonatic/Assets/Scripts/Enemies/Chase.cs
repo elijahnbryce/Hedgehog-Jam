@@ -2,42 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Splitting : MonoBehaviour
-{
-	private GameObject player;
-	public GameObject smaller;
-
+public class Chase : MonoBehaviour
+{	
 	public float speed;
-
-	public int target;
 	
 	private float distance;
+	private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-   	target = 25;    
-
-	player = GameObject.Find("Player");
-		
+       player = GameObject.Find("Player"); 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-	
-      distance = Vector2.Distance(transform.position, player.transform.position);
-	
-      
-      	if (distance > target)
-	     Split();
-      	else 
-	     Chase();
+       distance = Vector2.Distance(transform.position, player.transform.position);
+
+       ChaseYou(); 
     }
 
-    void Chase()
+    void ChaseYou()
     {
-	target = 25;
-
 	Vector2 direction = player.transform.position - transform.position;
 	direction.Normalize();
 
@@ -45,16 +31,5 @@ public class Splitting : MonoBehaviour
 
 	transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
 	transform.rotation = Quaternion.Euler(Vector3.forward * angle);
-    }
-
-    void Split()
-    {
-	//target = 2;
-
-	Destroy(this.gameObject);
-	
-	Vector3 offset = new Vector3(4, 4, 0);
-	Instantiate(smaller, transform.position + offset, transform.rotation);
-	Instantiate(smaller, transform.position, transform.rotation);
     }
 }

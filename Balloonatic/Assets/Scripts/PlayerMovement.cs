@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Variables")]
-    [SerializeField] private float movementSpeed;
+    [SerializeField] public float movementSpeed;
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Transform secondHand;
