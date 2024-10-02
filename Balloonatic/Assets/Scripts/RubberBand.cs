@@ -13,12 +13,12 @@ public class RubberBand : MonoBehaviour
     private bool spiral = false;
 
     //this code sucks, cleanup later
-    public float initialSpeed = 5f;       
-    public float spiralGrowthRate = 0.5f;  
-    public float rotationSpeed = 100f;    
-    public float attackPower = 1f;      
-    private float currentAngle = 0f;     
-    private float currentRadius = 0f;   
+    public float initialSpeed = 5f;
+    public float spiralGrowthRate = 0.5f;
+    public float rotationSpeed = 100f;
+    public float attackPower = 1f;
+    private float currentAngle = 0f;
+    private float currentRadius = 0f;
 
     private Rigidbody2D rb;
     void Start()
@@ -27,23 +27,25 @@ public class RubberBand : MonoBehaviour
         StartCoroutine(nameof(TimedDestroy));
 
         rb = GetComponent<Rigidbody2D>();
-        // Initialize the bullet's velocity (optional, can be adjusted to match other bullet types)
-        Vector2 initialDirection = PlayerMovement.Instance.GetDirectionToMouse();
-        rb.velocity = initialDirection * initialSpeed;
+        if (spiral)
+        {
+            Vector2 initialDirection = PlayerMovement.Instance.GetDirectionToMouse();
+            rb.velocity = initialDirection * initialSpeed;
+        }
     }
 
     void Update()
     {
-        // Update the spiral parameters over time
-        currentAngle -= rotationSpeed * Time.deltaTime; // Decrease angle for clockwise motion
-        currentRadius += spiralGrowthRate * Time.deltaTime; // Increase radius for outward motion
+        if (spiral)
+        {
+            currentAngle -= rotationSpeed * Time.deltaTime;
+            currentRadius += spiralGrowthRate * Time.deltaTime;
 
-        // Convert polar coordinates (angle, radius) to Cartesian coordinates (x, y)
-        float angleInRadians = currentAngle * Mathf.Deg2Rad;
-        Vector2 spiralDirection = new Vector2(Mathf.Cos(angleInRadians), Mathf.Sin(angleInRadians));
+            float angleInRadians = currentAngle * Mathf.Deg2Rad;
+            Vector2 spiralDirection = new Vector2(Mathf.Cos(angleInRadians), Mathf.Sin(angleInRadians));
 
-        // Apply the spiral force, adjusting for attack power and growth rate
-        rb.velocity = spiralDirection * currentRadius * attackPower;
+            rb.velocity = spiralDirection * currentRadius * attackPower;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -84,7 +86,7 @@ public class RubberBand : MonoBehaviour
                 spiral = true;
                 break;
             default: //and 0
-                
+
                 break;
         }
     }
