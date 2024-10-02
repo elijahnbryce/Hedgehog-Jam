@@ -5,9 +5,15 @@ using UnityEngine;
 public class Chase : MonoBehaviour
 {	
 	public float speed;
+	public AnimationCurve curve;
 	
 	private float distance;
 	private GameObject player;
+
+	private Vector3 oldPos;
+	private bool oldPosSet;
+	private bool isSlerping;
+	private float accum;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +25,24 @@ public class Chase : MonoBehaviour
     {
        distance = Vector2.Distance(transform.position, player.transform.position);
 
-       ChaseYou(); 
+       ChaseYou();
+
+       if (distance <= 5 && !oldPosSet)
+	      Jump();
+
+       if (isSlerping) {
+		accum += Time.deltaTime;
+
+		float slerpFact = curve.Evaluate(Mathf.Clamp(accum, 0f, 1f));
+
+		transform.position = Vector3.Slerp(transform.position, oldPos, slerpFact);
+
+		if (slerpFact >= 1.0f) {
+			isSlerping = false;
+			oldPosSet = false;
+			accum = 0;
+		}
+       } 
     }
 
     void ChaseYou()
@@ -31,5 +54,12 @@ public class Chase : MonoBehaviour
 
 	transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
 	transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+    }
+
+    void Jump()
+    {
+	oldPos = player.transform.position;
+	oldPosSet = true;
+	isSlerping = true;	
     }
 }

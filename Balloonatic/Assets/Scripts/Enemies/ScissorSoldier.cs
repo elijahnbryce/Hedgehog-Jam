@@ -21,7 +21,7 @@ public class ScissorSoldier : MonoBehaviour
 
     private float accum;
 
-    public PlayerMovement pm;
+    //public PlayerMovement pm;
 
      
     // Start is called before the first frame update
@@ -44,7 +44,7 @@ void FixedUpdate()
 	if (isSlerping) {
 		//Debug.Log("Slerp!");
 		accum += Time.deltaTime;
-		accum /= slrpSpeedDiv;	
+		//accum /= slrpSpeedDiv;	
 		float slerpFact = curve.Evaluate(Mathf.Clamp(accum, 0f, 1f));
 		
 		//if (pm.Moving)

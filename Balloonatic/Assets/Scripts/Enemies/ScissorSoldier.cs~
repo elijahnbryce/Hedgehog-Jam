@@ -44,7 +44,7 @@ void FixedUpdate()
 	if (isSlerping) {
 		//Debug.Log("Slerp!");
 		accum += Time.deltaTime;
-		accum /= slrpSpeedDiv;	
+		//accum /= slrpSpeedDiv;	
 		float slerpFact = curve.Evaluate(Mathf.Clamp(accum, 0f, 1f));
 		
 		//if (pm.Moving)

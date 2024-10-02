@@ -10,8 +10,14 @@ public class Splitting : MonoBehaviour
 	public float speed;
 
 	public int target;
+	public AnimationCurve curve;
 	
 	private float distance;
+
+	private Vector3 oldPos;
+	private bool oldPosSet;
+	private bool isSlerping;
+	private float accum;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +36,24 @@ public class Splitting : MonoBehaviour
       
       	if (distance > target)
 	     Split();
-      	else 
+      	else if (distance <= 5 && !oldPosSet)
+	     Jump();
+	else	
 	     Chase();
+
+	if (isSlerping) {
+		accum += Time.deltaTime;
+
+		float slerpFact = curve.Evaluate(Mathf.Clamp(accum, 0f, 1f));
+
+		transform.position = Vector3.Slerp(transform.position, oldPos, slerpFact);
+
+		if (slerpFact >= 1.0f)  {
+			isSlerping = false;
+			oldPosSet = false;
+			accum = 0;
+		}
+	}
     }
 
     void Chase()
@@ -56,5 +78,12 @@ public class Splitting : MonoBehaviour
 	Vector3 offset = new Vector3(4, 4, 0);
 	Instantiate(smaller, transform.position + offset, transform.rotation);
 	Instantiate(smaller, transform.position, transform.rotation);
+    }
+
+    void Jump()
+    {
+	oldPos = player.transform.position;
+	oldPosSet = true;
+	isSlerping = true;
     }
 }
