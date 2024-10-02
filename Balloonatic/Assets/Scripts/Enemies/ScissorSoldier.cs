@@ -7,23 +7,28 @@ public class ScissorSoldier : MonoBehaviour
     public GameObject player;
 //    public GameObject target;
     public float speed;
-    public float slrpSpeedMult;
-
-    public int target;
+    private float slrpSpeedDiv = 1;
+	
+    private Vector3 oldPos;
+    private bool oldPosSet;
+    private bool isSlerping;
+    //public int target;
  
     //public Transform start, end;
     public AnimationCurve curve;
 
     private float distance;
 
-    //private Vector3 storedPosition;
-    public PlayerMovement pm;
- 
+    private float accum;
+
+    //public PlayerMovement pm;
+
+     
     // Start is called before the first frame update
     void Start()
     {
-	target = 20;
-	
+	//oldPosSet = false;
+	//isSlerping = false;	
     }
 	
         // Update is called once per frame
@@ -31,22 +36,41 @@ void FixedUpdate()
     {	
 	distance = Vector2.Distance(transform.position, player.transform.position);	
 	
-	if (distance > target)
+	if (distance > 20 && !oldPosSet)
 		Jump();
 	else
 		Chase();
+	
+	if (isSlerping) {
+		//Debug.Log("Slerp!");
+		accum += Time.deltaTime;
+		//accum /= slrpSpeedDiv;	
+		float slerpFact = curve.Evaluate(Mathf.Clamp(accum, 0f, 1f));
+		
+		//if (pm.Moving)
+		//	transform.position = Vector3.Slerp(transform.position, player.transform.position, slerpFact);
+		//else
+		transform.position = Vector3.Slerp(transform.position, oldPos, slerpFact);
 
+		if (slerpFact >= 1.0f) {
+			//Debug.Log("Stop slerping!");
+			isSlerping = false;
+			oldPosSet = false;
+			accum = 0;
+		}	
+	}
+
+	
     }
 	
     void Chase()
     {
-	target = 20;    	
 	//follow player script
 	Vector2 direction = player.transform.position - transform.position;
 	direction.Normalize();
 	
 	float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
+	
 	transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
 	transform.rotation = Quaternion.Euler(Vector3.forward * angle);
 	
@@ -54,13 +78,10 @@ void FixedUpdate()
 
     void Jump()
     {
-	//jump at player
-	if (!pm.Moving)
-		target = 2;
-	else
-		target = 11;
-	transform.position = Vector3.Slerp(transform.position, player.transform.position, curve.Evaluate(Time.deltaTime) * slrpSpeedMult);
-	
+	oldPos = player.transform.position;
+	oldPosSet = true;
+	isSlerping = true;
+		
     }
  
 }
