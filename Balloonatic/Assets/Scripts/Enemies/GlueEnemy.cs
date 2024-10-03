@@ -64,9 +64,9 @@ public class GlueEnemy : MonoBehaviour
     }
 
     private IEnumerator Splot()
-    {
-	yield return new WaitForSeconds(2);
+    {	
 	Instantiate(glue, transform.position, transform.rotation);
+	yield return new WaitForSeconds(2);
 	StartCoroutine(Splot());	
     }
 }

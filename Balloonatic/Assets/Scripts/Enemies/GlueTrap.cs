@@ -25,7 +25,7 @@ public class GlueTrap : MonoBehaviour
 	if (isScaling) {
 		transform.localScale += scaleChange;
 		
-		if (transform.localScale.y > 6)
+		if (transform.localScale.y > 4)
 			isScaling = false;
 	}
 
