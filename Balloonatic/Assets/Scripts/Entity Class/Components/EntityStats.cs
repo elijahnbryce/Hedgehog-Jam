@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EntityStats : MonoBehaviour
@@ -29,6 +30,16 @@ public class EntityStats : MonoBehaviour
     }
 
     //component-specific methods
+
+    public virtual void IncrementHealth(float increment)
+    {
+        health += increment;
+    }
+
+    public virtual void SetHealth(float amount)
+    {
+        health = amount;
+    }
 
     public virtual void Die()
     {

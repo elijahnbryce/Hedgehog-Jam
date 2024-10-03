@@ -25,6 +25,7 @@ public class EntityAI : MonoBehaviour
     public virtual void Initialize(Entity thisEntity)
     {
         selfEntity = thisEntity;
+        targets.Add(new TargetEntityInfo(null, GameObject.Find("TestTarget"), null));
     }
 
     //monobehaviour

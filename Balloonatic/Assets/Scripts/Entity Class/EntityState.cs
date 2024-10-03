@@ -41,6 +41,6 @@ public class EntityState : ScriptableObject
 
     public virtual void Exit()
     {
-
+        isActive = false;
     }
 }
