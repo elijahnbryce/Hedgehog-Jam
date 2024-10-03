@@ -46,5 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scissorEnemy: {fileID: 9150588291496668201, guid: 52b44889807435d4b9c5181af8ba500d, type: 3}
   splittingEnemy: {fileID: 6224524038765360661, guid: bb6e4f266e3d16b419eb70a4dbebeef0, type: 3}
+  glueEnemy: {fileID: 7562473035710823404, guid: 97a93b65cbce69040bea514c92026f94, type: 3}
   scissorInterval: 5
   splittingInterval: 8
+  glueInterval: 12

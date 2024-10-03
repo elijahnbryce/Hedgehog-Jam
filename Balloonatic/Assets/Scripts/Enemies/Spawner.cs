@@ -8,16 +8,21 @@ public class Spawner : MonoBehaviour
 	private GameObject scissorEnemy;
 	[SerializeField]
 	private GameObject splittingEnemy;
+	[SerializeField]
+	private GameObject glueEnemy;
 
 	[SerializeField]
 	private float scissorInterval = 5f;
 	[SerializeField]
-	private float splittingInterval = 8f;
+	private float splittingInterval = 9f;
+	[SerializeField]
+	private float glueInterval = 12;
     // Start is called before the first frame update
     void Start()
     {
        StartCoroutine(spawnEnemy(scissorInterval, scissorEnemy));
        StartCoroutine(spawnEnemy(splittingInterval, splittingEnemy)); 
+	StartCoroutine(spawnEnemy(glueInterval, glueEnemy)); 
     }
 	
     private IEnumerator spawnEnemy(float interval, GameObject enemy)
