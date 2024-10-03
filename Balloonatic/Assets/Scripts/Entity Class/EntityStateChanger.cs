@@ -18,7 +18,7 @@ public class EntityStateChanger
     {
         NONE,
         DISTANCE_TO_TARGET_LT,
-	DISTANCE_TO_TARGET_GT
+	    DISTANCE_TO_TARGET_GT
     }
 
 
@@ -33,10 +33,18 @@ public class EntityStateChanger
         {
             return false;
         }
-	else if (condition == ChangeCondition.DISTANCE_TO_TARGET_GT)
+	    else if (condition == ChangeCondition.DISTANCE_TO_TARGET_GT)
         {
             if (Vector2.Distance(fromState.selfEntity.transform.position, 
-		fromState.selfEntity.ai.targets[0].targetGameObject.transform.position) < distanceToTarget)
+		    fromState.selfEntity.ai.targets[0].targetGameObject.transform.position) > distanceToTarget)
+            {
+                return true;
+            }
+        }
+        else if (condition == ChangeCondition.DISTANCE_TO_TARGET_LT)
+        {
+            if (Vector2.Distance(fromState.selfEntity.transform.position,
+            fromState.selfEntity.ai.targets[0].targetGameObject.transform.position) < distanceToTarget)
             {
                 return true;
             }
