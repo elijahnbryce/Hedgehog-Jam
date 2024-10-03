@@ -25,8 +25,8 @@ public class EventHandler : MonoBehaviour
     public bool gameOver, gameActive, gamePaused, noPausing;
     private int levelScore, totalScore = 0;
 
-    //private GameManager gm = GameManager._Instance;
-    private static GameStateHandler gs = GameStateHandler._Instance;
+    private GameManager gm = GameManager.Instance;
+    //private static GameStateHandler gs = GameStateHandler._Instance;
     //private Timer ts;
 
 
@@ -85,10 +85,10 @@ private void IncLevel()
     {
         if (gamePaused)
         {
-            if (gs.launch) gs.KillSelf();
+            if (gm.launch) gm.KillSelf();
             LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        else gs.restartGame(this); // restart current level for testing
+        else gm.restartGame(this); // restart current level for testing
     }
 
     public void EndLevel(bool result, int score)
@@ -101,16 +101,16 @@ private void IncLevel()
         //float timeMult = (timeElapsed / 60 < 4) ? (1 - timeElapsed / 300) : 0.1f;
 
         //totalScore = Mathf.RoundToInt(totalScore * (1 + (float)health / 10) * timeMult * 1017);
-        gs.incScore(totalScore);
+        gm.incScore(totalScore);
 
         if (result)
         {
-            WinGame(gs.getScore());
+            WinGame(gm.getScore());
             // next level
         }
         else
         {
-            LoseGame(gs.getScore());
+            LoseGame(gm.getScore());
         }
 
         CheckHS();
@@ -188,7 +188,7 @@ private void IncLevel()
 
     public void QuitApp()
     {
-        gs?.KillSelf();
+        gm?.KillSelf();
         LoadScene(0);
     }
 
