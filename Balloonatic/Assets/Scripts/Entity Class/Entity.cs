@@ -16,11 +16,13 @@ public class Entity : MonoBehaviour
     //behavior (state) initialization
     [Tooltip("Each list element needs the EntityState asset you want and whether it will be active on start.")]
     public List<EntityStateInitializer> entityStates = new List<EntityStateInitializer>();
+
     [Serializable]
     public struct EntityStateInitializer
     {
         public EntityState state;
         public bool active;
+        public List<EntityStateChanger> entityStateChangers;
     }
 
 

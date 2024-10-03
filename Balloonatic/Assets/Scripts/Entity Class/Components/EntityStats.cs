@@ -11,6 +11,8 @@ public class EntityStats : MonoBehaviour
     public float health = 100f;
     public float movementSpeed = 10f;
     public float movementSpeedMult = 1f;
+    public float effectiveMovementSpeed = 0;
+
     public float attackPower = 1f;
     public float attackPowerMult = 1f;
 
@@ -27,6 +29,8 @@ public class EntityStats : MonoBehaviour
         {
             Die();
         }
+
+        effectiveMovementSpeed = movementSpeed * movementSpeedMult;
     }
 
     //component-specific methods
