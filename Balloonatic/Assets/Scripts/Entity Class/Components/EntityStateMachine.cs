@@ -6,7 +6,7 @@ public class EntityStateMachine : MonoBehaviour
 {
     protected Entity selfEntity;
 
-    protected List<EntityState> states = new List<EntityState>();
+    public List<EntityState> states = new List<EntityState>();
 
     public virtual void Initialize(Entity thisEntity)
     {
@@ -16,7 +16,7 @@ public class EntityStateMachine : MonoBehaviour
             foreach (Entity.EntityStateInitializer initializer in selfEntity.entityStates)
             {
                 EntityState newState = Instantiate(initializer.state);
-                newState.Initialize(thisEntity);
+                newState.Initialize(thisEntity, initializer.entityStateChangers);
                 states.Add(newState);
                 newState.isActive = initializer.active;
             }

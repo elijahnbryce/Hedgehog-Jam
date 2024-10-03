@@ -13,22 +13,11 @@ public class Pounce : EntityState //must inherit from "EntityState"
     public AnimationCurve jumpCurve;
     public float jumpDuration = 1f;
 
-    public override void Initialize(Entity thisEntity)
-    {
-        base.Initialize(thisEntity);
-        Debug.Log("You have initialized the 'Pounce' state!!!!");
-    }
-
     public override void Enter() //called when state is set to active
     {
         targetPosition = selfEntity.ai.targets[0].targetGameObject.transform.position;
         myInitialPosition = selfEntity.gameObject.transform.position;
         selfEntity.StartCoroutine(PounceSequence());
-    }
-
-    public override void FixedUpdate()
-    {
-        
     }
 
     public IEnumerator PounceSequence()
@@ -41,7 +30,13 @@ public class Pounce : EntityState //must inherit from "EntityState"
             selfEntity.physical.Move(nextPosition - currentPosition);
             yield return null;
         }
-        Exit();
+        if (entityStateChangers.Count > 0)
+        {
+            foreach (EntityStateChanger changer in entityStateChangers)
+            {
+                Exit(changer);
+            }
+        }
     }
 }
 

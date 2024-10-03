@@ -16,17 +16,6 @@ public class EntityPhysical : MonoBehaviour
         rootCollider = GetComponent<Collider2D>();
     }
 
-    //monobehaviour
-    private void Update()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
-        
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
@@ -40,7 +29,7 @@ public class EntityPhysical : MonoBehaviour
     //component-specific methods
     public virtual void DirectionalMove(Vector2 direction) //movement by given direction vector
     {
-        rb.MovePosition(rb.position + direction.normalized * selfEntity.stats.movementSpeed * selfEntity.stats.movementSpeedMult * Time.deltaTime);
+        rb.velocity = direction.normalized * selfEntity.stats.effectiveMovementSpeed;
     }
 
     public virtual void Move(Vector2 movement)
