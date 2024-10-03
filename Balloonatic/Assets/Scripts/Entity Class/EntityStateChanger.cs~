@@ -32,7 +32,7 @@ public class EntityStateChanger
         if (condition == ChangeCondition.NONE)
         {
             return false;
-        }
+        }/
 	else if (condition == ChangeCondition.DISTANCE_TO_TARGET_GT)
         {
             if (Vector2.Distance(fromState.selfEntity.transform.position, 
