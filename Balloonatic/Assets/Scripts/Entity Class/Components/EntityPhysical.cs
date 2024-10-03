@@ -27,9 +27,24 @@ public class EntityPhysical : MonoBehaviour
         
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        selfEntity.type.OnTriggerEnter2D(collider);
+    }
+
     //component-specific methods
     public virtual void DirectionalMove(Vector2 direction) //movement by given direction vector
     {
         rb.MovePosition(rb.position + direction.normalized * selfEntity.stats.movementSpeed * selfEntity.stats.movementSpeedMult * Time.deltaTime);
+    }
+
+    public virtual void Move(Vector2 movement)
+    {
+        rb.MovePosition(rb.position + movement);
     }
 }

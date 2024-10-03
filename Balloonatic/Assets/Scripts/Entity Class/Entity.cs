@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    //Probably the order in which things should run? Make sure the components are ordered stats->statemachine->ai->physical->visual
+    public EntityType type;
+
     [HideInInspector] public EntityStats stats;
-    [HideInInspector] public EntityStateMachine stateMachine;
     [HideInInspector] public EntityAI ai;
+    [HideInInspector] public EntityStateMachine stateMachine;
     [HideInInspector] public EntityPhysical physical;
     [HideInInspector] public EntityVisual visual;
 
@@ -30,22 +31,24 @@ public class Entity : MonoBehaviour
 
     public virtual void Initialize()
     {
+        type.Initialize(this);
+
         stats = gameObject.GetComponent<EntityStats>();
         if (stats == null)
         {
             stats = gameObject.AddComponent<EntityStats>();
-        }
-        
-        stateMachine = gameObject.GetComponent<EntityStateMachine>();
-        if (stateMachine == null)
-        {
-            stateMachine = gameObject.AddComponent<EntityStateMachine>();
         }
 
         ai = gameObject.GetComponent<EntityAI>();
         if (ai == null)
         {
             ai = gameObject.AddComponent<EntityAI>();
+        }
+
+        stateMachine = gameObject.GetComponent<EntityStateMachine>();
+        if (stateMachine == null)
+        {
+            stateMachine = gameObject.AddComponent<EntityStateMachine>();
         }
 
         physical = gameObject.GetComponent<EntityPhysical>();
@@ -62,10 +65,11 @@ public class Entity : MonoBehaviour
         
 
         stats.Initialize(this);
-        stateMachine.Initialize(this);
         ai.Initialize(this);
         physical.Initialize(this);
         visual.Initialize(this);
+        stateMachine.Initialize(this);
+        
     }
 
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //example format of how states should be defined. Regarding which methods to implement, check EntityState.cs.
-[CreateAssetMenu(menuName = "EntityState/TestMove")] //menuName = "EntityState/StateName"
+[CreateAssetMenu(menuName = "EntityState/TestMove", fileName = "TestMove")] //menuName = "EntityState/StateName"
 public class TestMove : EntityState //must inherit from "EntityState"
 {
 

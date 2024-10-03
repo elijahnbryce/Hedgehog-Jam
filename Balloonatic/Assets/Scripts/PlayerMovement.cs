@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.nearClipPlane));
         facingDir = transform.position.x > mouseWorldPosition.x;
-        spriteRenderer.transform.rotation = Quaternion.Euler(new Vector3(0, facingDir ? 180 : 0, -90));
+        spriteRenderer.transform.rotation = Quaternion.Euler(new Vector3(0, facingDir ? 180 : 0, 0));
 
         Moving = movement.magnitude > 0;
         if (Moving)
