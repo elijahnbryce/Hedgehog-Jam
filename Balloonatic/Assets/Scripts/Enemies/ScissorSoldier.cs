@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScissorSoldier : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
 //    public GameObject target;
     public float speed;
     private float slrpSpeedDiv = 1;
@@ -29,6 +29,7 @@ public class ScissorSoldier : MonoBehaviour
     {
 	//oldPosSet = false;
 	//isSlerping = false;	
+	player = GameObject.Find("Player");
     }
 	
         // Update is called once per frame

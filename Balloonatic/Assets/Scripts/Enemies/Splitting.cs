@@ -17,6 +17,7 @@ public class Splitting : MonoBehaviour
 	private Vector3 oldPos;
 	private bool oldPosSet;
 	private bool isSlerping;
+	private bool justSpawned;
 	private float accum;
     // Start is called before the first frame update
     void Start()
@@ -24,17 +25,20 @@ public class Splitting : MonoBehaviour
    	target = 25;    
 
 	player = GameObject.Find("Player");
-		
+	
+	justSpawned = true;	
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
 	
-      distance = Vector2.Distance(transform.position, player.transform.position);
+      	distance = Vector2.Distance(transform.position, player.transform.position);
 	
-      
-      	if (distance > target)
+ 	if (distance < target)
+	       justSpawned = false;
+
+      	if (distance > target && !justSpawned)
 	     Split();
       	else if (distance <= 5 && !oldPosSet)
 	     Jump();

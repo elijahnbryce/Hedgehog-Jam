@@ -251,9 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  speed: 9
-  slrpSpeedMult: 30
-  target: 20
+  speed: 8
   curve:
     serializedVersion: 2
     m_Curve:
@@ -278,4 +276,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  pm: {fileID: 0}

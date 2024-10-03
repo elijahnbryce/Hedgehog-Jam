@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 6843670486906849766}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,9 +215,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49eec5b7d2ba9f24fb53dba4a9fba93d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 7
+  movementSpeed: 15
   spriteRenderer: {fileID: 4493429357346439962}
   secondHand: {fileID: 4912355988573470898}
+  followingDistance: 5
   PlayerPosition: {x: 0, y: 0}
   CanMove: 0
   Moving: 0
