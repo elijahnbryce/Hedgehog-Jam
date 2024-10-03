@@ -49,7 +49,7 @@ public class GlueTrap : MonoBehaviour
 
     private IEnumerator Life()
     {
-	yield return new WaitForSeconds(1);
+	yield return new WaitForSeconds(5);
 	Destroy(this.gameObject);
     }
 }

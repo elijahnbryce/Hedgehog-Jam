@@ -194,5 +194,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8593310327650351783}
-  speed: 0.75
+  speed: 80
   glue: {fileID: 8560678012184790710, guid: c0dc723e80a6b0b4d9196d0c61a22b5c, type: 3}
