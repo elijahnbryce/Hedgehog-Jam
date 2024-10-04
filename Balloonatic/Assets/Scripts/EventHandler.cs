@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class EventHandler : MonoBehaviour
 {
@@ -19,20 +20,12 @@ public class EventHandler : MonoBehaviour
     private Camera cam;
     //[SerializeField] public GameObject timerObject;
 
-    [Header("Game Status")]
-    public int health = 0;
-    public int healthMax = 3;
-    public bool gameOver, gameActive, gamePaused, noPausing;
-    private int levelScore, totalScore = 0;
-
-    private GameManager gm = GameManager.Instance;
-    //private static GameStateHandler gs = GameStateHandler._Instance;
+    private static GameManager gm = GameManager.Instance;
     //private Timer ts;
-
 
     private void Start()
     {
-        SetLevel();
+        gm = GameManager.Instance;
     }
 
     private void Update()
@@ -43,22 +36,7 @@ public class EventHandler : MonoBehaviour
         }
     }
 
-    private void SetLevel()
-    {
-        Debug.Log("SETTING LVL");
-        cam = Camera.main;
-        EverythingFalse();
-        Time.timeScale = 1;
-        //timer = 0
-
-        UpdateScore(0);
-        health = healthMax;
-        UpdateHealth(0);
-
-        //highestScore = Mathf.RoundToInt((1 + phFull / (float)(phFull / 2)) * (1 - (1 - 10f / 10f)) * (1 + (startEnemies - 0) / startEnemies) * ((startPickups - 0) / startPickups) * 1017);
-    }
-
-    private void EverythingFalse()
+    public void UIFalse()
     {
         nxtCan.SetActive(false);
         ovrCan.SetActive(false);
@@ -67,59 +45,19 @@ public class EventHandler : MonoBehaviour
         loseCan.SetActive(false);
         pauseMen.SetActive(false);
         //ts.StartTime();
-
-        gameOver = false;
-        gameActive = true;
-        gamePaused = false;
-        noPausing = false;
     }
 
-private void IncLevel()
+    public void DisplayHealth(int hp)
     {
-        Debug.Log("ICREASING LEVEL");
-        //currLVL++;
-        SetLevel();
+        healthText.text = "Lives: " + hp.ToString();
     }
 
-    public void Restart()
+    public void DisplayScore(int lvlScore)
     {
-        if (gamePaused)
-        {
-            if (gm.launch) gm.KillSelf();
-            LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        else gm.restartGame(this); // restart current level for testing
+        goalText.text = "Score: " + lvlScore.ToString();
     }
 
-    public void EndLevel(bool result, int score)
-    {
-        Time.timeScale = 0;
-        gameActive = false;
-        totalScore += score;
-
-        //float timeElapsed = ts.GetTime();
-        //float timeMult = (timeElapsed / 60 < 4) ? (1 - timeElapsed / 300) : 0.1f;
-
-        //totalScore = Mathf.RoundToInt(totalScore * (1 + (float)health / 10) * timeMult * 1017);
-        gm.incScore(totalScore);
-
-        if (result)
-        {
-            WinGame(gm.getScore());
-            // next level
-        }
-        else
-        {
-            LoseGame(gm.getScore());
-        }
-
-        CheckHS();
-        noPausing = true;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
-    private void CheckHS()
+    public void CheckHS(int totalScore)
     {
         cam.GetComponent<AudioSource>().Stop();
         ovrCan.SetActive(true);
@@ -144,17 +82,22 @@ private void IncLevel()
         hsInput.gameObject.SetActive(false);
     }
 
-    private void LoseGame(int finalScore)
+    public void LoseGame(int finalScore)
     {
+        gm.gameOver = true;
         loseCan.SetActive(true);
         loseScore.text = finalScore.ToString();
+
+        CheckHS(finalScore);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
-    private void WinGame(int finalScore)
-    {
-        winCan.SetActive(true);
-        winScore.text = finalScore.ToString();
-    }
+    //private void WinGame(int finalScore)
+    //{
+    //    winCan.SetActive(true);
+    //    winScore.text = finalScore.ToString();
+    //}
 
     public void LoadScene(int sceneNum = 1)
     {
@@ -163,12 +106,12 @@ private void IncLevel()
 
     public void PauseGame()
     {
-        if (noPausing) return;
-        if (gamePaused)
+        if (gm.gameOver) return;
+        if (gm.gamePaused)
         {
             pauseMen.SetActive(false);
-            gamePaused = false;
-            gameActive = true;
+            gm.gamePaused = false;
+            gm.gameActive = true;
             Time.timeScale = 1;
 
             //Cursor.lockState = CursorLockMode.Locked;
@@ -177,8 +120,8 @@ private void IncLevel()
         else
         {
             Time.timeScale = 0;
-            gameActive = false;
-            gamePaused = true;
+            gm.gameActive = false;
+            gm.gamePaused = true;
             pauseMen.SetActive(true);
 
             Cursor.lockState = CursorLockMode.None;
@@ -186,33 +129,18 @@ private void IncLevel()
         }
     }
 
+    public void Restart()
+    {
+        gm?.Kill();
+        LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void QuitApp()
     {
-        gm?.KillSelf();
-        LoadScene(0);
-    }
-
-    public bool getGameActive()
-    {
-        return (gameActive && !gamePaused);
-    }
-
-    public void UpdateHealth(int change = -1)
-    {
-        health += change;
-        health = Mathf.Clamp(health, 0, healthMax);
-        healthText.text = "Lives: " + health.ToString();
-
-        if (health <= 0)
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            health = 0;
-            EndLevel(false, levelScore);
+            Application.Quit();
         }
-    }
-
-    public void UpdateScore(int change = 1)
-    {
-        levelScore += change;
-        goalText.text = "Score: " + levelScore.ToString();
+        else LoadScene(0);
     }
 }
