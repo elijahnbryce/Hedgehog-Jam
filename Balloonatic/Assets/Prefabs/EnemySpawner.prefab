@@ -44,9 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed5e3ad83f2597043bf5f84e046560ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scissorEnemy: {fileID: 9150588291496668201, guid: 52b44889807435d4b9c5181af8ba500d, type: 3}
-  splittingEnemy: {fileID: 6224524038765360661, guid: bb6e4f266e3d16b419eb70a4dbebeef0, type: 3}
-  glueEnemy: {fileID: 7562473035710823404, guid: 97a93b65cbce69040bea514c92026f94, type: 3}
+  scissorEnemy: {fileID: 9077075022715136519, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+  splittingEnemy: {fileID: 6007587826735782119, guid: 82d1e83dc0caf614fb8443eccb871a49, type: 3}
+  glueEnemy: {fileID: 6807622366580086670, guid: d2ffe2f7cef8f96459744430f9bd6035, type: 3}
   scissorInterval: 5
   splittingInterval: 8
   glueInterval: 12
+  spawnPoints:
+  - {x: -44, y: 18, z: 0}
+  - {x: -44, y: -18, z: 0}
+  - {x: 22, y: -17, z: 0}
+  - {x: 22, y: 17, z: 0}
