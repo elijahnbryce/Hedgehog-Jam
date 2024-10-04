@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Pounce
   m_EditorClassIdentifier: 
   selfEntity: {fileID: 0}
+  entityStateChangers: []
   jumpCurve:
     serializedVersion: 2
     m_Curve:
@@ -37,4 +38,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jumpDuration: 1
+  jumpDuration: 0.5

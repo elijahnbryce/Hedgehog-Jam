@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    public EntityType type;
+    //public EntityType type;
 
     [HideInInspector] public EntityStats stats;
     [HideInInspector] public EntityAI ai;
@@ -33,7 +33,7 @@ public class Entity : MonoBehaviour
 
     public virtual void Initialize()
     {
-        type.Initialize(this);
+        //if (type != null) type.Initialize(this);
 
         stats = gameObject.GetComponent<EntityStats>();
         if (stats == null)

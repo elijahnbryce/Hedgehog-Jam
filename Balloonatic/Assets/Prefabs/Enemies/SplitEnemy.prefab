@@ -132,7 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c95fc66b245de4e8f2dcb078f4791f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: {fileID: 11400000, guid: 6eb0300ae2b7a964a82b34f4f8120629, type: 2}
   stats: {fileID: 0}
   ai: {fileID: 0}
   stateMachine: {fileID: 0}
@@ -155,7 +154,7 @@ MonoBehaviour:
     active: 0
     entityStateChangers:
     - toState: {fileID: 11400000, guid: 20989384614256e4997208225efff5d1, type: 2}
-      condition: 1
+      condition: 0
       distanceToTarget: 4
 --- !u!114 &5557695816456961432
 MonoBehaviour:
@@ -190,7 +189,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

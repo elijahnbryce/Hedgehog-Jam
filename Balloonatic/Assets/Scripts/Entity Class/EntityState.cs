@@ -72,4 +72,16 @@ public class EntityState : ScriptableObject
             }
         }
     }
+
+    public virtual void ManualExit()
+    {
+        isActive = false;
+        if (entityStateChangers.Count > 0)
+        {
+            foreach (EntityStateChanger changer in entityStateChangers)
+            {
+                Exit(changer);
+            }
+        }
+    }
 }

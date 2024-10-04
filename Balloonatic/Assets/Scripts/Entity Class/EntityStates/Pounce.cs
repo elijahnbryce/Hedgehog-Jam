@@ -9,38 +9,36 @@ public class Pounce : EntityState //must inherit from "EntityState"
 {
     private Vector2 targetPosition;
     private Vector2 myInitialPosition;
-    private Vector3 oldPos;
-    private bool isSlerping;
-    //private bool oldPos;
+
+    private Coroutine pounceSequence;
 
     public AnimationCurve jumpCurve;
-    public float jumpDuration = 1f;
+    public float jumpDuration = 0.5f;
 
     public override void Enter() //called when state is set to active
     {
-	isSlerping = true;
         targetPosition = selfEntity.ai.targets[0].targetGameObject.transform.position;
         myInitialPosition = selfEntity.gameObject.transform.position;
-        selfEntity.StartCoroutine(PounceSequence());
+        if (pounceSequence == null )
+        {
+            pounceSequence = selfEntity.StartCoroutine(PounceSequence());
+        }
+        
     }
 
     public IEnumerator PounceSequence()
     {
+        
         for (float jumpTime = 0; jumpTime < jumpDuration; jumpTime += Time.deltaTime)
         {
             Vector2 currentPosition = selfEntity.transform.position;
             float slerpFactor = jumpCurve.Evaluate(jumpTime/jumpDuration);
-            Vector2 nextPosition = Vector3.Slerp(currentPosition, targetPosition, slerpFactor);
+            Vector2 nextPosition = Vector3.Slerp(myInitialPosition, targetPosition, slerpFactor);
             selfEntity.physical.Move(nextPosition - currentPosition);
             yield return null;
         }
-        if (entityStateChangers.Count > 0)
-        {
-            foreach (EntityStateChanger changer in entityStateChangers)
-            {
-                Exit(changer);
-            }
-        }
+        pounceSequence = null;
+        ManualExit();
     }
 }
 

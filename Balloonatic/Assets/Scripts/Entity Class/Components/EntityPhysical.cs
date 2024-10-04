@@ -23,7 +23,7 @@ public class EntityPhysical : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        selfEntity.type.OnTriggerEnter2D(collider);
+        
     }
 
     //component-specific methods
