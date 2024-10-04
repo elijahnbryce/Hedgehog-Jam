@@ -1,15 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.WSA;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
-    public int cLVL = 1, fLVL = 3, pHP = 3, score = 0, lastLVL;
-    public bool launch;
-
     public static GameManager Instance { get; private set; }
     private EventHandler eV;
 
@@ -173,5 +169,10 @@ public class GameManager : MonoBehaviour
     {
         levelScore = val;
         UpdateScore();
+    }
+
+    public float GetHealthRatio()
+    {
+        return (float)health / fullHealth;
     }
 }

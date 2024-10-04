@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System.Runtime.CompilerServices;
 
 public class EventHandler : MonoBehaviour
 {

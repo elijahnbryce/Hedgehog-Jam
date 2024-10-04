@@ -11,7 +11,7 @@ public class Pounce : EntityState //must inherit from "EntityState"
     private Vector2 myInitialPosition;
     private Vector3 oldPos;
     private bool isSlerping;
-    private bool oldPos;
+    //private bool oldPos;
 
     public AnimationCurve jumpCurve;
     public float jumpDuration = 1f;
