@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 cachedDirection;
     float counter;
 
+    private static GameManager gm;
+
     public static PlayerMovement Instance { get; private set; }
     private void Awake()
     {
@@ -116,10 +118,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         if (movement.magnitude > 1) movement /= movement.magnitude;
-        //i dont know how to use the event handler that was added
-        //fix this later
-        var evnt = GameObject.Find("EventManager").GetComponent<EventHandler>();
-        var speedMult = (float)evnt.health / evnt.healthMax;
+        gm = GameManager.Instance;
+        var speedMult = gm.GetHealthRatio();
         rigidBody.velocity = movement * movementSpeed * speedMult;
 
 
