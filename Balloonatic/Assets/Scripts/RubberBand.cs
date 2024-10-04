@@ -23,6 +23,8 @@ public class RubberBand : MonoBehaviour
     private Rigidbody2D rb;
     void Start()
     {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("PlayerEffect"));
+
         sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
         StartCoroutine(nameof(TimedDestroy));
 
@@ -36,7 +38,7 @@ public class RubberBand : MonoBehaviour
 
     void Update()
     {
-        if (spiral)
+        if (spiral && !dead)
         {
             currentAngle -= rotationSpeed * Time.deltaTime;
             currentRadius += spiralGrowthRate * Time.deltaTime;
