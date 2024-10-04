@@ -19,13 +19,12 @@ public class EventHandler : MonoBehaviour
     private Camera cam;
     //[SerializeField] public GameObject timerObject;
 
-    [Header("Game Status")]
+    [Header("Game Status")] 
     public int health = 5;
-    public bool gameOver, gameActive, gamePaused, noPausing;
+    public bool gameOver, gameActive, gamePaused;
     private int levelScore, totalScore = 0;
 
-    //private GameManager gm = GameManager._Instance;
-    private static GameStateHandler gs = GameStateHandler._Instance;
+    //private GameManager gm = GameManager.Instance;
     //private Timer ts;
 
 
@@ -53,7 +52,7 @@ public class EventHandler : MonoBehaviour
         UpdateScore(0);
         UpdateHealth(0);
 
-        //highestScore = Mathf.RoundToInt((1 + phFull / (float)(phFull / 2)) * (1 - (1 - 10f / 10f)) * (1 + (startEnemies - 0) / startEnemies) * ((startPickups - 0) / startPickups) * 1017);
+        NewWave();
     }
 
     private void EverythingFalse()
@@ -69,52 +68,44 @@ public class EventHandler : MonoBehaviour
         gameOver = false;
         gameActive = true;
         gamePaused = false;
-        noPausing = false;
     }
 
-private void IncLevel()
+    private void NewWave()
     {
-        Debug.Log("ICREASING LEVEL");
-        //currLVL++;
-        SetLevel();
+        Debug.Log("New wave");
+        // incriment level count
+        // change walls or something
+        // ? some effect for enemies
     }
 
-    public void Restart()
+    private int CalcLevelScore(int score)
     {
-        if (gamePaused)
-        {
-            if (gs.launch) gs.KillSelf();
-            LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        else gs.restartGame(this); // restart current level for testing
-    }
-
-    public void EndLevel(bool result, int score)
-    {
-        Time.timeScale = 0;
-        gameActive = false;
-        totalScore += score;
-
+        Debug.Log("Score Calc");
+        int newScore = score;
         //float timeElapsed = ts.GetTime();
         //float timeMult = (timeElapsed / 60 < 4) ? (1 - timeElapsed / 300) : 0.1f;
 
-        //totalScore = Mathf.RoundToInt(totalScore * (1 + (float)health / 10) * timeMult * 1017);
-        gs.incScore(totalScore);
+        //newScore = Mathf.RoundToInt(score * ((1 + (float)health / fullHealth) * timeMult) - (enemyFactor * enemies.Count) * makeScoreBigger);
+        //  or multiply by (1 - enemies.Count / enemies2Spawn);
+        return Mathf.Max(0, newScore);
+    }
 
-        if (result)
+    public void EndLevel(bool alive, int score)
+    {
+        Time.timeScale = 0;
+        gameActive = false;
+
+        totalScore += CalcLevelScore(score);
+
+        if (alive)
         {
-            WinGame(gs.getScore());
-            // next level
+            // wave intermission
+            NewWave();
         }
         else
         {
-            LoseGame(gs.getScore());
+            LoseGame(totalScore);
         }
-
-        CheckHS();
-        noPausing = true;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     private void CheckHS()
@@ -144,15 +135,20 @@ private void IncLevel()
 
     private void LoseGame(int finalScore)
     {
+        gameOver = true;
         loseCan.SetActive(true);
         loseScore.text = finalScore.ToString();
+
+        CheckHS();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
-    private void WinGame(int finalScore)
-    {
-        winCan.SetActive(true);
-        winScore.text = finalScore.ToString();
-    }
+    //private void WinGame(int finalScore)
+    //{
+    //    winCan.SetActive(true);
+    //    winScore.text = finalScore.ToString();
+    //}
 
     public void LoadScene(int sceneNum = 1)
     {
@@ -161,7 +157,7 @@ private void IncLevel()
 
     public void PauseGame()
     {
-        if (noPausing) return;
+        if (gameOver) return;
         if (gamePaused)
         {
             pauseMen.SetActive(false);
@@ -184,10 +180,22 @@ private void IncLevel()
         }
     }
 
+    public void Restart()
+    {
+        if (gamePaused)
+        {
+            LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        else LoadScene();
+    }
+
     public void QuitApp()
     {
-        gs?.KillSelf();
-        LoadScene(0);
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            Application.Quit();
+        }
+        else LoadScene(0);
     }
 
     public bool getGameActive()
