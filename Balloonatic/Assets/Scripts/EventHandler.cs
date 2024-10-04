@@ -131,7 +131,7 @@ public class EventHandler : MonoBehaviour
 
     public void Restart()
     {
-        gm.Kill();
+        gm?.Kill();
         LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

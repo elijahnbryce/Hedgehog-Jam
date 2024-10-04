@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private Slider attackSlider;
-    [SerializeField] private GameObject projectilePrefab;
+    private float sliderValue;
+    [SerializeField] private GameObject projectile; 
     private Transform launchPoint;
 
     private bool attacking;
     private float attackPower;
     private float attackMax = 2.5f;
+    private int attackState = 0;
 
     public static event Action OnAttackInitiate;
     public static event Action OnAttackHalt;
@@ -31,13 +33,20 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        attackSlider.value = attackPower / attackMax;
+        sliderValue = Mathf.Clamp01(Mathf.Lerp(sliderValue, attackPower, Time.deltaTime * 2.5f));
+        attackSlider.value = sliderValue;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        int flooredValue = Mathf.FloorToInt(sliderValue * 4); // Multiplies by 4 to split into 4 ranges (0-0.25, 0.25-0.5, etc.)
+        attackState = flooredValue;
+
+        attackSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = AttackStateToColor(flooredValue);
+
+
+        if (Input.GetMouseButtonDown(0))
         {
             AttackInitiate();
         }
-        else if (Input.GetKeyUp(KeyCode.Space) && attacking)
+        else if (Input.GetMouseButtonUp(0) && attacking)
         {
             AttackHalt();
         }
@@ -46,7 +55,8 @@ public class PlayerAttack : MonoBehaviour
         {
             if (attackPower < attackMax)
             {
-                attackPower += Time.deltaTime;
+                //attackPower += Time.deltaTime;
+                attackPower = PlayerMovement.Instance.GetAttackPower();
             }
             else
                 AttackHalt();
@@ -64,10 +74,44 @@ public class PlayerAttack : MonoBehaviour
         OnAttackHalt?.Invoke();
         //
 
-        var newProjectile = Instantiate(projectilePrefab, launchPoint.position, Quaternion.identity);
-        newProjectile.GetComponent<Rigidbody2D>().AddForce((PlayerMovement.Instance.FacingDir ? Vector2.left : Vector2.right) * 1000f * attackPower);
+        var newProjectile = Instantiate(projectile, launchPoint.position, Quaternion.identity);
+        newProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = AttackStateToColor(attackState);
+        newProjectile.GetComponent<RubberBand>().InitializeProjectile(attackState);
+
+        switch (attackState)
+        {
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            default: //and 0
+
+                break;
+        }
+
+        newProjectile.GetComponent<Rigidbody2D>().AddForce(-(PlayerMovement.Instance.GetDirectionToMouse()) * 300f * attackPower);
         //
         attacking = false;
         attackPower = 0;
+    }
+
+    private Color AttackStateToColor(int state)
+    {
+        switch (state)
+        {
+            case 1:
+                return Color.yellow;
+            case 2:
+                return Color.green;
+            case 3:
+                return Color.magenta;
+            default: //and 0
+                return Color.red;
+        }
     }
 }

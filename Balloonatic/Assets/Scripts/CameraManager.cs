@@ -1,6 +1,8 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class CameraManager : MonoBehaviour
 {
@@ -23,11 +25,15 @@ public class CameraManager : MonoBehaviour
 
     void Update()
     {
-        var newPos = Vector2.Lerp(transform.position, playerTransform.position, 5f * Time.deltaTime);
+        var newPos = Vector2.Lerp(transform.localPosition, playerTransform.position, 5f * Time.deltaTime);
         //ass code fix later
-        transform.position = new Vector3(newPos.x, newPos.y, -10);
+        transform.localPosition = new Vector3(newPos.x, newPos.y, -10);
 
+        //transform.localScale = Vector2.one * currentZoom;
+
+        //ass code fix later
         //GetComponent<Camera>().orthographicSize = currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * 0.5f);
+        //GetComponent<PixelPerfectCamera>().assetsPPU = Mathf.RoundToInt(100 / GetComponent<Camera>().orthographicSize);
     }
 
     private void AttackStart()
@@ -39,4 +45,12 @@ public class CameraManager : MonoBehaviour
     {
         targetZoom = 5f;
     }
+
+    public void ScreenShake() => ScreenShake(0.25f);
+    public void ScreenShake(float amount)
+    {
+        //cleanup later
+        transform.parent.DOShakePosition(0.15f, amount).OnComplete(() => transform.parent.localPosition = Vector3.zero);
+    }
+
 }

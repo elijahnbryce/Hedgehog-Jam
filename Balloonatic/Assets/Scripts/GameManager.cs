@@ -7,6 +7,9 @@ using UnityEngine.WSA;
 
 public class GameManager : MonoBehaviour
 {
+    public int cLVL = 1, fLVL = 3, pHP = 3, score = 0, lastLVL;
+    public bool launch;
+
     public static GameManager Instance { get; private set; }
     private EventHandler eV;
 
