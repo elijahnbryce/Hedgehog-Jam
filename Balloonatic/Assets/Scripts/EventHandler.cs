@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class EventHandler : MonoBehaviour
 {
@@ -19,9 +20,13 @@ public class EventHandler : MonoBehaviour
     private Camera cam;
     //[SerializeField] public GameObject timerObject;
 
-    private GameManager gm = GameManager.Instance;
+    private static GameManager gm = GameManager.Instance;
     //private Timer ts;
 
+    private void Start()
+    {
+        gm = GameManager.Instance;
+    }
 
     private void Update()
     {
@@ -126,11 +131,8 @@ public class EventHandler : MonoBehaviour
 
     public void Restart()
     {
-        if (gm.gamePaused)
-        {
-            LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        else LoadScene();
+        gm.Kill();
+        LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void QuitApp()

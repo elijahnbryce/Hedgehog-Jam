@@ -22,9 +22,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this) Destroy(gameObject);
-        else 
-        { 
+        if (Instance != null && Instance != this)
+        {
+            Debug.Log("Game Manager Already Exists");
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Game Manager Set");
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -32,10 +37,22 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        eV = GetComponent<EventHandler>();
         SetLevel();
     }
 
-    private void SetLevel()
+    public void ReStart()
+    {
+        SetLevel(true);
+    }
+
+    public void Kill()
+    {
+        Instance = null;
+        Destroy(gameObject);
+    }
+
+    private void SetLevel(bool restart = false)
     {
         Debug.Log("SETTING LVL");
         cam = Camera.main;
@@ -46,7 +63,7 @@ public class GameManager : MonoBehaviour
         UpdateScore(0);
         UpdateHealth(0);
 
-        NewWave();
+        NewWave(restart);
     }
 
     private void EverythingFalse()
@@ -58,8 +75,9 @@ public class GameManager : MonoBehaviour
         gamePaused = false;
     }
 
-    private void NewWave()
+    private void NewWave(bool restart = false)
     {
+        if (restart) return;
         Debug.Log("New wave");
         wave++;
         // change walls or something
