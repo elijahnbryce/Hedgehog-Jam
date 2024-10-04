@@ -9,12 +9,16 @@ public class Pounce : EntityState //must inherit from "EntityState"
 {
     private Vector2 targetPosition;
     private Vector2 myInitialPosition;
+    private Vector3 oldPos;
+    private bool isSlerping;
+    private bool oldPos;
 
     public AnimationCurve jumpCurve;
     public float jumpDuration = 1f;
 
     public override void Enter() //called when state is set to active
     {
+	isSlerping = true;
         targetPosition = selfEntity.ai.targets[0].targetGameObject.transform.position;
         myInitialPosition = selfEntity.gameObject.transform.position;
         selfEntity.StartCoroutine(PounceSequence());

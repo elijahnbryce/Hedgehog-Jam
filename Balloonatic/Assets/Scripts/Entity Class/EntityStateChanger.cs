@@ -18,7 +18,7 @@ public class EntityStateChanger
     {
         NONE,
         DISTANCE_TO_TARGET_LT,
-	    DISTANCE_TO_TARGET_GT
+	DISTANCE_TO_TARGET_GT
     }
 
 
