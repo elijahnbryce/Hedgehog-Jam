@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 cachedDirection;
     float counter;
 
-    private static GameManager gm;
+    //private static GameManager gm;
 
     public static PlayerMovement Instance { get; private set; }
     private void Awake()
@@ -118,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         if (movement.magnitude > 1) movement /= movement.magnitude;
-        gm = GameManager.Instance;
+        var gm = GameManager.Instance;
         var speedMult = gm.GetHealthRatio();
         rigidBody.velocity = movement * movementSpeed * speedMult;
 
