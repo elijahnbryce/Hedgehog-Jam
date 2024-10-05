@@ -36,7 +36,7 @@ public class PlayerAttack : MonoBehaviour
         sliderValue = Mathf.Clamp01(Mathf.Lerp(sliderValue, attackPower, Time.deltaTime * 2.5f));
         attackSlider.value = sliderValue;
 
-        int flooredValue = Mathf.FloorToInt(sliderValue * 4); // Multiplies by 4 to split into 4 ranges (0-0.25, 0.25-0.5, etc.)
+        int flooredValue = Mathf.FloorToInt(sliderValue * 4);
         attackState = flooredValue;
 
         attackSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = AttackStateToColor(flooredValue);
@@ -76,7 +76,7 @@ public class PlayerAttack : MonoBehaviour
 
         var newProjectile = Instantiate(projectile, launchPoint.position, Quaternion.identity);
         newProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = AttackStateToColor(attackState);
-        newProjectile.GetComponent<RubberBand>().InitializeProjectile(attackState);
+        newProjectile.GetComponent<RubberBand>().InitializeProjectile(attackState, PlayerMovement.Instance.FacingDir);
 
         switch (attackState)
         {
@@ -93,8 +93,8 @@ public class PlayerAttack : MonoBehaviour
 
                 break;
         }
-
-        newProjectile.GetComponent<Rigidbody2D>().AddForce(-(PlayerMovement.Instance.GetDirectionToMouse()) * 300f * attackPower);
+        if(attackState!=3)
+            newProjectile.GetComponent<Rigidbody2D>().AddForce(-(PlayerMovement.Instance.GetDirectionToMouse()) * 300f * attackPower);
         //
         attacking = false;
         attackPower = 0;

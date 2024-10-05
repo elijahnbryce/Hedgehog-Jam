@@ -19,7 +19,7 @@ TagManager:
   - Wall
   - EnemyEffect
   - Enemy
-  - 
+  - LevelBoundary
   - 
   - 
   - 
@@ -49,6 +49,9 @@ TagManager:
     locked: 0
   - name: Environment
     uniqueID: 550146273
+    locked: 0
+  - name: Stickers
+    uniqueID: 117175411
     locked: 0
   - name: Bullets
     uniqueID: 179542409

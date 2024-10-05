@@ -11,6 +11,7 @@ public class RubberBand : MonoBehaviour
     private float lifetime = 1f;
     private int bounces = 0;
     private bool spiral = false;
+    private bool facingDir = false;
 
     //this code sucks, cleanup later
     public float initialSpeed = 5f;
@@ -24,6 +25,7 @@ public class RubberBand : MonoBehaviour
     void Start()
     {
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("PlayerEffect"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("LevelBoundary"), LayerMask.NameToLayer("PlayerEffect"));
 
         sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
         StartCoroutine(nameof(TimedDestroy));
@@ -40,7 +42,7 @@ public class RubberBand : MonoBehaviour
     {
         if (spiral && !dead)
         {
-            currentAngle -= rotationSpeed * Time.deltaTime;
+            currentAngle += rotationSpeed * Time.deltaTime * (facingDir ? -1:1);
             currentRadius += spiralGrowthRate * Time.deltaTime;
 
             float angleInRadians = currentAngle * Mathf.Deg2Rad;
@@ -75,8 +77,9 @@ public class RubberBand : MonoBehaviour
         }
     }
 
-    public void InitializeProjectile(int state)
+    public void InitializeProjectile(int state, bool facingDirection)
     {
+        facingDir = facingDirection;
         switch (state)
         {
             case 1:
@@ -113,6 +116,8 @@ public class RubberBand : MonoBehaviour
 
     private IEnumerator DestroyProjectileCoroutine()
     {
+        dead = true;
+
         Destroy(GetComponent<Rigidbody2D>());
         Destroy(GetComponent<Collider2D>());
         //optimize later
