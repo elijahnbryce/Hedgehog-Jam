@@ -8,8 +8,7 @@ using UnityEngine;
 public class EntityState : ScriptableObject
 {
     [HideInInspector] public Entity selfEntity;
-    private bool active = false;
-    public int justSpawned = 0;
+    private bool active = false; 
     public bool isActive
     {
         get { return active; }
@@ -39,8 +38,7 @@ public class EntityState : ScriptableObject
 
     public virtual void Enter()
     {
-	justSpawned += 1;
-	Debug.Log("justSpawned: " +justSpawned);
+	selfEntity.stateMachine.numStatesActivated += 1;	
     }
 
     public virtual void Update()

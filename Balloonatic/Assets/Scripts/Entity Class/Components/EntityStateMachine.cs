@@ -7,6 +7,7 @@ public class EntityStateMachine : MonoBehaviour
     protected Entity selfEntity;
 
     public List<EntityState> states = new List<EntityState>();
+    public int numStatesActivated = 0;
 
     public virtual void Initialize(Entity thisEntity)
     {
