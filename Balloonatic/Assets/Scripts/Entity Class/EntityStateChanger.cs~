@@ -13,7 +13,7 @@ public class EntityStateChanger
     public ChangeCondition condition;
 
     public float distanceToTarget = 5;
-
+	 
     public enum ChangeCondition
     {
         NONE,
@@ -25,6 +25,7 @@ public class EntityStateChanger
     public virtual void Initialize(EntityState state)
     {
         fromState = state;
+	
     }
 
     public virtual bool CheckChange()
@@ -33,20 +34,26 @@ public class EntityStateChanger
         {
             return false;
         }
-	    else if (condition == ChangeCondition.DISTANCE_TO_TARGET_GT)
+	else if (condition == ChangeCondition.DISTANCE_TO_TARGET_GT)
         {
             if (Vector2.Distance(fromState.selfEntity.transform.position, 
 		    fromState.selfEntity.ai.targets[0].targetGameObject.transform.position) > distanceToTarget)
             {
-                return true;
+		
+               if (fromState.justSpawned > 1) 
+		   return true;
+
+	       return false;
             }
         }
+
         else if (condition == ChangeCondition.DISTANCE_TO_TARGET_LT)
         {
             if (Vector2.Distance(fromState.selfEntity.transform.position,
             fromState.selfEntity.ai.targets[0].targetGameObject.transform.position) < distanceToTarget)
             {
-                return true;
+		
+		return true;
             }
         }
 	return false;
