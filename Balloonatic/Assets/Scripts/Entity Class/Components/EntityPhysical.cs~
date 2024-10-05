@@ -8,6 +8,7 @@ public class EntityPhysical : MonoBehaviour
 
     public Rigidbody2D rb;
     public Collider2D rootCollider;
+    public List<Collider2D> colliderInfo = new List<Collider2D>();
 
     public virtual void Initialize(Entity thisEntity)
     {
@@ -16,20 +17,29 @@ public class EntityPhysical : MonoBehaviour
         rootCollider = GetComponent<Collider2D>();
     }
 
-    //monobehaviour
-    private void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         
     }
 
-    private void FixedUpdate()
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        
+       colliderInfo.Add(collider); 
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+	colliderInfo.Remove(collider);
     }
 
     //component-specific methods
     public virtual void DirectionalMove(Vector2 direction) //movement by given direction vector
     {
-        rb.MovePosition(rb.position + direction.normalized * selfEntity.stats.movementSpeed * selfEntity.stats.movementSpeedMult * Time.deltaTime);
+        rb.velocity = direction.normalized * selfEntity.stats.effectiveMovementSpeed;
+    }
+
+    public virtual void Move(Vector2 movement)
+    {
+        rb.MovePosition(rb.position + movement);
     }
 }

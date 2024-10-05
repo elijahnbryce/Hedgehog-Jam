@@ -8,6 +8,7 @@ public class EntityPhysical : MonoBehaviour
 
     public Rigidbody2D rb;
     public Collider2D rootCollider;
+    public List<Collider2D> colliderInfo = new List<Collider2D>();
 
     public virtual void Initialize(Entity thisEntity)
     {
@@ -22,8 +23,13 @@ public class EntityPhysical : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
+    { 
+	colliderInfo.Add(collider); 
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
     {
-        
+	colliderInfo.Remove(collider);
     }
 
     //component-specific methods

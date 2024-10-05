@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 8099047111318666624}
   m_Layer: 10
   m_Name: TestEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c95fc66b245de4e8f2dcb078f4791f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: {fileID: 11400000, guid: 6eb0300ae2b7a964a82b34f4f8120629, type: 2}
   stats: {fileID: 0}
   ai: {fileID: 0}
   stateMachine: {fileID: 0}
@@ -143,12 +142,19 @@ MonoBehaviour:
     active: 0
     entityStateChangers:
     - toState: {fileID: 11400000, guid: 20989384614256e4997208225efff5d1, type: 2}
-      condition: 0
+      conList: 
+      distanceToTarget: 5
+      statesEntered: 1
   - state: {fileID: 11400000, guid: 20989384614256e4997208225efff5d1, type: 2}
     active: 1
     entityStateChangers:
     - toState: {fileID: 11400000, guid: 63ebf3475f3032c44bfeb43c87e06233, type: 2}
-      condition: 1
+      conList: 00000000
+      distanceToTarget: 5
+      statesEntered: 1
+  - state: {fileID: 11400000, guid: 2537a1f30004b7f43a402f3143d405ae, type: 2}
+    active: 1
+    entityStateChangers: []
 --- !u!114 &5739259472025487281
 MonoBehaviour:
   m_ObjectHideFlags: 0

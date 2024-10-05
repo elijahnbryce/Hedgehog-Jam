@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 284936357248185651}
   m_Layer: 10
   m_Name: GlueEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c95fc66b245de4e8f2dcb078f4791f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: {fileID: 11400000, guid: 6eb0300ae2b7a964a82b34f4f8120629, type: 2}
   stats: {fileID: 0}
   ai: {fileID: 0}
   stateMachine: {fileID: 0}
@@ -141,8 +140,10 @@ MonoBehaviour:
   entityStates:
   - state: {fileID: 11400000, guid: b8257df0214c8d448a967e56beefedd3, type: 2}
     active: 1
+    entityStateChangers: []
   - state: {fileID: 11400000, guid: f14247a507efca746822fc41caaf0a1e, type: 2}
     active: 1
+    entityStateChangers: []
 --- !u!114 &5427192335671860458
 MonoBehaviour:
   m_ObjectHideFlags: 0
