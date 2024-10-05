@@ -2,63 +2,70 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+using UnityEngine.UI;
 
 public class PencilScribble : MonoBehaviour
 {
-    private Sequence scribbleS;
-
     [SerializeField] private Transform pencil;
+    [SerializeField] private LineRenderer line;
     [SerializeField] private float drawSpeed = 2f;
-    [SerializeField] private List<Vector2> pointList = new List<Vector2>();
-    private LineRenderer line;
+    [SerializeField] private Vector3[] pointList;
+    [SerializeField] private Button butt;
+    private int pathIndex;
+    private bool isDrawing;
 
-    public void ScribbleScrabble(List<Vector2> nodeList = null) // pass in the button instead
+    public void SquiggleSquaggle(Button button, System.Action CallAfter)
     {
-        nodeList = nodeList ?? pointList;
-        scribbleS = DOTween.Sequence().SetAutoKill(false);
+        pointList = GetChildTrasforms(button);
 
-        line = GetComponentInChildren<LineRenderer>();
-        line.positionCount = 0;
-        line.SetPosition(0, nodeList[0]);
-        line.enabled = true;
+        UpdatePath(0);
+        line.SetPosition(0, pointList[0]);
+        line.enabled = isDrawing = true;
 
-        pencil.position = nodeList[0];
+        pencil.position = pointList[0];
+        pencil.gameObject.SetActive(true);
+        pencil
+            .DOPath(pointList, drawSpeed, PathType.CatmullRom, PathMode.Ignore, gizmoColor: null)
+            .SetEase(Ease.InOutSine)
+            .OnWaypointChange(UpdatePath)
+            .OnComplete(()=> isDrawing = false)
+            .OnComplete(()=> CallAfter());
 
-        for (int i = 1, len = nodeList.Count; i < len; i++)
-        {
-            line.positionCount = i+1;
-            line.SetPosition(i, nodeList[i]);
-            scribbleS.Append(pencil.DOLocalMove(nodeList[i], drawSpeed)).SetEase(Ease.InCubic);
-        }
         // switch button sprite
-        // line.enabled = false
+        // line.enabled = false;
+    }
+    void UpdatePath(int waypointIndex)
+    {
+        //Debug.Log("Waypoint index changed to " + waypointIndex);
+        pathIndex = waypointIndex + 1;
+        line.positionCount = waypointIndex + 2;
     }
 
-    public void Rewind()
+    private void Start()
     {
-        scribbleS.Rewind();
+        line.enabled = isDrawing = false;
+        pencil.gameObject.SetActive(false);
     }
 
-    private List<Vector2> PointsOnButton()
+    private void Update()
     {
-        List<Vector2> pointList = new List<Vector2>();
-        RectTransform rect = GetComponent<RectTransform>();
-        float x = rect.rect.x, y = rect.rect.y, w = rect.rect.width, h = rect.rect.height;
-        int points = 8;
-        int factor = Mathf.RoundToInt(w/points);
-        int startX = Mathf.RoundToInt(x - w / 2);
-        int halfY = Mathf.RoundToInt(h / 2);
-        for (int i = 0; i < points; i++)
+        if (isDrawing)
+        { line.SetPosition(pathIndex, pencil.position); }
+    }
+
+    private Vector3[] GetChildTrasforms(Button button)
+    {
+        Transform t = button.transform.GetChild(1);
+        Debug.Log(t);
+
+        int len = t.childCount;
+        Vector3[] pointList = new Vector3[len];
+
+        for (int i = 0; i < len; i++)
         {
-            if (i % 2 == 0)
-            {
-                pointList.Add(new Vector2(startX + factor*i + factor*0.25f, y + halfY));
-            }
-            else
-            {
-                pointList.Add(new Vector2(startX + factor*i-1 - factor*0.5f, y - halfY));
-            }
+            Transform point = t.GetChild(i);
+            Debug.Log(point.position);
+            pointList[i] = new Vector3(point.position.x + Random.Range(-0.07f, 0.07f), point.position.y + Random.Range(-0.03f, 0.03f), 0f);
         }
         return pointList;
     }

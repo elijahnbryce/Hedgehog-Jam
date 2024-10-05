@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
@@ -27,5 +28,15 @@ public class StartMenu : MonoBehaviour
     {
         Debug.Log("Closing App");
         Application.Quit();
+    }
+
+    public void QuitWithEffect(Button butt)
+    {
+        GetComponent<PencilScribble>().SquiggleSquaggle(butt, QuitApp);
+    }
+
+    public void StartWithEffect(Button butt)
+    {
+        GetComponent<PencilScribble>().SquiggleSquaggle(butt, StartGame);
     }
 }
