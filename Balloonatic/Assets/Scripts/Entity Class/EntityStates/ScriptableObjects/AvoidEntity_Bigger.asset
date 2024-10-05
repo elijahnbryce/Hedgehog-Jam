@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selfEntity: {fileID: 0}
   entityStateChangers: []
-  radiusSize: 4
+  radiusSize: 3

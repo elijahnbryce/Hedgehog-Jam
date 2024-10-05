@@ -16,6 +16,8 @@ public class MoveTowardTarget : EntityState //must inherit from "EntityState"
 
         //example of how to move the entity based on a direction vector
         selfEntity.physical.DirectionalMove(direction.normalized);
+	
+	selfEntity.physical.ClampToSpeed();
     }
 }
 

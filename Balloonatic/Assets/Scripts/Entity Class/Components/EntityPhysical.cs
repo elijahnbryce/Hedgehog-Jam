@@ -16,7 +16,7 @@ public class EntityPhysical : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rootCollider = GetComponent<Collider2D>();
     }
-
+	
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
@@ -35,11 +35,16 @@ public class EntityPhysical : MonoBehaviour
     //component-specific methods
     public virtual void DirectionalMove(Vector2 direction) //movement by given direction vector
     {
-        rb.velocity = direction.normalized * selfEntity.stats.effectiveMovementSpeed;
+        rb.velocity += direction.normalized * selfEntity.stats.effectiveMovementSpeed;
     }
 
     public virtual void Move(Vector2 movement)
     {
         rb.MovePosition(rb.position + movement);
+    }
+
+    public virtual void ClampToSpeed()
+    {
+	rb.velocity = Vector2.ClampMagnitude(rb.velocity, selfEntity.stats.effectiveMovementSpeed);
     }
 }
