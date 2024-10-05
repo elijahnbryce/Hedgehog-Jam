@@ -53,6 +53,9 @@ TagManager:
   - name: Stickers
     uniqueID: 117175411
     locked: 0
+  - name: Particle
+    uniqueID: 4036395151
+    locked: 0
   - name: Bullets
     uniqueID: 179542409
     locked: 0
