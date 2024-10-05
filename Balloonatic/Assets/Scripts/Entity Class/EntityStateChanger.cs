@@ -10,15 +10,18 @@ public class EntityStateChanger
 {
     private EntityState fromState;
     public EntityState toState;
-    public ChangeCondition condition;
+    //public ChangeCondition condition;
+    public List<ChangeCondition> conList = new List<ChangeCondition>(); 
 
     public float distanceToTarget = 5;
-	 
+    public int statesEntered = 1;
+
     public enum ChangeCondition
     {
         NONE,
         DISTANCE_TO_TARGET_LT,
-	    DISTANCE_TO_TARGET_GT
+    	DISTANCE_TO_TARGET_GT,
+    	STATES_ENTERED	
     }
 
 
@@ -30,32 +33,38 @@ public class EntityStateChanger
 
     public virtual bool CheckChange()
     {
-        if (condition == ChangeCondition.NONE)
-        {
-            return false;
-        }
-	else if (condition == ChangeCondition.DISTANCE_TO_TARGET_GT)
-        {
-            if (Vector2.Distance(fromState.selfEntity.transform.position, 
+	if (conList.Count == 0)
+	{
+	    return false;
+	}
+
+	foreach (ChangeCondition condition in conList) {
+
+		//if (condition == ChangeCondition.NONE)
+		//{
+		//    return false;
+		//}
+		if (condition == ChangeCondition.DISTANCE_TO_TARGET_GT)
+		{
+		    if (Vector2.Distance(fromState.selfEntity.transform.position, 
+			    fromState.selfEntity.ai.targets[0].targetGameObject.transform.position) < distanceToTarget)
+		    {		
+		       return false;
+		    }
+		}
+
+		else if (condition == ChangeCondition.DISTANCE_TO_TARGET_LT)
+		{
+		    if (Vector2.Distance(fromState.selfEntity.transform.position,
 		    fromState.selfEntity.ai.targets[0].targetGameObject.transform.position) > distanceToTarget)
-            {
-		
-               if (fromState.justSpawned > 1) 
-		   return true;
+		    {	
+			return false;
+		    }
+		}
 
-	       return false;
-            }
-        }
-
-        else if (condition == ChangeCondition.DISTANCE_TO_TARGET_LT)
-        {
-            if (Vector2.Distance(fromState.selfEntity.transform.position,
-            fromState.selfEntity.ai.targets[0].targetGameObject.transform.position) < distanceToTarget)
-            {
-		
-		return true;
-            }
-        }
-	return false;
+		else if (fromState.selfEntity.stateMachine.numStatesActivated < statesEntered)
+			return false;
+	}
+	return true;
     }
 }

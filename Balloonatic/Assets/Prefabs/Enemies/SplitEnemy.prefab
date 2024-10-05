@@ -145,17 +145,20 @@ MonoBehaviour:
     active: 1
     entityStateChangers:
     - toState: {fileID: 11400000, guid: 63ebf3475f3032c44bfeb43c87e06233, type: 2}
-      condition: 1
+      conList: 01000000
       distanceToTarget: 4
+      statesEntered: 1
     - toState: {fileID: 11400000, guid: 4d62e555a05426c40a48053e91157b4a, type: 2}
-      condition: 2
+      conList: 0200000003000000
       distanceToTarget: 10
+      statesEntered: 2
   - state: {fileID: 11400000, guid: 63ebf3475f3032c44bfeb43c87e06233, type: 2}
     active: 0
     entityStateChangers:
     - toState: {fileID: 11400000, guid: 20989384614256e4997208225efff5d1, type: 2}
-      condition: 0
+      conList: 
       distanceToTarget: 4
+      statesEntered: 1
 --- !u!114 &5557695816456961432
 MonoBehaviour:
   m_ObjectHideFlags: 0
