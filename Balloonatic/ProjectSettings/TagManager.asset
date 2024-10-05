@@ -21,7 +21,7 @@ TagManager:
   - EnemyEffect
   - Enemy
   - LevelBoundary
-  - 
+  - Upgrade
   - 
   - 
   - 
@@ -48,11 +48,11 @@ TagManager:
   - name: Background
     uniqueID: 1384521959
     locked: 0
-  - name: Environment
-    uniqueID: 550146273
-    locked: 0
   - name: Stickers
     uniqueID: 117175411
+    locked: 0
+  - name: Environment
+    uniqueID: 550146273
     locked: 0
   - name: Particle
     uniqueID: 4036395151

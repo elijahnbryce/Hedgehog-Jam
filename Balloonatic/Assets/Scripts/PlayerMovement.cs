@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 cachedDirection;
     float counter;
 
+    private float upgradeTimer = 5;
+
     //private static GameManager gm;
 
     public static PlayerMovement Instance { get; private set; }
@@ -168,5 +170,30 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 GetDirectionToMouse()
     {
         return cachedDirection;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        StartCoroutine(nameof(UpgradeCountdown));
+    }
+
+    private IEnumerator UpgradeCountdown()
+    {
+        while(upgradeTimer > 0)
+        {
+            upgradeTimer -= Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("chosen!!!");
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer.Equals("Upgrade"))
+        {
+            Debug.Log("exit");
+            StopCoroutine(nameof(UpgradeCountdown));
+            upgradeTimer = 5;
+        }
     }
 }
