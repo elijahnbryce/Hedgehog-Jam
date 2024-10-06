@@ -39,10 +39,6 @@ public class EntityStateChanger
 
 	foreach (ChangeCondition condition in conList) {
 
-		//if (condition == ChangeCondition.NONE)
-		//{
-		//    return false;
-		//}
 		if (condition == ChangeCondition.DISTANCE_TO_TARGET_GT)
 		{
 		    if (Vector2.Distance(fromState.selfEntity.transform.position, 

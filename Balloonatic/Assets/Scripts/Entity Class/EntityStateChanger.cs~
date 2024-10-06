@@ -17,8 +17,7 @@ public class EntityStateChanger
     public int statesEntered = 1;
 
     public enum ChangeCondition
-    {
-        NONE,
+    { 
         DISTANCE_TO_TARGET_LT,
     	DISTANCE_TO_TARGET_GT,
     	STATES_ENTERED	
