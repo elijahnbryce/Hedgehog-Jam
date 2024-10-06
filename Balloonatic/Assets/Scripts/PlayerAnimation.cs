@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,11 +15,12 @@ public class PlayerAnimation : MonoBehaviour
     private int animationIndex = 0;
     private int hurtFrame = 0;
 
-    [SerializeField] private List<DirectionalFrames> primaryHandAnimations = new();
+    //[SerializeField] private List<DirectionalFrames> primaryHandAnimations = new();
+    [SerializeField] private List<Sprite> primaryHandSprites = new();
     //[SerializeField] private List<DirectionalFrames> secondaryHandAnimations = new();
     [SerializeField] private List<Sprite> secondaryHandSprites = new();
 
-    
+
     public static PlayerAnimation Instance { get; private set; }
     private void Awake()
     {
@@ -44,18 +46,33 @@ public class PlayerAnimation : MonoBehaviour
             //frame = (frame + 1) % frameMax;
         }
 
-        primaryHandSR.sprite = primaryHandAnimations[animationIndex].Sprites[frame];
+        //primaryHandSR.sprite = primaryHandAnimations[animationIndex].Sprites[frame];
 
         var hurtState = 4 - GameManager.Instance.health;
         //secondaryHandSR.sprite = secondaryHandAnimations[animationIndex].Sprites[frame];
-        secondaryHandSR.sprite = secondaryHandSprites[6 * GetDirection() + hurtState + (hurtState==3 ? hurtFrame : 0)];
+
+        var primaryDir = PlayerMovement.Instance.GetDirectionToMouse(); ;
+        var secondaryDir = PlayerMovement.Instance.GetDirectionToPrimaryHand();
+
+        primaryHandSR.sprite = secondaryHandSprites[6 * GetDirection(primaryDir) + hurtState + (hurtState == 3 ? hurtFrame : 0)];
+
+        secondaryHandSR.sprite = secondaryHandSprites[6 * GetDirection(secondaryDir) + hurtState + (hurtState == 3 ? hurtFrame : 0)];
+
     }
 
-    public int GetDirection()
-    {
-        Vector2 direction = PlayerMovement.Instance.GetDirectionToPrimaryHand();
+    //public List<int> GetDirections()
+    //{
+    //    Vector2 direction = PlayerMovement.Instance.GetDirectionToMouse();
+    //    Vector2 direction2 = PlayerMovement.Instance.GetDirectionToPrimaryHand();
+    //    var returnList = new List<int>();
+    //    returnList.Append(GetDirection(direction));
+    //    returnList.Append(GetDirection(direction2));
+    //    return returnList;
+    //}
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    public int GetDirection(Vector2 dir)
+    {
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
         if (angle < 0)
             angle += 360;
@@ -64,7 +81,7 @@ public class PlayerAnimation : MonoBehaviour
 
         string[] directionNames = { "NW", "N", "NE", "E", "SE", "S", "SW", "W" };
 
-        int[] remappedIndices = { 7, 6, 5, 4, 3, 2, 1, 0 }; 
+        int[] remappedIndices = { 7, 6, 5, 4, 3, 2, 1, 0 };
         //sorry
 
         int remappedIndex = remappedIndices[directionIndex];
