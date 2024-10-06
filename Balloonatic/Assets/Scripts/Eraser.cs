@@ -15,6 +15,8 @@ public class Eraser : MonoBehaviour
             var colliderObj = new GameObject();
             colliderObj.transform.parent = child;
             colliderObj.transform.localPosition = Vector2.zero;
+            //colliderObj.layer = LayerMask.NameToLayer("Wall");
+            colliderObj.tag = "Wall";
             //hehe
             colliderObj.name = "coll";
             var sr = colliderObj.AddComponent<SpriteRenderer>();
