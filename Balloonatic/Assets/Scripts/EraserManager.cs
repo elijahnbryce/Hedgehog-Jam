@@ -77,6 +77,8 @@ public class EraserManager : MonoBehaviour
                 {
                     child2.GetComponent<SpriteRenderer>().material = defaultMat;
                 }
+
+                GameManager.Instance.BetweenRounds = false;
             });
         }
     }
@@ -98,6 +100,8 @@ public class EraserManager : MonoBehaviour
 
     public void UnspawnConfig()
     {
+        GameManager.Instance.BetweenRounds = true;
+
         //Destroy(transform.GetChild(0).gameObject);
         var ind = 0;
         foreach (Transform child in transform)

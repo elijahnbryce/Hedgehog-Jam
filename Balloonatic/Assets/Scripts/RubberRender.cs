@@ -35,6 +35,8 @@ public class DragController : MonoBehaviour
 
     private void DragStart()
     {
+        if (GameManager.Instance.BetweenRounds)
+            return;
         line.enabled = true;
         isDragging = true;
         startPos = launchPoint.position;

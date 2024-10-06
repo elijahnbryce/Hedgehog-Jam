@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private static int fullHealth = 3;
     public int health = fullHealth, wave = 0;
     public bool gameOver, gameActive, gamePaused;
+
+    private bool betweenRounds = true;
+    public bool BetweenRounds { get; set; }
+    //?? fix later
+
     private int levelScore, totalScore = 0;
     
     //private Timer ts;
@@ -121,6 +126,10 @@ public class GameManager : MonoBehaviour
         if (alive)
         {
             // wave intermission
+
+            //
+
+
             NewWave();
         }
         else

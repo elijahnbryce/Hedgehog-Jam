@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -56,7 +57,10 @@ public class PlayerAnimation : MonoBehaviour
 
         primaryHandSR.sprite = secondaryHandSprites[6 * GetDirection(primaryDir) + hurtState + (hurtState == 3 ? hurtFrame : 0)];
 
-        secondaryHandSR.sprite = secondaryHandSprites[6 * GetDirection(secondaryDir) + hurtState + (hurtState == 3 ? hurtFrame : 0)];
+        if (GameManager.Instance.BetweenRounds)
+            secondaryHandSR.sprite = null;
+        else
+            secondaryHandSR.sprite = secondaryHandSprites[6 * GetDirection(secondaryDir) + hurtState + (hurtState == 3 ? hurtFrame : 0)];
 
     }
 

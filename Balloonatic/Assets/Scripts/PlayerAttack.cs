@@ -65,6 +65,8 @@ public class PlayerAttack : MonoBehaviour
 
     void AttackInitiate()
     {
+        if (GameManager.Instance.BetweenRounds)
+            return;
         attacking = true;
         OnAttackInitiate?.Invoke();
     }
