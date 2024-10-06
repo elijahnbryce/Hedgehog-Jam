@@ -18,12 +18,14 @@ public class Eraser : MonoBehaviour
             //hehe
             colliderObj.name = "coll";
             var sr = colliderObj.AddComponent<SpriteRenderer>();
-            //child.GetComponent<SpriteRenderer>().sortingLayerID = 3;
+            child.GetComponent<SpriteRenderer>().sortingLayerName = "Environment";
             sr.sprite = EraserManager.Instance.GetColliderSprite(GetNumberFromString(child.GetComponent<SpriteRenderer>().sprite.name));
             sr.enabled = false;
 
             colliderObj.AddComponent<PolygonCollider2D>();
         }
+
+        transform.parent = EraserManager.Instance.transform;
     }
 
     void Update()
