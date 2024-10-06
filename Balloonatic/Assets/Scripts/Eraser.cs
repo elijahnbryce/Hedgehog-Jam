@@ -29,6 +29,8 @@ public class Eraser : MonoBehaviour
             sr.enabled = false;
 
             colliderObj.AddComponent<PolygonCollider2D>();
+
+            child.gameObject.AddComponent<UnityEngine.Rendering.SortingGroup>().sortingLayerName = "Player";
         }
 
         transform.parent = EraserManager.Instance.transform;
