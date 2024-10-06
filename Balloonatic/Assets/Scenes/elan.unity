@@ -1316,7 +1316,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.25
 --- !u!114 &619850926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13387,7 +13387,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2040135067}
   - component: {fileID: 2040135066}
-  - component: {fileID: 2040135065}
   m_Layer: 0
   m_Name: EraserManager
   m_TagString: Untagged
@@ -13395,32 +13394,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2040135065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2040135064}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cea4217e02b8c046a6c0e2f5a10a0bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eraserPrefabs:
-  - {fileID: 5132368457982257308, guid: 0d5697185c4491646b8111584ac0af9d, type: 3}
-  - {fileID: 7080911250891674745, guid: 4396a80727d151a4986ee32b7fdc5c55, type: 3}
-  - {fileID: 7614413217484777747, guid: 6934d5e36c6fb084da96dc9fc6a628b5, type: 3}
-  - {fileID: 403714726693833264, guid: ba44c0a8616eead48bc67236aec62d1d, type: 3}
-  - {fileID: 3521600151851903098, guid: ca2b638c756fcb74cbd80a9348cc5653, type: 3}
-  - {fileID: 24352465104889217, guid: 5d7c7b61f68920c4cb6972dcb47557e0, type: 3}
-  - {fileID: 1766928897530155054, guid: 06b5267611db6b1469d6cb3c0893e403, type: 3}
-  - {fileID: 8661474221351769840, guid: 88b4ed3f5902b224c89efbda0fdc92e1, type: 3}
-  - {fileID: 1619250507333897075, guid: 2eaafcea39de0604794481148a183a20, type: 3}
-  - {fileID: 541822757101137878, guid: 84249c6f80b45c8479805750e7d7cf43, type: 3}
-  - {fileID: 4278368423903249053, guid: 3206e17e0a092a741b3da8bb1ec048ac, type: 3}
-  - {fileID: 7096682834158130371, guid: c1fb0a6998f079c489c26c563eed9ebb, type: 3}
-  numberOfErasers: 10
 --- !u!114 &2040135066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13467,6 +13440,23 @@ MonoBehaviour:
   - {fileID: -1021351731, guid: a1c1608657d8fc340b33a4d6db2ba44b, type: 3}
   - {fileID: -110196885, guid: a1c1608657d8fc340b33a4d6db2ba44b, type: 3}
   - {fileID: 1524044232, guid: a1c1608657d8fc340b33a4d6db2ba44b, type: 3}
+  crackedSprites:
+  - {fileID: -1326291166, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: -2084161392, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: -142330705, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: 1592825307, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: -339375620, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: 206019918, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: 931686286, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: -254904008, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: -1229667090, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: -621577943, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: -1063513687, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: -2073755740, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: 867649407, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: -1886878828, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: 949514685, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
+  - {fileID: 1552894975, guid: 3805aa5871ced0840a16caf59fe4b51a, type: 3}
   configs:
   - {fileID: 7444883157312255742, guid: 3558a6e5d8df8ae4397b1e2a37ed4112, type: 3}
   - {fileID: 5444127500321529554, guid: 2856c0dc81c76b543bf502de5b9b24dd, type: 3}
@@ -13711,7 +13701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6137024544514373232, guid: 71a658a9d5699654f97675124f332e7a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6315164733035451617, guid: 71a658a9d5699654f97675124f332e7a, type: 3}
       propertyPath: m_Name

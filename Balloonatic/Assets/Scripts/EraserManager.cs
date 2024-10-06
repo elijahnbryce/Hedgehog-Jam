@@ -8,6 +8,7 @@ public class EraserManager : MonoBehaviour
 {
     [SerializeField] private List<Sprite> sprites = new();
     [SerializeField] private List<Sprite> colliderSprites = new();
+    [SerializeField] private List<Sprite> crackedSprites = new();
     [SerializeField] private List<GameObject> configs = new();
     [SerializeField] private Material whiteMat, defaultMat;
     public static EraserManager Instance { get; private set; }
@@ -26,9 +27,14 @@ public class EraserManager : MonoBehaviour
         return colliderSprites[index];
     }
 
+    public Sprite GetCrackedSprite(int index)
+    {
+        return crackedSprites[index];
+    }
+
     void Update()
     {
-        
+
     }
 
     public void SpawnConfig()
@@ -39,9 +45,12 @@ public class EraserManager : MonoBehaviour
 
         //Destroy(chosenConfig.gameObject);
 
+        var bools = GenerateBools(chosenConfig.childCount);
+
         var ind = 0;
-        foreach(Transform child in chosenConfig)
+        foreach (Transform child in chosenConfig)
         {
+            child.gameObject.SetActive(bools[ind]);
             var seq = DOTween.Sequence();
             seq.AppendInterval(ind++ * 0.1f);
             seq.Append(child.DOMove(child.position - Vector3.up * 20f, 1f));
@@ -62,6 +71,21 @@ public class EraserManager : MonoBehaviour
                 }
             });
         }
+    }
+
+    private List<bool> GenerateBools(int amount)
+    {
+        var list = new List<bool>();
+        for (int i = 0; i < amount / 2; i++)
+        {
+            list.Add(true);
+        }
+        while (list.Count < amount)
+        {
+            list.Add(Random.value > 0.5f);
+        }
+        HelperClass.Shuffle(list);
+        return list;
     }
 
     public void UnspawnConfig()

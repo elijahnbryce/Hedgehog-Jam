@@ -36,10 +36,10 @@ public class UpgradeManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SpawnUpgrades();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    SpawnUpgrades();
+        //}
     }
 
     public void SpawnUpgrades()

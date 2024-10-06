@@ -12,6 +12,10 @@ public class Eraser : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
+            if(UnityEngine.Random.value < 0.3f)
+            {
+                child.GetComponent<SpriteRenderer>().sprite = EraserManager.Instance.GetCrackedSprite(GetNumberFromString(child.GetComponent<SpriteRenderer>().sprite.name));
+            }
             var colliderObj = new GameObject();
             colliderObj.transform.parent = child;
             colliderObj.transform.localPosition = Vector2.zero;
@@ -41,7 +45,8 @@ public class Eraser : MonoBehaviour
 
         if (underscoreIndex == -1 || underscoreIndex == input.Length - 1)
         {
-            throw new ArgumentException("Error.");
+            Debug.LogError("oops");
+            return -1;
         }
 
         string numberPart = input.Substring(underscoreIndex + 1);
@@ -52,7 +57,8 @@ public class Eraser : MonoBehaviour
         }
         else
         {
-            throw new FormatException("Error.");
+            Debug.LogError("oops");
+            return -1;
         }
     }
 }
