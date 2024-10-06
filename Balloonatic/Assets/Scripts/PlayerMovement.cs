@@ -1,7 +1,9 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -24,7 +26,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 cachedDirection;
     float counter;
 
-    private float upgradeTimer = 5;
+    private float upgradeTimer = 8;
+    private int upgradeIndex = 0;
 
     //private static GameManager gm;
 
@@ -143,8 +146,7 @@ public class PlayerMovement : MonoBehaviour
 
         direction.Normalize();
 
-        int layer = 6;
-        int layerMask = 1 << layer;
+        int layerMask = (1 << 6) | (1 << 12);
         layerMask = ~layerMask;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -direction, followingDistance, layerMask);
         //Debug.Log(hit.rigidbody);
@@ -174,6 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        upgradeIndex = int.Parse(collision.gameObject.name);
         StartCoroutine(nameof(UpgradeCountdown));
     }
 
@@ -182,18 +185,18 @@ public class PlayerMovement : MonoBehaviour
         while(upgradeTimer > 0)
         {
             upgradeTimer -= Time.deltaTime;
+            if (Input.GetMouseButtonDown(0))
+            {
+                upgradeTimer = 0;
+            }
             yield return null;
         }
-        Debug.Log("chosen!!!");
+        UpgradeManager.Instance.ClaimUpgrade(upgradeIndex);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer.Equals("Upgrade"))
-        {
-            Debug.Log("exit");
-            StopCoroutine(nameof(UpgradeCountdown));
-            upgradeTimer = 5;
-        }
+        StopCoroutine(nameof(UpgradeCountdown));
+        upgradeTimer = 8;
     }
 }

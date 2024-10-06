@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +15,79 @@ public class UpgradeManager : MonoBehaviour
     private int maxAttempts = 30;
 
     private List<Vector2> points = new List<Vector2>();
+    public static UpgradeManager Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) Destroy(gameObject);
+        else Instance = this;
+    }
     void Start()
     {
-        for (int i = 0; i < 4; i++)
+        //for (int i = 0; i < 4; i++)
+        //{
+        //    SpawnSticker((UpgradeType)Random.Range(0, 3));
+        //    //SpawnSticker(UpgradeType.Health);
+        //}
+        foreach (Transform child in transform)
         {
-            SpawnSticker((UpgradeType)Random.Range(0, 3));
-            //SpawnSticker(UpgradeType.Health);
+            child.gameObject.SetActive(false);
         }
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SpawnUpgrades();
+        }
+    }
 
+    public void SpawnUpgrades()
+    {
+        HelperClass.Shuffle(upgrades);
+
+        var ind = 0;
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+            //child.Translate(Vector2.up * 10);
+            child.transform.position = new Vector2(child.transform.position.x, 10);
+
+            var newSeq = DOTween.Sequence();
+            newSeq.AppendInterval(ind * 0.1f);
+            newSeq.Append(child.DOMove(child.position - (Vector3.up * 10), 0.25f));
+            child.DOShakeRotation(0.25f);
+            //this looks so awesome, thank me later :)
+
+            var strct = upgrades[ind];
+            child.GetChild(0).GetComponent<SpriteRenderer>().GetComponent<SpriteRenderer>().sprite = strct.UpgradeSprite;
+
+            ind++;
+        }
+    }
+
+    private void UnspawnUpgrades()
+    {
+        var ind = 0;
+        foreach (Transform child in transform)
+        {
+            var newSeq = DOTween.Sequence();
+
+            newSeq.AppendInterval(ind * 0.1f);
+            newSeq.Append(child.DOMove(child.position - (Vector3.up * 10), 0.25f));
+            child.DOShakeRotation(0.25f).OnComplete(() =>
+            {
+                child.gameObject.SetActive(false);
+            });
+
+            ind++;
+        }
+    }
+
+    public void ClaimUpgrade(int ind)
+    {
+        SpawnSticker(upgrades[ind].UpgradeType);
+        UnspawnUpgrades();
     }
 
     private void SpawnSticker(UpgradeType type)

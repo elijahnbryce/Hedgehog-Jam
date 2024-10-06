@@ -38,6 +38,21 @@ public class GameManager : MonoBehaviour
     {
         eV = GetComponent<EventHandler>();
         SetLevel();
+        UnityEngine.Cursor.visible = false;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+            UnityEngine.Cursor.visible = true;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            UnityEngine.Cursor.visible = false;
+        }
     }
 
     public void ReStart()
