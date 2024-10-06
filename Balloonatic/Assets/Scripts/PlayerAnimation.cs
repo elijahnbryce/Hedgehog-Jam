@@ -12,9 +12,11 @@ public class PlayerAnimation : MonoBehaviour
     private int frame;
     private int frameMax = 2;
     private int animationIndex = 0;
+    private int hurtFrame = 0;
 
-    [SerializeField] private List<AnimationFrames> primaryHandAnimations = new();
-    [SerializeField] private List<AnimationFrames> secondaryHandAnimations = new();
+    [SerializeField] private List<DirectionalFrames> primaryHandAnimations = new();
+    //[SerializeField] private List<DirectionalFrames> secondaryHandAnimations = new();
+    [SerializeField] private List<Sprite> secondaryHandSprites = new();
 
     
     public static PlayerAnimation Instance { get; private set; }
@@ -34,13 +36,44 @@ public class PlayerAnimation : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > timeBetweenFrames)
         {
+            hurtFrame++;
+            if (hurtFrame > 2)
+                hurtFrame = 0;
             timer = 0;
             //this line will work once there are more frames, prob
             //frame = (frame + 1) % frameMax;
         }
 
         primaryHandSR.sprite = primaryHandAnimations[animationIndex].Sprites[frame];
-        secondaryHandSR.sprite = secondaryHandAnimations[animationIndex].Sprites[frame];
+
+        var hurtState = 4 - GameManager.Instance.health;
+        //secondaryHandSR.sprite = secondaryHandAnimations[animationIndex].Sprites[frame];
+        secondaryHandSR.sprite = secondaryHandSprites[6 * GetDirection() + hurtState + (hurtState==3 ? hurtFrame : 0)];
+    }
+
+    public int GetDirection()
+    {
+        Vector2 direction = PlayerMovement.Instance.GetDirectionToPrimaryHand();
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        if (angle < 0)
+            angle += 360;
+
+        int directionIndex = Mathf.RoundToInt(angle / 45) % 8;
+
+        string[] directionNames = { "NW", "N", "NE", "E", "SE", "S", "SW", "W" };
+
+        int[] remappedIndices = { 7, 6, 5, 4, 3, 2, 1, 0 }; 
+        //sorry
+
+        int remappedIndex = remappedIndices[directionIndex];
+
+        string directionName = directionNames[remappedIndex];
+
+        //Debug.Log("Direction: " + directionName);
+
+        return remappedIndex;
     }
 
     void AttackStart()
@@ -55,7 +88,7 @@ public class PlayerAnimation : MonoBehaviour
 }
 
 [System.Serializable]
-public struct AnimationFrames
+public struct DirectionalFrames
 {
     public List<Sprite> Sprites;
 }
