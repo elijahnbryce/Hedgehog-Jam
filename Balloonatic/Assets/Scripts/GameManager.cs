@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +11,7 @@ public class GameManager : MonoBehaviour
     
     [Header("Game Status")]
     [SerializeField] private static int fullHealth = 3;
-    public int health = fullHealth, wave = 0;
+    public int health = fullHealth, wave = 0, startEnemies = 0;
     public bool gameOver, gameActive, gamePaused;
 
     private bool betweenRounds = true;
@@ -23,8 +21,10 @@ public class GameManager : MonoBehaviour
     private int levelScore, totalScore = 0;
 
     public List<GameObject> enemyList = new List<GameObject>();
-    
+    public Dictionary<UpgradeType, int> upgradeList = new();
     //private Timer ts;
+    private bool isInvicible = false;
+    private float scoreMult = 1.1f;
 
     private Camera cam;
 
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Game Manager Set");
+            Debug.Log("Game Manager Set");
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -45,23 +45,23 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-	sp = Spawner.Instance;
+	    sp = Spawner.Instance;
         eV = GetComponent<EventHandler>();
         SetLevel();
-        UnityEngine.Cursor.visible = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            UnityEngine.Cursor.lockState = CursorLockMode.None;
-            UnityEngine.Cursor.visible = true;
+            eV.PauseGame();
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            UnityEngine.Cursor.visible = false;
+            Cursor.visible = false;
         }
     }
 
@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
     public void Kill()
     {
         Instance = null;
+        Debug.Log(Instance);
         Destroy(gameObject);
     }
 
@@ -104,12 +105,15 @@ public class GameManager : MonoBehaviour
         //if (restart) return;
         Debug.Log("New wave");
         wave++;
-
-	if (wave == 1) {	
-		sp.StartSpawn(10, 1);		
-	} //else if (wave == 2) {
-	//	sp.StartSpawn(20, 1);
-	//}
+        int toSpawn = Mathf.FloorToInt(10 / wave) + 1;
+	    if (wave == 1) 
+        {
+            startEnemies = 10;
+		    sp.StartSpawn(startEnemies, 1);
+	    } 
+        //else if (wave == 2) {
+	    //	sp.StartSpawn(20, 1);
+	    //}
         
 	// change walls or something
         // ? some effect for enemies
@@ -141,7 +145,7 @@ public class GameManager : MonoBehaviour
 
             //
 
-
+            BetweenRounds = betweenRounds = true;
             NewWave();
         }
         else
@@ -157,32 +161,77 @@ public class GameManager : MonoBehaviour
 	
     public void AddEnemy(GameObject enemy)
     {
-	enemyList.Add(enemy);
+	    enemyList.Add(enemy);
     }
-    //public void RemoveEnemy(GameObject other)
-    //{
-    //    levEnemies.Remove(other);
-    //    Destroy(other);
-    //}
+
+    public void RemoveEnemy(GameObject enemy)
+    {
+        // add points
+        enemyList.Remove(enemy);
+        Destroy(enemy);
+
+        if (upgradeList.ContainsKey(UpgradeType.Pizza))
+        {
+            if (health < fullHealth || ((float)(startEnemies - enemyList.Count) % 10f)  == 0f) { UpdateHealth(1); }
+        }
+    }
+
+    public void AddPowerUP(UpgradeType upgrade)
+    {
+        if (!upgradeList.ContainsKey(upgrade)) 
+            { upgradeList.Add(upgrade, 0); }
+        upgradeList[upgrade]++;
+
+        if (CheckInstanceConsume(upgrade)) DecPowerUp(upgrade);
+    }
+
+    public void DecPowerUp(UpgradeType upgrade)
+    {
+        if (upgradeList.ContainsKey(upgrade))
+        { 
+            if (upgradeList[upgrade] > 0)
+                { upgradeList[upgrade]--; }
+            else
+            {
+                upgradeList.Remove(upgrade);
+            }
+        }
+    }
+
+    private bool CheckInstanceConsume(UpgradeType upgrade)
+    {
+        switch (upgrade)
+        {
+            case UpgradeType.Heart:
+                UpdateHealth(1);
+                return true;
+            case UpgradeType.Star:
+                StartCoroutine(StarPower());
+                return true;
+        }
+        return false;
+    }
+
+    public float GetPowerMult(UpgradeType upgrade, float percent = 1.1f)
+    {
+        return (upgradeList.ContainsKey(upgrade)) ? Mathf.Pow(percent, upgradeList[upgrade]) : 1f; ;
+    }
 
     //private int GetFinalScore(int score, float time = 10f)
     //{
     //    return Mathf.RoundToInt((1 + (float)score / (float)(fullHealth / 2)) * (1 - (1 - time / 10f)) * (1 + (float)(startEnemies - levEnemies.Count) / startEnemies) * ((float)(startPickups - levPickups.Count) / startPickups) * 1017); // score is just health
     //}
 
-    //private void LoadEnemies()
-    //{
-    //    foreach (Transform child in enemyHolder)
-    //    {
-    //        levEnemies.Add(child.gameObject);
-    //    }
-
-    //    remEnemies = levEnemies.Count;
-    //    startEnemies = (remEnemies == 0) ? 1 : remEnemies;
-    //}
+    private IEnumerator StarPower()
+    {
+        isInvicible = true;
+        yield return new WaitForSeconds(10f * upgradeList[UpgradeType.Star]);
+        isInvicible = false;
+    }
 
     public void UpdateHealth(int change = -1)
     {
+        if (isInvicible) { return; }
         health += change;
         eV.DisplayHealth(health);
 

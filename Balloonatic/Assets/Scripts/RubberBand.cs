@@ -21,6 +21,8 @@ public class RubberBand : MonoBehaviour
     private float currentAngle = 0f;
     private float currentRadius = 0f;
 
+    private int attackState;
+
     private Rigidbody2D rb;
     void Start()
     {
@@ -75,11 +77,23 @@ public class RubberBand : MonoBehaviour
                 StartCoroutine(nameof(FlashWhite));
             }
         }
+        // idk enemy tag
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.transform.GetComponent<Entity>().stats.TakeDamage((int)attackPower);
+            if (!GameManager.Instance.upgradeList.ContainsKey(UpgradeType.Ghost))
+            {
+                dead = true;
+                StartCoroutine(nameof(DestroyProjectileCoroutine));
+            }
+            else { GameManager.Instance.DecPowerUp(UpgradeType.Ghost);}
+        }
     }
 
     public void InitializeProjectile(int state, bool facingDirection)
     {
         facingDir = facingDirection;
+        attackState = state;
         switch (state)
         {
             case 1:
