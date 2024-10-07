@@ -8,6 +8,7 @@ TagManager:
   - Small
   - Wall
   - Enemy
+  - Selection
   layers:
   - Default
   - TransparentFX
