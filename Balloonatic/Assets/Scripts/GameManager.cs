@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -48,23 +45,23 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-	sp = Spawner.Instance;
+	    sp = Spawner.Instance;
         eV = GetComponent<EventHandler>();
         SetLevel();
-        UnityEngine.Cursor.visible = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            UnityEngine.Cursor.lockState = CursorLockMode.None;
-            UnityEngine.Cursor.visible = true;
+            eV.PauseGame();
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            UnityEngine.Cursor.visible = false;
+            Cursor.visible = false;
         }
     }
 
@@ -108,12 +105,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("New wave");
         wave++;
         int toSpawn = Mathf.FloorToInt(10 / wave) + 1;
-	if (wave == 1) {
+	    if (wave == 1) 
+        {
             startEnemies = 10;
-		sp.StartSpawn(startEnemies, 1);		
-	} //else if (wave == 2) {
-	//	sp.StartSpawn(20, 1);
-	//}
+		    sp.StartSpawn(startEnemies, 1);
+	    } 
+        //else if (wave == 2) {
+	    //	sp.StartSpawn(20, 1);
+	    //}
         
 	// change walls or something
         // ? some effect for enemies

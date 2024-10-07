@@ -58,7 +58,7 @@ public class EventHandler : MonoBehaviour
 
     public void CheckHS(int totalScore)
     {
-        cam.GetComponent<AudioSource>().Stop();
+        //cam.GetComponent<AudioSource>().Stop();
         ovrCan.SetActive(true);
         int highScore = PlayerPrefs.GetInt("HIGHSCORE");
         if (totalScore > highScore)
@@ -113,7 +113,7 @@ public class EventHandler : MonoBehaviour
             gm.gameActive = true;
             Time.timeScale = 1;
 
-            //Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = false;
         }
         else
