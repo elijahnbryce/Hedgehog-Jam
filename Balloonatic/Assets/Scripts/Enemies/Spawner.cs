@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+	public static GameManager gm = GameManager.Instance;
+
 	[SerializeField]
 	private GameObject scissorEnemy;
 	[SerializeField]
@@ -19,21 +21,31 @@ public class Spawner : MonoBehaviour
 	private float glueInterval = 12;
 
 	[SerializeField]
-	public Vector3[] spawnPoints;
+	public Transform[] spawnPoints;
     // Start is called before the first frame update
     void Start()
     {
-       StartCoroutine(spawnEnemy(scissorInterval, scissorEnemy));
-       StartCoroutine(spawnEnemy(splittingInterval, splittingEnemy)); 
-       StartCoroutine(spawnEnemy(glueInterval, glueEnemy)); 
+       StartCoroutine(SpawnEnemy(scissorInterval, scissorEnemy));
+       StartCoroutine(SpawnEnemy(splittingInterval, splittingEnemy)); 
+       StartCoroutine(SpawnEnemy(glueInterval, glueEnemy)); 
     }
 	
-    private IEnumerator spawnEnemy(float interval, GameObject enemy)
+    private IEnumerator SpawnEnemy(float interval, GameObject enemy)
     {
 	int randPoint = Random.Range(0, 3);
 
 	yield return new WaitForSeconds(interval);
-	GameObject newEnemy = Instantiate(enemy, spawnPoints[randPoint], Quaternion.identity);
-	StartCoroutine(spawnEnemy(interval, enemy));
+	GameObject newEnemy = Instantiate(enemy, spawnPoints[randPoint].position, Quaternion.identity);
+
+	//gm.AddEnemy(newEnemy);
+
+	StartCoroutine(SpawnEnemy(interval, enemy));
     }
+
+    //void SpawnEnemies(int enemyAmt)
+    //{
+    //    if (gm.AddEnemy > enemyAmt)
+    //    	StopCoroutine(SpawnEnemy(interval, 	
+    //}
+
 }
