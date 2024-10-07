@@ -1147,7 +1147,7 @@ SpriteRenderer:
   m_Size: {x: 1.5, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &614815202
@@ -1441,54 +1441,23 @@ MonoBehaviour:
   - {fileID: -1484241029, guid: 96732f1c75872044c9d3d5dfb444ae4b, type: 3}
   - {fileID: -619501330, guid: 96732f1c75872044c9d3d5dfb444ae4b, type: 3}
   secondaryHandSprites:
-  - {fileID: 1929399624, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1841523382, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 920177057, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 858293120, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 2077188453, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 359126373, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 1166979389, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 954826108, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1297194765, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -478191966, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -417916831, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1327334199, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1395895837, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -878057155, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1448286790, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 838726407, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -145774158, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 1927807029, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 1704038113, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 1869322865, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1818193537, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1987281043, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1203557075, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -448978892, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 906971130, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1081445071, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 1519499877, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -763990836, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 1291855653, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 1688633026, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1315357605, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -250329626, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1402339386, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 1636277984, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -60982294, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -469070469, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1657888745, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1873572653, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -908095096, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -547518649, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -646213194, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -261410991, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1621038258, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 1032025954, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 1651882329, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 39826901, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: -1064756512, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
-  - {fileID: 778181620, guid: fe5cc6439b3f94f41812b566637efd54, type: 3}
+  - {fileID: 747180277, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: -910915698, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: 150866160, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: 1885287056, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: 484786331, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: -1173079550, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: 1377280785, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: 1564810303, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  secondaryHandGrabSprites:
+  - {fileID: 507495434, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: -600315337, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: 61898248, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: 9466008, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: 1163345129, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: 1492720447, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: 1587056061, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
+  - {fileID: -786634449, guid: bb543b8b000172c41aa12829537bdcf5, type: 3}
 --- !u!1 &650855558
 GameObject:
   m_ObjectHideFlags: 0
@@ -7385,6 +7354,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8556112248177978841, guid: d35a7d126a20c41438910e6f6fac6b6b, type: 3}
+      propertyPath: m_Parameters.textureMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556112248177978841, guid: d35a7d126a20c41438910e6f6fac6b6b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6d2f1b2d564daeb4bbf894a1bb895c0d, type: 2}
@@ -7392,6 +7365,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: e27b30ad21f371a4cafb692e2c0ca84c, type: 2}
+    - target: {fileID: 8556112248177978841, guid: d35a7d126a20c41438910e6f6fac6b6b, type: 3}
+      propertyPath: m_Parameters.textureScale.y
+      value: 0.69
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

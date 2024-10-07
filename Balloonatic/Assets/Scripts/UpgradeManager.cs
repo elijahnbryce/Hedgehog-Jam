@@ -125,78 +125,6 @@ public class UpgradeManager : MonoBehaviour
         newSticker.transform.DOLocalRotate(new Vector3(0, 0, Random.Range(-60, 60)), 1f);
         newSticker.transform.DOMove(stickerFinalPos, 1f);
     }
-
-    List<Vector2> GeneratePoints(int count, float startX, float endX, float startY, float endY)
-    {
-        List<Vector2> pointList = new List<Vector2>();
-
-        float stepX = (endX - startX) / (count - 1);
-        float stepY = (endY - startY) / (count - 1);
-
-        for (int i = 0; i < count; i++)
-        {
-            float x = startX + (i * stepX); // Evenly spaced x values
-            float y = startY + (i * stepY); // Evenly spaced y values
-            pointList.Add(new Vector2(x, y));
-        }
-
-        return pointList;
-    }
-
-    List<Vector2> GeneratePoissonPoints(Vector2 bounds, float minDist, int maxAttempts)
-    {
-        List<Vector2> pointList = new List<Vector2>();
-        List<Vector2> spawnPoints = new List<Vector2>();
-
-        //Vector2 startPoint = new Vector2(Random.Range(-bounds.x, bounds.x), Random.Range(-bounds.y, bounds.y));
-        Vector2 startPoint = Vector2.zero;
-        spawnPoints.Add(startPoint);
-        pointList.Add(startPoint);
-
-        while (spawnPoints.Count > 0)
-        {
-            int spawnIndex = Random.Range(0, spawnPoints.Count);
-            Vector2 spawnCenter = spawnPoints[spawnIndex];
-            bool pointAdded = false;
-
-            for (int i = 0; i < maxAttempts; i++)
-            {
-                float angle = Random.Range(0f, Mathf.PI * 2);
-                Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-                Vector2 newPoint = spawnCenter + direction * Random.Range(minDist, minDist * 2);
-
-                if (IsInBounds(newPoint, bounds) && IsFarEnough(newPoint, pointList, minDist))
-                {
-                    pointList.Add(newPoint);
-                    spawnPoints.Add(newPoint);
-                    pointAdded = true;
-                    break;
-                }
-            }
-
-            if (!pointAdded)
-            {
-                spawnPoints.RemoveAt(spawnIndex);
-            }
-        }
-
-        return pointList;
-    }
-
-    bool IsInBounds(Vector2 point, Vector2 bounds)
-    {
-        return point.x >= -bounds.x && point.x <= bounds.x && point.y >= -bounds.y && point.y <= bounds.y;
-    }
-
-    bool IsFarEnough(Vector2 point, List<Vector2> points, float minDist)
-    {
-        foreach (Vector2 p in points)
-        {
-            if (Vector2.Distance(p, point) < minDist)
-                return false;
-        }
-        return true;
-    }
 }
 
 [System.Serializable]
@@ -220,7 +148,7 @@ knife - piercing: when a band kills, it keeps going x times where x is the amoun
 
 public enum UpgradeType
 {
-    Heart = 0,
+    Heart = 0, 
     Shoe = 1,
     Pizza = 2,
     Rainbow = 3,
