@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public Vector2 currentPos, targetPos;
     private Vector2 secondCurrentPos, secondTargetPos;
     private Vector2 cachedDirection;
+    private Vector2 cachedMovementDirection;
     float counter;
 
     private float upgradeTimer = 8;
@@ -176,9 +177,13 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector2 GetDirectionToMouse(bool _)
     {
-        if (Moving)
+        if (!PlayerAttack.Instance.Attacking)
         {
-            return -rigidBody.velocity;
+            if (Moving)
+            {
+                cachedMovementDirection = -rigidBody.velocity;
+            }
+            return cachedMovementDirection;
         }
         return cachedDirection;
     }

@@ -8,10 +8,12 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private Slider attackSlider;
     private float sliderValue;
-    [SerializeField] private GameObject projectile; 
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private List<Color> colors = new();
     private Transform launchPoint;
 
     private bool attacking;
+    public bool Attacking { get { return attacking; } }
     private float attackPower;
     private float attackMax = 2.5f;
     private int attackState = 0;
@@ -97,6 +99,13 @@ public class PlayerAttack : MonoBehaviour
         }
         if(attackState!=3)
             newProjectile.GetComponent<Rigidbody2D>().AddForce(-(PlayerMovement.Instance.GetDirectionToMouse()) * 300f * attackPower);
+
+        //var velocity = newProjectile.GetComponent<Rigidbody2D>().velocity;
+        //float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+        var dir = PlayerMovement.Instance.GetDirectionToMouse();
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        newProjectile.transform.rotation = Quaternion.Euler(new Vector3(0,0,angle));
+
         //
         attacking = false;
         attackPower = 0;
@@ -104,6 +113,7 @@ public class PlayerAttack : MonoBehaviour
 
     private Color AttackStateToColor(int state)
     {
+        return colors[state];
         switch (state)
         {
             case 1:
