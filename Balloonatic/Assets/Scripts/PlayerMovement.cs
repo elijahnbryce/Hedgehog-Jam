@@ -198,8 +198,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        upgradeIndex = int.Parse(collision.gameObject.name);
-        StartCoroutine(nameof(UpgradeCountdown));
+        switch (collision.gameObject.tag)
+        {
+            case "Selection":
+                upgradeIndex = int.Parse(collision.gameObject.name);
+                StartCoroutine(nameof(UpgradeCountdown));
+                break;
+
+            case "Enemy":
+                Debug.Log("Player damaged");
+                GameManager.Instance.UpdateHealth();
+                // status change
+                break;
+
+            default:
+                break;
+        }
     }
 
     private IEnumerator UpgradeCountdown()
@@ -218,7 +232,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        StopCoroutine(nameof(UpgradeCountdown));
-        upgradeTimer = 8;
+        if (collision.CompareTag("Selection"))
+        {
+            StopCoroutine(nameof(UpgradeCountdown));
+            upgradeTimer = 8;
+        }
     }
+
 }
