@@ -86,7 +86,11 @@ public class UpgradeManager : MonoBehaviour
 
     public void ClaimUpgrade(int ind)
     {
-        SpawnSticker(upgrades[ind].UpgradeType, transform.GetChild(ind).GetChild(0).position);
+        GameManager gm = GameManager.Instance;
+        UpgradeType upgrade = upgrades[ind].UpgradeType;
+        gm.AddPowerUP(upgrade);
+
+        SpawnSticker(upgrade, transform.GetChild(ind).GetChild(0).position);
 
         for (int i = 0; i < 2; i++)
         {
@@ -138,7 +142,7 @@ public struct UpgradeStruct
 /*
  * heart - full health: resets health to 4 when claimed
 shoe - speed increase: 10% speed increase capped at 2x speed
-pizza - heal (??) 
+pizza - heal (??) Perhaps on the first damage taken heal 1 health
 rainbow - point multiplier
 star - invincible for 10s: the first 10s of the round player will be unable to take damage
 lightning - elijah's lightning attack: lightning splash damage 10% chance for applying
