@@ -546,6 +546,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2796309168120794240, guid: 71a658a9d5699654f97675124f332e7a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5475841719291413998, guid: 71a658a9d5699654f97675124f332e7a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -614,6 +618,10 @@ PrefabInstance:
     - target: {fileID: 2796309168120794240, guid: 71a658a9d5699654f97675124f332e7a, type: 3}
       propertyPath: m_SortingOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796309168120794240, guid: 71a658a9d5699654f97675124f332e7a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5475841719291413998, guid: 71a658a9d5699654f97675124f332e7a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7646,13 +7654,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgrades:
   - UpgradeType: 0
-    UpgradeSprite: {fileID: 21300000, guid: 7a150bafbd8dfd84e8da8f99305f7783, type: 3}
+    UpgradeSprite: {fileID: -1500648010, guid: 2ef0c70760d71fe48ad662c004fd37bd, type: 3}
     AmountClaimed: 0
   - UpgradeType: 1
-    UpgradeSprite: {fileID: 21300000, guid: cd5e6275b9e9ebd479d3653d5dc38ea0, type: 3}
+    UpgradeSprite: {fileID: 1449002122, guid: 2ef0c70760d71fe48ad662c004fd37bd, type: 3}
     AmountClaimed: 0
   - UpgradeType: 2
-    UpgradeSprite: {fileID: 21300000, guid: 070e2daf9f24458449b8bf4ad3791b47, type: 3}
+    UpgradeSprite: {fileID: 506034823, guid: 2ef0c70760d71fe48ad662c004fd37bd, type: 3}
+    AmountClaimed: 0
+  - UpgradeType: 3
+    UpgradeSprite: {fileID: 537238228, guid: 2ef0c70760d71fe48ad662c004fd37bd, type: 3}
+    AmountClaimed: 0
+  - UpgradeType: 4
+    UpgradeSprite: {fileID: -696158886, guid: 2ef0c70760d71fe48ad662c004fd37bd, type: 3}
+    AmountClaimed: 0
+  - UpgradeType: 5
+    UpgradeSprite: {fileID: -205182150, guid: 2ef0c70760d71fe48ad662c004fd37bd, type: 3}
+    AmountClaimed: 0
+  - UpgradeType: 6
+    UpgradeSprite: {fileID: 360483484, guid: 2ef0c70760d71fe48ad662c004fd37bd, type: 3}
     AmountClaimed: 0
   stickerPrefab: {fileID: 7766720079018710268, guid: dd791df61c7aee1488e40237a0211aa1, type: 3}
   bounds: {x: 10.3, y: 4}
@@ -12605,7 +12625,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeMultiplier: 1
-  soundEffects: []
+  soundEffects:
+  - SoundName: band_pull
+    Clips: []
+    Volume: 1
+    Vary: 0
+  - SoundName: band_release
+    Clips: []
+    Volume: 1
+    Vary: 0
+  - SoundName: band_hit
+    Clips: []
+    Volume: 1
+    Vary: 0
+  - SoundName: player_walk
+    Clips: []
+    Volume: 1
+    Vary: 0
+  - SoundName: player_damage
+    Clips: []
+    Volume: 1
+    Vary: 0
+  - SoundName: enemy_attack
+    Clips: []
+    Volume: 1
+    Vary: 0
+  - SoundName: enemy_die
+    Clips: []
+    Volume: 1
+    Vary: 0
+  - SoundName: eraser_spawn
+    Clips: []
+    Volume: 1
+    Vary: 0
+  - SoundName: eraser_despawn
+    Clips: []
+    Volume: 1
+    Vary: 0
+  - SoundName: upgrades_spawn
+    Clips: []
+    Volume: 1
+    Vary: 0
+  - SoundName: upgrade_claim
+    Clips: []
+    Volume: 1
+    Vary: 0
+  - SoundName: sticker_apply
+    Clips: []
+    Volume: 1
+    Vary: 0
 --- !u!4 &1562355221
 Transform:
   m_ObjectHideFlags: 0

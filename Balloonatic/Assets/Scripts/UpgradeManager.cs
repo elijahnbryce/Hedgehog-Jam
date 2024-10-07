@@ -149,11 +149,12 @@ knife - piercing: when a band kills, it keeps going x times where x is the amoun
 public enum UpgradeType
 {
     Heart = 0, 
-    Shoe = 1,
-    Pizza = 2,
-    Rainbow = 3,
-    Star = 4,
-    Lightning = 5,
-    Fire = 6,
-    Knife = 7,
+    //Shoe = 1,
+    Pizza = 1,
+    Rainbow = 2,
+    Star = 3,
+    Lightning = 4,
+    Fire = 5,
+    //Knife = 7,
+    Ghost = 6
 }
