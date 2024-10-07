@@ -64,7 +64,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 //attackPower += Time.deltaTime;
                 attackPower = PlayerMovement.Instance.GetAttackPower();
-                rubberRender.UpdateBand(attackMax / attackPower);
+                rubberRender.UpdateBand(attackPower / attackMax);
             }
             else
                 AttackHalt();
@@ -103,14 +103,14 @@ public class PlayerAttack : MonoBehaviour
 
                 break;
         }
-        if(attackState!=3)
+        if (attackState != 3)
             newProjectile.GetComponent<Rigidbody2D>().AddForce(-(PlayerMovement.Instance.GetDirectionToMouse()) * 300f * attackPower);
 
         //var velocity = newProjectile.GetComponent<Rigidbody2D>().velocity;
         //float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
         var dir = PlayerMovement.Instance.GetDirectionToMouse();
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        newProjectile.transform.rotation = Quaternion.Euler(new Vector3(0,0,angle));
+        newProjectile.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         //
         attacking = false;

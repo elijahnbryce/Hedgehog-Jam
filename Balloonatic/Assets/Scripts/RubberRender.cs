@@ -50,31 +50,17 @@ public class DragController : MonoBehaviour
         currentColor = Color.Lerp(currentColor, targetColor, Time.deltaTime * 10f);
 
         // Update line renderer if it exists
-        if (line != null)
-        {
-            line.startColor = currentColor;
-            line.endColor = currentColor;
-        }
-        else
-        {
-            Debug.LogWarning("Line renderer is null");
-        }
+        line.startColor = currentColor;
+        line.endColor = currentColor;
 
         // Get ParticleSystem component
         ParticleSystem ps = particleSystem;
-        if (ps != null)
-        {
-            ParticleSystem.MainModule main = ps.main;
-            main.startColor = new ParticleSystem.MinMaxGradient(currentColor);
-            main.startSpeed = strength * 0.5f + 0.25f;
+        ParticleSystem.MainModule main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(currentColor);
+        //main.startSpeed = strength * 0.5f + 0.25f;
 
-            var em = ps.emission;
-            em.rateOverTime = strength * 10 + 2;
-        }
-        else
-        {
-            Debug.LogError("ParticleSystem component not found on this GameObject");
-        }
+        var em = ps.emission;
+        em.rateOverTime = strength * 10 + 2;
     }
 
     private void DragStart()
