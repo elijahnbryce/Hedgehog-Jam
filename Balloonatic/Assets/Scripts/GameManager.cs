@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Game Manager Set");
+            Debug.Log("Game Manager Set");
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
     public void Kill()
     {
         Instance = null;
+        Debug.Log(Instance);
         Destroy(gameObject);
     }
 

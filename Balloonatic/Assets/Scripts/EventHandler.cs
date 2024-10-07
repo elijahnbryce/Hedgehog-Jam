@@ -130,6 +130,10 @@ public class EventHandler : MonoBehaviour
 
     public void Restart()
     {
+        gm.gameActive = false;
+        gm.gamePaused = false;
+        gm.gameOver = true;
+        Time.timeScale = 0;
         gm?.Kill();
         LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

@@ -81,12 +81,12 @@ public class RubberBand : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.transform.GetComponent<Entity>().stats.TakeDamage((int)attackPower);
-            if (!GameManager.Instance.upgradeList.ContainsKey(UpgradeType.Knife))
+            if (!GameManager.Instance.upgradeList.ContainsKey(UpgradeType.Ghost))
             {
                 dead = true;
                 StartCoroutine(nameof(DestroyProjectileCoroutine));
             }
-            else { GameManager.Instance.DecPowerUp(UpgradeType.Knife);}
+            else { GameManager.Instance.DecPowerUp(UpgradeType.Ghost);}
         }
     }
 

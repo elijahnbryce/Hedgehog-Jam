@@ -8,7 +8,7 @@ public class EntityStats : MonoBehaviour
     protected Entity selfEntity;
     //Contains numerical information about the entity
 
-    public float health = 100f;
+    public float health = 3f;
     public float movementSpeed = 10f;
     public float movementSpeedMult = 1f;
     public float effectiveMovementSpeed = 0;
