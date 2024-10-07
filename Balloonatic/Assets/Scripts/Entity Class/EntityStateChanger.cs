@@ -38,18 +38,25 @@ public class EntityStateChanger
 	}
 
 	foreach (ChangeCondition condition in conList) {
-
+		
 		if (condition == ChangeCondition.DISTANCE_TO_TARGET_GT)
 		{
+		    if (fromState.selfEntity.ai.targets.Count == 0) {
+		    	return false;
+		    }
 		    if (Vector2.Distance(fromState.selfEntity.transform.position, 
 			    fromState.selfEntity.ai.targets[0].targetGameObject.transform.position) < distanceToTarget)
 		    {		
 		       return false;
 		    }
+			
 		}
 
 		else if (condition == ChangeCondition.DISTANCE_TO_TARGET_LT)
 		{
+		    if (fromState.selfEntity.ai.targets.Count == 0) {
+		    	return false;
+		    }
 		    if (Vector2.Distance(fromState.selfEntity.transform.position,
 		    fromState.selfEntity.ai.targets[0].targetGameObject.transform.position) > distanceToTarget)
 		    {	
