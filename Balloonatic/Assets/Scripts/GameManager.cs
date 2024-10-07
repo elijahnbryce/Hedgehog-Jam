@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     private EventHandler eV;
-
+	
+    public Spawner sp = Spawner.Instance;
+    
     [Header("Game Status")]
     [SerializeField] private static int fullHealth = 3;
     public int health = fullHealth, wave = 0;
@@ -19,6 +21,8 @@ public class GameManager : MonoBehaviour
     //?? fix later
 
     private int levelScore, totalScore = 0;
+
+    public List<GameObject> enemyList = new List<GameObject>();
     
     //private Timer ts;
 
@@ -41,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+	sp = Spawner.Instance;
         eV = GetComponent<EventHandler>();
         SetLevel();
         UnityEngine.Cursor.visible = false;
@@ -82,7 +87,7 @@ public class GameManager : MonoBehaviour
         UpdateScore(0);
         UpdateHealth(0);
 
-        NewWave(restart);
+        NewWave();
     }
 
     private void EverythingFalse()
@@ -94,12 +99,19 @@ public class GameManager : MonoBehaviour
         gamePaused = false;
     }
 
-    private void NewWave(bool restart = false)
+    private void NewWave()
     {
-        if (restart) return;
+        //if (restart) return;
         Debug.Log("New wave");
         wave++;
-        // change walls or something
+
+	if (wave == 1) {	
+		sp.StartSpawn(10, 1);		
+	} //else if (wave == 2) {
+	//	sp.StartSpawn(20, 1);
+	//}
+        
+	// change walls or something
         // ? some effect for enemies
     }
 
@@ -142,7 +154,11 @@ public class GameManager : MonoBehaviour
     {
         return (gameActive && !gamePaused);
     }
-
+	
+    public void AddEnemy(GameObject enemy)
+    {
+	enemyList.Add(enemy);
+    }
     //public void RemoveEnemy(GameObject other)
     //{
     //    levEnemies.Remove(other);

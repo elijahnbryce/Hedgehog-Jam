@@ -4,48 +4,59 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-	public static GameManager gm = GameManager.Instance;
+	public static Spawner Instance { get; private set; }
 
-	[SerializeField]
-	private GameObject scissorEnemy;
-	[SerializeField]
-	private GameObject splittingEnemy;
-	[SerializeField]
-	private GameObject glueEnemy;
+	public GameManager gm = GameManager.Instance;
+		
+	[System.Serializable] public struct enemySpwnProp
+	{
+		//public int enemyAmt;
+		public float typeInterval;
+		public GameObject enemyType;
+	} 
 
-	[SerializeField]
-	private float scissorInterval = 5f;
-	[SerializeField]
-	private float splittingInterval = 9f;
-	[SerializeField]
-	private float glueInterval = 12;
-
-	[SerializeField]
+	public List<enemySpwnProp> enemyStructList = new List<enemySpwnProp>();
+		
 	public Transform[] spawnPoints;
     // Start is called before the first frame update
-    void Start()
+       
+    public void Awake()
     {
-       StartCoroutine(SpawnEnemy(scissorInterval, scissorEnemy));
-       StartCoroutine(SpawnEnemy(splittingInterval, splittingEnemy)); 
-       StartCoroutine(SpawnEnemy(glueInterval, glueEnemy)); 
+	if (Instance != null && Instance != this)
+        {
+            Debug.Log("Spawner Already Exists");
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Spawner Set");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
+
+    public void Start()
+    {
+	gm = GameManager.Instance;
+    }
+
+    public void StartSpawn(int enemyAmt, int i)
+    {
+	StartCoroutine(SpawnEnemy(enemyAmt, i));
+    } 
 	
-    private IEnumerator SpawnEnemy(float interval, GameObject enemy)
+    private IEnumerator SpawnEnemy(int amt, int i)
     {
 	int randPoint = Random.Range(0, 3);
+	
+	enemySpwnProp enemy = enemyStructList[Random.Range(0, i)];
 
-	yield return new WaitForSeconds(interval);
-	GameObject newEnemy = Instantiate(enemy, spawnPoints[randPoint].position, Quaternion.identity);
+	yield return new WaitForSeconds(enemy.typeInterval);
+	GameObject newEnemy = Instantiate(enemy.enemyType, spawnPoints[randPoint].position, Quaternion.identity);
 
-	//gm.AddEnemy(newEnemy);
+	gm.AddEnemy(newEnemy);
 
-	StartCoroutine(SpawnEnemy(interval, enemy));
-    }
-
-    //void SpawnEnemies(int enemyAmt)
-    //{
-    //    if (gm.AddEnemy > enemyAmt)
-    //    	StopCoroutine(SpawnEnemy(interval, 	
-    //}
-
+	if (gm.enemyList.Count < amt)
+		StartCoroutine(SpawnEnemy(amt, i));
+    } 
 }
