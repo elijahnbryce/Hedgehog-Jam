@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 182566898}
   - component: {fileID: 182566897}
   - component: {fileID: 182566896}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -906,7 +906,7 @@ GameObject:
   - component: {fileID: 865679307}
   - component: {fileID: 865679306}
   - component: {fileID: 865679305}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -961,7 +961,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05, y: 0}
+  m_Offset: {x: 0.05, y: 0}
   serializedVersion: 2
   m_Radius: 0.4
 --- !u!50 &865679306
@@ -1029,7 +1029,18 @@ MonoBehaviour:
   entityStates:
   - state: {fileID: 11400000, guid: 20989384614256e4997208225efff5d1, type: 2}
     active: 1
-    entityStateChangers: []
+    entityStateChangers:
+    - toState: {fileID: 11400000, guid: 7754da4578ee67f44b72621694b76263, type: 2}
+      conList: 01000000
+      distanceToTarget: 7
+      statesEntered: 1
+  - state: {fileID: 11400000, guid: 7754da4578ee67f44b72621694b76263, type: 2}
+    active: 0
+    entityStateChangers:
+    - toState: {fileID: 11400000, guid: 20989384614256e4997208225efff5d1, type: 2}
+      conList: 
+      distanceToTarget: 4
+      statesEntered: 1
 --- !u!1 &873839644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1623,7 +1634,7 @@ GameObject:
   - component: {fileID: 1421759481}
   - component: {fileID: 1421759480}
   - component: {fileID: 1421759479}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Segment_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1905,10 +1916,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
-    - target: {fileID: 2660057064413270611, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2154,7 +2161,7 @@ GameObject:
   - component: {fileID: 2050803192}
   - component: {fileID: 2050803191}
   - component: {fileID: 2050803190}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Segment_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2291,7 +2298,7 @@ GameObject:
   - component: {fileID: 2068202193}
   - component: {fileID: 2068202192}
   - component: {fileID: 2068202191}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Segment_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
