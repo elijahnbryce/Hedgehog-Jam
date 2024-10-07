@@ -18,6 +18,7 @@ public class PlayerAnimation : MonoBehaviour
 
     //[SerializeField] private List<DirectionalFrames> primaryHandAnimations = new();
     [SerializeField] private List<Sprite> primaryHandSprites = new();
+    [SerializeField] private List<Sprite> primaryHandGrabSprites = new();
     //[SerializeField] private List<DirectionalFrames> secondaryHandAnimations = new();
     [SerializeField] private List<Sprite> secondaryHandSprites = new();
     [SerializeField] private List<Sprite> secondaryHandGrabSprites = new();
@@ -56,7 +57,16 @@ public class PlayerAnimation : MonoBehaviour
         var primaryDir = PlayerMovement.Instance.GetDirectionToMouse(true); ;
         var secondaryDir = PlayerMovement.Instance.GetDirectionToPrimaryHand();
 
-        primaryHandSR.sprite = primaryHandSprites[6 * GetDirection(primaryDir) + hurtState + (hurtState == 3 ? hurtFrame : 0)];
+        if (PlayerAttack.Instance.Attacking)
+        {
+            primaryHandSR.sprite = primaryHandGrabSprites[6 * GetDirection(primaryDir) + hurtState + (hurtState == 3 ? hurtFrame : 0)];
+        }
+        else
+        {
+            primaryHandSR.sprite = primaryHandSprites[6 * GetDirection(primaryDir) + hurtState + (hurtState == 3 ? hurtFrame : 0)];
+        }
+
+        //primaryHandSR.sprite = PlayerAttack.Instance.Attacking ? ;
 
         if (GameManager.Instance.BetweenRounds)
             secondaryHandSR.sprite = null;

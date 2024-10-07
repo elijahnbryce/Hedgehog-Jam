@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     private float sliderValue;
     [SerializeField] private GameObject projectile;
     [SerializeField] private List<Color> colors = new();
+    [SerializeField] private DragController rubberRender;
     private Transform launchPoint;
 
     private bool attacking;
@@ -59,6 +60,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 //attackPower += Time.deltaTime;
                 attackPower = PlayerMovement.Instance.GetAttackPower();
+                rubberRender.UpdateBand(attackMax / attackPower);
             }
             else
                 AttackHalt();
@@ -114,16 +116,5 @@ public class PlayerAttack : MonoBehaviour
     private Color AttackStateToColor(int state)
     {
         return colors[state];
-        switch (state)
-        {
-            case 1:
-                return Color.yellow;
-            case 2:
-                return Color.green;
-            case 3:
-                return Color.magenta;
-            default: //and 0
-                return Color.red;
-        }
     }
 }

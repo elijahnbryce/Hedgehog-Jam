@@ -6,7 +6,7 @@ public class DragController : MonoBehaviour
 {
     private LineRenderer line;
     [SerializeField] private Transform firstHand, secondHand;
-    [SerializeField] private ParticleSystem particleSystem; // Reference to the particle system
+    [SerializeField] private ParticleSystem particleSystem;
     private Transform launchPoint, releasePoint;
 
     private Vector3 startPos, endPos;
@@ -31,6 +31,12 @@ public class DragController : MonoBehaviour
             shape.shapeType = ParticleSystemShapeType.SingleSidedEdge; 
             particleSystem.Stop(); 
         }
+    }
+
+    public void UpdateBand(float strength)
+    {
+        //strength 0-1
+
     }
 
     private void DragStart()
