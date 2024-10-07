@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selfEntity: {fileID: 0}
   entityStateChangers: []
-  patrolSpeed: 10
-  amplitude: 0.5
+  patrolSpeed: 1
+  amplitude: 5
   amplitudeOffset: 0.5
-  ySpeed: 2
-  yAmplitude: 2
+  ySpeed: 1
+  yAmplitude: 5
   yAmplitudeOffset: 0.5
   patrolDuration: 4
