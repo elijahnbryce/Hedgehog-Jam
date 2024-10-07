@@ -12,6 +12,8 @@ public class DragController : MonoBehaviour
     private Vector3 startPos, endPos;
     private bool isDragging;
 
+    private Color currentColor, targetColor;
+
     private void Start()
     {
         PlayerAttack.OnAttackInitiate += DragStart;
@@ -35,8 +37,44 @@ public class DragController : MonoBehaviour
 
     public void UpdateBand(float strength)
     {
-        //strength 0-1
+        // Ensure PlayerAttack.Instance is not null
+        if (PlayerAttack.Instance == null)
+        {
+            Debug.LogError("PlayerAttack.Instance is null");
+            return;
+        }
 
+        targetColor = PlayerAttack.Instance.CurrentColor;
+        //targetColor = PlayerAttack.Instance.AttackStateToColor((int)(strength * 4));
+        //strength 0-1
+        currentColor = Color.Lerp(currentColor, targetColor, Time.deltaTime * 10f);
+
+        // Update line renderer if it exists
+        if (line != null)
+        {
+            line.startColor = currentColor;
+            line.endColor = currentColor;
+        }
+        else
+        {
+            Debug.LogWarning("Line renderer is null");
+        }
+
+        // Get ParticleSystem component
+        ParticleSystem ps = particleSystem;
+        if (ps != null)
+        {
+            ParticleSystem.MainModule main = ps.main;
+            main.startColor = new ParticleSystem.MinMaxGradient(currentColor);
+            main.startSpeed = strength * 0.5f + 0.25f;
+
+            var em = ps.emission;
+            em.rateOverTime = strength * 10 + 2;
+        }
+        else
+        {
+            Debug.LogError("ParticleSystem component not found on this GameObject");
+        }
     }
 
     private void DragStart()

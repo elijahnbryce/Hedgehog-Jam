@@ -10,6 +10,8 @@ public class PlayerAttack : MonoBehaviour
     private float sliderValue;
     [SerializeField] private GameObject projectile;
     [SerializeField] private List<Color> colors = new();
+    private Color currentColor = Color.white;
+    public Color CurrentColor { get { return currentColor; } }
     [SerializeField] private DragController rubberRender;
     private Transform launchPoint;
 
@@ -42,7 +44,9 @@ public class PlayerAttack : MonoBehaviour
         int flooredValue = Mathf.FloorToInt(sliderValue * 4);
         attackState = flooredValue;
 
-        attackSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = AttackStateToColor(flooredValue);
+
+        currentColor = AttackStateToColor(flooredValue);
+        attackSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = currentColor;
 
 
         if (Input.GetMouseButtonDown(0))
@@ -113,7 +117,7 @@ public class PlayerAttack : MonoBehaviour
         attackPower = 0;
     }
 
-    private Color AttackStateToColor(int state)
+    public Color AttackStateToColor(int state)
     {
         return colors[state];
     }
