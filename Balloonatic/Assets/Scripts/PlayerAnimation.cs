@@ -52,10 +52,10 @@ public class PlayerAnimation : MonoBehaviour
         var hurtState = 4 - GameManager.Instance.health;
         //secondaryHandSR.sprite = secondaryHandAnimations[animationIndex].Sprites[frame];
 
-        var primaryDir = PlayerMovement.Instance.GetDirectionToMouse(); ;
+        var primaryDir = PlayerMovement.Instance.GetDirectionToMouse(true); ;
         var secondaryDir = PlayerMovement.Instance.GetDirectionToPrimaryHand();
 
-        primaryHandSR.sprite = secondaryHandSprites[6 * GetDirection(primaryDir) + hurtState + (hurtState == 3 ? hurtFrame : 0)];
+        primaryHandSR.sprite = primaryHandSprites[6 * GetDirection(primaryDir) + hurtState + (hurtState == 3 ? hurtFrame : 0)];
 
         if (GameManager.Instance.BetweenRounds)
             secondaryHandSR.sprite = null;

@@ -86,34 +86,44 @@ public class UpgradeManager : MonoBehaviour
 
     public void ClaimUpgrade(int ind)
     {
-        SpawnSticker(upgrades[ind].UpgradeType);
+        SpawnSticker(upgrades[ind].UpgradeType, transform.GetChild(ind).GetChild(0).position);
+
+        for (int i = 0; i < 2; i++)
+        {
+            transform.GetChild(i).GetChild(0).gameObject.SetActive(ind!=i);
+        }
+
         UnspawnUpgrades();
     }
 
-    private void SpawnSticker(UpgradeType type)
+    private void SpawnSticker(UpgradeType type, Vector2 spawnPos)
     {
-        var spawnPos = Vector2.zero;
+        var newSticker = Instantiate(stickerPrefab, spawnPos, Quaternion.identity);
+        newSticker.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = upgrades.Where(u => u.UpgradeType.Equals(type)).ToList()[0].UpgradeSprite;
+
+        var stickerFinalPos = Vector2.zero;
         var tries = 0;
         var keepGoing = true;
         while (tries++ < maxAttempts && keepGoing)
         {
-            spawnPos = new Vector2(Random.Range(-bounds.x, bounds.x), Random.Range(-bounds.y, bounds.y));
+            stickerFinalPos = new Vector2(Random.Range(-bounds.x, bounds.x), Random.Range(-bounds.y, bounds.y));
 
             keepGoing = false;
             foreach (var point in points)
             {
-                if (Vector2.Distance(spawnPos, point) < 2)
+                if (Vector2.Distance(stickerFinalPos, point) < 2)
                 {
                     keepGoing = true;
                 }
             }
         }
-        points.Add(spawnPos);
+        points.Add(stickerFinalPos);
 
-        var newSticker = Instantiate(stickerPrefab, spawnPos, Quaternion.identity);
-        newSticker.transform.Rotate(0, 0, Random.Range(-60, 60));
-        newSticker.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = upgrades.Where(u => u.UpgradeType.Equals(type)).ToList()[0].UpgradeSprite;
+        //var newSticker = Instantiate(stickerPrefab, spawnPos, Quaternion.identity);
+        //newSticker.transform.Rotate(0, 0, Random.Range(-60, 60));
 
+        newSticker.transform.DOLocalRotate(new Vector3(0, 0, Random.Range(-60, 60)), 1f);
+        newSticker.transform.DOMove(stickerFinalPos, 1f);
     }
 
     List<Vector2> GeneratePoints(int count, float startX, float endX, float startY, float endY)

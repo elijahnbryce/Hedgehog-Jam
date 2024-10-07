@@ -28,12 +28,12 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.Log("Game Manager Already Exists");
+            Debug.LogWarning("Game Manager Already Exists");
             Destroy(gameObject);
         }
         else
         {
-            Debug.Log("Game Manager Set");
+            Debug.LogWarning("Game Manager Set");
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }

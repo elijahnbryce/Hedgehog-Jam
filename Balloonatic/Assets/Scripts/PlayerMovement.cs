@@ -174,6 +174,15 @@ public class PlayerMovement : MonoBehaviour
         return cachedDirection;
     }
 
+    public Vector2 GetDirectionToMouse(bool _)
+    {
+        if (Moving)
+        {
+            return -rigidBody.velocity;
+        }
+        return cachedDirection;
+    }
+
     public Vector2 GetDirectionToPrimaryHand()
     {
         var dir = secondHand.position - transform.position;
