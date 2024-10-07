@@ -25,15 +25,25 @@ public class EntityStats : MonoBehaviour
 
     private void Update()
     {
-        if (health <= 0)
-        {
-            Die();
-        }
+        //if (health <= 0)
+        //{
+        //    Die();
+        //}
 
         effectiveMovementSpeed = movementSpeed * movementSpeedMult;
     }
 
     //component-specific methods
+
+    public virtual void TakeDamage(int damage)
+    {
+        GameManager gm = GameManager.Instance;
+        float damageBoost = gm.GetPowerMult(UpgradeType.Fire);
+        health -= damage * damageBoost;
+        if (health <= 0) {
+            Die();
+        }
+    }
 
     public virtual void IncrementHealth(float increment)
     {
@@ -47,8 +57,12 @@ public class EntityStats : MonoBehaviour
 
     public virtual void Die()
     {
+        GameManager gm = GameManager.Instance;
+        float scoreBoost = gm.GetPowerMult(UpgradeType.Rainbow);
         //play death animation
         //destroy
-        Destroy(selfEntity.gameObject);
+        gm.RemoveEnemy(selfEntity.gameObject);
+        gm.UpdateScore(Mathf.RoundToInt(10 * scoreBoost));
+        //Destroy(selfEntity.gameObject);
     }
 }
