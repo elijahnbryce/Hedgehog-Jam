@@ -37,6 +37,7 @@ public class EntityStats : MonoBehaviour
 
     public virtual void TakeDamage(int damage)
     {
+        Debug.Log("Enemy Take Damage: " + damage);
         GameManager gm = GameManager.Instance;
         float damageBoost = gm.GetPowerMult(UpgradeType.Fire);
         health -= damage * damageBoost;

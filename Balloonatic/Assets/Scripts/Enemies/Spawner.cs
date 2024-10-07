@@ -32,7 +32,7 @@ public class Spawner : MonoBehaviour
         {
             Debug.Log("Spawner Set");
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -49,7 +49,7 @@ public class Spawner : MonoBehaviour
     private IEnumerator SpawnEnemy(int spawnLim, int typeLim, int toSpawn = 1)
     {
         int randPoint = -1;
-	
+
         for (int i = 0, temp; i < toSpawn; i++)
         {
             temp = randPoint;
@@ -62,7 +62,7 @@ public class Spawner : MonoBehaviour
 
 	        gm.AddEnemy(newEnemy);
             if (gm.enemyList.Count < spawnLim)
-                StartCoroutine(SpawnEnemy(spawnLim, typeLim));
+                StartCoroutine(SpawnEnemy(spawnLim, typeLim)); // always 1 toSpawn
         }
     } 
 }
