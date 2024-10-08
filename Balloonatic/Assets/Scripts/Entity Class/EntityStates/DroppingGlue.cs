@@ -23,7 +23,7 @@ public class DroppingGlue : EntityState //must inherit from "EntityState"
         while (true)
         {
             yield return new WaitForSeconds(2);
-            Instantiate(gluePrefab, selfEntity.transform.position, selfEntity.transform.rotation);
+            Instantiate(gluePrefab, selfEntity.transform.position + new Vector3(0, -0.8f), selfEntity.transform.rotation);
             if (!isActive) { break; }
         }
     }
