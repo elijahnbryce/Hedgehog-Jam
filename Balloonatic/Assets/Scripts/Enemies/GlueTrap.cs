@@ -6,30 +6,36 @@ public class GlueTrap : MonoBehaviour
 {
     private GameObject player;
     private PlayerMovement pm;
-    private Vector3 scaleChange;
 
-    private bool isScaling;
+    public Collider2D trigger;
+    public float dropTime = 0.5f;
+
+    public GameObject drop;
+    public GameObject spot;
 
     void Start()
     {
-	player = GameObject.Find("Player");
-	pm = player.GetComponent<PlayerMovement>(); 
-
-	isScaling = true;
-
-	scaleChange = new Vector3(0.1f, 0.1f, 0.1f);	
+	    player = GameObject.Find("Player");
+	    pm = player.GetComponent<PlayerMovement>();
+        StartCoroutine(GlueDropSequence());
+        
     }
 
-    void FixedUpdate()
+    private IEnumerator GlueDropSequence()
     {
-	if (isScaling) {
-		transform.localScale += scaleChange;
-		
-		if (transform.localScale.y > 2)
-			isScaling = false;
-	}
+        Vector3 dropFromPosition = drop.transform.position;
+        Vector3 dropToPosition = spot.transform.position;
+        for (float time = 0; time < dropTime; time += Time.deltaTime)
+        {
+            Vector3 currentPosition = Vector3.Lerp(dropFromPosition, dropToPosition, time / dropTime);
+            drop.transform.position = currentPosition;
+            yield return null;
+        }
+        drop.SetActive(false);
+        spot.SetActive(true);
+        trigger.enabled = true;
 
-	StartCoroutine(Life());
+        Destroy(this.gameObject, 5f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -46,10 +52,4 @@ public class GlueTrap : MonoBehaviour
         	pm.movementSpeed *= 3;
         }
     } 
-
-    private IEnumerator Life()
-    {
-	yield return new WaitForSeconds(5);
-	Destroy(this.gameObject);
-    }
 }
