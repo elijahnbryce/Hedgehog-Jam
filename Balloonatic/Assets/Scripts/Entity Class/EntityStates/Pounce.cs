@@ -32,8 +32,9 @@ public class Pounce : EntityState //must inherit from "EntityState"
         for (float jumpTime = 0; jumpTime < jumpDuration; jumpTime += Time.deltaTime)
         {
             Vector2 currentPosition = selfEntity.transform.position;
-            float slerpFactor = jumpCurve.Evaluate(jumpTime/jumpDuration);
-            Vector2 nextPosition = Vector3.Slerp(myInitialPosition, targetPosition, slerpFactor);
+            float jumpHeight = jumpCurve.Evaluate(jumpTime/jumpDuration);
+            Vector2 nextPosition = Vector3.Lerp(myInitialPosition, targetPosition, jumpTime/jumpDuration);
+            nextPosition.y += jumpHeight;
             selfEntity.physical.Move(nextPosition - currentPosition);
             yield return null;
         }
