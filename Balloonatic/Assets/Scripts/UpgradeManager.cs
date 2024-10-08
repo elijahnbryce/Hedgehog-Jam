@@ -126,8 +126,9 @@ public class UpgradeManager : MonoBehaviour
         //var newSticker = Instantiate(stickerPrefab, spawnPos, Quaternion.identity);
         //newSticker.transform.Rotate(0, 0, Random.Range(-60, 60));
 
-        newSticker.transform.DOLocalRotate(new Vector3(0, 0, Random.Range(-60, 60)), 1f);
-        newSticker.transform.DOMove(stickerFinalPos, 1f);
+        //newSticker.transform.DOLocalRotate(new Vector3(0, 0, Random.Range(-60, 60)), 1f);
+        newSticker.transform.position = stickerFinalPos;
+        newSticker.GetComponent<Sticker>().Set();
     }
 }
 
