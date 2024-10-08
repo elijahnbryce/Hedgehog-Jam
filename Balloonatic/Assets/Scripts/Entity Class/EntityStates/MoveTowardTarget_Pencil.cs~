@@ -8,24 +8,51 @@ using UnityEngine;
 public class MoveTowardTarget_Pencil : EntityState //must inherit from "EntityState"
 {
    private List<string> bodyPart = new List<string>
-   					{"Segment_1", "Segment_2", "Segment_3", "Tail"}; 
+   					{"Player", "Head", "Segment_1", "Segment_2", "Segment_3", "Tail"}; 
+   private Vector2 targetPosition;
 
     public override void FixedUpdate()
     {
-	for (int i=0; i<4; i++) {
+	//if (GameObject.Find("Head") == null)
+	//	selfEntity.stats.Die();
+
+	for (int i=1; i<6; i++) {
+		GameObject prev = GameObject.Find(bodyPart[i-1]);
+		GameObject head = GameObject.Find(bodyPart[1]);
+
 		if (selfEntity.gameObject.name == bodyPart[i]) {
-			Vector2 targetPosition = selfEntity.ai.targets[i+1].targetGameObject.transform.position; //how to access the current target
-			Vector2 selfPosition = selfEntity.gameObject.transform.position;
-			Vector2 direction = targetPosition - selfPosition;
+			if (prev == null) {
+				for (int j=i-1; j>=0; j--) {
+					if (GameObject.Find(bodyPart[j]) != null) {	
+						targetPosition = GameObject.Find(bodyPart[j]).transform.position;
+						break;
+					}
+				}
+				
+			} else {
+				targetPosition = prev.transform.position;
+			}
+
+			if (head == null)
+				selfEntity.stats.movementSpeed = 30;
 			
-			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-			//example of how to move the entity based on a direction vector
-			selfEntity.physical.DirectionalMove(direction.normalized);
-			selfEntity.gameObject.transform.rotation = Quaternion.Euler(Vector3.forward * angle);
-			
-			selfEntity.physical.ClampToSpeed();
+			MoveTowards();
+
 		}
 	}	
+    }
+
+    public void MoveTowards()
+    {
+	Vector2 selfPosition = selfEntity.gameObject.transform.position;
+	Vector2 direction = targetPosition - selfPosition;
+	
+	float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+	//example of how to move the entity based on a direction vector
+	selfEntity.physical.DirectionalMove(direction.normalized);
+	selfEntity.gameObject.transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+	
+	selfEntity.physical.ClampToSpeed();
     }
 }
 

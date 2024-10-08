@@ -7,19 +7,15 @@ public class Patrol : EntityState
 {
 	private Vector3 patrolPosition;
 	private Vector3 myInitialPosition;
-		
-	public float patrolSpeed,
-	       		amplitude,
-	       		amplitudeOffset;
-	public float ySpeed,
-	       		yAmplitude,
-			yAmplitudeOffset;
 
-	public float patrolDuration = 0.5f;
-		
+	public float perpScale = 20f;
+	private int flip = 1;
+
 	public List<GameObject> spawnTransforms = new List<GameObject>();
 
 	public List<GameObject> spawnTargets = new List<GameObject>();
+
+	public AnimationCurve curve;
 
 	public override void Initialize(Entity thisEntity, List<EntityStateChanger> stateChangers)
 	{
@@ -30,6 +26,7 @@ public class Patrol : EntityState
 		spawnTransforms.Add(GameObject.Find("Spawnpoint3"));
 		spawnTransforms.Add(GameObject.Find("Spawnpoint4"));	
 
+		selfEntity.StartCoroutine(WaveSequence());
 	}
 
 	public override void Enter()
@@ -52,23 +49,35 @@ public class Patrol : EntityState
 
 	public override void FixedUpdate()
 	{	
-		//int randPoint = Random.Range(0, 4);
-		
+				
 		if (spawnTargets.Count > 0) {
 
 			Vector2 targetPosition = spawnTargets[0].transform.position; //how to access the current target
 			Vector2 selfPosition = selfEntity.gameObject.transform.position;
+			//add lerp-like scalar variable that slowly incements towards direction defined here
 			Vector2 direction = targetPosition - selfPosition;
 			
-			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-			//example of how to move the entity based on a direction vector
-			//selfEntity.physical.DirectionalMove(direction.normalized);
-			selfEntity.transform.position = Vector3.Lerp(selfPosition, targetPosition, Time.time); 
-			selfEntity.gameObject.transform.rotation = Quaternion.Euler(Vector3.forward * angle);
-			
-			selfEntity.physical.ClampToSpeed();
+			Vector2 cross = Vector2.Perpendicular(direction);
+			cross = cross.normalized;
+			cross *= perpScale;
+			cross += cross.normalized*direction.magnitude;
+			cross *= flip;
 
-			if (direction.magnitude < 4) {
+			Debug.DrawRay(targetPosition, cross, Color.red, 4, false);
+		        //Debug.DrawRay(selfPosition, direction, Color.green, 4, false);	
+			//Debug.Log(cross.magnitude);	
+			Vector2 crossDirection = direction + cross;
+			
+			float angle = Mathf.Atan2(crossDirection.y, crossDirection.x) * Mathf.Rad2Deg;
+					
+			selfEntity.physical.DirectionalMove(crossDirection);	
+			
+			selfEntity.gameObject.transform.rotation = Quaternion.Lerp(selfEntity.gameObject.transform.rotation, 
+											Quaternion.Euler(Vector3.forward * angle), 0.1f);
+			
+			selfEntity.physical.ClampToSpeed();	
+
+			if (direction.magnitude < 8) {
 		       		if (spawnTargets.Count > 0) {	
 					spawnTargets.RemoveAt(0);
 					//Debug.Log("Amount in list: " +spawnTargets.Count);
@@ -79,17 +88,12 @@ public class Patrol : EntityState
 		}
 	}	
 
-	//public IEnumerator PatrolSequence()
-	//{
-	//	for (float patrolTime=0; patrolTime < patrolDuration; patrolTime += Time.deltaTime) {
-	//		float lerpFactor = patrolTime/patrolDuration;
-	//		//var yOffset = new Vector3(0, Mathf.Sin(lerpFactor * ySpeed) * yAmplitude + yAmplitude, 0);	
-	//		//selfEntity.transform.position = Vector3.Lerp(myInitialPosition + yOffset, patrolPosition + yOffset, 
-	//		//				Mathf.Sin(lerpFactor * patrolSpeed) * amplitude + amplitudeOffset);
-	//		selfEntity.transform.position = Vector3.Lerp(myInitialPosition, patrolPosition, lerpFactor);
-	//		yield return null;
-	//	}
-	//	patrolSequence = null;
-	//	ManualExit();	
-	//}
+	IEnumerator WaveSequence()
+	{
+		while (true) {
+			flip *= -1;
+			yield return new WaitForSeconds(2f);
+		}	
+	}
+
 }
