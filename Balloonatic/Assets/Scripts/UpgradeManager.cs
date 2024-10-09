@@ -50,7 +50,8 @@ public class UpgradeManager : MonoBehaviour
             newSeq.AppendCallback(() => SoundManager.Instance.PlaySoundEffect("upgrades_spawn"));
             child.DOShakeRotation(0.25f);
             var strct = upgrades[ind];
-            child.GetChild(0).GetComponent<SpriteRenderer>().GetComponent<SpriteRenderer>().sprite = strct.UpgradeSprite;
+            child.GetChild(0).GetComponent<SpriteRenderer>().sprite = strct.UpgradeSprite;
+            child.GetComponent<SpriteRenderer>().sprite = strct.PaperSprite;
 
             ind++;
         }
@@ -124,6 +125,7 @@ public struct UpgradeStruct
 {
     public UpgradeType UpgradeType;
     public Sprite UpgradeSprite;
+    public Sprite PaperSprite;
     public int AmountClaimed;
 }
 
@@ -140,13 +142,18 @@ knife - piercing: when a band kills, it keeps going x times where x is the amoun
 
 public enum UpgradeType
 {
-    Heart = 0, 
-    //Shoe = 1,
+    Heart = 0,
     Pizza = 1,
     Rainbow = 2,
     Star = 3,
     Lightning = 4,
     Fire = 5,
-    //Knife = 7,
-    Ghost = 6
+    Ghost = 6,
+    Question = 7,
+    Confusion = 8,
+    Evil_Pizza = 9,
+    Penny = 10,
+    Nickel = 11,
+    Dime = 12,
+    Quarter = 13
 }
