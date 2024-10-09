@@ -128,6 +128,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2039781728614425449, guid: 12231e9667da18b49b578f3777f5bce5, type: 3}
   m_PrefabInstance: {fileID: 908508836}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &140345843 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8516599927649087816, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+  m_PrefabInstance: {fileID: 772873608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &143269577
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +541,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12231e9667da18b49b578f3777f5bce5, type: 3}
+--- !u!114 &368245967 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 555690518188005504, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+  m_PrefabInstance: {fileID: 772873608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &409971181
 GameObject:
   m_ObjectHideFlags: 0
@@ -7021,10 +7043,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -270
       objectReference: {fileID: 0}
-    - target: {fileID: 8010281694146997280, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7921663037691728320, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -7032,6 +7050,10 @@ PrefabInstance:
     - target: {fileID: 7921663037691728320, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: QuitApp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010281694146997280, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8077529708601697213, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -7497,6 +7519,17 @@ MonoBehaviour:
   m_Spacing: {x: 6.6666665, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &992848860 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4515635636729609004, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+  m_PrefabInstance: {fileID: 772873608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1040355298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13272,6 +13305,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 772873617}
     - target: {fileID: 2716965479294858782, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
+      propertyPath: endTime
+      value: 
+      objectReference: {fileID: 140345843}
+    - target: {fileID: 2716965479294858782, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
       propertyPath: hsInput
       value: 
       objectReference: {fileID: 772873609}
@@ -13279,6 +13316,14 @@ PrefabInstance:
       propertyPath: loseCan
       value: 
       objectReference: {fileID: 772873619}
+    - target: {fileID: 2716965479294858782, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
+      propertyPath: endKills
+      value: 
+      objectReference: {fileID: 992848860}
+    - target: {fileID: 2716965479294858782, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
+      propertyPath: endScore
+      value: 
+      objectReference: {fileID: 368245967}
     - target: {fileID: 2716965479294858782, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
       propertyPath: goalText
       value: 

@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         UpdateHealth(0);
 
         NewWave();
-        EraserManager.Instance.SpawnConfig();
+        //EraserManager.Instance.SpawnConfig();
     }
 
     private void EverythingFalse()
@@ -99,12 +99,13 @@ public class GameManager : MonoBehaviour
     }
     public void NewWave()
     {
+
         //if (restart) return;
         Debug.Log("New wave");
         ts.StartTime();
         Time.timeScale = 1;
         betweenRounds = false;
-        //EraserManager.Instance.SpawnConfig();
+        EraserManager.Instance.SpawnConfig();
 
         wave++;
         int toSpawn = Mathf.FloorToInt(10 / wave) + 1;

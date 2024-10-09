@@ -44,42 +44,71 @@ public class EraserManager : MonoBehaviour
 
     public void SpawnConfig()
     {
-        while (transform.childCount > 0)
-            Destroy(transform.GetChild(0));
-
-        var chosenConfig = Instantiate(configs[Random.Range(0, configs.Count)]).transform;
-        chosenConfig.parent = transform;
-        chosenConfig.transform.Translate(Vector3.up * 20f);
-
-        //Destroy(chosenConfig.gameObject);
-
-        var bools = GenerateBools(chosenConfig.childCount);
-
-        var ind = 0;
-        foreach (Transform child in chosenConfig)
+        // Clear existing children
+        foreach (Transform child in transform)
         {
+            Destroy(child.gameObject);
+        }
+
+        // Ensure configs list is not empty
+        if (configs.Count == 0)
+        {
+            Debug.LogError("No configs available in EraserManager.");
+            return;
+        }
+
+        // Instantiate new config
+        GameObject chosenConfigObj = Instantiate(configs[Random.Range(0, configs.Count)], transform);
+        Transform chosenConfig = chosenConfigObj.transform;
+        chosenConfig.localPosition = Vector3.up * 20f;
+
+        // Generate bools for child activation
+        List<bool> bools = GenerateBools(chosenConfig.childCount);
+
+        // Process each child
+        for (int ind = 0; ind < chosenConfig.childCount; ind++)
+        {
+            Transform child = chosenConfig.GetChild(ind);
             child.gameObject.SetActive(bools[ind]);
-            var seq = DOTween.Sequence();
-            seq.AppendInterval(ind++ * 0.1f);
+
+            // Create a local copy of ind for the closure
+            int capturedInd = ind;
+
+            Sequence seq = DOTween.Sequence();
+            seq.AppendInterval(capturedInd * 0.1f);
             seq.Append(child.DOMove(child.position - Vector3.up * 20f, 1f));
             seq.AppendCallback(() =>
             {
                 foreach (Transform child2 in child)
                 {
-                    child2.GetComponent<SpriteRenderer>().material = whiteMat;
+                    SpriteRenderer spriteRenderer = child2.GetComponent<SpriteRenderer>();
+                    if (spriteRenderer != null)
+                    {
+                        spriteRenderer.material = whiteMat;
+                    }
                 }
                 child.DOPunchScale(Vector2.one * 0.1f, 0.1f);
-                SoundManager.Instance.PlaySoundEffect("eraser_spawn");
+                if (SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.PlaySoundEffect("eraser_spawn");
+                }
             });
             seq.AppendInterval(0.1f);
             seq.AppendCallback(() =>
             {
                 foreach (Transform child2 in child)
                 {
-                    child2.GetComponent<SpriteRenderer>().material = defaultMat;
+                    SpriteRenderer spriteRenderer = child2.GetComponent<SpriteRenderer>();
+                    if (spriteRenderer != null)
+                    {
+                        spriteRenderer.material = defaultMat;
+                    }
                 }
 
-                GameManager.Instance.BetweenRounds = false;
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.BetweenRounds = false;
+                }
             });
         }
     }
