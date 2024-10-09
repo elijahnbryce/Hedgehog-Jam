@@ -20,6 +20,7 @@ public class AvoidEntity : EntityState
 		cc.radius = radiusSize;
 		
 		cc.isTrigger = true;
+		cc.enabled = false;
 			
 	}
 	

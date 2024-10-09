@@ -17,6 +17,7 @@ public class Pounce : EntityState //must inherit from "EntityState"
 
     public override void Enter() //called when state is set to active
     {
+        selfEntity.physical.rb.velocity = Vector2.zero;
         targetPosition = selfEntity.ai.targets[0].targetGameObject.transform.position;
         myInitialPosition = selfEntity.gameObject.transform.position;
         if (pounceSequence == null )
@@ -35,16 +36,16 @@ public class Pounce : EntityState //must inherit from "EntityState"
 
         for (float jumpTime = 0; jumpTime < jumpDuration; jumpTime += Time.deltaTime)
         {
-	    Vector2 currentPosition = selfEntity.transform.position;
+	        Vector2 currentPosition = selfEntity.transform.position;
             float jumpHeight = jumpCurve.Evaluate(jumpTime/jumpDuration);
             Vector2 nextPosition = Vector3.Lerp(myInitialPosition, targetPosition, jumpTime/jumpDuration);
 	    
-	    Vector2 shadowLerp = Vector3.Lerp(shadowPosition, shadowPosition, jumpTime/jumpDuration);
+	        Vector2 shadowLerp = Vector3.Lerp(shadowPosition, shadowPosition, jumpTime/jumpDuration);
 
-	    shadowLerp.y -= jumpHeight; 
+	        shadowLerp.y -= jumpHeight; 
             nextPosition.y += jumpHeight;
             selfEntity.physical.Move(nextPosition - currentPosition);
-	    selfEntity.visual.shadowObject.transform.localPosition = shadowLerp;
+	        selfEntity.visual.shadowObject.transform.localPosition = shadowLerp;
             yield return null;
         }
         pounceSequence = null;

@@ -204,6 +204,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Enemy":
+                Debug.Log("Player damaged");
+                GameManager.Instance.UpdateHealth();
+                break;
+        }
+    }
+
     private IEnumerator UpgradeCountdown()
     {
         while(upgradeTimer > 0)
