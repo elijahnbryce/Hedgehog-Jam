@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Enemy
   - Selection
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -54,6 +55,9 @@ TagManager:
     locked: 0
   - name: Environment
     uniqueID: 550146273
+    locked: 0
+  - name: Coins
+    uniqueID: 167817207
     locked: 0
   - name: Particle
     uniqueID: 4036395151

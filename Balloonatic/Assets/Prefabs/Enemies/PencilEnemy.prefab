@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496fd51580ba9034397c64f61dd40d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 4
   movementSpeed: 10
   movementSpeedMult: 1
   effectiveMovementSpeed: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496fd51580ba9034397c64f61dd40d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 4
   movementSpeed: 10
   movementSpeedMult: 1
   effectiveMovementSpeed: 0
@@ -544,7 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496fd51580ba9034397c64f61dd40d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 4
   movementSpeed: 10
   movementSpeedMult: 1
   effectiveMovementSpeed: 0
@@ -797,7 +797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496fd51580ba9034397c64f61dd40d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 4
   movementSpeed: 10
   movementSpeedMult: 1
   effectiveMovementSpeed: 0
@@ -1061,7 +1061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496fd51580ba9034397c64f61dd40d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 4
   movementSpeed: 10
   movementSpeedMult: 1
   effectiveMovementSpeed: 1

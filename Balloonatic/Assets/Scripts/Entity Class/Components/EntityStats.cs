@@ -65,5 +65,7 @@ public class EntityStats : MonoBehaviour
         gm.RemoveEnemy(selfEntity.gameObject);
         gm.UpdateScore(Mathf.RoundToInt(10 * scoreBoost));
         //Destroy(selfEntity.gameObject);
+
+        CoinManager.Instance.SpawnCoins(transform.position);
     }
 }

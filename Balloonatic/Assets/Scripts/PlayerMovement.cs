@@ -119,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
             //sprite flipx doesnt work
             if (counter > 0.15f)
             {
+                SoundManager.Instance.PlaySoundEffect("player_walk");
                 //play footstep sound here
                 counter = 0;
             }
@@ -210,7 +211,10 @@ public class PlayerMovement : MonoBehaviour
                 GameManager.Instance.UpdateHealth();
                 // status change
                 break;
-
+            case "Coin":
+                collision.GetComponent<Coin>().ClaimCoin();
+                Debug.Log("Picked up coin.");
+                    break;
             default:
                 break;
         }

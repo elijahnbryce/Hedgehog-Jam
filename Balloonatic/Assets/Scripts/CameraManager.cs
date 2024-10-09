@@ -7,7 +7,6 @@ using UnityEngine.U2D;
 public class CameraManager : MonoBehaviour
 {
     private Transform playerTransform;
-    private float currentZoom, targetZoom;
     [SerializeField] private Vector2 maxPos;
     private Vector2 minPos;
     public static CameraManager Instance { get; private set; }
@@ -18,7 +17,6 @@ public class CameraManager : MonoBehaviour
     }
     void Start()
     {
-        currentZoom = targetZoom = 5;
         playerTransform = PlayerMovement.Instance.transform;
         PlayerAttack.OnAttackInitiate += AttackStart;
         PlayerAttack.OnAttackHalt += AttackEnd;
@@ -32,22 +30,16 @@ public class CameraManager : MonoBehaviour
         newPos.y = Mathf.Clamp(newPos.y, minPos.y, maxPos.y);
         //ass code fix later
         transform.localPosition = new Vector3(newPos.x, newPos.y, -10);
-
-        //transform.localScale = Vector2.one * currentZoom;
-
-        //ass code fix later
-        //GetComponent<Camera>().orthographicSize = currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * 0.5f);
-        //GetComponent<PixelPerfectCamera>().assetsPPU = Mathf.RoundToInt(100 / GetComponent<Camera>().orthographicSize);
     }
 
     private void AttackStart()
     {
-        targetZoom = 3f;
+
     }
 
     private void AttackEnd()
     {
-        targetZoom = 5f;
+
     }
 
     public void ScreenShake() => ScreenShake(0.25f);

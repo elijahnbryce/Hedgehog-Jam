@@ -65,6 +65,7 @@ public class RubberBand : MonoBehaviour
         //ass code fix later
         if (collision.gameObject.tag == "Wall")
         {
+            SoundManager.Instance.PlaySoundEffect("band_hit");
             CameraManager.Instance.ScreenShake();
             if (bounces <= 0)
             {
