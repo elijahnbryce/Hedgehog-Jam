@@ -42,7 +42,7 @@ public class EntityPhysical : MonoBehaviour
     {
         rb.MovePosition(rb.position + movement);
     }
-
+ 
     public virtual void ClampToSpeed()
     {
 	rb.velocity = Vector2.ClampMagnitude(rb.velocity, selfEntity.stats.effectiveMovementSpeed);
