@@ -144,14 +144,14 @@ MonoBehaviour:
     entityStateChangers:
     - toState: {fileID: 11400000, guid: cff919253a6fd3e47bd80b1d056c5e96, type: 2}
       conList: 01000000
-      distanceToTarget: 10
+      distanceToTarget: 5
       statesEntered: 0
   - state: {fileID: 11400000, guid: cff919253a6fd3e47bd80b1d056c5e96, type: 2}
     active: 1
     entityStateChangers:
     - toState: {fileID: 11400000, guid: 58caeef0952183a498c7786d06e7884d, type: 2}
       conList: 00000000
-      distanceToTarget: 10
+      distanceToTarget: 5
       statesEntered: 0
   nextSegment: {fileID: 0}
   prevSegment: {fileID: 0}

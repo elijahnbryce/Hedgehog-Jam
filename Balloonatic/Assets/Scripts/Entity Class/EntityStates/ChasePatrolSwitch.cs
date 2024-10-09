@@ -64,7 +64,7 @@ public class ChasePatrolSwitch : EntityState
 
 			MoveAndOrient(perpendicular);
 
-			if (direction.magnitude < 8) {
+			if (direction.magnitude < 1) {
 		       		if (spawnTargets.Count > 0) {	
 					spawnTargets.RemoveAt(0);
 					//Debug.Log("Amount in list: " +spawnTargets.Count);

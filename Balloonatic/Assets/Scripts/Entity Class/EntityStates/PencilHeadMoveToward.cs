@@ -14,7 +14,7 @@ public class PencilHeadMoveToward : EntityState //must inherit from "EntityState
     public override void Enter()
     {
         base.Enter();
-        selfEntity.stats.movementSpeedMult = 2;
+        selfEntity.stats.movementSpeedMult = 1.5f;
     }
 
     public override void FixedUpdate()
