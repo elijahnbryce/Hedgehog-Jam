@@ -33,6 +33,10 @@ public class RubberBand : MonoBehaviour
         StartCoroutine(nameof(TimedDestroy));
 
         rb = GetComponent<Rigidbody2D>();
+
+        spiral = false;
+        //removing the spiral bullet for now
+
         if (spiral)
         {
             Vector2 initialDirection = PlayerMovement.Instance.GetDirectionToMouse();
@@ -101,9 +105,11 @@ public class RubberBand : MonoBehaviour
                 bounces = 1;
                 break;
             case 2:
+                bounces = 2;
                 break;
             case 3:
-                spiral = true;
+                bounces = 3;
+                //spiral = true;
                 break;
             default: //and 0
 
