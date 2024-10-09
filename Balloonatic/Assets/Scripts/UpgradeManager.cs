@@ -85,8 +85,7 @@ public class UpgradeManager : MonoBehaviour
 
         while (upgrade == UpgradeType.Question)
         {
-            ind = Random.Range(0, 13+1);
-            upgrade = upgrades[ind].UpgradeType;
+            upgrade = upgrades[Random.Range(0,10)].UpgradeType;
         }
 
         for (int i = 0; i < 2; i++)

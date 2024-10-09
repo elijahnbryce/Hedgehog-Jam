@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public Dictionary<UpgradeType, int> upgradeList = new();
     private Timer ts;
     private bool isInvicible = false;
-    private float scoreMult = 1.1f;
+    [SerializeField] private static float multBonus = 1.2f;
 
     private Camera cam;
 
@@ -112,19 +112,7 @@ public class GameManager : MonoBehaviour
 
         startEnemies = 3 + (wave * 2);
         enemyTypes = Mathf.Min(3, Mathf.CeilToInt(wave / 2));
-        sp.StartSpawn(3, enemyTypes);
-
-        //if (wave == 1)
-        //{
-        //    sp.StartSpawn(startEnemies, 1);
-        //}
-        //else
-        //{
-        //    sp.StartSpawn(startEnemies, 1);
-        //}
-        //else if (wave == 2) {
-        //	sp.StartSpawn(20, 1);
-        //}
+        sp.StartSpawn(startEnemies, enemyTypes);
     }
 
     private int CalcLevelScore(int score)
@@ -178,15 +166,21 @@ public class GameManager : MonoBehaviour
 
     public void RemoveEnemy(GameObject enemy)
     {
+        enemiesKilled++;
         enemyList.Remove(enemy);
         Destroy(enemy);
 
         if (upgradeList.ContainsKey(UpgradeType.Pizza))
         {
-            if (health < fullHealth || ((float)(startEnemies - enemyList.Count) % 10f) == 0f) { UpdateHealth(1); }
+            //if (health < fullHealth || ((float)(startEnemies - enemyList.Count) % 10f) == 0f) { UpdateHealth(1); }
+            if (health < fullHealth)
+            {
+                DecPowerUp(UpgradeType.Pizza);
+                UpdateHealth(1);
+            }
         }
 
-        if(sp.DoneSpawning && enemyList.Count == 0)
+        if (sp.DoneSpawning && enemyList.Count == 0)
         {
             EndLevel(true, levelScore);
         }
@@ -221,8 +215,13 @@ public class GameManager : MonoBehaviour
             case UpgradeType.Heart:
                 UpdateHealth(1);
                 return true;
+            case UpgradeType.Evil_Pizza:
+                UpdateHealth();
+                return true;
             case UpgradeType.Star:
                 StartCoroutine(StarPower());
+                return true;
+            case UpgradeType.Confusion:
                 return true;
         }
         return false;
@@ -255,6 +254,12 @@ public class GameManager : MonoBehaviour
         health += change;
         eV.DisplayHealth(health);
 
+        //if (upgradeList.ContainsKey(UpgradeType.Pizza))
+        //{
+        //    DecPowerUp(UpgradeType.Pizza);
+        //    UpdateHealth(1);
+        //}
+
         if (health <= 0)
         {
             health = 0;
@@ -264,6 +269,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateScore(int change = 1)
     {
+        change = Mathf.FloorToInt(change * GetPowerMult(UpgradeType.Rainbow) * GetPowerMult(UpgradeType.Confusion));
         levelScore += change;
         eV.DisplayScore(levelScore);
     }

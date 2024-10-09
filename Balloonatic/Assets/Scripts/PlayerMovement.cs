@@ -104,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
         PlayerPosition = transform.position;
         if (!CanMove) return;
         var movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (GameManager.Instance.upgradeList.ContainsKey(UpgradeType.Confusion)) { movement *= -Vector2.one; } // Confusion Ability
 
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.nearClipPlane));
@@ -121,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         if (movement.magnitude > 1) movement /= movement.magnitude;
         var gm = GameManager.Instance;
         var speedMult = Mathf.Clamp01(gm.GetHealthRatio() * 2);
-        rigidBody.velocity = movement * movementSpeed * speedMult;
+        rigidBody.velocity = movement * movementSpeed * speedMult * gm.GetPowerMult(UpgradeType.Lightning, 1.5f);
 
 
         if (!attacking)
