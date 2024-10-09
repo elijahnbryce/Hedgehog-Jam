@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8197033558625998339}
   - component: {fileID: 2716965479294858782}
   - component: {fileID: 8442450651302021323}
+  - component: {fileID: 3853350209019214276}
   m_Layer: 0
   m_Name: EventManager
   m_TagString: Untagged
@@ -47,17 +48,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMen: {fileID: 0}
-  winCan: {fileID: 0}
   loseCan: {fileID: 0}
   ovrCan: {fileID: 0}
-  nxtCan: {fileID: 0}
-  loseScore: {fileID: 0}
-  winScore: {fileID: 0}
+  endScore: {fileID: 0}
+  endTime: {fileID: 0}
+  endKills: {fileID: 0}
   goalText: {fileID: 0}
   healthText: {fileID: 0}
   hsText: {fileID: 0}
   timerText: {fileID: 0}
   hsInput: {fileID: 0}
+  ts: {fileID: 0}
 --- !u!114 &8442450651302021323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,10 +75,25 @@ MonoBehaviour:
   health: 4
   wave: 0
   startEnemies: 0
+  enemiesKilled: 0
   gameOver: 0
   gameActive: 0
   gamePaused: 0
   enemyList: []
+--- !u!114 &3853350209019214276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2457337626904455803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4a19dfbc4cce9843be4995309f109b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerActive: 0
+  time: 0
 --- !u!1 &7672033957018506369
 GameObject:
   m_ObjectHideFlags: 0

@@ -92,6 +92,7 @@ public class UpgradeManager : MonoBehaviour
         }
 
         UnspawnUpgrades();
+        GameManager.Instance.NewWave();
     }
 
     private void SpawnSticker(UpgradeType type, Vector2 spawnPos)

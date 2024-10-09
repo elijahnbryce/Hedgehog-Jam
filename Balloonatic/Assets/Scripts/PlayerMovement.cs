@@ -145,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
         layerMask = ~layerMask;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -direction, followingDistance, layerMask);
         //Debug.Log(hit.rigidbody);
-        if (hit.collider != null)
+        if (hit.collider != null && hit.collider.CompareTag("Player"))
         {
             secondTargetPos = hit.point;
         }

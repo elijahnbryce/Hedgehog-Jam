@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Status")]
     [SerializeField] private static int fullHealth = 3;
-    public int health = fullHealth, wave = 0, startEnemies = 0;
+    public int health = fullHealth, wave = 0, startEnemies = 0, enemiesKilled = 0;
     public bool gameOver, gameActive, gamePaused;
 
     private bool betweenRounds = true;
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> enemyList = new List<GameObject>();
     public Dictionary<UpgradeType, int> upgradeList = new();
-    //private Timer ts;
+    private Timer ts;
     private bool isInvicible = false;
     private float scoreMult = 1.1f;
 
@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     {
         sp = Spawner.Instance;
         eV = GetComponent<EventHandler>();
+        ts = GetComponent<Timer>();
         SetLevel();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -63,11 +64,6 @@ public class GameManager : MonoBehaviour
         {
             Cursor.visible = false;
         }
-    }
-
-    public void ReStart()
-    {
-        SetLevel(true);
     }
 
     public void Kill()
@@ -89,11 +85,13 @@ public class GameManager : MonoBehaviour
         UpdateHealth(0);
 
         NewWave();
+        EraserManager.Instance.SpawnConfig();
     }
 
     private void EverythingFalse()
     {
         eV.UIFalse();
+        ts.TimerStart();
 
         gameOver = false;
         gameActive = true;
@@ -103,14 +101,15 @@ public class GameManager : MonoBehaviour
     {
         //if (restart) return;
         Debug.Log("New wave");
-
+        ts.StartTime();
+        Time.timeScale = 1;
         betweenRounds = false;
-        EraserManager.Instance.SpawnConfig();
+        //EraserManager.Instance.SpawnConfig();
 
         wave++;
         int toSpawn = Mathf.FloorToInt(10 / wave) + 1;
-        startEnemies = 3;
 
+        startEnemies = 3;
         sp.StartSpawn(3, 1);
 
         //if (wave == 1)
@@ -124,9 +123,6 @@ public class GameManager : MonoBehaviour
         //else if (wave == 2) {
         //	sp.StartSpawn(20, 1);
         //}
-
-        // change walls or something
-        // ? some effect for enemies
     }
 
     private int CalcLevelScore(int score)
@@ -144,8 +140,10 @@ public class GameManager : MonoBehaviour
 
     public void EndLevel(bool alive, int score)
     {
+        Debug.Log("End Level");
         //Time.timeScale = 0;
         gameActive = false;
+        ts.StopTime();
 
         totalScore += CalcLevelScore(score);
 
@@ -153,7 +151,7 @@ public class GameManager : MonoBehaviour
         {
             // wave intermission
             Debug.Log("Wave Complete");
-            //
+            Time.timeScale = 1;
 
             BetweenRounds = betweenRounds = true;
             UpgradeManager.Instance.SpawnUpgrades();
@@ -161,6 +159,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            Time.timeScale = 0;
             eV.LoseGame(totalScore);
         }
     }
@@ -177,7 +176,6 @@ public class GameManager : MonoBehaviour
 
     public void RemoveEnemy(GameObject enemy)
     {
-        // add points
         enemyList.Remove(enemy);
         Destroy(enemy);
 

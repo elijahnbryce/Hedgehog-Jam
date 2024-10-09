@@ -9,9 +9,9 @@ public class EventHandler : MonoBehaviour
 
     [Header("Canvas")]
     [SerializeField] private GameObject pauseMen;
-    [SerializeField] private GameObject winCan, loseCan, ovrCan, nxtCan;
+    [SerializeField] private GameObject loseCan, ovrCan;
 
-    [SerializeField] private TextMeshProUGUI loseScore, winScore, goalText, healthText, hsText, timerText;
+    [SerializeField] private TextMeshProUGUI endScore, endTime, endKills, goalText, healthText, hsText, timerText;
     [SerializeField] private TMP_InputField hsInput;
 
 
@@ -20,11 +20,12 @@ public class EventHandler : MonoBehaviour
     //[SerializeField] public GameObject timerObject;
 
     private static GameManager gm = GameManager.Instance;
-    //private Timer ts;
+    public Timer ts;
 
     private void Start()
     {
         gm = GameManager.Instance;
+        ts = GetComponent<Timer>();
     }
 
     private void Update()
@@ -37,13 +38,12 @@ public class EventHandler : MonoBehaviour
 
     public void UIFalse()
     {
-        nxtCan.SetActive(false);
+        //nxtCan.SetActive(false);
         ovrCan.SetActive(false);
         hsInput.gameObject.SetActive(false);
-        winCan.SetActive(false);
+        //winCan.SetActive(false);
         loseCan.SetActive(false);
         pauseMen.SetActive(false);
-        //ts.StartTime();
     }
 
     public void DisplayHealth(int hp)
@@ -83,20 +83,18 @@ public class EventHandler : MonoBehaviour
 
     public void LoseGame(int finalScore)
     {
+        Debug.Log("Lost Game");
         gm.gameOver = true;
+        ovrCan.SetActive(true);
         loseCan.SetActive(true);
-        loseScore.text = finalScore.ToString();
+        endScore.text = finalScore.ToString();
+        ts.DisplayTime(endTime);
+        endKills.text = gm.enemiesKilled.ToString();
 
-        CheckHS(finalScore);
+        //CheckHS(finalScore);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
-
-    //private void WinGame(int finalScore)
-    //{
-    //    winCan.SetActive(true);
-    //    winScore.text = finalScore.ToString();
-    //}
 
     public void LoadScene(int sceneNum = 1)
     {
@@ -130,11 +128,7 @@ public class EventHandler : MonoBehaviour
 
     public void Restart()
     {
-        Time.timeScale = 0;
-        gm.gameActive = false;
-        gm.gamePaused = false;
-        gm.gameOver = true;
-        //gm?.Kill();
+        Time.timeScale = 1;
         LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
