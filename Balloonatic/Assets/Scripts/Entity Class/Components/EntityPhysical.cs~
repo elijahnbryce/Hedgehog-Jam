@@ -10,13 +10,30 @@ public class EntityPhysical : MonoBehaviour
     public Collider2D rootCollider;
     public List<Collider2D> colliderInfo = new List<Collider2D>();
 
+    private Vector2 previousPosition = Vector2.zero;
+    private Vector2 currentPosition = Vector2.zero;
+    [HideInInspector] public Vector2 effectiveVelocity = Vector2.zero;
+
     public virtual void Initialize(Entity thisEntity)
     {
         selfEntity = thisEntity;
         rb = GetComponent<Rigidbody2D>();
         rootCollider = GetComponent<Collider2D>();
     }
-	
+
+    private void Start()
+    {
+        previousPosition = transform.position;
+        currentPosition = transform.position;
+    }
+
+    private void Update()
+    {
+        currentPosition = transform.position;
+        effectiveVelocity = currentPosition - previousPosition;
+        previousPosition = currentPosition;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         

@@ -19,7 +19,7 @@ public class EntityStateChanger
     public enum ChangeCondition
     { 
         DISTANCE_TO_TARGET_LT,
-    	DISTANCE_TO_TARGET_GT,
+    	DISTANCE_TO_TARGET_GT,	
     	STATES_ENTERED	
     }
 
@@ -63,7 +63,7 @@ public class EntityStateChanger
 			return false;
 		    }
 		}
-
+	
 		else if (fromState.selfEntity.stateMachine.numStatesActivated < statesEntered)
 			return false;
 	}
