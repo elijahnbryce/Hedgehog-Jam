@@ -232,6 +232,10 @@ public class GameManager : MonoBehaviour
     public void UpdateHealth(int change = -1)
     {
         if (isInvicible) { return; }
+        if(change < 0)
+        {
+            SoundManager.Instance.PlaySoundEffect("player_damage");
+        }
         health += change;
         eV.DisplayHealth(health);
 

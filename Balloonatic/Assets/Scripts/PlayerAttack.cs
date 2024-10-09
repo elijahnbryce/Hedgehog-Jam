@@ -76,6 +76,7 @@ public class PlayerAttack : MonoBehaviour
         if (GameManager.Instance.BetweenRounds)
             return;
         attacking = true;
+        SoundManager.Instance.PlaySoundEffect("band_pull");
         OnAttackInitiate?.Invoke();
     }
 
@@ -83,6 +84,7 @@ public class PlayerAttack : MonoBehaviour
     {
         OnAttackHalt?.Invoke();
         //
+        SoundManager.Instance.PlaySoundEffect("band_release");
 
         var newProjectile = Instantiate(projectile, launchPoint.position, Quaternion.identity);
         newProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = AttackStateToColor(attackState);

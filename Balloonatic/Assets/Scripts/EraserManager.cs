@@ -36,10 +36,10 @@ public class EraserManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UnspawnConfig();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    UnspawnConfig();
+        //}
     }
 
     public void SpawnConfig()
@@ -69,6 +69,7 @@ public class EraserManager : MonoBehaviour
                     child2.GetComponent<SpriteRenderer>().material = whiteMat;
                 }
                 child.DOPunchScale(Vector2.one * 0.1f, 0.1f);
+                SoundManager.Instance.PlaySoundEffect("eraser_spawn");
             });
             seq.AppendInterval(0.1f);
             seq.AppendCallback(() =>
@@ -123,6 +124,7 @@ public class EraserManager : MonoBehaviour
             seq.Append(child.transform.DOScale(Vector3.zero, 0.15f));
             seq.AppendCallback(() =>
             {
+                SoundManager.Instance.PlaySoundEffect("eraser_despawn");
                 foreach (Transform child3 in child)
                 {
                     var newParticles = Instantiate(eraserParticles, child.position, Quaternion.identity);

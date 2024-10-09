@@ -56,6 +56,7 @@ public class UpgradeManager : MonoBehaviour
             var newSeq = DOTween.Sequence();
             newSeq.AppendInterval(ind * 0.1f);
             newSeq.Append(child.DOMove(child.position - (Vector3.up * 10), 0.25f));
+            newSeq.AppendCallback(() => SoundManager.Instance.PlaySoundEffect("upgrades_spawn"));
             child.DOShakeRotation(0.25f);
             //this looks so awesome, thank me later :)
 
@@ -86,6 +87,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void ClaimUpgrade(int ind)
     {
+        SoundManager.Instance.PlaySoundEffect("upgrade_claim");
         GameManager gm = GameManager.Instance;
         UpgradeType upgrade = upgrades[ind].UpgradeType;
         gm.AddPowerUP(upgrade);

@@ -42,11 +42,11 @@ public class Sticker : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            StickerAnim(peel);
-            peel = !peel;
-        }
+        //if (Input.GetKeyDown(KeyCode.Y))
+        //{
+        //    StickerAnim(peel);
+        //    peel = !peel;
+        //}
     }
 
     public void StickerAnim(bool down)
