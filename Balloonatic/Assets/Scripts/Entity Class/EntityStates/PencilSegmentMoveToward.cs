@@ -31,7 +31,7 @@ public class PencilSegmentMoveToward : EntityState //must inherit from "EntitySt
         angle *= Mathf.Sign(cross.z);
 
         Quaternion finalRotation = selfEntity.transform.rotation * Quaternion.Euler(0f, 0f, angle);
-        selfEntity.transform.rotation = Quaternion.Lerp(selfEntity.transform.rotation, finalRotation, 2.5f * Time.deltaTime);
+        selfEntity.transform.rotation = Quaternion.Lerp(selfEntity.transform.rotation, finalRotation, Mathf.Abs(angle/2) * Time.deltaTime);
         
 	
 	selfEntity.physical.ClampToSpeed();

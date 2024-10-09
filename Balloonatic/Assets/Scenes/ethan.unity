@@ -358,7 +358,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 50.67798
+  orthographic size: 57.58
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1334,6 +1334,7 @@ MonoBehaviour:
   sp: {fileID: 0}
   health: 3
   wave: 0
+  startEnemies: 0
   gameOver: 0
   gameActive: 0
   gamePaused: 0
@@ -1420,6 +1421,67 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 42.65963, y: 1}
   m_EdgeRadius: 0
+--- !u!1001 &1831233544
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1949394679572603734, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+      propertyPath: m_Name
+      value: PencilEnemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 58.1771
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.793366
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6808291690276688576, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
 --- !u!1001 &1930449304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1610,6 +1672,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PencilEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8054623951336595575, guid: b976018f5a470d6478fb2518e917e61d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1629,3 +1695,4 @@ SceneRoots:
   - {fileID: 293410111}
   - {fileID: 639009026}
   - {fileID: 984616987124491596}
+  - {fileID: 1831233544}

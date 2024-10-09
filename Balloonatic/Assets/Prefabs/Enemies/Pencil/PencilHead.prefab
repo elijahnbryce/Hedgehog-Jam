@@ -140,17 +140,17 @@ MonoBehaviour:
   visual: {fileID: 0}
   entityStates:
   - state: {fileID: 11400000, guid: 58caeef0952183a498c7786d06e7884d, type: 2}
-    active: 1
-    entityStateChangers:
-    - toState: {fileID: 11400000, guid: 7754da4578ee67f44b72621694b76263, type: 2}
-      conList: 
-      distanceToTarget: 10
-      statesEntered: 0
-  - state: {fileID: 11400000, guid: 7754da4578ee67f44b72621694b76263, type: 2}
     active: 0
     entityStateChangers:
-    - toState: {fileID: 11400000, guid: 7754da4578ee67f44b72621694b76263, type: 2}
-      conList: 
+    - toState: {fileID: 11400000, guid: cff919253a6fd3e47bd80b1d056c5e96, type: 2}
+      conList: 01000000
+      distanceToTarget: 10
+      statesEntered: 0
+  - state: {fileID: 11400000, guid: cff919253a6fd3e47bd80b1d056c5e96, type: 2}
+    active: 1
+    entityStateChangers:
+    - toState: {fileID: 11400000, guid: 58caeef0952183a498c7786d06e7884d, type: 2}
+      conList: 00000000
       distanceToTarget: 10
       statesEntered: 0
   nextSegment: {fileID: 0}
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
-  movementSpeed: 5
+  movementSpeed: 8
   movementSpeedMult: 1
   effectiveMovementSpeed: 0
   attackPower: 1

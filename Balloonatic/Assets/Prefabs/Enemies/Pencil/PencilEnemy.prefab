@@ -383,10 +383,6 @@ PrefabInstance:
       propertyPath: prevSegment
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 7573534839900986201, guid: eacb94f0ed95b9047bab86839cfe2a1c, type: 3}
-      propertyPath: entityStates.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8659428532176887343, guid: eacb94f0ed95b9047bab86839cfe2a1c, type: 3}
       propertyPath: m_Layer
       value: 13
@@ -512,6 +508,7 @@ MonoBehaviour:
   entityStates: []
   nextSegment: {fileID: 4393662015829966680}
   prevSegment: {fileID: 0}
+  myTarget: {fileID: 0}
 --- !u!114 &7917238230693435851
 MonoBehaviour:
   m_ObjectHideFlags: 0

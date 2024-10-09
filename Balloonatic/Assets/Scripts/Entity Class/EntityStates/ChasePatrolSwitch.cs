@@ -9,7 +9,7 @@ public class ChasePatrolSwitch : EntityState
 	private Vector3 myInitialPosition;
 
 	public float perpScale = 20f;
-	private int flip = 1;
+	private float flip = 1;
 
 	public List<GameObject> spawnTransforms = new List<GameObject>();
 
@@ -25,13 +25,12 @@ public class ChasePatrolSwitch : EntityState
 		spawnTransforms.Add(GameObject.Find("Spawnpoint2"));
 		spawnTransforms.Add(GameObject.Find("Spawnpoint3"));
 		spawnTransforms.Add(GameObject.Find("Spawnpoint4"));	
-
-		selfEntity.StartCoroutine(WaveSequence());
 	}
 
 	public override void Enter()
 	{
 		RandomizePatrol();	
+		selfEntity.stats.movementSpeedMult = 1;
 	}
 
 	public void RandomizePatrol()
@@ -48,22 +47,22 @@ public class ChasePatrolSwitch : EntityState
 	}
 
 	public override void FixedUpdate()
-	{	
-				
-		if (spawnTargets.Count > 0) {
+	{
+        flip = Mathf.Sin(Time.time * 5f);
+        if (spawnTargets.Count > 0) {
 
 			Vector2 targetPosition = spawnTargets[0].transform.position; //how to access the current target
 			Vector2 selfPosition = selfEntity.gameObject.transform.position;
 			//add lerp-like scalar variable that slowly incements towards direction defined here
 			Vector2 direction = targetPosition - selfPosition;
 			
-			Vector2 cross = Vector2.Perpendicular(direction);
-			cross = cross.normalized;
-			cross *= perpScale;
-			cross += cross.normalized*direction.magnitude;
-			cross *= flip;
+			Vector3 perpendicular = Vector2.Perpendicular(direction);
+			perpendicular = perpendicular.normalized;
+			perpendicular *= perpScale;
+			perpendicular = perpendicular.normalized*direction.magnitude;
+			perpendicular *= flip;
 
-			MoveAndOrient();
+			MoveAndOrient(perpendicular);
 
 			if (direction.magnitude < 8) {
 		       		if (spawnTargets.Count > 0) {	
@@ -75,9 +74,10 @@ public class ChasePatrolSwitch : EntityState
 			RandomizePatrol();
 		}
 	}
-    public void MoveAndOrient()
+    public void MoveAndOrient(Vector3 perpendicular)
     {
-        Vector3 direction = spawnTargets[0].transform.position - selfEntity.transform.position;
+        Vector3 direction = spawnTargets[0].transform.position + perpendicular - selfEntity.transform.position;
+		//Debug.DrawLine(selfEntity.transform.position, selfEntity.transform.position + direction, Color.red, 1f);
 
         selfEntity.physical.DirectionalMove(direction);
         direction.z = 0f;
@@ -88,16 +88,9 @@ public class ChasePatrolSwitch : EntityState
         angle *= Mathf.Sign(cross.z);
 
         Quaternion finalRotation = selfEntity.transform.rotation * Quaternion.Euler(0f, 0f, angle);
-        selfEntity.transform.rotation = Quaternion.Lerp(selfEntity.transform.rotation, finalRotation, 2.5f * Time.deltaTime);
+		selfEntity.transform.rotation = Quaternion.Lerp(selfEntity.transform.rotation, finalRotation, /*Mathf.Abs(angle)*/15 * Time.deltaTime);
+		
         selfEntity.physical.ClampToSpeed();
     }
-
-    IEnumerator WaveSequence()
-	{
-		while (true) {
-			flip *= -1;
-			yield return new WaitForSeconds(1.5f);
-		}	
-	}
 
 }
