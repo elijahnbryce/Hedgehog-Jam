@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Game Manager Set");
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
     }
 
