@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2566348679781386539}
   m_Layer: 13
   m_Name: PencilEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 6631829846038932072, guid: a0398385d51d23341ac77ad69acf85c4, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -200,6 +204,10 @@ PrefabInstance:
     - target: {fileID: 6631829846038932072, guid: a0398385d51d23341ac77ad69acf85c4, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6631829846038932072, guid: a0398385d51d23341ac77ad69acf85c4, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -294,6 +302,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 6631829846038932072, guid: a0398385d51d23341ac77ad69acf85c4, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -334,6 +346,10 @@ PrefabInstance:
     - target: {fileID: 3198284028015968558, guid: eacb94f0ed95b9047bab86839cfe2a1c, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198284028015968558, guid: eacb94f0ed95b9047bab86839cfe2a1c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5959841624190928044, guid: eacb94f0ed95b9047bab86839cfe2a1c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -431,6 +447,10 @@ PrefabInstance:
     - target: {fileID: 6275078566399893128, guid: 2fce6caf7783bdc468c98906edc13480, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275078566399893128, guid: 2fce6caf7783bdc468c98906edc13480, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 7621795363901861552, guid: 2fce6caf7783bdc468c98906edc13480, type: 3}
       propertyPath: m_LocalPosition.x
