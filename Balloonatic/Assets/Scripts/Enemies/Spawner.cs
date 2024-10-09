@@ -64,7 +64,7 @@ public class Spawner : MonoBehaviour
 	        enemySpwnProp enemy = enemyStructList[Random.Range(0, typeLim)];
 
 	        yield return new WaitForSeconds(enemy.typeInterval);
-	        GameObject newEnemy = Instantiate(enemy.enemyType, new Vector2(Random.Range(-9, 9), Random.Range(-6, 6)), Quaternion.identity);
+	        GameObject newEnemy = Instantiate(enemy.enemyType, spawnPoints[randPoint].position, Quaternion.identity);
 	        gm.AddEnemy(newEnemy);
             toSpawn--;
             doneSpawning = toSpawn < 0;

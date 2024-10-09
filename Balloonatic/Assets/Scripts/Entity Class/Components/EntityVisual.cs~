@@ -15,8 +15,8 @@ public class EntityVisual : MonoBehaviour
 
     public virtual void Initialize(Entity thisEntity)
     {
-        visualObject = transform.Find("Visual")?.gameObject;
-        shadowObject = transform.Find("DropShadow")?.gameObject;
+        visualObject = transform.Find("Visual").gameObject;
+        shadowObject = transform.Find("DropShadow").gameObject;
 
         selfEntity = thisEntity;
         if (visualObject != null)
