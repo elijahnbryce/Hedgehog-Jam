@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
-{   
+{
     [SerializeField] private List<UpgradeStruct> upgrades = new();
     [SerializeField] private GameObject stickerPrefab;
 
@@ -31,7 +31,7 @@ public class UpgradeManager : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void SpawnUpgrades()
@@ -82,13 +82,31 @@ public class UpgradeManager : MonoBehaviour
         SoundManager.Instance.PlaySoundEffect("upgrade_claim");
         GameManager gm = GameManager.Instance;
         UpgradeType upgrade = upgrades[ind].UpgradeType;
-        gm.AddPowerUP(upgrade);
-
-        SpawnSticker(upgrade, transform.GetChild(ind).GetChild(0).position);
 
         for (int i = 0; i < 2; i++)
         {
-            transform.GetChild(i).GetChild(0).gameObject.SetActive(ind!=i);
+            transform.GetChild(i).GetChild(0).gameObject.SetActive(ind != i);
+        }
+
+        switch (upgrade)
+        {
+            //repeated code, fix later
+            case UpgradeType.Penny:
+                CoinManager.Instance.SpawnCoin(CoinType.Penny, PlayerMovement.Instance.PlayerPosition - Vector2.up * 2);
+                break;
+            case UpgradeType.Nickel:
+                CoinManager.Instance.SpawnCoin(CoinType.Nickel, PlayerMovement.Instance.PlayerPosition - Vector2.up * 2);
+                break;
+            case UpgradeType.Dime:
+                CoinManager.Instance.SpawnCoin(CoinType.Dime, PlayerMovement.Instance.PlayerPosition - Vector2.up * 2);
+                break;
+            case UpgradeType.Quarter:
+                CoinManager.Instance.SpawnCoin(CoinType.Quarter, PlayerMovement.Instance.PlayerPosition - Vector2.up * 2);
+                break;
+            default:
+                gm.AddPowerUP(upgrade);
+                SpawnSticker(upgrade, transform.GetChild(ind).GetChild(0).position);
+                break;
         }
 
         UnspawnUpgrades();
@@ -122,9 +140,7 @@ public class UpgradeManager : MonoBehaviour
         newSticker.GetComponent<Sticker>().Set();
         SoundManager.Instance.PlaySoundEffect("sticker_apply");
 
-        Debug.Log("Call New");
-        //GameManager.Instance.NewWave();
-        Debug.Log("S");
+        //new wave shouldnt be called here, because of coin claiming
     }
 }
 
