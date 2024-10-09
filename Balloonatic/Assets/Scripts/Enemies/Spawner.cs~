@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -31,7 +32,7 @@ public class Spawner : MonoBehaviour
         {
             Debug.Log("Spawner Set");
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -40,23 +41,28 @@ public class Spawner : MonoBehaviour
 	gm = GameManager.Instance;
     }
 
-    public void StartSpawn(int enemyAmt, int i)
+    public void StartSpawn(int enemyAmt, int enemyTypes)
     {
-	StartCoroutine(SpawnEnemy(enemyAmt, i));
+	    StartCoroutine(SpawnEnemy(enemyAmt, enemyTypes));
     } 
 	
-    private IEnumerator SpawnEnemy(int amt, int i)
+    private IEnumerator SpawnEnemy(int spawnLim, int typeLim, int toSpawn = 1)
     {
-	int randPoint = Random.Range(0, 3);
-	
-	enemySpwnProp enemy = enemyStructList[Random.Range(0, i)];
+        int randPoint = -1;
 
-	yield return new WaitForSeconds(enemy.typeInterval);
-	GameObject newEnemy = Instantiate(enemy.enemyType, spawnPoints[randPoint].position, Quaternion.identity);
+        for (int i = 0, temp; i < toSpawn; i++)
+        {
+            temp = randPoint;
+            while (randPoint == temp) { randPoint = Random.Range(0, 3); }
 
-	gm.AddEnemy(newEnemy);
+	        enemySpwnProp enemy = enemyStructList[Random.Range(0, typeLim)];
 
-	if (gm.enemyList.Count < amt)
-		StartCoroutine(SpawnEnemy(amt, i));
+	        yield return new WaitForSeconds(enemy.typeInterval);
+	        GameObject newEnemy = Instantiate(enemy.enemyType, spawnPoints[randPoint].position, Quaternion.identity);
+
+	        gm.AddEnemy(newEnemy);
+            if (gm.enemyList.Count < spawnLim)
+                StartCoroutine(SpawnEnemy(spawnLim, typeLim)); // always 1 toSpawn
+        }
     } 
 }

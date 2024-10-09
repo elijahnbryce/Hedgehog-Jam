@@ -8,21 +8,33 @@ public class EntityVisual : MonoBehaviour
     //contains visual information about the entity
 
     public GameObject visualObject;
+    public GameObject shadowObject;
     public Animator animator;
     public List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
 
 
     public virtual void Initialize(Entity thisEntity)
     {
+        visualObject = transform.Find("Visual").gameObject;
+        shadowObject = transform.Find("DropShadow").gameObject;
+
         selfEntity = thisEntity;
         if (visualObject != null)
         {
-            visualObject = transform.Find("Visual").gameObject;
-
+	    //visualObject = transform.Find("Visual").gameObject;
+	    
             animator = visualObject.GetComponent<Animator>();
             spriteRenderers.AddRange(visualObject.GetComponents<SpriteRenderer>());
 
         }
+
+	//if (shadowObject != null)
+	//{
+	//    shadowObject = transform.Find("DropShadow").gameObject;
+
+	//    spriteRenderers.AddRange(visualObject.GetComponents<SpriteRenderer>());
+
+	//}
         
 
     }
