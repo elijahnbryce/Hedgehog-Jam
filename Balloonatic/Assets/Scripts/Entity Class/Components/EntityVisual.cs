@@ -26,12 +26,13 @@ public class EntityVisual : MonoBehaviour
     private void Update()
     {
         Vector3 visualScale = visualObject.transform.localScale;
-        if (selfEntity.physical.rb.velocity.x > 0)
+        Debug.Log(selfEntity.physical.effectiveVelocity);
+        if (selfEntity.physical.effectiveVelocity.x > 0)
         {
             visualScale.x = -Mathf.Abs(visualScale.x);
             visualObject.transform.localScale = visualScale;
         }
-        else if (selfEntity.physical.rb.velocity.x < 0)
+        else if (selfEntity.physical.effectiveVelocity.x < 0)
         {
             visualScale.x = Mathf.Abs(visualScale.x);
             visualObject.transform.localScale = visualScale;

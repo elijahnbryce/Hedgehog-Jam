@@ -26,10 +26,11 @@ public class EntityAI : MonoBehaviour
     {
         selfEntity = thisEntity;
         targets.Add(new TargetEntityInfo(null, GameObject.Find("Player"), null));
-	targets.Add(new TargetEntityInfo(null, GameObject.Find("Head"), null));
-	targets.Add(new TargetEntityInfo(null, GameObject.Find("Segment_1"), null));
-	targets.Add(new TargetEntityInfo(null, GameObject.Find("Segment_2"), null));
-	targets.Add(new TargetEntityInfo(null, GameObject.Find("Segment_3"), null));
+
+	//targets.Add(new TargetEntityInfo(null, GameObject.Find("Head"), null));
+	//targets.Add(new TargetEntityInfo(null, GameObject.Find("Segment_1"), null));
+	//targets.Add(new TargetEntityInfo(null, GameObject.Find("Segment_2"), null));
+	//targets.Add(new TargetEntityInfo(null, GameObject.Find("Segment_3"), null));
 
 		//targets.Add(new TargetEntityInfo(null, GameObject.Find("Tail"), null));
     }

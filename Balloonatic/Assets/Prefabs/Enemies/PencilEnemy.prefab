@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6152101009209975347}
   - component: {fileID: 1154771637144867192}
   - component: {fileID: 6682661405338578298}
-  - component: {fileID: 8636881892774706496}
+  - component: {fileID: 3782815745942172541}
   m_Layer: 3
   m_Name: Segment_3
   m_TagString: Untagged
@@ -102,8 +102,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &8636881892774706496
-CircleCollider2D:
+--- !u!70 &3782815745942172541
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -134,9 +134,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.4
+  m_Offset: {x: -0.00000017468766, y: 0.026075276}
+  m_Size: {x: 0.76296175, y: 0.6065176}
+  m_Direction: 1
 --- !u!1 &1303338391718308961
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 4961262529656144290}
   - component: {fileID: 1805790053120155098}
   - component: {fileID: 6121607756619877311}
-  - component: {fileID: 5284048530133267737}
+  - component: {fileID: 2512503882903605586}
   m_Layer: 3
   m_Name: Segment_2
   m_TagString: Untagged
@@ -239,8 +239,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &5284048530133267737
-CircleCollider2D:
+--- !u!70 &2512503882903605586
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -271,9 +271,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.4
+  m_Offset: {x: -0.000000114574526, y: 0.03318694}
+  m_Size: {x: 0.77244306, y: 0.6017773}
+  m_Direction: 1
 --- !u!1 &2473837301853203068
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +454,7 @@ GameObject:
   - component: {fileID: 173355747208731358}
   - component: {fileID: 6852083465398392774}
   - component: {fileID: 2570852636749831835}
-  - component: {fileID: 4883806689204122583}
+  - component: {fileID: 2344581026764733831}
   m_Layer: 3
   m_Name: Tail
   m_TagString: Untagged
@@ -544,8 +544,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &4883806689204122583
-CircleCollider2D:
+--- !u!70 &2344581026764733831
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -576,9 +576,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.4
+  m_Offset: {x: -0.0023704928, y: 0.026075216}
+  m_Size: {x: 0.7771845, y: 0.60651803}
+  m_Direction: 1
 --- !u!1 &5285857035374446736
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 1719277454306432145}
   - component: {fileID: 6755873310312362629}
   - component: {fileID: 4563012661055502833}
-  - component: {fileID: 1095608938783737919}
+  - component: {fileID: 158031408852143342}
   m_Layer: 3
   m_Name: Segment_1
   m_TagString: Untagged
@@ -765,8 +765,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &1095608938783737919
-CircleCollider2D:
+--- !u!70 &158031408852143342
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -797,9 +797,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.4
+  m_Offset: {x: 0.0047406396, y: 0.028446453}
+  m_Size: {x: 0.7534792, y: 0.58281183}
+  m_Direction: 1
 --- !u!1 &5699564074536259191
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,7 +896,7 @@ GameObject:
   - component: {fileID: 6327818738129242250}
   - component: {fileID: 5791449658671945546}
   - component: {fileID: 7484551730347780365}
-  - component: {fileID: 9005491042594618929}
+  - component: {fileID: 7267894893842229891}
   m_Layer: 3
   m_Name: Head
   m_TagString: Untagged
@@ -943,14 +943,14 @@ MonoBehaviour:
     entityStateChangers:
     - toState: {fileID: 11400000, guid: 7754da4578ee67f44b72621694b76263, type: 2}
       conList: 01000000
-      distanceToTarget: 10
+      distanceToTarget: 28
       statesEntered: 1
   - state: {fileID: 11400000, guid: 7754da4578ee67f44b72621694b76263, type: 2}
     active: 0
     entityStateChangers:
     - toState: {fileID: 11400000, guid: 20989384614256e4997208225efff5d1, type: 2}
       conList: 00000000
-      distanceToTarget: 10
+      distanceToTarget: 28
       statesEntered: 1
 --- !u!114 &5791449658671945546
 MonoBehaviour:
@@ -967,7 +967,7 @@ MonoBehaviour:
   health: 100
   movementSpeed: 10
   movementSpeedMult: 1
-  effectiveMovementSpeed: 0
+  effectiveMovementSpeed: 1
   attackPower: 1
   attackPowerMult: 1
 --- !u!50 &7484551730347780365
@@ -997,8 +997,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &9005491042594618929
-CircleCollider2D:
+--- !u!70 &7267894893842229891
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1029,9 +1029,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.05, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.4
+  m_Offset: {x: 0.02865658, y: 0.02298417}
+  m_Size: {x: 0.71986973, y: 0.6028473}
+  m_Direction: 1
 --- !u!1 &8054623951336595575
 GameObject:
   m_ObjectHideFlags: 0
