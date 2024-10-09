@@ -48,6 +48,9 @@ public class Pounce : EntityState //must inherit from "EntityState"
 	        selfEntity.visual.shadowObject.transform.localPosition = shadowLerp;
             yield return null;
         }
+
+        yield return new WaitForSeconds(0.3f);
+
         pounceSequence = null;
         ManualExit();
     }

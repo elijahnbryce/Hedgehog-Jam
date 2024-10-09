@@ -24,14 +24,13 @@ public class GhostSpawn : EntityState //must inherit from "EntityState"
 		selfEntity.physical.rootCollider.enabled = false;
 
 		Vector3 curPos = selfEntity.visual.visualObject.transform.localPosition;
-		
-		selfEntity.visual.visualObject.transform.localPosition += new Vector3(0, offset, 0);
+		Vector3 initPos = selfEntity.visual.visualObject.transform.localPosition + new Vector3(0, offset, 0);
+        
 		
 		for (float fallTime=0; fallTime < fallDuration; fallTime += Time.deltaTime) {
 			float lerpFactor = curve.Evaluate(fallTime/fallDuration);
 
-			selfEntity.visual.visualObject.transform.localPosition = Vector3.Lerp(selfEntity.visual.visualObject.transform.position, 
-												curPos, lerpFactor);
+			selfEntity.visual.visualObject.transform.localPosition = Vector3.Lerp(initPos, curPos, lerpFactor);
 			yield return null;
 		}
 		
