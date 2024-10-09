@@ -21,7 +21,7 @@ public class EraserManager : MonoBehaviour
     void Start()
     {
         //remove later
-        SpawnConfig();
+        //SpawnConfig();
     }
 
     public Sprite GetColliderSprite(int index)
@@ -136,7 +136,7 @@ public class EraserManager : MonoBehaviour
         seq2.AppendInterval(ind * 0.1f + 1f);
         seq2.AppendCallback(() =>
         {
-            UpgradeManager.Instance.SpawnUpgrades();
+            //UpgradeManager.Instance.SpawnUpgrades();
         });
     }
 }
