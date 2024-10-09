@@ -36,6 +36,8 @@ public class UpgradeManager : MonoBehaviour
 
     public void SpawnUpgrades()
     {
+        EraserManager.Instance.UnspawnConfig();
+
         HelperClass.Shuffle(upgrades);
 
         var ind = 0;
@@ -117,6 +119,11 @@ public class UpgradeManager : MonoBehaviour
 
         newSticker.transform.position = stickerFinalPos;
         newSticker.GetComponent<Sticker>().Set();
+        SoundManager.Instance.PlaySoundEffect("sticker_apply");
+
+        Debug.Log("Call New");
+        GameManager.Instance.NewWave();
+        Debug.Log("S");
     }
 }
 

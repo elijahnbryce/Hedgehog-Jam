@@ -6,9 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     private EventHandler eV;
-	
+
     public Spawner sp = Spawner.Instance;
-    
+
     [Header("Game Status")]
     [SerializeField] private static int fullHealth = 3;
     public int health = fullHealth, wave = 0, startEnemies = 0;
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-	    sp = Spawner.Instance;
+        sp = Spawner.Instance;
         eV = GetComponent<EventHandler>();
         SetLevel();
         Cursor.visible = false;
@@ -99,23 +99,33 @@ public class GameManager : MonoBehaviour
         gameActive = true;
         gamePaused = false;
     }
-
-    private void NewWave()
+    public void NewWave()
     {
         //if (restart) return;
         Debug.Log("New wave");
+
+        betweenRounds = false;
+        EraserManager.Instance.SpawnConfig();
+
         wave++;
         int toSpawn = Mathf.FloorToInt(10 / wave) + 1;
-	    if (wave == 1) 
-        {
-            startEnemies = 10;
-		    sp.StartSpawn(startEnemies, 1);
-	    } 
+        startEnemies = 3;
+
+        sp.StartSpawn(3, 1);
+
+        //if (wave == 1)
+        //{
+        //    sp.StartSpawn(startEnemies, 1);
+        //}
+        //else
+        //{
+        //    sp.StartSpawn(startEnemies, 1);
+        //}
         //else if (wave == 2) {
-	    //	sp.StartSpawn(20, 1);
-	    //}
-        
-	// change walls or something
+        //	sp.StartSpawn(20, 1);
+        //}
+
+        // change walls or something
         // ? some effect for enemies
     }
 
@@ -128,13 +138,13 @@ public class GameManager : MonoBehaviour
 
         //newScore = Mathf.RoundToInt(score * ((1 + (float)health / fullHealth) * timeMult) - (enemyFactor * enemies.Count) * makeScoreBigger);
         //  or multiply by (1 - enemies.Count / enemies2Spawn);                <- punishment
-            // (1 + (float)(startEnemies - levEnemies.Count) / startEnemies)   <- reward
+        // (1 + (float)(startEnemies - levEnemies.Count) / startEnemies)   <- reward
         return Mathf.Max(0, newScore);
     }
 
     public void EndLevel(bool alive, int score)
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         gameActive = false;
 
         totalScore += CalcLevelScore(score);
@@ -142,11 +152,12 @@ public class GameManager : MonoBehaviour
         if (alive)
         {
             // wave intermission
-
+            Debug.Log("Wave Complete");
             //
 
             BetweenRounds = betweenRounds = true;
-            NewWave();
+            UpgradeManager.Instance.SpawnUpgrades();
+            //NewWave();
         }
         else
         {
@@ -158,10 +169,10 @@ public class GameManager : MonoBehaviour
     {
         return (gameActive && !gamePaused);
     }
-	
+
     public void AddEnemy(GameObject enemy)
     {
-	    enemyList.Add(enemy);
+        enemyList.Add(enemy);
     }
 
     public void RemoveEnemy(GameObject enemy)
@@ -172,14 +183,19 @@ public class GameManager : MonoBehaviour
 
         if (upgradeList.ContainsKey(UpgradeType.Pizza))
         {
-            if (health < fullHealth || ((float)(startEnemies - enemyList.Count) % 10f)  == 0f) { UpdateHealth(1); }
+            if (health < fullHealth || ((float)(startEnemies - enemyList.Count) % 10f) == 0f) { UpdateHealth(1); }
+        }
+
+        if(sp.DoneSpawning && enemyList.Count == 0)
+        {
+            EndLevel(true, levelScore);
         }
     }
 
     public void AddPowerUP(UpgradeType upgrade)
     {
-        if (!upgradeList.ContainsKey(upgrade)) 
-            { upgradeList.Add(upgrade, 0); }
+        if (!upgradeList.ContainsKey(upgrade))
+        { upgradeList.Add(upgrade, 0); }
         upgradeList[upgrade]++;
 
         if (CheckInstanceConsume(upgrade)) DecPowerUp(upgrade);
@@ -188,9 +204,9 @@ public class GameManager : MonoBehaviour
     public void DecPowerUp(UpgradeType upgrade)
     {
         if (upgradeList.ContainsKey(upgrade))
-        { 
+        {
             if (upgradeList[upgrade] > 0)
-                { upgradeList[upgrade]--; }
+            { upgradeList[upgrade]--; }
             else
             {
                 upgradeList.Remove(upgrade);
@@ -232,7 +248,7 @@ public class GameManager : MonoBehaviour
     public void UpdateHealth(int change = -1)
     {
         if (isInvicible) { return; }
-        if(change < 0)
+        if (change < 0)
         {
             SoundManager.Instance.PlaySoundEffect("player_damage");
         }
@@ -249,7 +265,7 @@ public class GameManager : MonoBehaviour
     public void UpdateScore(int change = 1)
     {
         levelScore += change;
-        eV.DisplayHealth(levelScore);
+        eV.DisplayScore(levelScore);
     }
 
     public void SetHealth(int val = 0)
