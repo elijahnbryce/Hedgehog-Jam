@@ -32,6 +32,10 @@ public class SoundManager : MonoBehaviour
     {
         var matchingEffects = soundEffects.Where(s => s.SoundName.Equals(soundName)).ToList();
         var soundEffect = matchingEffects[Random.Range(0, matchingEffects.Count)];
+        if(soundEffect.Clips.Count ==0)
+        {
+            return;
+        }
         var chosenClip = soundEffect.Clips[Random.Range(0, soundEffect.Clips.Count)];
         var newSoundEffect = new GameObject($"Sound: {soundName}, {chosenClip.length}s");
         newSoundEffect.transform.parent = transform;
