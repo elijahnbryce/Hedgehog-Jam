@@ -29,9 +29,11 @@ public class Pounce : EntityState //must inherit from "EntityState"
 
     public IEnumerator PounceSequence()
     {
-	//Debug.Log(selfEntity);
-	//Debug.Log(selfEntity.visual);
-	//Debug.Log(selfEntity.visual.shadowObject);
+        //Debug.Log(selfEntity);
+        //Debug.Log(selfEntity.visual);
+        //Debug.Log(selfEntity.visual.shadowObject);
+        SoundManager.Instance.PlaySoundEffect("enemy_attack");
+
         Vector2 shadowPosition = selfEntity.visual.shadowObject.transform.localPosition; 
 
         for (float jumpTime = 0; jumpTime < jumpDuration; jumpTime += Time.deltaTime)

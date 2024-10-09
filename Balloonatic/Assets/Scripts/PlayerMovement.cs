@@ -120,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (movement.magnitude > 1) movement /= movement.magnitude;
         var gm = GameManager.Instance;
-        var speedMult = gm.GetHealthRatio();
+        var speedMult = Mathf.Clamp01(gm.GetHealthRatio() * 2);
         rigidBody.velocity = movement * movementSpeed * speedMult;
 
 

@@ -68,5 +68,6 @@ public class EntityStats : MonoBehaviour
         //Destroy(selfEntity.gameObject);
 
         CoinManager.Instance.SpawnCoins(transform.position);
+        SoundManager.Instance.PlaySoundEffect("enemy_die");
     }
 }
