@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8973372640177440167}
   - component: {fileID: 5733439091635855074}
   m_Layer: 0
-  m_Name: Visual
+  m_Name: visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 731826199
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -851160679, guid: ed129ff43b4fc1c49a4057c1dae106cd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
-  movementSpeed: 10
+  movementSpeed: 5
   movementSpeedMult: 1
   effectiveMovementSpeed: 0
   attackPower: 1
@@ -261,7 +261,7 @@ Transform:
   m_GameObject: {fileID: 8659428532176887343}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

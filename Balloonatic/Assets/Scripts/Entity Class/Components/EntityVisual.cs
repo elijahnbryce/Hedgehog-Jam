@@ -15,28 +15,37 @@ public class EntityVisual : MonoBehaviour
     public virtual void Initialize(Entity thisEntity)
     {
         selfEntity = thisEntity;
-        visualObject = transform.Find("Visual").gameObject;
+        if (visualObject != null)
+        {
+            visualObject = transform.Find("Visual").gameObject;
 
-        animator = visualObject.GetComponent<Animator>();
-        spriteRenderers.AddRange(visualObject.GetComponents<SpriteRenderer>());
+            animator = visualObject.GetComponent<Animator>();
+            spriteRenderers.AddRange(visualObject.GetComponents<SpriteRenderer>());
+
+        }
+        
 
     }
 
     //monobehaviour
     private void Update()
     {
-        Vector3 visualScale = visualObject.transform.localScale;
-        Debug.Log(selfEntity.physical.effectiveVelocity);
-        if (selfEntity.physical.effectiveVelocity.x > 0)
+        if (visualObject != null)
         {
-            visualScale.x = -Mathf.Abs(visualScale.x);
-            visualObject.transform.localScale = visualScale;
+            Vector3 visualScale = visualObject.transform.localScale;
+            Debug.Log(selfEntity.physical.effectiveVelocity);
+            if (selfEntity.physical.effectiveVelocity.x > 0)
+            {
+                visualScale.x = -Mathf.Abs(visualScale.x);
+                visualObject.transform.localScale = visualScale;
+            }
+            else if (selfEntity.physical.effectiveVelocity.x < 0)
+            {
+                visualScale.x = Mathf.Abs(visualScale.x);
+                visualObject.transform.localScale = visualScale;
+            }
         }
-        else if (selfEntity.physical.effectiveVelocity.x < 0)
-        {
-            visualScale.x = Mathf.Abs(visualScale.x);
-            visualObject.transform.localScale = visualScale;
-        }
+        
     }
 
     //component-specific methods
