@@ -30,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
     private float upgradeTimer = 8;
     private int upgradeIndex = 0;
 
+    private Coroutine invincibleMoment;
+
     //private static GameManager gm;
 
     public static PlayerMovement Instance { get; private set; }
@@ -192,7 +194,10 @@ public class PlayerMovement : MonoBehaviour
 
             case "Enemy":
                 Debug.Log("Player damaged");
+		Debug.Log(GameManager.Instance.isInvincible);	
                 GameManager.Instance.UpdateHealth();
+		//if (invincibleMoment == null)
+		//	invincibleMoment = StartCoroutine(InvincibleMoment());
                 // status change
                 break;
             case "Coin":
@@ -216,6 +221,15 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         UpgradeManager.Instance.ClaimUpgrade(upgradeIndex);
+    }
+
+    private IEnumerator InvincibleMoment()
+    {
+	GameManager.Instance.isInvincible = true;
+	yield return new WaitForSeconds(0.5f);
+	GameManager.Instance.isInvincible = false;
+
+	invincibleMoment = null;
     }
 
     private void OnTriggerExit2D(Collider2D collision)

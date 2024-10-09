@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> enemyList = new List<GameObject>();
     public Dictionary<UpgradeType, int> upgradeList = new();
     //private Timer ts;
-    private bool isInvicible = false;
+    public bool isInvincible = false;
     private float scoreMult = 1.1f;
 
     private Camera cam;
@@ -240,14 +240,18 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StarPower()
     {
-        isInvicible = true;
+        isInvincible = true;
         yield return new WaitForSeconds(10f * upgradeList[UpgradeType.Star]);
-        isInvicible = false;
+        isInvincible = false;
     }
 
     public void UpdateHealth(int change = -1)
     {
-        if (isInvicible) { return; }
+	
+        if (isInvincible) { return; }
+
+	//StartCoroutine(InvincibleMoment());
+
         if (change < 0)
         {
             SoundManager.Instance.PlaySoundEffect("player_damage");
@@ -283,5 +287,12 @@ public class GameManager : MonoBehaviour
     public float GetHealthRatio()
     {
         return (float)health / fullHealth;
+    }
+
+    private IEnumerator InvincibleMoment()
+    {
+	isInvincible = true;
+	yield return new WaitForSeconds(1.5f);
+	isInvincible = false;
     }
 }

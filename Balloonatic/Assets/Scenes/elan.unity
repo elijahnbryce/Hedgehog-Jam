@@ -12655,6 +12655,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+<<<<<<< Updated upstream
 --- !u!1001 &1664551033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12712,6 +12713,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
+=======
+>>>>>>> Stashed changes
 --- !u!1 &1668311572
 GameObject:
   m_ObjectHideFlags: 0
@@ -13103,6 +13106,7 @@ MonoBehaviour:
   gameActive: 0
   gamePaused: 0
   enemyList: []
+  isInvincible: 0
 --- !u!4 &1821101319 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8197033558625998339, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
@@ -13872,4 +13876,3 @@ SceneRoots:
   - {fileID: 2049426103}
   - {fileID: 450063945}
   - {fileID: 1553826641}
-  - {fileID: 1664551033}

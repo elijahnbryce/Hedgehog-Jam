@@ -82,7 +82,7 @@ MonoBehaviour:
   gm: {fileID: 0}
   enemyStructList:
   - typeInterval: 5
-    enemyType: {fileID: 5595570835928015912, guid: 8611657e40816da4e93f75e5b815017a, type: 3}
+    enemyType: {fileID: 9077075022715136519, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
   - typeInterval: 3
     enemyType: {fileID: 6807622366580086670, guid: d2ffe2f7cef8f96459744430f9bd6035, type: 3}
   - typeInterval: 8
