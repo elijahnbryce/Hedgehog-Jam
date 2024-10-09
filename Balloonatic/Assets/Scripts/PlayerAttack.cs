@@ -121,6 +121,8 @@ public class PlayerAttack : MonoBehaviour
 
     public Color AttackStateToColor(int state)
     {
+        if (state < 0 || state > colors.Count)
+            return colors[0];   
         return colors[state];
     }
 }

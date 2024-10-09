@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Transform secondHand;
     [SerializeField] private float followingDistance = 5f;
-    private float followingSpeed = 2.5f;
+    private float followingSpeed = 1f;
     private Rigidbody2D rigidBody;
     [HideInInspector] public Vector2 PlayerPosition;
     private bool facingDir = true;
@@ -108,19 +108,13 @@ public class PlayerMovement : MonoBehaviour
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.nearClipPlane));
         facingDir = transform.position.x > mouseWorldPosition.x;
-        //spriteRenderer.transform.rotation = Quaternion.Euler(new Vector3(0, facingDir ? 180 : 0, 0));
 
         Moving = movement.magnitude > 0;
         if (Moving)
         {
-            //facingDir = movement.x < 0;
-
-            //facingdir true : looking left
-            //sprite flipx doesnt work
-            if (counter > 0.15f)
+            if (counter > 0.75f)
             {
                 SoundManager.Instance.PlaySoundEffect("player_walk");
-                //play footstep sound here
                 counter = 0;
             }
         }
@@ -142,7 +136,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = mouseWorldPosition - transform.position;
         cachedDirection = direction;
 
-
         Debug.DrawRay(transform.position, direction, Color.green);
         Debug.DrawRay(transform.position, direction * -1, Color.red);
 
@@ -160,15 +153,6 @@ public class PlayerMovement : MonoBehaviour
         {
             secondTargetPos = transform.position + direction * 5;
         }
-    }
-
-    public void ForceMovePlayer(Vector2 newPosition)
-    {
-        targetPos = newPosition;
-    }
-    public void TeleportPlayer(Vector2 newPosition)
-    {
-        transform.position = newPosition;
     }
 
     public Vector2 GetDirectionToMouse()

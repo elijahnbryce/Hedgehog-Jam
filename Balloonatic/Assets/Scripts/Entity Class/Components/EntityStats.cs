@@ -41,7 +41,8 @@ public class EntityStats : MonoBehaviour
         GameManager gm = GameManager.Instance;
         float damageBoost = gm.GetPowerMult(UpgradeType.Fire);
         health -= damage * damageBoost;
-        if (health <= 0) {
+        if (health <= 0)
+        {
             Die();
         }
     }
