@@ -83,6 +83,12 @@ public class UpgradeManager : MonoBehaviour
         GameManager gm = GameManager.Instance;
         UpgradeType upgrade = upgrades[ind].UpgradeType;
 
+        while (upgrade == UpgradeType.Question)
+        {
+            ind = Random.Range(0, 13+1);
+            upgrade = upgrades[ind].UpgradeType;
+        }
+
         for (int i = 0; i < 2; i++)
         {
             transform.GetChild(i).GetChild(0).gameObject.SetActive(ind != i);

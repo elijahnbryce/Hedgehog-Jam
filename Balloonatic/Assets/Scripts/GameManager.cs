@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Status")]
     [SerializeField] private static int fullHealth = 3;
-    public int health = fullHealth, wave = 0, startEnemies = 0, enemiesKilled = 0;
+    public int health = fullHealth, wave = 0, startEnemies = 0, enemiesKilled = 0, enemyTypes;
     public bool gameOver, gameActive, gamePaused;
 
     private bool betweenRounds = true;
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         UpdateHealth(0);
 
         NewWave();
-        //EraserManager.Instance.SpawnConfig();
+        enemyTypes = sp.enemyStructList.Count;
     }
 
     private void EverythingFalse()
@@ -110,8 +110,9 @@ public class GameManager : MonoBehaviour
         wave++;
         int toSpawn = Mathf.FloorToInt(10 / wave) + 1;
 
-        startEnemies = 3;
-        sp.StartSpawn(3, 1);
+        startEnemies = 3 + (wave * 2);
+        enemyTypes = Mathf.Min(3, Mathf.CeilToInt(wave / 2));
+        sp.StartSpawn(3, enemyTypes);
 
         //if (wave == 1)
         //{
