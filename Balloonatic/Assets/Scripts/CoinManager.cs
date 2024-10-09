@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using UnityEngine;
 
@@ -13,6 +14,14 @@ public class CoinManager : MonoBehaviour
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         else Instance = this;
+    }
+
+    public void SpawnCoins(Vector2 pos)
+    {
+        for (int i = 0; i < Random.Range(1,5); i++)
+        {
+            SpawnCoin(GetRandomCoinType(), pos + new Vector2(Random.Range(-1f,1) * .5f, Random.Range(-1f,1) * .5f));
+        }
     }
 
     public void SpawnCoin(CoinType coinType, Vector2 pos)
@@ -29,6 +38,15 @@ public class CoinManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private CoinType GetRandomCoinType()
+    {
+        float randomValue = Random.value;
+        if (randomValue < 0.75f) return CoinType.Penny;
+        if (randomValue < 0.90f) return CoinType.Nickel;
+        if (randomValue < 0.97f) return CoinType.Dime;
+        return CoinType.Quarter;
     }
 }
 

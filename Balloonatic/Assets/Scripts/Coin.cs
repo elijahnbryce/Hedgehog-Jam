@@ -18,6 +18,10 @@ public class Coin : MonoBehaviour
     {
         value = (int)coin.Type;
         sprites = coin.Sprites;
+
+        transform.localScale = Vector2.zero;
+        transform.DOScale(Vector2.one, 0.25f);
+        frame = Random.Range(0, sprites.Count);
     }
     void Start()
     {
@@ -48,6 +52,7 @@ public class Coin : MonoBehaviour
         {
             Destroy(gameObject);
             SoundManager.Instance.PlaySoundEffect("coin_pickup");
+            GameManager.Instance.UpdateScore(value);
         });
     }
 }
