@@ -21,11 +21,21 @@ public class EntityVisual : MonoBehaviour
         selfEntity = thisEntity;
         if (visualObject != null)
         {
-	    	    
+	    //visualObject = transform.Find("Visual").gameObject;
+	    
             animator = visualObject.GetComponent<Animator>();
             spriteRenderers.AddRange(visualObject.GetComponents<SpriteRenderer>());
 
-        }        
+        }
+
+	//if (shadowObject != null)
+	//{
+	//    shadowObject = transform.Find("DropShadow").gameObject;
+
+	//    spriteRenderers.AddRange(visualObject.GetComponents<SpriteRenderer>());
+
+	//}
+        
 
     }
 
@@ -35,7 +45,7 @@ public class EntityVisual : MonoBehaviour
         if (visualObject != null)
         {
             Vector3 visualScale = visualObject.transform.localScale;
-            //Debug.Log(selfEntity.physical.effectiveVelocity);
+            Debug.Log(selfEntity.physical.effectiveVelocity);
             if (selfEntity.physical.effectiveVelocity.x > 0)
             {
                 visualScale.x = -Mathf.Abs(visualScale.x);

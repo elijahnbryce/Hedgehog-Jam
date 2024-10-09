@@ -155,8 +155,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 731826199
-  m_SortingLayer: 7
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -462511731, guid: 5b2575786bd965d4cb04e70a6b32996a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -260,9 +260,6 @@ MonoBehaviour:
       distanceToTarget: 3
       statesEntered: 1
   - state: {fileID: 11400000, guid: 2537a1f30004b7f43a402f3143d405ae, type: 2}
-    active: 1
-    entityStateChangers: []
-  - state: {fileID: 11400000, guid: 0dda8c419c8d1974a92113a274fb0293, type: 2}
     active: 1
     entityStateChangers: []
 --- !u!114 &5739259472025487281
