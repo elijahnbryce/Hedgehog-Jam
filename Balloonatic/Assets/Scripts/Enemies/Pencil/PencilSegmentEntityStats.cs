@@ -9,7 +9,7 @@ public class PencilSegmentEntityStats : EntityStats
         PencilSegmentEntity thisEntity = selfEntity as PencilSegmentEntity;
         if (thisEntity != null)
         {
-            if (thisEntity.nextSegment != null) thisEntity.prevSegment.nextSegment = thisEntity.nextSegment;
+            if (thisEntity.nextSegment != null) thisEntity.nextSegment.prevSegment = thisEntity.prevSegment;
         }
         base.Die();
     }
