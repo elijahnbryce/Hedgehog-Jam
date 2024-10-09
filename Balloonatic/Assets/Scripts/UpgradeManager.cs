@@ -122,7 +122,7 @@ public class UpgradeManager : MonoBehaviour
         SoundManager.Instance.PlaySoundEffect("sticker_apply");
 
         Debug.Log("Call New");
-        GameManager.Instance.NewWave();
+        //GameManager.Instance.NewWave();
         Debug.Log("S");
     }
 }
