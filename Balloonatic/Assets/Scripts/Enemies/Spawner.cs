@@ -54,16 +54,17 @@ public class Spawner : MonoBehaviour
 	
     private IEnumerator SpawnEnemy(int typeLim, int toSpawn = 1)
     {
-        Debug.Log("spawn coroutine call");
         int randPoint = -1;
 
         for (int i = 0, temp = randPoint; i < toSpawn; i++)
         {
-            Debug.Log(i + " SpawnEnemy: " + Time.timeSinceLevelLoad); //System.DateTime.Now.TimeOfDay
+            enemySpwnProp enemy = enemyStructList[Random.Range(0, typeLim)];
+
+            Debug.Log(Time.timeSinceLevelLoad + " SpawnEnemy: " + typeLim + enemy.enemyType.name); //System.DateTime.Now.TimeOfDay
             temp = randPoint;
             while (randPoint == temp) { randPoint = Random.Range(0, 3); }
 
-	        enemySpwnProp enemy = enemyStructList[Random.Range(0, typeLim)];
+	        //enemySpwnProp enemy = enemyStructList[Random.Range(0, typeLim)];
 
 	        yield return new WaitForSeconds(enemy.typeInterval);
 	        GameObject newEnemy = Instantiate(enemy.enemyType, new Vector2(Random.Range(-9, 9), Random.Range(-6, 6)), Quaternion.identity);
