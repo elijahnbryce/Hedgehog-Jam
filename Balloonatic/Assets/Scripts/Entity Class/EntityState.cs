@@ -34,6 +34,7 @@ public class EntityState : ScriptableObject
                 changer.Initialize(this);
             }
         }
+	
     }
 
     public virtual void Enter()
@@ -84,4 +85,5 @@ public class EntityState : ScriptableObject
             }
         }
     }
+
 }

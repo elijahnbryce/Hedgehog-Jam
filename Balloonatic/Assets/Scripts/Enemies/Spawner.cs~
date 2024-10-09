@@ -8,6 +8,11 @@ public class Spawner : MonoBehaviour
 	public static Spawner Instance { get; private set; }
 
 	public GameManager gm = GameManager.Instance;
+
+    private bool doneSpawning;
+    public bool DoneSpawning { get { return doneSpawning; } }
+
+    private int toSpawn = 0;
 		
 	[System.Serializable] public struct enemySpwnProp
 	{
@@ -43,10 +48,11 @@ public class Spawner : MonoBehaviour
 
     public void StartSpawn(int enemyAmt, int enemyTypes)
     {
+        toSpawn = enemyAmt;
 	    StartCoroutine(SpawnEnemy(enemyAmt, enemyTypes));
     } 
 	
-    private IEnumerator SpawnEnemy(int spawnLim, int typeLim, int toSpawn = 1)
+    private IEnumerator SpawnEnemy(int spawnLim, int typeLim)
     {
         int randPoint = -1;
 
@@ -58,10 +64,14 @@ public class Spawner : MonoBehaviour
 	        enemySpwnProp enemy = enemyStructList[Random.Range(0, typeLim)];
 
 	        yield return new WaitForSeconds(enemy.typeInterval);
-	        GameObject newEnemy = Instantiate(enemy.enemyType, spawnPoints[randPoint].position, Quaternion.identity);
-
+	        GameObject newEnemy = Instantiate(enemy.enemyType, new Vector2(Random.Range(-9, 9), Random.Range(-6, 6)), Quaternion.identity);
 	        gm.AddEnemy(newEnemy);
-            if (gm.enemyList.Count < spawnLim)
+            toSpawn--;
+            doneSpawning = toSpawn < 0;
+            Debug.Log("donespawning:" + doneSpawning);
+
+
+            if (!doneSpawning)
                 StartCoroutine(SpawnEnemy(spawnLim, typeLim)); // always 1 toSpawn
         }
     } 
