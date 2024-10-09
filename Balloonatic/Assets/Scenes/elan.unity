@@ -6480,6 +6480,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 784055556338620715, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1114193059873756570, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6606,7 +6610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3791625148428224167, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3879610764384230660, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -6639,6 +6643,14 @@ PrefabInstance:
     - target: {fileID: 4309268447468345999, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Restart
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405115087651275508, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1821101316}
+    - target: {fileID: 4405115087651275508, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitApp
       objectReference: {fileID: 0}
     - target: {fileID: 4545964932233349066, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6762,7 +6774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6409006113312655519, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6564326328234275228, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -6792,6 +6804,14 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 7047913428065474448, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1821101316}
+    - target: {fileID: 7047913428065474448, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Restart
+      objectReference: {fileID: 0}
     - target: {fileID: 7091155956296519492, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -6828,6 +6848,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7921663037691728320, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1821101316}
+    - target: {fileID: 7921663037691728320, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitApp
+      objectReference: {fileID: 0}
     - target: {fileID: 8077529708601697213, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -6856,6 +6884,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8908139903888373032, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1821101316}
+    - target: {fileID: 8908139903888373032, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Restart
+      objectReference: {fileID: 0}
     - target: {fileID: 8934039567461679704, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -6871,6 +6907,10 @@ PrefabInstance:
     - target: {fileID: 9123533812695178307, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9180762939779952919, guid: 051776b4b4242f649bcbdaa1536bb4cb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
