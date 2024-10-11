@@ -121,11 +121,26 @@ public class GameManager : MonoBehaviour
         int newScore = score;
         //float timeElapsed = ts.GetTime();
         //float timeMult = (timeElapsed / 60 < 4) ? (1 - timeElapsed / 300) : 0.1f;
+        float timeMult = 1f;
+        float makeScoreBigger = 1f;
 
-        //newScore = Mathf.RoundToInt(score * ((1 + (float)health / fullHealth) * timeMult) - (enemyFactor * enemies.Count) * makeScoreBigger);
+        float healthBonus = 1 + (GetHealthRatio() / 2f);
+
+        newScore = Mathf.RoundToInt(score * (healthBonus * timeMult) * makeScoreBigger);
         //  or multiply by (1 - enemies.Count / enemies2Spawn);                <- punishment
         // (1 + (float)(startEnemies - levEnemies.Count) / startEnemies)   <- reward
         return Mathf.Max(0, newScore);
+    }
+    private int GetGuideScore()
+    {
+        float pointsFromEnemies = 0f;
+
+        for (int i = 1; i <= wave; i++)
+        {
+            pointsFromEnemies += 16 * (3 + 2 * i);
+            //pointsFromEnemies *= Matf.Pow(multBonus, Mathf.FloorToInt(10 / wave) + 1);
+        }
+        return Mathf.RoundToInt(1.47f * pointsFromEnemies);
     }
 
     public void EndLevel(bool alive, int score)
@@ -150,7 +165,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Time.timeScale = 0;
-            eV.LoseGame(totalScore);
+            eV.LoseGame(totalScore, GetGuideScore());
         }
     }
 
@@ -179,7 +194,7 @@ public class GameManager : MonoBehaviour
                 UpdateHealth(1);
             }
         }
-
+        Debug.Log(sp.DoneSpawning + " c: " + enemyList.Count);
         if (sp.DoneSpawning && enemyList.Count == 0)
         {
             EndLevel(true, levelScore);
@@ -213,7 +228,7 @@ public class GameManager : MonoBehaviour
         switch (upgrade)
         {
             case UpgradeType.Heart:
-                UpdateHealth(1);
+                UpdateHealth(fullHealth-health);
                 return true;
             case UpgradeType.Evil_Pizza:
                 UpdateHealth();
@@ -231,11 +246,6 @@ public class GameManager : MonoBehaviour
     {
         return (upgradeList.ContainsKey(upgrade)) ? Mathf.Pow(percent, upgradeList[upgrade]) : 1f; ;
     }
-
-    //private int GetFinalScore(int score, float time = 10f)
-    //{
-    //    return Mathf.RoundToInt((1 + (float)score / (float)(fullHealth / 2)) * (1 - (1 - time / 10f)) * (1 + (float)(startEnemies - levEnemies.Count) / startEnemies) * ((float)(startPickups - levPickups.Count) / startPickups) * 1017); // score is just health
-    //}
 
     private IEnumerator StarPower()
     {
@@ -288,6 +298,7 @@ public class GameManager : MonoBehaviour
 
     public float GetHealthRatio()
     {
+        if (fullHealth == 0) return 0f;
         return (float)health / fullHealth;
     }
 }

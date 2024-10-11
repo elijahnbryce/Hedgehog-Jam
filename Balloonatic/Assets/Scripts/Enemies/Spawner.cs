@@ -71,7 +71,7 @@ public class Spawner : MonoBehaviour
 	        gm.AddEnemy(newEnemy);
             spawnLim--;
             doneSpawning = spawnLim <= 0;
-            Debug.Log("donespawning:" + doneSpawning);
+            Debug.Log(spawnLim + " donespawning:" + doneSpawning);
 
             if (!doneSpawning)
                 StartCoroutine(SpawnEnemy(typeLim)); // always 1 toSpawn

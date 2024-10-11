@@ -11,7 +11,7 @@ public class EventHandler : MonoBehaviour
     [SerializeField] private GameObject pauseMen;
     [SerializeField] private GameObject loseCan, ovrCan;
 
-    [SerializeField] private TextMeshProUGUI endScore, endTime, endKills, goalText, healthText, hsText, timerText;
+    [SerializeField] private TextMeshProUGUI endScore, endTime, endKills, goalText, healthText, hsText, timerText, gradeText;
     [SerializeField] private TMP_InputField hsInput;
 
 
@@ -81,7 +81,24 @@ public class EventHandler : MonoBehaviour
         hsInput.gameObject.SetActive(false);
     }
 
-    public void LoseGame(int finalScore)
+    private string GetGrade(int score, int guide)
+    {
+        Debug.Log(guide);
+        
+        float grade = (float)score / guide;
+        string letter;
+        if (grade > 1) letter = "A";
+        else if (grade >= .9f) letter = "A";
+        else if (grade >= .8f) letter = "B";
+        else if (grade >= .7f) letter = "C";
+        else if (grade >= .6f) letter = "D";
+        else letter = "F";
+        
+        Debug.Log(grade.ToString());
+        return letter;
+    }
+
+    public void LoseGame(int finalScore, int guideScore)
     {
         Debug.Log("Lost Game");
         gm.gameOver = true;
@@ -90,6 +107,7 @@ public class EventHandler : MonoBehaviour
         endScore.text = finalScore.ToString();
         ts.DisplayTime(endTime);
         endKills.text = gm.enemiesKilled.ToString();
+        gradeText.text = GetGrade(finalScore, guideScore);
 
         //CheckHS(finalScore);
         Cursor.lockState = CursorLockMode.None;
