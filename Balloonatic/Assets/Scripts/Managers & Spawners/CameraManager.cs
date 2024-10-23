@@ -18,8 +18,6 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         playerTransform = PlayerMovement.Instance.transform;
-        PlayerAttack.OnAttackInitiate += AttackStart;
-        PlayerAttack.OnAttackHalt += AttackEnd;
         minPos = -1 * maxPos;
     }
 
@@ -32,15 +30,6 @@ public class CameraManager : MonoBehaviour
         transform.localPosition = new Vector3(newPos.x, newPos.y, -10);
     }
 
-    private void AttackStart()
-    {
-
-    }
-
-    private void AttackEnd()
-    {
-
-    }
 
     public void ScreenShake() => ScreenShake(0.25f);
     public void ScreenShake(float amount)

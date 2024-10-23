@@ -1,78 +1,157 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// handles the spawning and placement of erasers in a grid-based system
+/// ensures proper spacing and positioning of erasers without overlap
+/// </summary>
 public class EraserSpawner : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> eraserPrefabs; // List of Eraser prefabs
-    [SerializeField] private int numberOfErasers = 10; // Number of erasers to spawn
+    // constants for spawn configuration
+    private const int DEFAULT_MAX_SPAWN_ATTEMPTS = 100;
 
-    private int boxWidth = 20;
-    private int boxHeight = 10;
+    // grid dimensions
+    private const int GRID_WIDTH = 20;
+    private const int GRID_HEIGHT = 10;
 
-    // 2D grid to track occupied cells
+    // serialized fields for configuration
+    [SerializeField] private List<GameObject> eraserPrefabs;
+    [SerializeField] private int numberOfErasers = 10;
+
+    // internal state
     private bool[,] occupiedGrid;
 
+    /// <summary>
+    /// initializes the grid and starts the eraser spawning process
+    /// </summary>
     private void Start()
     {
-        // Initialize the grid (false means unoccupied)
-        occupiedGrid = new bool[boxWidth, boxHeight];
+        InitializeGrid();
         SpawnErasers();
     }
 
+    /// <summary>
+    /// initializes the occupation grid with default values
+    /// </summary>
+    private void InitializeGrid()
+    {
+        occupiedGrid = new bool[GRID_WIDTH, GRID_HEIGHT];
+    }
+
+    /// <summary>
+    /// main spawning logic for placing erasers in the grid
+    /// </summary>
     private void SpawnErasers()
     {
-        int spawnedErasers = 0;
+        int successfulSpawns = 0;
 
-        while (spawnedErasers < numberOfErasers)
+        while (successfulSpawns < numberOfErasers)
         {
-            // Pick a random eraser prefab from the list
-            GameObject randomEraserPrefab = eraserPrefabs[Random.Range(0, eraserPrefabs.Count)];
-
-            // Instantiate the eraser prefab
-            GameObject eraserInstance = Instantiate(randomEraserPrefab);
-
-            // Get the Eraser component to access its size
-            Eraser eraser = eraserInstance.GetComponent<Eraser>();
-            Vector2 eraserSize = eraser.Size;
-
-            // Ensure that the eraser fits within the grid (size.x, size.y should be integers)
-            int eraserWidth = Mathf.CeilToInt(eraserSize.x);
-            int eraserHeight = Mathf.CeilToInt(eraserSize.y);
-
-            // Find a random position that fits the eraser and is not occupied
-            bool foundSpot = false;
-            int startX = 0, startY = 0;
-
-            for (int attempt = 0; attempt < 100; attempt++) // Try 100 times to find a valid spot
+            if (TrySpawnEraser(successfulSpawns))
             {
-                // Random position for the bottom-left corner of the eraser
-                startX = Random.Range(0, boxWidth - eraserWidth + 1);
-                startY = Random.Range(0, boxHeight - eraserHeight + 1);
-
-                if (IsSpaceAvailable(startX, startY, eraserWidth, eraserHeight))
-                {
-                    foundSpot = true;
-                    break;
-                }
+                successfulSpawns++;
             }
-
-            if (!foundSpot)
+            else
             {
-                Debug.LogWarning("No available space to fit the erasers.");
+                LogSpawnFailure();
                 break;
             }
-
-            // Mark the grid space as occupied
-            MarkSpaceAsOccupied(startX, startY, eraserWidth, eraserHeight);
-
-            // Set the position of the eraser within the box (centered in its grid space)
-            eraserInstance.transform.position = new Vector3(startX + eraserWidth / 2f, startY + eraserHeight / 2f, 0);
-
-            spawnedErasers++;
         }
     }
 
-    // Check if the space is available on the grid for the eraser
+    /// <summary>
+    /// attempts to spawn a single eraser in the grid
+    /// </summary>
+    /// <param name="spawnIndex">current spawn attempt index</param>
+    /// <returns>true if spawn was successful, false otherwise</returns>
+    private bool TrySpawnEraser(int spawnIndex)
+    {
+        GameObject eraserInstance = CreateEraserInstance();
+        EraserSpawnData spawnData = GetEraserSpawnData(eraserInstance);
+
+        Vector2Int? validPosition = FindValidSpawnPosition(spawnData);
+
+        if (!validPosition.HasValue)
+        {
+            Destroy(eraserInstance);
+            return false;
+        }
+
+        FinalizeEraserSpawn(eraserInstance, spawnData, validPosition.Value);
+        return true;
+    }
+
+    /// <summary>
+    /// creates a new instance of a random eraser prefab
+    /// </summary>
+    private GameObject CreateEraserInstance()
+    {
+        GameObject randomPrefab = eraserPrefabs[Random.Range(0, eraserPrefabs.Count)];
+        return Instantiate(randomPrefab);
+    }
+
+    /// <summary>
+    /// extracts spawn-relevant data from an eraser instance
+    /// </summary>
+    private EraserSpawnData GetEraserSpawnData(GameObject eraserInstance)
+    {
+        Eraser eraser = eraserInstance.GetComponent<Eraser>();
+        Vector2 rawSize = eraser.Size;
+
+        return new EraserSpawnData
+        {
+            Width = Mathf.CeilToInt(rawSize.x),
+            Height = Mathf.CeilToInt(rawSize.y)
+        };
+    }
+
+    /// <summary>
+    /// attempts to find a valid position for spawning the eraser
+    /// </summary>
+    private Vector2Int? FindValidSpawnPosition(EraserSpawnData spawnData)
+    {
+        for (int attempt = 0; attempt < DEFAULT_MAX_SPAWN_ATTEMPTS; attempt++)
+        {
+            Vector2Int testPosition = GenerateRandomPosition(spawnData);
+
+            if (IsSpaceAvailable(testPosition.x, testPosition.y, spawnData.Width, spawnData.Height))
+            {
+                return testPosition;
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// generates a random position within the valid grid bounds for the given eraser size
+    /// </summary>
+    private Vector2Int GenerateRandomPosition(EraserSpawnData spawnData)
+    {
+        int x = Random.Range(0, GRID_WIDTH - spawnData.Width + 1);
+        int y = Random.Range(0, GRID_HEIGHT - spawnData.Height + 1);
+        return new Vector2Int(x, y);
+    }
+
+    /// <summary>
+    /// finalizes the eraser spawn by setting position and marking grid space
+    /// </summary>
+    private void FinalizeEraserSpawn(GameObject eraserInstance, EraserSpawnData spawnData, Vector2Int position)
+    {
+        MarkSpaceAsOccupied(position.x, position.y, spawnData.Width, spawnData.Height);
+
+        Vector3 spawnPosition = new Vector3(
+            position.x + spawnData.Width / 2f,
+            position.y + spawnData.Height / 2f,
+            0
+        );
+
+        eraserInstance.transform.position = spawnPosition;
+    }
+
+    /// <summary>
+    /// checks if a given space in the grid is available for an eraser
+    /// </summary>
     private bool IsSpaceAvailable(int startX, int startY, int width, int height)
     {
         for (int x = startX; x < startX + width; x++)
@@ -81,14 +160,16 @@ public class EraserSpawner : MonoBehaviour
             {
                 if (occupiedGrid[x, y])
                 {
-                    return false; // Space is already occupied
+                    return false;
                 }
             }
         }
-        return true; // Space is available
+        return true;
     }
 
-    // Mark the grid space as occupied
+    /// <summary>
+    /// marks a space in the grid as occupied by an eraser
+    /// </summary>
     private void MarkSpaceAsOccupied(int startX, int startY, int width, int height)
     {
         for (int x = startX; x < startX + width; x++)
@@ -99,4 +180,18 @@ public class EraserSpawner : MonoBehaviour
             }
         }
     }
+
+    private void LogSpawnFailure()
+    {
+        Debug.LogWarning("No available space to fit the erasers.");
+    }
+}
+
+/// <summary>
+/// data structure to hold processed eraser spawn parameters
+/// </summary>
+public struct EraserSpawnData
+{
+    public int Width { get; set; }
+    public int Height { get; set; }
 }

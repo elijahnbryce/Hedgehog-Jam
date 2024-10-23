@@ -1190,13 +1190,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49eec5b7d2ba9f24fb53dba4a9fba93d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 7
+  MovementSpeed: 10
   spriteRenderer: {fileID: 2140771168}
   secondHand: {fileID: 158979404}
   followingDistance: 5
-  PlayerPosition: {x: 0, y: 0}
   CanMove: 0
   Moving: 0
+  PlayerPosition: {x: 0, y: 0}
   currentPos: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}
 --- !u!4 &619850928

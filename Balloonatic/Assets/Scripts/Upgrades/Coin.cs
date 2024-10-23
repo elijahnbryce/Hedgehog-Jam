@@ -3,56 +3,138 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//some redundant animation code, fix later
+/// <summary>
+/// handles the behavior and animation of collectible coins in the game
+/// </summary>
 public class Coin : MonoBehaviour
 {
-    float timer = 0.2f;
-    int frame = 0;
-    int value;
-    List<Sprite> sprites = new();
-    SpriteRenderer sr;
+    // animation timing constants
+    private const float ANIMATION_FRAME_DURATION = 0.2f;
+    private const float SPAWN_SCALE_DURATION = 0.25f;
+    private const float COLLECT_MOVE_DURATION = 0.4f;
+    private const float COLLECT_PUNCH_DURATION = 0.2f;
+    private const float COLLECT_SCALE_DURATION = 0.2f;
+    private const int TOTAL_FRAMES = 4;
+
+    // internal state tracking
+    private float animationTimer = ANIMATION_FRAME_DURATION;
+    private int currentFrame;
+    private int coinValue;
+    private List<Sprite> coinSprites = new();
+    private SpriteRenderer spriteRenderer;
+
+    // serialized fields
     [SerializeField] private Material whiteMat;
-    //scriptableobject should be used here instead
+
+    // todo: replace with scriptableobject implementation
     public void InitializeCoin(CoinStruct coin)
     {
-        value = (int)coin.Type;
-        sprites = coin.Sprites;
+        SetupCoinProperties(coin);
+        PlaySpawnAnimation();
+    }
 
+    private void SetupCoinProperties(CoinStruct coin)
+    {
+        coinValue = (int)coin.Type;
+        coinSprites = coin.Sprites;
+        currentFrame = Random.Range(0, coinSprites.Count);
+    }
+
+    private void PlaySpawnAnimation()
+    {
         transform.localScale = Vector2.zero;
-        transform.DOScale(Vector2.one, 0.25f);
-        frame = Random.Range(0, sprites.Count);
-    }
-    void Start()
-    {
-        sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        transform.DOScale(Vector2.one, SPAWN_SCALE_DURATION);
     }
 
-    void Update()
+    private void Start()
     {
-        timer -= Time.deltaTime;
-        if (timer < 0)
+        InitializeSpriteRenderer();
+    }
+
+    private void InitializeSpriteRenderer()
+    {
+        spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        UpdateCoinAnimation();
+    }
+
+    private void UpdateCoinAnimation()
+    {
+        UpdateAnimationTimer();
+        UpdateSpriteFrame();
+    }
+
+    private void UpdateAnimationTimer()
+    {
+        animationTimer -= Time.deltaTime;
+        if (animationTimer < 0)
         {
-            timer = 0.2f;
-            frame = (frame + 1) % 4;
+            animationTimer = ANIMATION_FRAME_DURATION;
+            AdvanceAnimationFrame();
         }
+    }
 
-        sr.sprite = sprites[frame];
+    private void AdvanceAnimationFrame()
+    {
+        currentFrame = (currentFrame + 1) % TOTAL_FRAMES;
+    }
+
+    private void UpdateSpriteFrame()
+    {
+        spriteRenderer.sprite = coinSprites[currentFrame];
     }
 
     public void ClaimCoin()
     {
+        DisableCollision();
+        SetCollectMaterial();
+        PlayCollectAnimation();
+    }
+
+    private void DisableCollision()
+    {
         Destroy(GetComponent<Collider2D>());
-        sr.material = whiteMat;
-        transform.DOMove(transform.position + Vector3.up, 0.4f);
-        var seq = DOTween.Sequence();
-        seq.Append(transform.DOPunchScale(Vector2.one * 0.25f, 0.2f));
-        seq.Append(transform.DOScale(Vector2.zero, 0.2f));
-        seq.AppendCallback(() =>
-        {
-            Destroy(gameObject);
-            SoundManager.Instance.PlaySoundEffect("coin_pickup");
-            GameManager.Instance.UpdateScore(value);
-        });
+    }
+
+    private void SetCollectMaterial()
+    {
+        spriteRenderer.material = whiteMat;
+    }
+
+    private void PlayCollectAnimation()
+    {
+        // animate upward movement
+        transform.DOMove(transform.position + Vector3.up, COLLECT_MOVE_DURATION);
+
+        // create collection animation sequence
+        CreateCollectSequence();
+    }
+
+    private void CreateCollectSequence()
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(transform.DOPunchScale(Vector2.one * 0.25f, COLLECT_PUNCH_DURATION));
+        sequence.Append(transform.DOScale(Vector2.zero, COLLECT_SCALE_DURATION));
+        sequence.AppendCallback(OnCollectComplete);
+    }
+
+    private void OnCollectComplete()
+    {
+        Destroy(gameObject);
+        PlayCollectSound();
+        UpdateGameScore();
+    }
+
+    private void PlayCollectSound()
+    {
+        SoundManager.Instance.PlaySoundEffect("coin_pickup");
+    }
+
+    private void UpdateGameScore()
+    {
+        GameManager.Instance.UpdateScore(coinValue);
     }
 }
