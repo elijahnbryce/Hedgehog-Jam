@@ -42,14 +42,14 @@ public class GlueTrap : MonoBehaviour
     {
 	
 	if (other.gameObject.CompareTag("Player")) {
-		pm.movementSpeed /= 3;
+		pm.MovementSpeed /= 3;
 	}	
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player")) {	
-        	pm.movementSpeed *= 3;
+        	pm.MovementSpeed *= 3;
         }
     } 
 }
