@@ -40,7 +40,7 @@ public class EventHandler : MonoBehaviour
     {
         //nxtCan.SetActive(false);
         ovrCan.SetActive(false);
-        hsInput.gameObject.SetActive(false);
+        //hsInput.gameObject.SetActive(false);
         //winCan.SetActive(false);
         loseCan.SetActive(false);
         pauseMen.SetActive(false);
