@@ -1231,6 +1231,10 @@ MonoBehaviour:
   - {r: 0.8588236, g: 0.25490198, b: 0.3803922, a: 1}
   - {r: 0.57254905, g: 0.25490198, b: 0.95294124, a: 1}
   rubberRender: {fileID: 1555989744}
+  primaryHand: {fileID: 619850928}
+  secondaryHand: {fileID: 158979404}
+  maxStretchDistance: 6
+  minStretchDistance: 0.5
 --- !u!114 &619850927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1244,9 +1248,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 10
+  secondaryHandSpeed: 2.5
+  secondaryHandSpeedWhileAttacking: 100
+  followingDistance: 5
   spriteRenderer: {fileID: 2140771168}
   secondHand: {fileID: 158979404}
-  followingDistance: 5
   CanMove: 0
   Moving: 0
   PlayerPosition: {x: 0, y: 0}

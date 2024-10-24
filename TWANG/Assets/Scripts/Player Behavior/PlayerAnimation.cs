@@ -96,7 +96,10 @@ public class PlayerAnimation : MonoBehaviour
     // sprite update methods
     private void UpdatePrimaryHandSprite()
     {
-        Vector2 primaryDir = PlayerMovement.Instance.GetDirectionToMouse(true);
+        //Vector2 primaryDir = PlayerMovement.Instance.GetDirectionToMouse(true);
+
+        var primaryDir = PlayerMovement.Instance.GetDirectionOfPrimaryHand();
+
         int spriteIndex = CalculatePrimaryHandSpriteIndex(primaryDir);
 
         primaryHandSR.sprite = PlayerAttack.Instance.Attacking
