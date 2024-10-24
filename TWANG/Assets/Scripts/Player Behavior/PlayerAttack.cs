@@ -6,11 +6,15 @@ using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
-    // serialized fields for unity inspector
+    [Header("Attack Settings")]
     [SerializeField] private Slider attackSlider;
     [SerializeField] private GameObject projectile;
     [SerializeField] private List<Color> colors = new();
     [SerializeField] private DragController rubberRender;
+    [SerializeField] private Transform primaryHand;    // Reference to the main player/hand
+    [SerializeField] private Transform secondaryHand;  // Reference to the secondary hand
+    [SerializeField] private float maxStretchDistance = 6f;  // Maximum distance the band can stretch
+    [SerializeField] private float minStretchDistance = 0.5f;
 
     // private fields for internal state management
     private Transform launchPoint;
@@ -19,11 +23,13 @@ public class PlayerAttack : MonoBehaviour
     private bool attacking;
     private int attackState;
     private Color currentColor = Color.white;
+    private Vector2 attackDirection;
 
     // constants
     private const float ATTACK_MAX = 2.5f;
     private const float SLIDER_LERP_SPEED = 2.5f;
     private const float PROJECTILE_BASE_FORCE = 300f;
+    private const float MIN_ATTACK_POWER = 0.2f;
 
     // public properties
     public bool Attacking => attacking;
@@ -36,7 +42,12 @@ public class PlayerAttack : MonoBehaviour
 
     private void Awake()
     {
-        InitializeSingleton();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
 
     private void Start()
@@ -46,9 +57,26 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        UpdateAttackState();
-        HandlePlayerInput();
-        UpdateAttackPower();
+        if (!GameManager.Instance.BetweenRounds)
+        {
+            HandleAttackInput();
+            if (attacking)
+            {
+                UpdateAttackState();
+            }
+        }
+    }
+
+    private void HandleAttackInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AttackInitiate();
+        }
+        else if (Input.GetKeyUp(KeyCode.Space) && attacking)
+        {
+            AttackHalt();
+        }
     }
 
     // initialization methods
@@ -72,18 +100,30 @@ public class PlayerAttack : MonoBehaviour
     // update methods
     private void UpdateAttackState()
     {
-        // update slider value with smooth interpolation
-        sliderValue = Mathf.Clamp01(Mathf.Lerp(sliderValue, attackPower, Time.deltaTime * SLIDER_LERP_SPEED));
+        // Calculate attack power based on distance between hands
+        Vector2 handsDelta = secondaryHand.position - primaryHand.position;
+        float distance = handsDelta.magnitude;
+
+        // Normalize distance to 0-1 range based on max stretch
+        attackPower = Mathf.Clamp01(distance / maxStretchDistance);
+
+        // Update attack direction (will be used when firing)
+        attackDirection = handsDelta.normalized;
+
+        // Update slider and visual feedback
+        sliderValue = Mathf.Lerp(sliderValue, attackPower, Time.deltaTime * SLIDER_LERP_SPEED);
         attackSlider.value = sliderValue;
 
-        // update attack state and colors
+        // Update attack state and colors
         attackState = Mathf.FloorToInt(sliderValue * 4);
         UpdateColors();
+
+        // Update rubber band visual
+        rubberRender.UpdateBand(attackPower);
     }
 
     private void UpdateColors()
     {
-        // update current color and slider fill color
         currentColor = AttackStateToColor(attackState);
         var sliderFill = attackSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
         sliderFill.color = currentColor;
@@ -91,12 +131,11 @@ public class PlayerAttack : MonoBehaviour
 
     private void HandlePlayerInput()
     {
-        // handle mouse input for attack controls
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             AttackInitiate();
         }
-        else if (Input.GetMouseButtonUp(0) && attacking)
+        else if (Input.GetKeyUp(KeyCode.Space) && attacking)
         {
             AttackHalt();
         }
@@ -120,20 +159,53 @@ public class PlayerAttack : MonoBehaviour
     // attack handling methods
     private void AttackInitiate()
     {
-        // check if attack can be initiated
         if (GameManager.Instance.BetweenRounds) return;
 
         attacking = true;
+        attackPower = 0;
+        sliderValue = 0;
         SoundManager.Instance.PlaySoundEffect("band_pull");
         OnAttackInitiate?.Invoke();
     }
 
     private void AttackHalt()
     {
+        // Only fire if we've pulled back enough
+        if (attackPower >= MIN_ATTACK_POWER)
+        {
+            FireProjectile();
+        }
+
         OnAttackHalt?.Invoke();
-        PlayAttackSoundEffect();
-        SpawnProjectile();
+        SoundManager.Instance.PlaySoundEffect("band_release");
         ResetAttackState();
+    }
+
+    private void FireProjectile()
+    {
+        // Calculate firing direction (from secondary hand to primary hand)
+        Vector2 fireDirection = (primaryHand.position - secondaryHand.position).normalized;
+
+        // Create and setup projectile
+        GameObject newProjectile = Instantiate(projectile, secondaryHand.position, Quaternion.identity);
+
+        // Configure visuals
+        var projectileSprite = newProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        projectileSprite.color = AttackStateToColor(attackState);
+
+        // Initialize rubber band component
+        newProjectile.GetComponent<RubberBand>().InitializeProjectile(
+            attackState,
+            PlayerMovement.Instance.FacingDir
+        );
+
+        // Apply physics
+        var rb = newProjectile.GetComponent<Rigidbody2D>();
+        rb.AddForce(fireDirection * PROJECTILE_BASE_FORCE * attackPower);
+
+        // Rotate projectile to face direction of travel
+        float angle = Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg;
+        newProjectile.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     private void PlayAttackSoundEffect()
@@ -164,18 +236,18 @@ public class PlayerAttack : MonoBehaviour
 
     private void ConfigureProjectilePhysics(GameObject projectileObj)
     {
-        // only apply force if not in highest attack state
-        if (attackState != 3)
-        {
-            var rb = projectileObj.GetComponent<Rigidbody2D>();
-            var direction = -PlayerMovement.Instance.GetDirectionToMouse();
-            rb.AddForce(direction * PROJECTILE_BASE_FORCE * attackPower);
-        }
+        var rb = projectileObj.GetComponent<Rigidbody2D>();
+        //var direction = -PlayerMovement.Instance.GetDirectionToMouse();
+        var direction = -PlayerMovement.Instance.GetDirectionOfPrimaryHand();
+
+        rb.AddForce(direction * PROJECTILE_BASE_FORCE * attackPower);
     }
 
     private void RotateProjectile(GameObject projectileObj)
     {
-        var direction = PlayerMovement.Instance.GetDirectionToMouse();
+        //var direction = PlayerMovement.Instance.GetDirectionToMouse();
+        var direction = PlayerMovement.Instance.GetDirectionOfPrimaryHand();
+
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         projectileObj.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
@@ -184,16 +256,18 @@ public class PlayerAttack : MonoBehaviour
     {
         attacking = false;
         attackPower = 0;
+        sliderValue = 0;
+        attackDirection = Vector2.zero;
     }
 
     // utility methods
     public Color AttackStateToColor(int state)
     {
-        // convert attack state to corresponding color
-        if (state == 0 || state >= colors.Count)
-        {
-            return colors[0];
-        }
-        return colors[state];
+        return state == 0 || state >= colors.Count ? colors[0] : colors[state];
+    }
+
+    public float GetCurrentStretch()
+    {
+        return attackPower;
     }
 }

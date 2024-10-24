@@ -33,29 +33,11 @@ public class RubberBand : MonoBehaviour
         StartCoroutine(nameof(TimedDestroy));
 
         rb = GetComponent<Rigidbody2D>();
-
-        spiral = false;
-        //removing the spiral bullet for now
-
-        if (spiral)
-        {
-            Vector2 initialDirection = PlayerMovement.Instance.GetDirectionToMouse();
-            rb.velocity = initialDirection * initialSpeed;
-        }
     }
 
     void Update()
     {
-        if (spiral && !dead)
-        {
-            currentAngle += rotationSpeed * Time.deltaTime * (facingDir ? -1:1);
-            currentRadius += spiralGrowthRate * Time.deltaTime;
 
-            float angleInRadians = currentAngle * Mathf.Deg2Rad;
-            Vector2 spiralDirection = new Vector2(Mathf.Cos(angleInRadians), Mathf.Sin(angleInRadians));
-
-            rb.velocity = spiralDirection * currentRadius * attackPower;
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -109,7 +91,6 @@ public class RubberBand : MonoBehaviour
                 break;
             case 3:
                 bounces = 3;
-                //spiral = true;
                 break;
             default: //and 0
 

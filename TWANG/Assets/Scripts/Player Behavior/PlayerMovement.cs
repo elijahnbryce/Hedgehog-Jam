@@ -6,38 +6,32 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // serialized fields for unity inspector
     [Header("Movement Settings")]
     [SerializeField] public float MovementSpeed;
 
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Transform secondHand;
-    [SerializeField] private float followingDistance = 5f;
+    [SerializeField] private float followingDistance = 6f;
 
-    // private fields for internal state
     private float followingSpeed = 100f;
     private Rigidbody2D rigidBody;
     private bool facingDir = true;
     private bool attacking = false;
     private Vector2 secondCurrentPos, secondTargetPos;
-    private Vector2 cachedDirection;
+    private Vector2 mainHandPosition;
     private Vector2 cachedMovementDirection;
+    private Vector2 cachedDirection;
     private float footstepCounter;
 
     // upgrade related fields
     private float upgradeTimer = 8f;
     private int upgradeIndex = 0;
 
-    // constants
     private const float FOOTSTEP_INTERVAL = 0.75f;
     private const float POSITION_LERP_SPEED = 5f;
-    private const float DEFAULT_FOLLOWING_DISTANCE = 5f;
-    private const float ATTACK_FOLLOWING_DISTANCE = 0.5f;
-    private const float DEFAULT_FOLLOWING_SPEED = 2.5f;
     private const float ATTACK_FOLLOWING_SPEED = 8f;
 
-    // public properties
     public bool FacingDir => facingDir;
     [HideInInspector] public bool CanMove;
     [HideInInspector] public bool Moving;
@@ -47,18 +41,35 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        InitializeSingleton();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
 
     private void Start()
     {
-        InitializeComponents();
+        CanMove = true;
+        rigidBody = GetComponent<Rigidbody2D>();
         RegisterEventHandlers();
     }
 
     private void Update()
     {
         UpdatePositions();
+        if (attacking)
+        {
+            HandleSecondHandAttackControl();
+        }
+    }
+
+    private void HandleSecondHandAttackControl()
+    {
+        // Get mouse position in world space
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        secondTargetPos = mousePos;
     }
 
     private void FixedUpdate()
@@ -103,53 +114,66 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position = currentPos = Vector2.Lerp(currentPos, targetPos, Time.deltaTime * POSITION_LERP_SPEED);
         }
+        PlayerPosition = transform.position;
     }
 
     private void UpdateSecondHandPosition()
     {
-        secondHand.position = secondCurrentPos = Vector3.Slerp(
-            secondCurrentPos,
-            secondTargetPos,
-            Time.deltaTime * followingSpeed
-        );
+        if (attacking)
+        {
+            // Smooth follow of mouse during attack
+            secondHand.position = secondCurrentPos = Vector3.Lerp(
+                secondCurrentPos,
+                secondTargetPos,
+                Time.deltaTime * ATTACK_FOLLOWING_SPEED
+            );
+        }
+        else
+        {
+            // Normal following behavior
+            secondHand.position = secondCurrentPos = Vector3.Lerp(
+                secondCurrentPos,
+                secondTargetPos,
+                Time.deltaTime * followingSpeed
+            );
+        }
     }
 
     // movement handling methods
     private void HandleMovement()
     {
-        PlayerPosition = transform.position;
-        if (!CanMove) return;
+        if (!CanMove || attacking) return;
 
         Vector2 movement = GetMovementInput();
-        UpdateFacingDirection();
+        UpdateFacingDirection(movement);
         HandleMovingState(movement);
         ApplyMovement(movement);
-        UpdateSecondHandTarget();
+        UpdateSecondHandTarget(movement);
     }
 
     private Vector2 GetMovementInput()
     {
         var movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        // apply confusion upgrade if active
         if (GameManager.Instance.upgradeList.ContainsKey(UpgradeType.Confusion))
         {
             movement *= -Vector2.one;
         }
 
-        // normalize diagonal movement
         if (movement.magnitude > 1)
         {
-            movement /= movement.magnitude;
+            movement.Normalize();
         }
 
         return movement;
     }
 
-    private void UpdateFacingDirection()
+    private void UpdateFacingDirection(Vector2 movement)
     {
-        Vector3 mouseWorldPosition = GetMouseWorldPosition();
-        facingDir = transform.position.x > mouseWorldPosition.x;
+        if (movement.magnitude > 0)
+        {
+            cachedMovementDirection = movement;
+        }
     }
 
     private void HandleMovingState(Vector2 movement)
@@ -157,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
         Moving = movement.magnitude > 0;
         if (Moving && footstepCounter > FOOTSTEP_INTERVAL)
         {
-            PlayFootstepSound();
+            SoundManager.Instance.PlaySoundEffect("player_walk");
             footstepCounter = 0;
         }
     }
@@ -175,15 +199,24 @@ public class PlayerMovement : MonoBehaviour
         return healthRatio * gm.GetPowerMult(UpgradeType.Lightning, 1.5f);
     }
 
-    private void UpdateSecondHandTarget()
+    private void UpdateSecondHandTarget(Vector2 movement)
     {
-        if (!attacking)
-        {
-            UpdateNormalSecondHandTarget();
-            return;
-        }
+        // Cast ray in opposite direction of movement
+        Vector2 rayDirection = -cachedMovementDirection;
+        int layerMask = ~((1 << 6) | (1 << 12)); // Using existing layer mask
 
-        UpdateAttackingSecondHandTarget();
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, followingDistance, layerMask);
+
+        if (hit.collider != null)
+        {
+            // If we hit something, place the second hand at the hit point
+            secondTargetPos = hit.point;
+        }
+        else
+        {
+            // If we didn't hit anything, place it at the maximum distance
+            secondTargetPos = (Vector2)transform.position + (rayDirection * followingDistance);
+        }
     }
 
     private void UpdateNormalSecondHandTarget()
@@ -193,7 +226,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateAttackingSecondHandTarget()
     {
-        Vector3 direction = CalculateMouseDirection();
+        //Vector3 direction = CalculateMouseDirection();
+
+        Vector3 direction = GetDirectionOfPrimaryHand();
+
         cachedDirection = direction;
         direction.Normalize();
 
@@ -204,20 +240,18 @@ public class PlayerMovement : MonoBehaviour
     private void AttackStart()
     {
         attacking = true;
-        followingDistance = ATTACK_FOLLOWING_DISTANCE;
-        followingSpeed = ATTACK_FOLLOWING_SPEED;
+        rigidBody.velocity = Vector2.zero; // Stop movement
+        mainHandPosition = transform.position; // Store main hand position
     }
 
     private void AttackEnd()
     {
         attacking = false;
-        followingDistance = DEFAULT_FOLLOWING_DISTANCE;
-        followingSpeed = DEFAULT_FOLLOWING_SPEED;
     }
 
     public float GetAttackPower()
     {
-        return (secondHand.position - transform.position).magnitude / 5f;
+        return (secondHand.position - transform.position).magnitude / followingDistance;
     }
 
     // utility methods
@@ -226,20 +260,20 @@ public class PlayerMovement : MonoBehaviour
         SoundManager.Instance.PlaySoundEffect("player_walk");
     }
 
-    private Vector3 GetMouseWorldPosition()
-    {
-        Vector3 mouseScreenPosition = Input.mousePosition;
-        return Camera.main.ScreenToWorldPoint(new Vector3(
-            mouseScreenPosition.x,
-            mouseScreenPosition.y,
-            Camera.main.nearClipPlane
-        ));
-    }
+    //private Vector3 GetMouseWorldPosition()
+    //{
+    //    Vector3 mouseScreenPosition = Input.mousePosition;
+    //    return Camera.main.ScreenToWorldPoint(new Vector3(
+    //        mouseScreenPosition.x,
+    //        mouseScreenPosition.y,
+    //        Camera.main.nearClipPlane
+    //    ));
+    //}
 
-    private Vector3 CalculateMouseDirection()
-    {
-        return GetMouseWorldPosition() - transform.position;
-    }
+    //private Vector3 CalculateMouseDirection()
+    //{
+    //    return GetMouseWorldPosition() - transform.position;
+    //}
 
     private void HandleSecondHandRaycast(Vector3 direction)
     {
@@ -257,22 +291,29 @@ public class PlayerMovement : MonoBehaviour
         transform.position = currentPos = newPosition;
     }
 
-    public Vector2 GetDirectionToMouse()
-    {
-        return cachedDirection;
-    }
 
-    public Vector2 GetDirectionToMouse(bool _)
+
+    //public Vector2 GetDirectionToMouse()
+    //{
+    //    return cachedDirection;
+    //}
+
+    //public Vector2 GetDirectionToMouse(bool _)
+    //{
+    //    if (!PlayerAttack.Instance.Attacking)
+    //    {
+    //        if (Moving)
+    //        {
+    //            cachedMovementDirection = -rigidBody.velocity;
+    //        }
+    //        return cachedMovementDirection;
+    //    }
+    //    return cachedDirection;
+    //}
+
+    public Vector2 GetDirectionOfPrimaryHand()
     {
-        if (!PlayerAttack.Instance.Attacking)
-        {
-            if (Moving)
-            {
-                cachedMovementDirection = -rigidBody.velocity;
-            }
-            return cachedMovementDirection;
-        }
-        return cachedDirection;
+        return cachedMovementDirection;
     }
 
     public Vector2 GetDirectionToPrimaryHand()
@@ -360,7 +401,7 @@ public class PlayerMovement : MonoBehaviour
         while (upgradeTimer > 0)
         {
             upgradeTimer -= Time.deltaTime;
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 upgradeTimer = 0;
             }
