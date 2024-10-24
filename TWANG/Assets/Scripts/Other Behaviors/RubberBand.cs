@@ -77,9 +77,9 @@ public class RubberBand : MonoBehaviour
         }
     }
 
-    public void InitializeProjectile(int state, bool facingDirection)
+    public void InitializeProjectile(int state)
     {
-        facingDir = facingDirection;
+        //facingDir = facingDirection;
         attackState = state;
         switch (state)
         {
