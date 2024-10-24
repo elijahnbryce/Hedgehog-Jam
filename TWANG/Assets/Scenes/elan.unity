@@ -1248,7 +1248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 10
-  secondaryHandSpeed: 5
+  secondaryHandSpeed: 2.5
+  secondaryHandSpeedWhileAttacking: 100
   followingDistance: 5
   spriteRenderer: {fileID: 2140771168}
   secondHand: {fileID: 158979404}

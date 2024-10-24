@@ -4,8 +4,9 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] public float MovementSpeed = 5f;
+    [SerializeField] public float MovementSpeed = 10f;
     [SerializeField] private float secondaryHandSpeed = 5f; // Controls how fast secondary hand moves
+    [SerializeField] private float secondaryHandSpeedWhileAttacking = 90f;
     [SerializeField] private float followingDistance = 6f;
 
     [Header("References")]
@@ -137,8 +138,8 @@ public class PlayerMovement : MonoBehaviour
         secondHand.position = secondCurrentPos = Vector3.Slerp(
             secondCurrentPos,
             secondTargetPos,
-            Time.deltaTime * secondaryHandSpeed
-        );
+            Time.deltaTime * (attacking ? secondaryHandSpeedWhileAttacking : secondaryHandSpeed)
+        ) ;
     }
 
     private void MoveSecondaryHand(Vector2 movement)
@@ -278,6 +279,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector2 GetDirectionOfPrimaryHand()
     {
+        if (attacking)
+            return ((Vector2)secondHand.position - mainHandPosition).normalized;
         return -facingDirection;
     }
 
