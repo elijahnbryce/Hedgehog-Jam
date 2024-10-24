@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float followingDistance = 5f;
 
     // private fields for internal state
-    private float followingSpeed = 1f;
+    private float followingSpeed = 100f;
     private Rigidbody2D rigidBody;
     private bool facingDir = true;
     private bool attacking = false;
