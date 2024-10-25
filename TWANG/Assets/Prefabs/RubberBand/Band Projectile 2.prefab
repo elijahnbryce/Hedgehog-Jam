@@ -61,7 +61,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &2071459202057396340
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -109,6 +109,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24800f37e7ba2704c8eda9eb0d4c879f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rubberBandSprites:
+  - {fileID: 1301924543, guid: cd9a0fa14da5db145908afa7bca725c7, type: 3}
+  - {fileID: -656114667, guid: cd9a0fa14da5db145908afa7bca725c7, type: 3}
+  - {fileID: 366470951, guid: cd9a0fa14da5db145908afa7bca725c7, type: 3}
+  - {fileID: -714134895, guid: cd9a0fa14da5db145908afa7bca725c7, type: 3}
+  - {fileID: 1122575914, guid: cd9a0fa14da5db145908afa7bca725c7, type: 3}
+  - {fileID: 1863657336, guid: cd9a0fa14da5db145908afa7bca725c7, type: 3}
+  - {fileID: -1721099954, guid: cd9a0fa14da5db145908afa7bca725c7, type: 3}
+  - {fileID: 1682644729, guid: cd9a0fa14da5db145908afa7bca725c7, type: 3}
   whiteMat: {fileID: 2100000, guid: 14e101fe50cb36347a5b44d432d07764, type: 2}
   initialSpeed: 400
   spiralGrowthRate: 7
@@ -185,7 +194,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 179542409
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 83ae74a0e7e5a4e44887e6a5ebdd9d8e, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}

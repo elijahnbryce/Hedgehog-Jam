@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class RubberBand : MonoBehaviour
 {
+    [SerializeField] private List<Sprite> rubberBandSprites = new();
+
     private bool dead = false;
     [SerializeField] private Material whiteMat;
     private SpriteRenderer sr;
@@ -37,8 +39,45 @@ public class RubberBand : MonoBehaviour
 
     void Update()
     {
-
+        if(!dead)
+            UpdateRubberBandSprite();
     }
+
+    void UpdateRubberBandSprite()
+    {
+        float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
+
+        // Normalize angle to positive
+        if (angle < 0) angle += 360f;
+
+        if (angle > 180f)
+            angle -= 180f;
+
+        int spriteIndex;
+
+        if (Mathf.Approximately(angle, 0f) || Mathf.Approximately(angle, 180f))
+            spriteIndex = 4;
+        else if (angle > 0f && angle < 37.5f)  // 30° with some tolerance
+            spriteIndex = 5;
+        else if (angle >= 37.5f && angle < 52.5f)  // 45°
+            spriteIndex = 6;
+        else if (angle >= 52.5f && angle < 75f)  // 60°
+            spriteIndex = 7;
+        else if (angle >= 75f && angle < 105f)  // 90°
+            spriteIndex = 0;
+        else if (angle >= 105f && angle < 127.5f)  // 120°
+            spriteIndex = 1;
+        else if (angle >= 127.5f && angle < 142.5f)  // 135°
+            spriteIndex = 2;
+        else  // 150°
+            spriteIndex = 3;
+        // Update the sprite
+        if (rubberBandSprites.Count > spriteIndex)
+        {
+            sr.sprite = rubberBandSprites[spriteIndex];
+        }
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -73,7 +112,7 @@ public class RubberBand : MonoBehaviour
                 dead = true;
                 StartCoroutine(nameof(DestroyProjectileCoroutine));
             }
-            else { GameManager.Instance.DecPowerUp(UpgradeType.Ghost);}
+            else { GameManager.Instance.DecPowerUp(UpgradeType.Ghost); }
         }
     }
 

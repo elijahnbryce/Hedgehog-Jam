@@ -136,8 +136,8 @@ public class PlayerAttack : MonoBehaviour
         rb.AddForce(fireDirection * PROJECTILE_BASE_FORCE * attackPower);
 
         // Rotate projectile
-        float angle = Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg;
-        newProjectile.transform.rotation = Quaternion.Euler(0, 0, angle);
+        //float angle = Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg;
+        //newProjectile.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     private void ResetAttackState()

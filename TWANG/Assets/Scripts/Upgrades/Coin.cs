@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -30,7 +31,8 @@ public class Coin : MonoBehaviour
     public void InitializeCoin(CoinStruct coin)
     {
         SetupCoinProperties(coin);
-        PlaySpawnAnimation();
+        transform.localScale = Vector2.zero;
+        StartCoroutine(nameof(PlaySpawnAnimationCoroutine));
     }
 
     private void SetupCoinProperties(CoinStruct coin)
@@ -40,10 +42,16 @@ public class Coin : MonoBehaviour
         currentFrame = Random.Range(0, coinSprites.Count);
     }
 
+    private IEnumerator PlaySpawnAnimationCoroutine()
+    {
+        yield return new WaitForSeconds(Random.Range(0, 0.25f));
+        PlaySpawnAnimation();
+    }
+
     private void PlaySpawnAnimation()
     {
-        transform.localScale = Vector2.zero;
         transform.DOScale(Vector2.one, SPAWN_SCALE_DURATION);
+        transform.DOPunchPosition(Vector2.up / 2, SPAWN_SCALE_DURATION);
     }
 
     private void Start()
