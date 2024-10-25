@@ -49,8 +49,8 @@ public class GameManager : MonoBehaviour
         eV = GetComponent<EventHandler>();
         ts = GetComponent<Timer>();
         SetLevel();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void Update()
