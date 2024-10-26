@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UIElements;
 
 public class RubberBand : MonoBehaviour
 {
@@ -40,8 +41,15 @@ public class RubberBand : MonoBehaviour
 
     void Update()
     {
-        if(!dead)
+        if (!dead)
+        {
             UpdateRubberBandSprite();
+            //Debug.Log(rb.velocity.magnitude);
+            //if (rb.velocity.magnitude < 2f)
+            //{
+            //    StartCoroutine(nameof(DestroyProjectileCoroutine));
+            //}
+        }
     }
 
     void UpdateRubberBandSprite()
@@ -103,6 +111,25 @@ public class RubberBand : MonoBehaviour
             else
             {
                 bounces--;
+
+                float radius = 5f;
+
+                Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius);
+
+                bool found = false;
+                foreach (Collider2D collider in hitColliders)
+                {
+                    if (!found && collider.CompareTag("Enemy"))
+                    {
+                        found = true;
+                        var prevVelocity = rb.velocity.magnitude;
+                        rb.velocity = Vector2.zero;  // Stop the object
+                        rb.velocity = (collider.transform.position - transform.position).normalized * prevVelocity;  // Set velocity in the new direction
+
+                        //collider.transform.GetComponent<Entity>().stats.TakeDamage((int)attackPower);
+                    }
+                }
+
                 StartCoroutine(nameof(FlashWhite));
             }
         }
@@ -110,6 +137,30 @@ public class RubberBand : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.transform.GetComponent<Entity>().stats.TakeDamage((int)attackPower);
+
+
+            //ass code fix later
+            //repeated twice
+            float radius = 5f;
+
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius);
+
+            bool found = false;
+            foreach (Collider2D collider in hitColliders)
+            {
+                if (!found && collider.CompareTag("Enemy"))
+                {
+                    found = true;
+                    var prevVelocity = rb.velocity.magnitude;
+                    rb.velocity = Vector2.zero;  // Stop the object
+                    rb.velocity = (collider.transform.position - transform.position).normalized * prevVelocity;  // Set velocity in the new direction
+
+                    //collider.transform.GetComponent<Entity>().stats.TakeDamage((int)attackPower);
+                }
+            }
+
+            if (found) return;
+
             if (!GameManager.Instance.upgradeList.ContainsKey(UpgradeType.Ghost))
             {
                 dead = true;

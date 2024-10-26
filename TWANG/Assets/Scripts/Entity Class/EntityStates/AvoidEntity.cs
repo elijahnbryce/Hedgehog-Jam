@@ -40,7 +40,9 @@ public class AvoidEntity : EntityState
 
 			//selfEntity.physical.rb.AddForce(opposingDirection, ForceMode2D.Force);
 			//
-			if (col.CompareTag("Enemy")) {	
+
+			//ass code fix later
+			if (col.CompareTag("Enemy") && col.GetComponent<Collider2D>()) {	
 				float ratio = Mathf.Clamp01((col.gameObject.transform.position - selfEntity.transform.position).magnitude / radiusDec);
 				direction -= ratio * (col.gameObject.transform.position - selfEntity.transform.position);
 			}

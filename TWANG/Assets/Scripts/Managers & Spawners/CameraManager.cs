@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.U2D;
 
 public class CameraManager : MonoBehaviour
 {
@@ -19,6 +18,9 @@ public class CameraManager : MonoBehaviour
     {
         playerTransform = PlayerMovement.Instance.transform;
         minPos = -1 * maxPos;
+
+        PlayerAttack.OnAttackInitiate += AttackStart;
+        PlayerAttack.OnAttackHalt += AttackEnd;
     }
 
     void Update()
@@ -30,6 +32,20 @@ public class CameraManager : MonoBehaviour
         transform.localPosition = new Vector3(newPos.x, newPos.y, -10);
     }
 
+    private void AttackStart()
+    {
+        //var seq = DOTween.Sequence();
+        //seq.AppendInterval(0.5f);
+        //seq.Append(transform.parent.DOShakePosition(100, 0.05f, 5));
+        //transform.parent.DOShakePosition(100, 0.025f, 5);
+    }
+
+    private void AttackEnd()
+    {
+        //transform.parent.DOKill();
+        //transform.parent.localPosition = Vector3.zero;
+        ScreenShake(0.5f);
+    }
 
     public void ScreenShake() => ScreenShake(0.25f);
     public void ScreenShake(float amount)

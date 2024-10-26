@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -260,6 +261,7 @@ public class GameManager : MonoBehaviour
         if (change < 0)
         {
             SoundManager.Instance.PlaySoundEffect("player_damage");
+            GameObject.Find("Desk Background").transform.DOShakePosition(0.15f, .25f);
         }
         health += change;
         eV.DisplayHealth(health);

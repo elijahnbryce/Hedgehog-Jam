@@ -97,6 +97,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void PickupBand()
     {
+        CameraManager.Instance.ScreenShake(0.1f);
         hasBand = true;
     }
 
