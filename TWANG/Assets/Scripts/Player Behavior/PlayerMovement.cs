@@ -110,7 +110,16 @@ public class PlayerMovement : MonoBehaviour
             case "Coin":
                 HandleCoinCollection(collision);
                 break;
+            case "Landed Band":
+                HandlePickupBand(collision.gameObject);
+                break;
         }
+    }
+
+    private void HandlePickupBand(GameObject band)
+    {
+        Destroy(band);
+        PlayerAttack.Instance.PickupBand();
     }
 
     private void FixedUpdate()

@@ -118,6 +118,7 @@ MonoBehaviour:
   - {fileID: 1863657336, guid: cd9a0fa14da5db145908afa7bca725c7, type: 3}
   - {fileID: -1721099954, guid: cd9a0fa14da5db145908afa7bca725c7, type: 3}
   - {fileID: 1682644729, guid: cd9a0fa14da5db145908afa7bca725c7, type: 3}
+  landedPrefab: {fileID: 8053071496740151992, guid: c5c5064d327826d4a8593d1104a5a179, type: 3}
   whiteMat: {fileID: 2100000, guid: 14e101fe50cb36347a5b44d432d07764, type: 2}
   initialSpeed: 400
   spiralGrowthRate: 7

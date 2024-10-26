@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform secondaryHand;
     [SerializeField] private float maxStretchDistance = 6f;
     [SerializeField] private float minStretchDistance = 0.5f;
+    private bool hasBand = true;
 
     private float sliderValue;
     private float attackPower;
@@ -93,9 +94,14 @@ public class PlayerAttack : MonoBehaviour
         sliderFill.color = currentColor;
     }
 
+    public void PickupBand()
+    {
+        hasBand = true;
+    }
+
     private void AttackInitiate()
     {
-        if (GameManager.Instance.BetweenRounds) return;
+        if (GameManager.Instance.BetweenRounds || !hasBand) return;
 
         attacking = true;
         attackPower = 0;
@@ -110,6 +116,8 @@ public class PlayerAttack : MonoBehaviour
         {
             FireProjectile();
         }
+
+        hasBand = false;
 
         OnAttackHalt?.Invoke();
         SoundManager.Instance.PlaySoundEffect("band_release");

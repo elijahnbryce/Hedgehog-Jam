@@ -6,6 +6,7 @@ using DG.Tweening;
 public class RubberBand : MonoBehaviour
 {
     [SerializeField] private List<Sprite> rubberBandSprites = new();
+    [SerializeField] private GameObject landedPrefab;
 
     private bool dead = false;
     [SerializeField] private Material whiteMat;
@@ -116,6 +117,14 @@ public class RubberBand : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Level Boundary")
+        {
+            StartCoroutine(nameof(DestroyProjectileCoroutine));
+        }
+    }
+
     public void InitializeProjectile(int state)
     {
         //facingDir = facingDirection;
@@ -170,6 +179,10 @@ public class RubberBand : MonoBehaviour
         seq.AppendInterval(0.1f);
         seq.Append(transform.GetChild(0).DOScale(Vector2.zero, 0.15f));
         yield return new WaitForSeconds(0.25f);
+
+        var newBand = Instantiate(landedPrefab, transform.position, Quaternion.identity).transform;
+        newBand.Rotate(0, 0, Random.Range(0, 3) * 90);
+
         Destroy(gameObject);
     }
 }

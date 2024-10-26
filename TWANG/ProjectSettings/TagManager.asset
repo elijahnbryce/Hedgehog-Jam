@@ -10,6 +10,8 @@ TagManager:
   - Enemy
   - Selection
   - Coin
+  - Landed Band
+  - Level Boundary
   layers:
   - Default
   - TransparentFX
