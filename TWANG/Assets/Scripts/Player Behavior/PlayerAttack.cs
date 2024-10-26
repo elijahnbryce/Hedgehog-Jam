@@ -15,6 +15,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float maxStretchDistance = 6f;
     [SerializeField] private float minStretchDistance = 0.5f;
     private bool hasBand = true;
+    public bool HasBand { get { return hasBand; } }
 
     private float sliderValue;
     private float attackPower;
@@ -24,7 +25,7 @@ public class PlayerAttack : MonoBehaviour
 
     private const float ATTACK_MAX = 2.5f;
     private const float SLIDER_LERP_SPEED = 2.5f;
-    private const float PROJECTILE_BASE_FORCE = 300f;
+    private const float PROJECTILE_BASE_FORCE = 1000f;
     private const float MIN_ATTACK_POWER = 0.2f;
 
     public bool Attacking => attacking;
@@ -115,12 +116,11 @@ public class PlayerAttack : MonoBehaviour
         if (attackPower >= MIN_ATTACK_POWER)
         {
             FireProjectile();
+            hasBand = false;
+            SoundManager.Instance.PlaySoundEffect("band_release");
         }
 
-        hasBand = false;
-
         OnAttackHalt?.Invoke();
-        SoundManager.Instance.PlaySoundEffect("band_release");
         ResetAttackState();
     }
 

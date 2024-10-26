@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
+using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -118,7 +120,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandlePickupBand(GameObject band)
     {
-        Destroy(band);
+        Destroy(band.GetComponent<Collider2D>());
+
+        var seq = DOTween.Sequence();
+        band.transform.DOMove(band.transform.position + Vector3.up, 0.2f);
+        band.transform.DORotate(new Vector3(0, 0, 180), 0.2f);
+        seq.Append(band.transform.DOScale(Vector2.zero, 0.2f)).SetEase(Ease.InQuad);
+        seq.AppendCallback(()=>Destroy(band));
+
         PlayerAttack.Instance.PickupBand();
     }
 

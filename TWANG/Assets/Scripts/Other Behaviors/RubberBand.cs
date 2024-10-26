@@ -11,7 +11,7 @@ public class RubberBand : MonoBehaviour
     private bool dead = false;
     [SerializeField] private Material whiteMat;
     private SpriteRenderer sr;
-    private float lifetime = 1f;
+    private float lifetime = 3f;
     private int bounces = 0;
     private bool spiral = false;
     private bool facingDir = false;
@@ -56,9 +56,9 @@ public class RubberBand : MonoBehaviour
 
         int spriteIndex;
 
-        if (Mathf.Approximately(angle, 0f) || Mathf.Approximately(angle, 180f))
+        if (angle <= 15f || angle >= 165f)  // Increased tolerance for 0/180
             spriteIndex = 4;
-        else if (angle > 0f && angle < 37.5f)  // 30° with some tolerance
+        else if (angle > 15f && angle < 37.5f)  // 30°
             spriteIndex = 5;
         else if (angle >= 37.5f && angle < 52.5f)  // 45°
             spriteIndex = 6;
@@ -70,8 +70,10 @@ public class RubberBand : MonoBehaviour
             spriteIndex = 1;
         else if (angle >= 127.5f && angle < 142.5f)  // 135°
             spriteIndex = 2;
-        else  // 150°
+        else if (angle >= 142.5f && angle < 165f)  // 150°
             spriteIndex = 3;
+        else
+            spriteIndex = 4;  // Default to horizontal sprite
         // Update the sprite
         if (rubberBandSprites.Count > spriteIndex)
         {
@@ -182,7 +184,15 @@ public class RubberBand : MonoBehaviour
 
         var newBand = Instantiate(landedPrefab, transform.position, Quaternion.identity).transform;
         newBand.Rotate(0, 0, Random.Range(0, 3) * 90);
-
-        Destroy(gameObject);
+        var sr2 = newBand.GetComponent<SpriteRenderer>();
+        var prevMat = sr2.material;
+        sr2.material = whiteMat;
+        var seq2 = DOTween.Sequence();
+        seq2.Append(newBand.transform.DOPunchScale(Vector3.one * .25f, 0.15f));
+        seq2.AppendCallback(() =>
+        {
+            sr2.material = prevMat;
+        });
+        Destroy(gameObject, 0.5f);
     }
 }

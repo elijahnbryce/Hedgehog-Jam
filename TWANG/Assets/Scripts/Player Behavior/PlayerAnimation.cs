@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using UnityEditor.Build.Player;
 using UnityEngine;
 
 [System.Serializable]
@@ -18,6 +19,7 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private List<Sprite> primaryHandSprites = new();
     [SerializeField] private List<Sprite> primaryHandGrabSprites = new();
     [SerializeField] private List<Sprite> secondaryHandSprites = new();
+    [SerializeField] private List<Sprite> secondaryHoldingSprites = new();
     [SerializeField] private List<Sprite> secondaryHandGrabSprites = new();
 
     // private state fields
@@ -127,9 +129,16 @@ public class PlayerAnimation : MonoBehaviour
         Vector2 secondaryDir = PlayerMovement.Instance.GetDirectionToPrimaryHand();
         int directionIndex = GetDirection(-secondaryDir);
 
-        secondaryHandSR.sprite = PlayerAttack.Instance.Attacking
-            ? secondaryHandGrabSprites[directionIndex]
-            : secondaryHandSprites[directionIndex];
+        if (PlayerAttack.Instance.Attacking)
+        {
+            secondaryHandSR.sprite = secondaryHandGrabSprites[directionIndex];
+        }
+        else
+        {
+            secondaryHandSR.sprite = PlayerAttack.Instance.HasBand
+             ? secondaryHoldingSprites[directionIndex]
+             : secondaryHandSprites[directionIndex];
+        }
     }
 
     // direction calculation methods
