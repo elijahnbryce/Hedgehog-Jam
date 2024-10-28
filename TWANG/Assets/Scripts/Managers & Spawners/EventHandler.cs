@@ -133,10 +133,16 @@ public class EventHandler : MonoBehaviour
         LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+	public void ReturnToMenu()
+	{
+		SceneManager.LoadScene(0);
+	}
+
     public void QuitApp()
     {
 #if UNITY_WEBGL
-		SceneManager.LoadScene(0);
+		if(SceneManager.GetActiveScene().buildIndex != 0)
+			SceneManager.LoadScene(0);
 #else
 		Application.Quit();
 #endif

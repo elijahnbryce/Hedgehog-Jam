@@ -15865,7 +15865,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1821101316}
         m_TargetAssemblyTypeName: EventHandler, Assembly-CSharp
-        m_MethodName: QuitApp
+        m_MethodName: ReturnToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
