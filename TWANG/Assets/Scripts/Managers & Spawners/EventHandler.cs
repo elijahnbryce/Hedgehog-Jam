@@ -152,10 +152,10 @@ public class EventHandler : MonoBehaviour
 
     public void QuitApp()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            Application.Quit();
-        }
-        else LoadScene(0);
+#if UNITY_WEBGL
+		SceneManager.LoadScene(0);
+#else
+		Application.Quit();
+#endif
     }
 }

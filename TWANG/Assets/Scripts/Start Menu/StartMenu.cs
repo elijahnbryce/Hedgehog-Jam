@@ -27,8 +27,13 @@ public class StartMenu : MonoBehaviour
     public void QuitApp()
     {
         Debug.Log("Closing App");
-        Application.Quit();
-    }
+#if UNITY_WEBGL
+		//note: this function seems unused, just putting this here as a backup
+		SceneManager.LoadScene(0);
+#else
+		Application.Quit();
+#endif
+	}
 
     public void QuitWithEffect(Button butt)
     {
