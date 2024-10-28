@@ -328,7 +328,8 @@ public class PlayerMovement : MonoBehaviour
         while (upgradeTimer > 0)
         {
             upgradeTimer -= Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.Space))
+			//this should be somewhere else, keep input all in one place
+            if (!GameManager.Instance.gamePaused && Input.GetKeyDown(KeyCode.Space))
             {
                 upgradeTimer = 0;
             }

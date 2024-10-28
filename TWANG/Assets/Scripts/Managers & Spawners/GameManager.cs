@@ -13,13 +13,12 @@ public class GameManager : MonoBehaviour
     [Header("Game Status")]
     [SerializeField] private static int fullHealth = 3;
     public int health = fullHealth, wave = 0, startEnemies = 0, enemiesKilled = 0, enemyTypes;
-    public bool gameOver, gameActive, gamePaused;
+    public bool gameOver, waveStarted, gamePaused;
 
-    private bool betweenRounds = true;
+    public bool GameRunning => (waveStarted && !gamePaused && !gameOver);
     public bool BetweenRounds { get; set; }
-    //?? fix later
 
-    private int levelScore, totalScore = 0;
+	private int levelScore, totalScore = 0;
 
     public List<GameObject> enemyList = new List<GameObject>();
     public Dictionary<UpgradeType, int> upgradeList = new();
@@ -50,22 +49,32 @@ public class GameManager : MonoBehaviour
         eV = GetComponent<EventHandler>();
         ts = GetComponent<Timer>();
         SetLevel();
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!gameOver
+			&& (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)))
         {
-            eV.PauseGame();
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Cursor.visible = false;
+            PauseGame();
         }
     }
+
+	public void PauseGame()
+	{
+		if (gameOver) return;
+		if (gamePaused)
+		{
+			gamePaused = false;
+			Time.timeScale = 1;
+		}
+		else
+		{
+			Time.timeScale = 0;
+			gamePaused = true;
+		}
+		eV.OnPauseChanged(gamePaused);
+	}
 
     public void Kill()
     {
@@ -74,7 +83,7 @@ public class GameManager : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void SetLevel(bool restart = false)
+    private void SetLevel()
     {
         Debug.Log("SETTING LVL");
         cam = Camera.main;
@@ -95,17 +104,15 @@ public class GameManager : MonoBehaviour
         ts.TimerStart();
 
         gameOver = false;
-        gameActive = true;
         gamePaused = false;
     }
+
     public void NewWave()
     {
-
-        //if (restart) return;
         Debug.Log("New wave");
         ts.StartTime();
         Time.timeScale = 1;
-        betweenRounds = false;
+        BetweenRounds = false;
         EraserManager.Instance.SpawnConfig();
 
         wave++;
@@ -114,7 +121,8 @@ public class GameManager : MonoBehaviour
         startEnemies = 3 + (wave * 2);
         enemyTypes = Mathf.Min(3, Mathf.CeilToInt(wave / 2));
         sp.StartSpawn(startEnemies, enemyTypes);
-    }
+		waveStarted = true;
+	}
 
     private int CalcLevelScore(int score)
     {
@@ -148,7 +156,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("End Level");
         //Time.timeScale = 0;
-        gameActive = false;
+        waveStarted = false;
         ts.StopTime();
 
         totalScore += CalcLevelScore(score);
@@ -159,20 +167,16 @@ public class GameManager : MonoBehaviour
             Debug.Log("Wave Complete");
             Time.timeScale = 1;
 
-            BetweenRounds = betweenRounds = true;
+            BetweenRounds = true;
             UpgradeManager.Instance.SpawnUpgrades();
             //NewWave();
         }
         else
         {
             Time.timeScale = 0;
+			gameOver = true;
             eV.LoseGame(totalScore, GetGuideScore());
         }
-    }
-
-    public bool getGameActive()
-    {
-        return (gameActive && !gamePaused);
     }
 
     public void AddEnemy(GameObject enemy)

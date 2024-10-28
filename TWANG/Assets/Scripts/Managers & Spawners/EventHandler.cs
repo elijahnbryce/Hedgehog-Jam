@@ -26,17 +26,15 @@ public class EventHandler : MonoBehaviour
     {
         gm = GameManager.Instance;
         ts = GetComponent<Timer>();
+		UpdateCursor();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            PauseGame();
-        }
-    }
+	private void OnApplicationFocus(bool focus)
+	{
+		UpdateCursor();
+	}
 
-    public void UIFalse()
+	public void UIFalse()
     {
         //nxtCan.SetActive(false);
         ovrCan.SetActive(false);
@@ -110,8 +108,6 @@ public class EventHandler : MonoBehaviour
         gradeText.text = GetGrade(finalScore, guideScore);
 
         //CheckHS(finalScore);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     public void LoadScene(int sceneNum = 1)
@@ -119,30 +115,17 @@ public class EventHandler : MonoBehaviour
         SceneManager.LoadScene(sceneNum);
     }
 
+	//should be moved/renamed but don't want to break the scene references
     public void PauseGame()
     {
-        if (gm.gameOver) return;
-        if (gm.gamePaused)
-        {
-            pauseMen.SetActive(false);
-            gm.gamePaused = false;
-            gm.gameActive = true;
-            Time.timeScale = 1;
+		gm.PauseGame();
+	}
 
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = false;
-        }
-        else
-        {
-            Time.timeScale = 0;
-            gm.gameActive = false;
-            gm.gamePaused = true;
-            pauseMen.SetActive(true);
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-    }
+	public void OnPauseChanged(bool p)
+	{
+		pauseMen.SetActive(p);
+		UpdateCursor();
+	}
 
     public void Restart()
     {
@@ -158,4 +141,18 @@ public class EventHandler : MonoBehaviour
 		Application.Quit();
 #endif
     }
+
+	public void UpdateCursor()
+	{
+		if (gm.gamePaused)
+		{
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+		}
+		else
+		{
+			//Cursor.lockState = CursorLockMode.None;  //tbd
+			Cursor.visible = false;
+		}
+	}
 }
