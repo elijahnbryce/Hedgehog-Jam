@@ -57,7 +57,14 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void HandleAttackInput()
+	private void OnDestroy()
+	{
+		Instance = null;
+		OnAttackInitiate = null;
+		OnAttackHalt = null;
+	}
+
+	private void HandleAttackInput()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {

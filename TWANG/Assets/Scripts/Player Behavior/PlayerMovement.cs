@@ -17,9 +17,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rigidBody;
     private Vector2 facingDirection = Vector2.right; // Start facing right
-    private bool attacking = false;
     private bool facingDir = true;
     public bool FacingDir => facingDir;
+	private bool Attacking => PlayerAttack.Instance.Attacking;
     private Vector2 secondCurrentPos, secondTargetPos;
 
     bool secondHandReadyToMove = false;
@@ -58,17 +58,20 @@ public class PlayerMovement : MonoBehaviour
         UpdateSecondHandTarget(Vector2.right);
     }
 
-    private void RegisterEventHandlers()
+	private void RegisterEventHandlers()
     {
         PlayerAttack.OnAttackInitiate += AttackStart;
         PlayerAttack.OnAttackHalt += AttackEnd;
-    }
+    }	
 
     private void Update()
     {
         footstepCounter += Time.deltaTime;
         UpdatePositions();
-    }
+
+		if (!secondHandReadyToMove)
+			secondHandReadyToMove = IsSecondHandClose();
+	}
     private void OnTriggerEnter2D(Collider2D collision)
     {
         HandleTriggerCollision(collision);
@@ -83,7 +86,12 @@ public class PlayerMovement : MonoBehaviour
         HandleTriggerExit(collision);
     }
 
-    private void HandlePhysicalCollision(Collision2D collision)
+	private void OnDestroy()
+	{
+		Instance = null;
+	}
+
+	private void HandlePhysicalCollision(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -133,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (attacking)
+        if (Attacking)
         {
             // When attacking, move secondary hand with WASD
             Vector2 movement = GetMovementInput();
@@ -156,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
         secondHand.position = secondCurrentPos = Vector3.Slerp(
             secondCurrentPos,
             secondTargetPos,
-            Time.deltaTime * (attacking ? secondaryHandSpeedWhileAttacking : secondaryHandSpeed)
+            Time.deltaTime * (Attacking ? secondaryHandSpeedWhileAttacking : secondaryHandSpeed)
         ) ;
     }
 
@@ -258,46 +266,29 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //private void AttackStart()
-    //{
-    //    attacking = true;
-    //    mainHandPosition = transform.position;
-    //}
-
     private void AttackStart()
     {
         secondHandReadyToMove = false;
-        StartCoroutine(nameof(WaitForSecondHandReadyToMove));
-
-        attacking = true;
         mainHandPosition = transform.position;
 
         Vector2 direction = (secondCurrentPos - (Vector2)transform.position).normalized;
         secondTargetPos = (Vector2)transform.position + direction;
     }
 
-    private IEnumerator WaitForSecondHandReadyToMove()
-    {
-        while (Vector2.Distance(mainHandPosition, secondHand.position) > 1.5f)
-        {
-            //Debug.Log((Vector2.Distance(mainHandPosition, secondHand.position) > 1.5f));
-            yield return null;
-        }
-        secondHandReadyToMove = true;
-    }
+	private bool IsSecondHandClose()
+	{
+		return Vector2.Distance(mainHandPosition, secondHand.position) < 1.5f;
+	}
 
     private void AttackEnd()
     {
-        StopCoroutine(nameof(WaitForSecondHandReadyToMove));
-
-        attacking = false;
         // Reset second hand position
         UpdateSecondHandTarget(facingDirection);
     }
 
     public Vector2 GetDirectionOfPrimaryHand()
     {
-        if (attacking)
+        if (Attacking)
             return ((Vector2)secondHand.position - mainHandPosition).normalized;
         return -facingDirection;
     }
