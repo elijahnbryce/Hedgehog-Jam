@@ -14,29 +14,30 @@ public class EventHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI endScore, endTime, endKills, goalText, healthText, hsText, timerText, gradeText;
     [SerializeField] private TMP_InputField hsInput;
 
-
     [Header("Objects")]
     private Camera cam;
     //[SerializeField] public GameObject timerObject;
+    private GameManager gm;
 
-    private static GameManager gm = GameManager.Instance;
     public Timer ts;
 
-    private void Start()
-    {
-        gm = GameManager.Instance;
+	private void Awake()
+	{
+		gm = GetComponent<GameManager>();
+	}
+
+	private void Start()
+    {        
         ts = GetComponent<Timer>();
+		UpdateCursor();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            PauseGame();
-        }
-    }
+	private void OnApplicationFocus(bool focus)
+	{
+		UpdateCursor();
+	}
 
-    public void UIFalse()
+	public void UIFalse()
     {
         //nxtCan.SetActive(false);
         ovrCan.SetActive(false);
@@ -110,8 +111,6 @@ public class EventHandler : MonoBehaviour
         gradeText.text = GetGrade(finalScore, guideScore);
 
         //CheckHS(finalScore);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     public void LoadScene(int sceneNum = 1)
@@ -119,30 +118,17 @@ public class EventHandler : MonoBehaviour
         SceneManager.LoadScene(sceneNum);
     }
 
+	//should be moved/renamed but don't want to break the scene references
     public void PauseGame()
     {
-        if (gm.gameOver) return;
-        if (gm.gamePaused)
-        {
-            pauseMen.SetActive(false);
-            gm.gamePaused = false;
-            gm.gameActive = true;
-            Time.timeScale = 1;
+		gm.PauseGame();
+	}
 
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = false;
-        }
-        else
-        {
-            Time.timeScale = 0;
-            gm.gameActive = false;
-            gm.gamePaused = true;
-            pauseMen.SetActive(true);
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-    }
+	public void OnPauseChanged(bool p)
+	{
+		pauseMen.SetActive(p);
+		UpdateCursor();
+	}
 
     public void Restart()
     {
@@ -150,12 +136,32 @@ public class EventHandler : MonoBehaviour
         LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+	public void ReturnToMenu()
+	{
+		SceneManager.LoadScene(0);
+	}
+
     public void QuitApp()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            Application.Quit();
-        }
-        else LoadScene(0);
+#if UNITY_WEBGL
+		if(SceneManager.GetActiveScene().buildIndex != 0)
+			SceneManager.LoadScene(0);
+#else
+		Application.Quit();
+#endif
     }
+
+	public void UpdateCursor()
+	{
+		if (gm.gamePaused || gm.gameOver)
+		{
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+		}
+		else
+		{
+			//Cursor.lockState = CursorLockMode.None;  //tbd
+			Cursor.visible = false;
+		}
+	}
 }

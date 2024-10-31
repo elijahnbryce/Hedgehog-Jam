@@ -36,10 +36,10 @@ public class Eraser : MonoBehaviour
         transform.parent = EraserManager.Instance.transform;
     }
 
-    void Update()
-    {
+    //void Update()
+    //{
 
-    }
+    //}
 
     public static int GetNumberFromString(string input)
     {

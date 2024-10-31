@@ -29,10 +29,10 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
+    //void Update()
+    //{
 
-    }
+    //}
 
     public void SpawnUpgrades()
     {

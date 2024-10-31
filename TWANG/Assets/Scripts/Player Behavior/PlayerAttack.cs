@@ -47,17 +47,24 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.BetweenRounds)
-        {
-            HandleAttackInput();
-            if (attacking)
-            {
-                UpdateAttackState();
-            }
-        }
+		if (!GameManager.Instance.GameRunning)
+			return;
+
+        HandleAttackInput();
+		if (attacking)
+		{
+			UpdateAttackState();
+		}
     }
 
-    private void HandleAttackInput()
+	private void OnDestroy()
+	{
+		Instance = null;
+		OnAttackInitiate = null;
+		OnAttackHalt = null;
+	}
+
+	private void HandleAttackInput()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
