@@ -14,17 +14,20 @@ public class EventHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI endScore, endTime, endKills, goalText, healthText, hsText, timerText, gradeText;
     [SerializeField] private TMP_InputField hsInput;
 
-
     [Header("Objects")]
     private Camera cam;
     //[SerializeField] public GameObject timerObject;
+    private GameManager gm;
 
-    private static GameManager gm = GameManager.Instance;
     public Timer ts;
 
-    private void Start()
-    {
-        gm = GameManager.Instance;
+	private void Awake()
+	{
+		gm = GetComponent<GameManager>();
+	}
+
+	private void Start()
+    {        
         ts = GetComponent<Timer>();
 		UpdateCursor();
     }

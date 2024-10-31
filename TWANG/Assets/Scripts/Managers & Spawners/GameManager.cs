@@ -7,8 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     private EventHandler eV;
-
-    public Spawner sp = Spawner.Instance;
+    private Spawner sp;
 
     [Header("Game Status")]
     [SerializeField] private static int fullHealth = 3;
@@ -34,20 +33,21 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("Game Manager Already Exists");
             Destroy(gameObject);
+			return;
         }
         else
         {
             Debug.Log("Game Manager Set");
             Instance = this;
-            //DontDestroyOnLoad(gameObject);
-        }
-    }
+			//DontDestroyOnLoad(gameObject);
+		}
+		eV = GetComponent<EventHandler>();
+		ts = GetComponent<Timer>();
+	}
 
     private void Start()
     {
         sp = Spawner.Instance;
-        eV = GetComponent<EventHandler>();
-        ts = GetComponent<Timer>();
         SetLevel();
     }
 
