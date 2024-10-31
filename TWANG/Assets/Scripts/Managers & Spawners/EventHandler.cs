@@ -150,7 +150,7 @@ public class EventHandler : MonoBehaviour
 
 	public void UpdateCursor()
 	{
-		if (gm.gamePaused)
+		if (gm.gamePaused || gm.gameOver)
 		{
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
