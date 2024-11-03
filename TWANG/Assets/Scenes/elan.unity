@@ -12338,7 +12338,7 @@ GameObject:
   - component: {fileID: 1553826641}
   - component: {fileID: 1553826640}
   m_Layer: 0
-  m_Name: Battle
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12354,7 +12354,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c42e395709696a54d8edc87108f6069e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f1fbc69b69079704c9cc54dd5b674873, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -12448,12 +12448,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553826639}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.136193, y: 0.53304034, z: -8.972898}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1562355221}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1555989744 stripped
 MonoBehaviour:
@@ -14812,7 +14812,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6137940259790273829, guid: 1a8b959ef9b0b3a4588a94cb1833c92e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1553826641}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a8b959ef9b0b3a4588a94cb1833c92e, type: 3}
 --- !u!224 &2746362729266610463
@@ -17814,5 +17817,4 @@ SceneRoots:
   - {fileID: 733517594}
   - {fileID: 2049426103}
   - {fileID: 450063945}
-  - {fileID: 1553826641}
   - {fileID: 1664551033}
