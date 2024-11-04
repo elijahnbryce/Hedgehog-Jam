@@ -8,7 +8,6 @@ public class PlayerAttack : MonoBehaviour
     [Header("Attack Settings")]
     [SerializeField] private Slider attackSlider;
     [SerializeField] private GameObject projectile;
-    [SerializeField] private List<Color> colors = new();
     [SerializeField] private DragController rubberRender;
     [SerializeField] private Transform primaryHand;
     [SerializeField] private Transform secondaryHand;
@@ -89,17 +88,9 @@ public class PlayerAttack : MonoBehaviour
         attackSlider.value = sliderValue;
 
         attackState = Mathf.FloorToInt(sliderValue * 4);
-        UpdateColors();
 
         // Update rubber band visual
         //rubberRender.UpdateBand(attackPower);
-    }
-
-    private void UpdateColors()
-    {
-        currentColor = AttackStateToColor(attackState);
-        var sliderFill = attackSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
-        sliderFill.color = currentColor;
     }
 
     public void PickupBand()
@@ -161,10 +152,5 @@ public class PlayerAttack : MonoBehaviour
         attacking = false;
         attackPower = 0;
         sliderValue = 0;
-    }
-
-    public Color AttackStateToColor(int state)
-    {
-        return state == 0 || state >= colors.Count ? colors[0] : colors[state];
     }
 }
