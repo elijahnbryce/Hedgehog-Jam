@@ -92,7 +92,7 @@ public class PlayerAttack : MonoBehaviour
         UpdateColors();
 
         // Update rubber band visual
-        rubberRender.UpdateBand(attackPower);
+        //rubberRender.UpdateBand(attackPower);
     }
 
     private void UpdateColors()
@@ -141,8 +141,8 @@ public class PlayerAttack : MonoBehaviour
         GameObject newProjectile = Instantiate(projectile, primaryHand.position, Quaternion.identity);
 
         // Configure visuals
-        var projectileSprite = newProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        projectileSprite.color = AttackStateToColor(attackState);
+        //var projectileSprite = newProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        //projectileSprite.color = AttackStateToColor(attackState);
 
         // Initialize rubber band component
         newProjectile.GetComponent<RubberBand>().InitializeProjectile(attackState);

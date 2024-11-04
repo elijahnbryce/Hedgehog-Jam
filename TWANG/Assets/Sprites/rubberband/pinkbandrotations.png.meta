@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cd9a0fa14da5db145908afa7bca725c7
+guid: d933c5def41243b4295be385b3954a09
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rubber_band_rotations_0
+      name: pinkbandrotations_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8dcd6fc3f6cdfb49afe98c67b342a98
-      internalID: 1301924543
+      spriteID: 564afe1e5e0dd074ba0476deaa75a572
+      internalID: 1002297721
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rubber_band_rotations_1
+      name: pinkbandrotations_1
       rect:
         serializedVersion: 2
         x: 24
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c2c4066fa7990045ac256d3cb78e663
-      internalID: -656114667
+      spriteID: a1086c1c2261f6a4bafd5f675c7b514d
+      internalID: 1795551770
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rubber_band_rotations_2
+      name: pinkbandrotations_2
       rect:
         serializedVersion: 2
         x: 48
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ffd79686f21025d48a19327a31b45229
-      internalID: 366470951
+      spriteID: 0989e4557a5330f498574eebf0f60d30
+      internalID: 917916309
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rubber_band_rotations_3
+      name: pinkbandrotations_3
       rect:
         serializedVersion: 2
         x: 72
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ea68086f57ab3547bb853a45a4f2e9c
-      internalID: -714134895
+      spriteID: 3206c21538d247a4abee6385b8461df3
+      internalID: -1549542275
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rubber_band_rotations_4
+      name: pinkbandrotations_4
       rect:
         serializedVersion: 2
         x: 96
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0be193b2b491924eb3966b62e09236e
-      internalID: 1122575914
+      spriteID: 9d0cbdbdf7869cb43b609ac054409eb0
+      internalID: -752124216
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rubber_band_rotations_5
+      name: pinkbandrotations_5
       rect:
         serializedVersion: 2
         x: 120
@@ -242,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bef3ac2984e723e47a0c712e45d07964
-      internalID: 1863657336
+      spriteID: 803f24543a7d6fb438b0c146a65140d0
+      internalID: 900453302
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rubber_band_rotations_6
+      name: pinkbandrotations_6
       rect:
         serializedVersion: 2
         x: 144
@@ -263,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 853c1e61247c85a4c8007f2a8292b236
-      internalID: -1721099954
+      spriteID: fd7101bfe9bfe624b803f148cfa8c123
+      internalID: -111609210
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rubber_band_rotations_7
+      name: pinkbandrotations_7
       rect:
         serializedVersion: 2
         x: 168
@@ -284,8 +284,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee5aa69d6029662408526dbb9ebcfd9a
-      internalID: 1682644729
+      spriteID: dd0cc8a4197b74d4a990410f9bb94f58
+      internalID: 2082260947
       vertices: []
       indices: 
       edges: []
@@ -301,14 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      rubber_band_rotations_0: 1301924543
-      rubber_band_rotations_1: -656114667
-      rubber_band_rotations_2: 366470951
-      rubber_band_rotations_3: -714134895
-      rubber_band_rotations_4: 1122575914
-      rubber_band_rotations_5: 1863657336
-      rubber_band_rotations_6: -1721099954
-      rubber_band_rotations_7: 1682644729
+      pinkbandrotations_0: 1002297721
+      pinkbandrotations_1: 1795551770
+      pinkbandrotations_2: 917916309
+      pinkbandrotations_3: -1549542275
+      pinkbandrotations_4: -752124216
+      pinkbandrotations_5: 900453302
+      pinkbandrotations_6: -111609210
+      pinkbandrotations_7: 2082260947
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

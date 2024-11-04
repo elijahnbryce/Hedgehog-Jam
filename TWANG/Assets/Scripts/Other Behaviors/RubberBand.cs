@@ -234,7 +234,7 @@ public class RubberBand : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
 
         var newBand = Instantiate(landedPrefab, transform.position, Quaternion.identity).transform;
-        newBand.Rotate(0, 0, Random.Range(0, 3) * 90);
+        //newBand.Rotate(0, 0, Random.Range(0, 3) * 90);
         var sr2 = newBand.GetComponent<SpriteRenderer>();
         var prevMat = sr2.material;
         sr2.material = whiteMat;
