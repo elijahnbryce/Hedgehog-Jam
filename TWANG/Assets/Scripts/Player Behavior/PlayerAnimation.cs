@@ -16,11 +16,13 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private float timeBetweenFrames = 0.2f;
     [SerializeField] private SpriteRenderer primaryHandSR;
     [SerializeField] private SpriteRenderer secondaryHandSR;
+    private SpriteRenderer secondaryHandShadowSR;
     [SerializeField] private List<Sprite> primaryHandSprites = new();
     [SerializeField] private List<Sprite> primaryHandGrabSprites = new();
     [SerializeField] private List<Sprite> secondaryHandSprites = new();
     [SerializeField] private List<Sprite> secondaryHoldingSprites = new();
     [SerializeField] private List<Sprite> secondaryHandGrabSprites = new();
+    private Sprite shadowSprite;
 
     // private state fields
     private float timer;
@@ -46,6 +48,9 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Start()
     {
+        secondaryHandShadowSR = secondaryHandSR.transform.parent.GetChild(1).GetComponent<SpriteRenderer>();
+        shadowSprite = secondaryHandShadowSR.sprite;
+
         RegisterEventHandlers();
     }
 
@@ -123,8 +128,11 @@ public class PlayerAnimation : MonoBehaviour
         if (GameManager.Instance.BetweenRounds)
         {
             secondaryHandSR.sprite = null;
+            secondaryHandShadowSR.sprite = null;
             return;
         }
+
+        secondaryHandShadowSR.sprite = shadowSprite;
 
         Vector2 secondaryDir = PlayerMovement.Instance.GetDirectionToPrimaryHand();
         int directionIndex = GetDirection(-secondaryDir);
