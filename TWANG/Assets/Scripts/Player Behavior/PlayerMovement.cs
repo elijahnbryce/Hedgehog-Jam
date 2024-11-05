@@ -173,14 +173,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (movement.magnitude > 0)
         {
+            Vector2 directionToMain = (mainHandPosition - secondCurrentPos).normalized;
+            Vector2 movementDirection = movement.normalized;
+
+            float dotProduct = Vector2.Dot(movementDirection, -directionToMain);
+            float tensionMultiplier = Mathf.Max(0, dotProduct); 
+
             float tensionResistance = tensionResistanceCurve.Evaluate(Vector2.Distance(mainHandPosition, secondCurrentPos) / followingDistance);
-            Debug.Log(tensionResistance);
-            Vector2 newPos = (Vector2)secondHand.position + (movement * MovementSpeed * Time.fixedDeltaTime * (1-tensionResistance));
 
-
-            //// Apply movement with resistance
-            //Vector2 newPosition = (Vector2)PlayerMovement.Instance.secondHand.position +
-            //    (movement * SECONDARY_HAND_BASE_SPEED * (1 - tensionResistance) * Time.deltaTime);
+            Vector2 newPos = (Vector2)secondHand.position + (movement * MovementSpeed * Time.fixedDeltaTime * (1 - (tensionResistance * tensionMultiplier)));
 
             Vector2 toMain = (Vector2)transform.position - newPos;
             if (toMain.magnitude > followingDistance)
