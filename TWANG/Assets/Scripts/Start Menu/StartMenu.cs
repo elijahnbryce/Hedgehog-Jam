@@ -7,17 +7,9 @@ using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI hsText;
-    //private FlyInBoardBlank flyIn;
-
     private void Start()
     {
-        if (PlayerPrefs.GetString("HIGHSCORENAME") != "")
-        {
-            hsText.text = "HIGHSCORE: " + PlayerPrefs.GetString("HIGHSCORENAME") + " -> " + PlayerPrefs.GetInt("HIGHSCORE");
-        }
-        //flyIn = GetComponent<FlyInBoardBlank>();
-        //flyIn.SequenceFlyIn(true);
+        Time.timeScale = 1.0f;
     }
 
     public void StartGame()
