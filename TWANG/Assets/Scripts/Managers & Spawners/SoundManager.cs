@@ -14,6 +14,26 @@ public class SoundManager : MonoBehaviour
     private const float PITCH_MODIFIER_MULTIPLIER = 0.05f;
     private const float SOUND_CLEANUP_DELAY_MULTIPLIER = 1.5f;
 
+
+    [SerializeField] private AudioClip regularMusic, menuMusic;
+    [SerializeField] private AudioSource musicPlayer;
+
+    //generify and move this later
+    public void SwitchToMenuMusic()
+    {
+        var playback = musicPlayer.time;
+        musicPlayer.clip = menuMusic;
+        musicPlayer.time = playback;
+        musicPlayer.Play();
+    }
+    public void SwitchToRegularMusic()
+    {
+        var playback = musicPlayer.time;
+        musicPlayer.clip = regularMusic;
+        musicPlayer.time = playback;
+        musicPlayer.Play();
+    }
+
     // serialized fields for configuration
     [SerializeField]
     [Range(0, 1)]

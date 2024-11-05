@@ -67,11 +67,13 @@ public class GameManager : MonoBehaviour
 		{
 			gamePaused = false;
 			Time.timeScale = 1;
+            SoundManager.Instance.SwitchToRegularMusic();
 		}
 		else
 		{
 			Time.timeScale = 0;
 			gamePaused = true;
+            SoundManager.Instance.SwitchToMenuMusic();
 		}
 		eV.OnPauseChanged(gamePaused);
 	}
