@@ -14,24 +14,57 @@ public class SoundManager : MonoBehaviour
     private const float PITCH_MODIFIER_MULTIPLIER = 0.05f;
     private const float SOUND_CLEANUP_DELAY_MULTIPLIER = 1.5f;
 
-
     [SerializeField] private AudioClip regularMusic, menuMusic;
     [SerializeField] private AudioSource musicPlayer;
+    [SerializeField] private float fadeSpeed = 0.5f;
 
-    //generify and move this later
+    private Coroutine fadeCoroutine;
+
     public void SwitchToMenuMusic()
     {
-        var playback = musicPlayer.time;
-        musicPlayer.clip = menuMusic;
-        musicPlayer.time = playback;
-        musicPlayer.Play();
+        if (fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+        }
+        fadeCoroutine = StartCoroutine(FadeAndSwitchMusic(menuMusic));
     }
+
     public void SwitchToRegularMusic()
     {
-        var playback = musicPlayer.time;
-        musicPlayer.clip = regularMusic;
+        if (fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+        }
+        fadeCoroutine = StartCoroutine(FadeAndSwitchMusic(regularMusic));
+    }
+
+    private IEnumerator FadeAndSwitchMusic(AudioClip newClip)
+    {
+        float startVolume = musicPlayer.volume;
+        float timeElapsed = 0;
+
+        while (timeElapsed < fadeSpeed)
+        {
+            timeElapsed += Time.unscaledDeltaTime;
+            musicPlayer.volume = Mathf.Lerp(startVolume, 0f, timeElapsed / fadeSpeed);
+            yield return null;
+        }
+
+        float playback = (musicPlayer.time / musicPlayer.clip.length) * newClip.length;
+
+        musicPlayer.clip = newClip;
         musicPlayer.time = playback;
         musicPlayer.Play();
+
+        timeElapsed = 0;
+        while (timeElapsed < fadeSpeed)
+        {
+            timeElapsed += Time.unscaledDeltaTime;
+            musicPlayer.volume = Mathf.Lerp(0f, startVolume, timeElapsed / fadeSpeed);
+            yield return null;
+        }
+
+        musicPlayer.volume = startVolume;
     }
 
     // serialized fields for configuration

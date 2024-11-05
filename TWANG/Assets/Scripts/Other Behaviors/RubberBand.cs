@@ -200,12 +200,9 @@ public class RubberBand : MonoBehaviour
 
     private IEnumerator FlashWhite()
     {
-        var prevColor = sr.color;
         sr.material = whiteMat;
-        sr.color = Color.white;
         yield return new WaitForSeconds(0.1f);
         sr.material = defaultMat;
-        sr.color = prevColor;
     }
 
     private IEnumerator TimedDestroy()
@@ -224,8 +221,6 @@ public class RubberBand : MonoBehaviour
         //optimize later
 
         sr.material = whiteMat;
-        sr.color = Color.white;
-
         var seq = DOTween.Sequence();
         seq.AppendInterval(0.1f);
         seq.Append(transform.GetChild(0).DOScale(Vector2.zero, 0.15f));
