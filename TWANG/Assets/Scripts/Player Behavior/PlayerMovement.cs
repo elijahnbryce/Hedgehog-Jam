@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float secondaryHandSpeed = 5f; // Controls how fast secondary hand moves
     [SerializeField] private float secondaryHandSpeedWhileAttacking = 90f;
     [SerializeField] private float followingDistance = 6f;
+    [SerializeField] private AnimationCurve tensionResistanceCurve;
 
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -172,9 +173,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (movement.magnitude > 0)
         {
-            Vector2 newPos = (Vector2)secondHand.position + (movement * MovementSpeed * Time.fixedDeltaTime);
+            float tensionResistance = tensionResistanceCurve.Evaluate(Vector2.Distance(mainHandPosition, secondCurrentPos) / followingDistance);
+            Debug.Log(tensionResistance);
+            Vector2 newPos = (Vector2)secondHand.position + (movement * MovementSpeed * Time.fixedDeltaTime * (1-tensionResistance));
 
-            // Limit distance from main hand
+
+            //// Apply movement with resistance
+            //Vector2 newPosition = (Vector2)PlayerMovement.Instance.secondHand.position +
+            //    (movement * SECONDARY_HAND_BASE_SPEED * (1 - tensionResistance) * Time.deltaTime);
+
             Vector2 toMain = (Vector2)transform.position - newPos;
             if (toMain.magnitude > followingDistance)
             {
