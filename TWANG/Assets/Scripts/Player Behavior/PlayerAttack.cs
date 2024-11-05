@@ -77,20 +77,15 @@ public class PlayerAttack : MonoBehaviour
 
     private void UpdateAttackState()
     {
-        // Calculate attack power based on distance between hands
         Vector2 handsDelta = secondaryHand.position - primaryHand.position;
         float distance = handsDelta.magnitude;
 
         attackPower = Mathf.Clamp01(distance / maxStretchDistance);
 
-        // Update slider and visual feedback
         sliderValue = Mathf.Lerp(sliderValue, attackPower, Time.deltaTime * SLIDER_LERP_SPEED);
         attackSlider.value = sliderValue;
 
         attackState = Mathf.FloorToInt(sliderValue * 4);
-
-        // Update rubber band visual
-        //rubberRender.UpdateBand(attackPower);
     }
 
     public void PickupBand()
@@ -125,26 +120,15 @@ public class PlayerAttack : MonoBehaviour
 
     private void FireProjectile()
     {
-        // Calculate firing direction (from secondary hand to primary hand)
         Vector2 fireDirection = ((Vector2)primaryHand.position - (Vector2)secondaryHand.position).normalized;
 
-        // Create projectile at secondary hand position
         GameObject newProjectile = Instantiate(projectile, primaryHand.position, Quaternion.identity);
 
-        // Configure visuals
-        //var projectileSprite = newProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        //projectileSprite.color = AttackStateToColor(attackState);
-
-        // Initialize rubber band component
+        //
         newProjectile.GetComponent<RubberBand>().InitializeProjectile(attackState);
 
-        // Apply physics force
         var rb = newProjectile.GetComponent<Rigidbody2D>();
-        rb.AddForce(fireDirection * PROJECTILE_BASE_FORCE * attackPower);
-
-        // Rotate projectile
-        //float angle = Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg;
-        //newProjectile.transform.rotation = Quaternion.Euler(0, 0, angle);
+        rb.AddForce(attackPower * PROJECTILE_BASE_FORCE * fireDirection);
     }
 
     private void ResetAttackState()

@@ -11,6 +11,7 @@ public class RubberBand : MonoBehaviour
 
     private bool dead = false;
     [SerializeField] private Material whiteMat;
+    private Material defaultMat;
     private SpriteRenderer sr;
     private float lifetime = 3f;
     private int bounces = 0;
@@ -34,6 +35,7 @@ public class RubberBand : MonoBehaviour
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("LevelBoundary"), LayerMask.NameToLayer("PlayerEffect"));
 
         sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        defaultMat = sr.material;
         StartCoroutine(nameof(TimedDestroy));
 
         rb = GetComponent<Rigidbody2D>();
@@ -125,8 +127,6 @@ public class RubberBand : MonoBehaviour
                         var prevVelocity = rb.velocity.magnitude;
                         rb.velocity = Vector2.zero;  // Stop the object
                         rb.velocity = (collider.transform.position - transform.position).normalized * prevVelocity;  // Set velocity in the new direction
-
-                        //collider.transform.GetComponent<Entity>().stats.TakeDamage((int)attackPower);
                     }
                 }
 
@@ -140,26 +140,6 @@ public class RubberBand : MonoBehaviour
 
 
             //ass code fix later
-            //repeated twice
-            float radius = 5f;
-
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius);
-
-            bool found = false;
-            foreach (Collider2D collider in hitColliders)
-            {
-                if (!found && collider.CompareTag("Enemy"))
-                {
-                    found = true;
-                    var prevVelocity = rb.velocity.magnitude;
-                    rb.velocity = Vector2.zero;  // Stop the object
-                    rb.velocity = (collider.transform.position - transform.position).normalized * prevVelocity;  // Set velocity in the new direction
-
-                    //collider.transform.GetComponent<Entity>().stats.TakeDamage((int)attackPower);
-                }
-            }
-
-            if (found) return;
 
             if (!GameManager.Instance.upgradeList.ContainsKey(UpgradeType.Ghost))
             {
@@ -168,6 +148,29 @@ public class RubberBand : MonoBehaviour
             }
             else { GameManager.Instance.DecPowerUp(UpgradeType.Ghost); }
         }
+    }
+
+    private bool SeekEnemies()
+    {
+        float radius = 5f;
+
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius);
+
+        bool found = false;
+        foreach (Collider2D collider in hitColliders)
+        {
+            if (!found && collider.CompareTag("Enemy"))
+            {
+                found = true;
+                var prevVelocity = rb.velocity.magnitude;
+                rb.velocity = Vector2.zero;  // Stop the object
+                rb.velocity = (collider.transform.position - transform.position).normalized * prevVelocity;  // Set velocity in the new direction
+
+                //collider.transform.GetComponent<Entity>().stats.TakeDamage((int)attackPower);
+            }
+        }
+
+        return found;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -180,33 +183,28 @@ public class RubberBand : MonoBehaviour
 
     public void InitializeProjectile(int state)
     {
-        //facingDir = facingDirection;
         attackState = state;
         switch (state)
         {
+            case 0:
+                break;
             case 1:
-                bounces = 1;
                 break;
             case 2:
-                bounces = 2;
                 break;
             case 3:
-                bounces = 3;
-                break;
-            default: //and 0
-
                 break;
         }
+        bounces = 1;
     }
 
     private IEnumerator FlashWhite()
     {
-        var prevMat = sr.material;
         var prevColor = sr.color;
         sr.material = whiteMat;
         sr.color = Color.white;
         yield return new WaitForSeconds(0.1f);
-        sr.material = prevMat;
+        sr.material = defaultMat;
         sr.color = prevColor;
     }
 
@@ -236,13 +234,12 @@ public class RubberBand : MonoBehaviour
         var newBand = Instantiate(landedPrefab, transform.position, Quaternion.identity).transform;
         //newBand.Rotate(0, 0, Random.Range(0, 3) * 90);
         var sr2 = newBand.GetComponent<SpriteRenderer>();
-        var prevMat = sr2.material;
         sr2.material = whiteMat;
         var seq2 = DOTween.Sequence();
         seq2.Append(newBand.transform.DOPunchScale(Vector3.one * .25f, 0.15f));
         seq2.AppendCallback(() =>
         {
-            sr2.material = prevMat;
+            sr2.material = defaultMat;
         });
         Destroy(gameObject, 0.5f);
     }
