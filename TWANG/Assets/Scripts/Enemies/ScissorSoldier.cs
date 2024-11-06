@@ -7,7 +7,7 @@ public class ScissorSoldier : MonoBehaviour
     private GameObject player;
 //    public GameObject target;
     public float speed;
-    private float slrpSpeedDiv = 1;
+    //private float slrpSpeedDiv = 1;
 	
     private Vector3 oldPos;
     private bool oldPosSet;

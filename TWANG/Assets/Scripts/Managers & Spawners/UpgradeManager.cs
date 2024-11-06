@@ -11,7 +11,6 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private GameObject stickerPrefab;
 
     [SerializeField] private Vector2 bounds;
-    private float minimumDistance = 1f;
     private int maxAttempts = 30;
 
     private List<Vector2> points = new List<Vector2>();

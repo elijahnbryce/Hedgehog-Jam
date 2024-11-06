@@ -5,7 +5,7 @@ using UnityEngine;
 public class DragController : MonoBehaviour
 {
     [SerializeField] private Transform firstHand, secondHand;
-    [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private ParticleSystem particles;
     private Transform launchPoint;
     private Vector3 startPos, endPos;
     private bool isDragging;
@@ -21,11 +21,11 @@ public class DragController : MonoBehaviour
 
         launchPoint = firstHand.GetChild(0).GetChild(0);
 
-        if (particleSystem != null)
+        if (particles != null)
         {
-            var shape = particleSystem.shape;
+            var shape = particles.shape;
             shape.shapeType = ParticleSystemShapeType.SingleSidedEdge;
-            particleSystem.Stop();
+            particles.Stop();
         }
     }
 
@@ -37,7 +37,7 @@ public class DragController : MonoBehaviour
             return;
         }
 
-        ParticleSystem ps = particleSystem;
+        ParticleSystem ps = particles;
         ParticleSystem.MainModule main = ps.main;
         var em = ps.emission;
         em.rateOverTime = strength * 10 + 2;
@@ -52,9 +52,9 @@ public class DragController : MonoBehaviour
         isDragging = true;
         startPos = launchPoint.position;
 
-        if (particleSystem != null)
+        if (particles != null)
         {
-            particleSystem.Play();
+            particles.Play();
         }
     }
 
@@ -86,22 +86,22 @@ public class DragController : MonoBehaviour
     {
         spriteRenderer.enabled = false;
         isDragging = false;
-        if (particleSystem != null)
+        if (particles != null)
         {
-            particleSystem.Stop();
+            particles.Stop();
         }
     }
 
     private void UpdateParticleSystem()
     {
-        if (particleSystem != null)
+        if (particles != null)
         {
             Vector3 midpoint = (startPos + endPos) / 2f;
-            particleSystem.transform.position = midpoint;
+            particles.transform.position = midpoint;
             Vector3 direction = endPos - startPos;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            particleSystem.transform.rotation = Quaternion.Euler(0f, 0f, angle);
-            var shape = particleSystem.shape;
+            particles.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            var shape = particles.shape;
             shape.radius = direction.magnitude / 2f;
         }
     }

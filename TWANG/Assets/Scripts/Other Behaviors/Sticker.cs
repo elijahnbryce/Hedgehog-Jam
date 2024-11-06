@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Sticker : MonoBehaviour
 {
-    [SerializeField] private bool peel = false;
     [SerializeField] private Transform mask;
     [SerializeField] private Transform front, back, shadow;
 
@@ -26,7 +25,6 @@ public class Sticker : MonoBehaviour
         backT = stickerTween(back, backTarg);
 
         StickAnim();
-        peel = true;
     }
 
     private Tween stickerTween(Transform t, float d)

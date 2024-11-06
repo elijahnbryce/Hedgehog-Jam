@@ -12,7 +12,6 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform primaryHand;
     [SerializeField] private Transform secondaryHand;
     [SerializeField] private float maxStretchDistance = 6f;
-    [SerializeField] private float minStretchDistance = 0.5f;
     private bool hasBand = true;
     public bool HasBand { get { return hasBand; } }
 

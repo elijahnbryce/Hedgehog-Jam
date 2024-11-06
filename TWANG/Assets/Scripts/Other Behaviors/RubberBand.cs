@@ -15,16 +15,11 @@ public class RubberBand : MonoBehaviour
     private SpriteRenderer sr;
     private float lifetime = 3f;
     private int bounces = 0;
-    private bool spiral = false;
-    private bool facingDir = false;
 
-    //this code sucks, cleanup later
     public float initialSpeed = 5f;
     public float spiralGrowthRate = 0.5f;
     public float rotationSpeed = 100f;
     public float attackPower = 1f;
-    private float currentAngle = 0f;
-    private float currentRadius = 0f;
 
     private int attackState;
 
@@ -114,22 +109,6 @@ public class RubberBand : MonoBehaviour
             {
                 bounces--;
 
-                float radius = 5f;
-
-                Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius);
-
-                bool found = false;
-                foreach (Collider2D collider in hitColliders)
-                {
-                    if (!found && collider.CompareTag("Enemy"))
-                    {
-                        found = true;
-                        var prevVelocity = rb.velocity.magnitude;
-                        rb.velocity = Vector2.zero;  // Stop the object
-                        rb.velocity = (collider.transform.position - transform.position).normalized * prevVelocity;  // Set velocity in the new direction
-                    }
-                }
-
                 StartCoroutine(nameof(FlashWhite));
             }
         }
@@ -163,10 +142,8 @@ public class RubberBand : MonoBehaviour
             {
                 found = true;
                 var prevVelocity = rb.velocity.magnitude;
-                rb.velocity = Vector2.zero;  // Stop the object
-                rb.velocity = (collider.transform.position - transform.position).normalized * prevVelocity;  // Set velocity in the new direction
-
-                //collider.transform.GetComponent<Entity>().stats.TakeDamage((int)attackPower);
+                rb.velocity = Vector2.zero; 
+                rb.velocity = (collider.transform.position - transform.position).normalized * prevVelocity;  
             }
         }
 

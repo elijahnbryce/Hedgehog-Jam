@@ -26,9 +26,6 @@ public class PlayerAnimation : MonoBehaviour
 
     // private state fields
     private float timer;
-    private int frame;
-    private int frameMax = 2;
-    private int animationIndex = 0;
     private int hurtFrame = 0;
 
     // constants
@@ -50,8 +47,6 @@ public class PlayerAnimation : MonoBehaviour
     {
         secondaryHandShadowSR = secondaryHandSR.transform.parent.GetChild(1).GetComponent<SpriteRenderer>();
         shadowSprite = secondaryHandShadowSR.sprite;
-
-        RegisterEventHandlers();
     }
 
     private void Update()
@@ -71,13 +66,6 @@ public class PlayerAnimation : MonoBehaviour
         Instance = this;
     }
 
-    private void RegisterEventHandlers()
-    {
-        PlayerAttack.OnAttackInitiate += AttackStart;
-        PlayerAttack.OnAttackHalt += AttackEnd;
-    }
-
-    // update methods
     private void UpdateAnimationTimers()
     {
         timer += Time.deltaTime;
@@ -166,16 +154,5 @@ public class PlayerAnimation : MonoBehaviour
     {
         int directionIndex = Mathf.RoundToInt(angle / DEGREES_PER_DIRECTION) % 8;
         return DIRECTION_REMAPPING[directionIndex];
-    }
-
-    // animation state handlers
-    private void AttackStart()
-    {
-        animationIndex = 1;
-    }
-
-    private void AttackEnd()
-    {
-        animationIndex = 0;
     }
 }
