@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selfEntity: {fileID: 0}
   entityStateChangers: []
-  gluePrefab: {fileID: 0}
+  gluePrefab: {fileID: 6807622366580086670, guid: d2ffe2f7cef8f96459744430f9bd6035, type: 3}
   dropInterval: 2
   maxSpeed: 30

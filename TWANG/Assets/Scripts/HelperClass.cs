@@ -41,4 +41,13 @@ public static class HelperClass
         else
             return sprite.texture;
     }
+
+    public static T GetOrAddComponent<T>(this GameObject go) where T : Component
+    {
+        if (go.TryGetComponent(out T t))
+        {
+            return t;
+        }
+        return go.AddComponent<T>();
+    }
 }

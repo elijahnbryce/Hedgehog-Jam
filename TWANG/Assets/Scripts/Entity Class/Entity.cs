@@ -25,7 +25,6 @@ public class Entity : MonoBehaviour
         public List<EntityStateChanger> entityStateChangers;
     }
 
-
     private void Start()
     {
         Initialize();
@@ -33,47 +32,16 @@ public class Entity : MonoBehaviour
 
     public virtual void Initialize()
     {
-        //if (type != null) type.Initialize(this);
-
-        stats = gameObject.GetComponent<EntityStats>();
-        if (stats == null)
-        {
-            stats = gameObject.AddComponent<EntityStats>();
-        }
-
-        ai = gameObject.GetComponent<EntityAI>();
-        if (ai == null)
-        {
-            ai = gameObject.AddComponent<EntityAI>();
-        }
-
-        stateMachine = gameObject.GetComponent<EntityStateMachine>();
-        if (stateMachine == null)
-        {
-            stateMachine = gameObject.AddComponent<EntityStateMachine>();
-        }
-
-        physical = gameObject.GetComponent<EntityPhysical>();
-        if (physical == null)
-        {
-            physical = gameObject.AddComponent<EntityPhysical>();
-        }
-        
-        visual = gameObject.GetComponent<EntityVisual>();
-        if (visual == null)
-        {
-            visual = gameObject.AddComponent<EntityVisual>();
-        }
-        
+        stats = gameObject.GetOrAddComponent<EntityStats>();
+        ai = gameObject.GetOrAddComponent<EntityAI>();
+        stateMachine = gameObject.GetOrAddComponent<EntityStateMachine>();
+        physical = gameObject.GetOrAddComponent<EntityPhysical>();
+        visual = gameObject.GetOrAddComponent<EntityVisual>();
 
         stats.Initialize(this);
         ai.Initialize(this);
         physical.Initialize(this);
         visual.Initialize(this);
         stateMachine.Initialize(this);
-        
     }
-
-
-    
 }

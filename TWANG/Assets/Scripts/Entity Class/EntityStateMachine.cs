@@ -16,6 +16,11 @@ public class EntityStateMachine : MonoBehaviour
         {
             foreach (Entity.EntityStateInitializer initializer in selfEntity.entityStates)
             {
+                if(initializer.state == null)
+                {
+                    Debug.LogWarning($"Attempted to instantiate null state on {selfEntity.name}");
+                    continue;
+                }
                 EntityState newState = Instantiate(initializer.state);
                 newState.Initialize(thisEntity, initializer.entityStateChangers);
                 states.Add(newState);
