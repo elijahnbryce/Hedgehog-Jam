@@ -5,16 +5,17 @@ using UnityEngine.EventSystems;
 
 public class MenuSelect : MonoBehaviour
 {
-    public static MenuSelect _Instance;
-
     public List<GameObject> buttons = new();
 
     public GameObject last;
     public int lastInx;
 
-    private void Awake()
+    private void Start()
     {
-        if (_Instance == null) _Instance = this;
+        foreach (var button in buttons)
+        {
+            button.GetComponent<ButtonSelect>().SetManager(this);
+        }
     }
 
     private void OnEnable()

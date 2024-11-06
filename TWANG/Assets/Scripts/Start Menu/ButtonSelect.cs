@@ -2,64 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
-public class ButtonSelect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
+public class ButtonSelect : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
+    private MenuSelect selectManager;
+
     [SerializeField] private float distance = 10f;
     [Range(0f, 2f), SerializeField] private float duration = .1f, scale = 1.1f;
 
     private Transform startPos;
+    private float endY;
+    private Tween uppies;
 
     void Start()
     {
         startPos = transform;
+        endY = startPos.position.y + distance;
+        uppies = transform.DOLocalMoveY(endY, duration)
+            .Pause()
+            .SetEase(Ease.InCubic)
+            .SetAutoKill(false)
+            .SetUpdate(true)
+            .SetLink(gameObject, LinkBehaviour.KillOnDestroy);
     }
 
-    private IEnumerator SelectAnim(bool select)
+    private void SelectAnim(bool select)
     {
-        Vector3 endPos;
-        Vector3 endScale;
-
-        float elapsedTime = 0f;
-        while (elapsedTime < duration)
+        if (select)
         {
-            elapsedTime += Time.deltaTime;
-            if (select)
-            {
-                endPos = startPos.position + new Vector3(0f, distance, 0f);
-                endScale = startPos.localScale * scale;
-            }
-            else
-            {
-                endPos = startPos.position;
-                endScale = startPos.localScale;
-            }
-
-            transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime / duration));
-            transform.localScale = Vector3.Lerp(transform.localScale, endScale, (elapsedTime / duration));
+            uppies.Restart();
         }
-
-        yield return null;
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        eventData.selectedObject = gameObject;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        eventData.selectedObject = null;
+        else
+        {
+            uppies.PlayBackwards();
+        }
     }
 
     public void OnSelect(BaseEventData eventData)
     {
-        StartCoroutine(SelectAnim(true));
-        MenuSelect._Instance.SelectButton(gameObject);
+        SelectAnim(true);
+        selectManager.SelectButton(gameObject);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        StartCoroutine(SelectAnim(false));
+        SelectAnim(false);
+    }
+
+    public void SetManager(MenuSelect m)
+    {
+        selectManager = m;
     }
 }
