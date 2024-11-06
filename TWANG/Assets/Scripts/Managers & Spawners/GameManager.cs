@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
         int toSpawn = Mathf.FloorToInt(10 / wave) + 1;
 
         startEnemies = 3 + (wave * 2);
-        enemyTypes = Mathf.Min(3, Mathf.CeilToInt(wave / 2));
+        enemyTypes = Mathf.Min(3, Mathf.CeilToInt(wave / 3f) + 1);
         sp.StartSpawn(startEnemies, enemyTypes);
 		waveStarted = true;
 	}

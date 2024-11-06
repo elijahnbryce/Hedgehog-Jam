@@ -14543,6 +14543,26 @@ PrefabInstance:
       propertyPath: enemyStructList.Array.data[0].enemyType
       value: 
       objectReference: {fileID: 9077075022715136519, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+    - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
+      propertyPath: enemyStructList.Array.data[1].enemyType
+      value: 
+      objectReference: {fileID: 6807622366580086670, guid: d2ffe2f7cef8f96459744430f9bd6035, type: 3}
+    - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
+      propertyPath: enemyStructList.Array.data[0].typeInterval
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
+      propertyPath: enemyStructList.Array.data[1].typeInterval
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
+      propertyPath: enemyStructList.Array.data[2].typeInterval
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
+      propertyPath: enemyStructList.Array.data[3].typeInterval
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
