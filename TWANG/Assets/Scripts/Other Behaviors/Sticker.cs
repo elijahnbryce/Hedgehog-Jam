@@ -22,15 +22,22 @@ public class Sticker : MonoBehaviour
 
         SetSprites();
 
-        maskT = mask.transform.DOMoveY(maskTarg, duration).SetEase(Ease.InOutCubic).Pause().SetAutoKill(false).OnRewind(()=>gameObject.SetActive(false));
-        backT = back.transform.DOMoveY(backTarg, duration).SetEase(Ease.InOutCubic).Pause().SetAutoKill(false).OnRewind(()=>gameObject.SetActive(false));
+        maskT = stickerTween(mask, maskTarg);
+        backT = stickerTween(back, backTarg);
 
         StickAnim();
         peel = true;
-        //maskT = mask.DOMove(new Vector2(mask.position.x + (front.position.x - (mask.position.x + maskOffset)), maskTarg), duration)
-        //    .SetEase(Ease.InOutCubic).Pause().SetAutoKill(false);
-        //backT = back.DOMove(new Vector2(back.position.x + (front.position.x - (back.position.x + maskOffset)) * 2, backTarg), duration)
-        //    .SetEase(Ease.InOutCubic).Pause().SetAutoKill(false);
+    }
+
+    private Tween stickerTween(Transform t, float d)
+    {
+        Tween new_t = t.DOMoveY(d, duration)
+            .SetEase(Ease.InOutCubic)
+            .Pause()
+            .SetAutoKill(false)
+            .OnRewind(() => gameObject.SetActive(false))
+            .SetLink(gameObject, LinkBehaviour.KillOnDestroy);
+        return new_t;
     }
 
     public void SetSprites()
