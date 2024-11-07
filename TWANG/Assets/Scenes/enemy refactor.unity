@@ -6674,7 +6674,7 @@ Camera:
   m_HDR: 1
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
+  m_ForceIntoRT: 1
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -12784,67 +12784,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &1664551033
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1949394679572603734, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
-      propertyPath: m_Name
-      value: PencilEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 1949394679572603734, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2566348679781386539, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: eb18e546306ed0a4b9e6f8d708cdc3e1, type: 3}
 --- !u!1 &1668311572
 GameObject:
   m_ObjectHideFlags: 0
@@ -14746,10 +14685,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 450063945}
     m_Modifications:
+    - target: {fileID: 313121176366931076, guid: b3cca2ec36b2e714b95e841ceec7e978, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 708335597223123515, guid: b3cca2ec36b2e714b95e841ceec7e978, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -126874595, guid: 03e04876a9141f04f85ec6f9db5d3836, type: 3}
+    - target: {fileID: 1727103415798054318, guid: b3cca2ec36b2e714b95e841ceec7e978, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -126874595, guid: 03e04876a9141f04f85ec6f9db5d3836, type: 3}
+    - target: {fileID: 1908129948040624913, guid: b3cca2ec36b2e714b95e841ceec7e978, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4482659462317135372, guid: b3cca2ec36b2e714b95e841ceec7e978, type: 3}
       propertyPath: m_Name
       value: UpgradeManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4482659462317135372, guid: b3cca2ec36b2e714b95e841ceec7e978, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814583341443294650, guid: b3cca2ec36b2e714b95e841ceec7e978, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5872517307925578896, guid: b3cca2ec36b2e714b95e841ceec7e978, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -126874595, guid: 03e04876a9141f04f85ec6f9db5d3836, type: 3}
     - target: {fileID: 8678250767842083897, guid: b3cca2ec36b2e714b95e841ceec7e978, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -18388,5 +18355,4 @@ SceneRoots:
   - {fileID: 733517594}
   - {fileID: 2049426103}
   - {fileID: 450063945}
-  - {fileID: 1664551033}
   - {fileID: 2970684387879376764}
