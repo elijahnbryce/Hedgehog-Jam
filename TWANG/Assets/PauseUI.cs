@@ -5,16 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PauseUI : MonoBehaviour
-{
-    [Header("Pause Menu Buttons")]
-    [SerializeField] Button[] _hoverElements;
-
+{    
     [Header("Animating Elements")]
     [SerializeField] float _animateTime = 1f;
     [SerializeField] RectTransform _timeoutTitle;
     [SerializeField] RectTransform[] _pauseButtonImages;
 
-    int _selected = 0;
     bool _pauseState;
 
     // Start is called before the first frame update
@@ -25,34 +21,6 @@ public class PauseUI : MonoBehaviour
     void OnDisable()
     {
         EventHandler.onPauseUpdate -= PauseUpdate;
-    }
-
-    private void Update()
-    {
-        if (!_pauseState) return;
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            _selected--;
-            if (_selected < 0)
-            {
-                _selected = _hoverElements.Length - 1;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            _selected++;
-            if (_selected >= _hoverElements.Length)
-            {
-                _selected = 0;
-            }
-        }
-        _hoverElements[_selected].Select();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _hoverElements[_selected].onClick?.Invoke();
-        }
     }
 
     void ResetPositions()
@@ -69,8 +37,6 @@ public class PauseUI : MonoBehaviour
     void PauseUpdate(bool pauseState)
     {
         _pauseState = pauseState;
-        if (_selected < 0 || _selected >= _hoverElements.Length || _hoverElements.Length == 0) return;
-        _selected = 0;
 
         ResetPositions();
 
@@ -87,7 +53,5 @@ public class PauseUI : MonoBehaviour
             openSeq.Insert((_animateTime / (float)_pauseButtonImages.Length) * i, _pauseButtonImages[i].DOAnchorPosY(0, _animateTime));
         }
         openSeq.Play();
-
-        _hoverElements[_selected].Select();
     }
 }

@@ -7,19 +7,35 @@ using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
+    [SerializeField] Button _startButton;
+
     private void Start()
     {
         Time.timeScale = 1.0f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        _startButton.onClick.AddListener(StartGame);
     }
 
     public void StartGame()
     {
         SceneManager.LoadScene(1);
     }
+
+    private void Update()
+    {
+        // Swap out with UI keyboard controls when there's more than 1 element
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _startButton.onClick?.Invoke();
+        }
+    }
+
     public void QuitApp()
     {
         Debug.Log("Closing App");
-#if UNITY_WEBGL
+#if UNITY_WEBGL || UNITY_EDITOR
 		//note: this function seems unused, just putting this here as a backup
 		SceneManager.LoadScene(0);
 #else

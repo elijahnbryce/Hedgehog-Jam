@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
 		if (gameOver) return;
 		if (gamePaused)
 		{
+            // Stop player shooting on unpause
+            PlayerAttack.Instance.AddAttackCooldown(0.1f);
 			gamePaused = false;
 			Time.timeScale = 1;
             SoundManager.Instance.SwitchToRegularMusic();
