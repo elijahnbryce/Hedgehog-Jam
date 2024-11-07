@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         UpdateHealth(0);
 
         NewWave();
-        enemyTypes = sp.enemyStructList.Count;
+        //enemyTypes = sp.enemyStructList.Count;
     }
 
     private void EverythingFalse()
@@ -124,7 +124,8 @@ public class GameManager : MonoBehaviour
 
         startEnemies = 3 + (wave * 2);
         enemyTypes = Mathf.Min(3, Mathf.CeilToInt(wave / 3f) + 1);
-        sp.StartSpawn(startEnemies, enemyTypes);
+        //sp.StartSpawn(startEnemies, enemyTypes);
+        sp.StartSpawn(startEnemies);
 		waveStarted = true;
 	}
 
