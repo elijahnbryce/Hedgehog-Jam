@@ -64,7 +64,7 @@ public class EntityStats : MonoBehaviour
         //play death animation
         //destroy
         gm.RemoveEnemy(selfEntity.gameObject);
-        gm.UpdateScore(Mathf.RoundToInt(10 * scoreBoost));
+        //gm.UpdateScore(Mathf.RoundToInt(10 * scoreBoost));
         //Destroy(selfEntity.gameObject);
 
         CoinManager.Instance.SpawnCoins(transform.position);

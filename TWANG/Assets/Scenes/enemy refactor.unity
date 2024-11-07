@@ -1030,22 +1030,23 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.53340507, y: 8.960047}
+    - - {x: 0.32002854, y: 7.082333}
       - {x: -12.562877, y: 7.0791597}
       - {x: -13.06677, y: -4.5003977}
       - {x: -10.45668, y: -5.9463096}
-      - {x: 7.375533, y: -7.2979107}
-      - {x: 7.890137, y: -5.534735}
+      - {x: 10.127409, y: -7.152437}
+      - {x: 10.651844, y: -6.6952376}
+      - {x: 7.9354787, y: -5.505587}
       - {x: -10.378028, y: -5.464679}
       - {x: -11.000231, y: -4.9774485}
       - {x: -11.030504, y: 5.127249}
       - {x: -10.4216585, y: 5.7461143}
       - {x: 10.427388, y: 5.757149}
       - {x: 11.03385, y: 5.1579247}
-      - {x: 10.9571905, y: -4.744894}
-      - {x: 10.479342, y: -5.443423}
-      - {x: 7.903201, y: -5.55553}
-      - {x: 10.109833, y: -7.1497016}
+      - {x: 11.003155, y: -4.7586827}
+      - {x: 10.340162, y: -5.506686}
+      - {x: 7.9291105, y: -5.503711}
+      - {x: 10.545518, y: -6.262196}
       - {x: 12.133209, y: -4.503065}
       - {x: 12.58264, y: 7.044824}
   m_UseDelaunayMesh: 0
@@ -13452,6 +13453,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 733555052}
     m_Modifications:
+    - target: {fileID: 936252683995415374, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3791528058259473583, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -13526,6 +13531,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285658957687995750, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8282936724484751128, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8450489006620134358, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}

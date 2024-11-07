@@ -20,7 +20,7 @@ public class Coin : MonoBehaviour
     // internal state tracking
     private float animationTimer = ANIMATION_FRAME_DURATION;
     private int currentFrame;
-    private int coinValue;
+    private float coinValue;
     private List<Sprite> coinSprites = new();
     private SpriteRenderer spriteRenderer;
 
@@ -37,7 +37,7 @@ public class Coin : MonoBehaviour
 
     private void SetupCoinProperties(CoinStruct coin)
     {
-        coinValue = (int)coin.Type;
+        coinValue = (int)coin.Type / 100f;
         coinSprites = coin.Sprites;
         currentFrame = Random.Range(0, coinSprites.Count);
     }
@@ -143,6 +143,7 @@ public class Coin : MonoBehaviour
 
     private void UpdateGameScore()
     {
+        Debug.Log($"Added {coinValue} to score");
         GameManager.Instance.UpdateScore(coinValue);
     }
 }

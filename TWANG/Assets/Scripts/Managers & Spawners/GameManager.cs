@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public bool GameRunning => (waveStarted && !gamePaused && !gameOver);
     public bool BetweenRounds { get; set; }
 
-	private int levelScore, totalScore = 0;
+	private float levelScore, totalScore = 0;
 
     public List<GameObject> enemyList = new List<GameObject>();
     public Dictionary<UpgradeType, int> upgradeList = new();
@@ -128,10 +128,10 @@ public class GameManager : MonoBehaviour
 		waveStarted = true;
 	}
 
-    private int CalcLevelScore(int score)
+    private float CalcLevelScore(float score)
     {
         Debug.Log("Score Calc");
-        int newScore = score;
+        float newScore = score;
         //float timeElapsed = ts.GetTime();
         //float timeMult = (timeElapsed / 60 < 4) ? (1 - timeElapsed / 300) : 0.1f;
         float timeMult = 1f;
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
 
         float healthBonus = 1 + (GetHealthRatio() / 2f);
 
-        newScore = Mathf.RoundToInt(score * (healthBonus * timeMult) * makeScoreBigger);
+        newScore = score * (healthBonus * timeMult) * makeScoreBigger;
         //  or multiply by (1 - enemies.Count / enemies2Spawn);                <- punishment
         // (1 + (float)(startEnemies - levEnemies.Count) / startEnemies)   <- reward
         return Mathf.Max(0, newScore);
@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
         return Mathf.RoundToInt(1.47f * pointsFromEnemies);
     }
 
-    public void EndLevel(bool alive, int score)
+    public void EndLevel(bool alive, float score)
     {
         Debug.Log("End Level");
         //Time.timeScale = 0;
@@ -287,10 +287,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void UpdateScore(int change = 1)
+    public void UpdateScore(float change = 1)
     {
-        change = Mathf.FloorToInt(change * GetPowerMult(UpgradeType.Rainbow) * GetPowerMult(UpgradeType.Confusion));
+        change = change * GetPowerMult(UpgradeType.Rainbow) * GetPowerMult(UpgradeType.Confusion);
         levelScore += change;
+        Debug.Log($"Score is now: {levelScore}");
         eV.DisplayScore(levelScore);
     }
 
