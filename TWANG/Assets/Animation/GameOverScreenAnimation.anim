@@ -442,45 +442,6 @@ AnimationClip:
     classID: 1
     script: {fileID: 0}
     flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 2.1666667
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Color.a
-    path: LoseCanvas/Bits
-    classID: 114
-    script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-    flags: 0
   m_PPtrCurves:
   - serializedVersion: 2
     curve:
@@ -528,6 +489,25 @@ AnimationClip:
       value: {fileID: -1646387269, guid: 33aadd90a5de3424a90f37dde20b17ca, type: 3}
     attribute: m_Sprite
     path: LoseCanvas/Band
+    classID: 114
+    script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+    flags: 2
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: e8a92ce5824c8534a9a0d0a7460c850b, type: 3}
+    - time: 1
+      value: {fileID: -286822293, guid: 267341560b49ca544ae68fe76af5cb09, type: 3}
+    - time: 1.1666666
+      value: {fileID: -1944357838, guid: 267341560b49ca544ae68fe76af5cb09, type: 3}
+    - time: 1.3666667
+      value: {fileID: -675799179, guid: 267341560b49ca544ae68fe76af5cb09, type: 3}
+    - time: 1.55
+      value: {fileID: -722682711, guid: 267341560b49ca544ae68fe76af5cb09, type: 3}
+    - time: 1.75
+      value: {fileID: 1637133689, guid: 267341560b49ca544ae68fe76af5cb09, type: 3}
+    attribute: m_Sprite
+    path: LoseCanvas/Bits
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 2
@@ -656,15 +636,6 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2917683188
-      attribute: 304273561
-      script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-      typeID: 114
-      customType: 0
-      isPPtrCurve: 0
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
-    - serializedVersion: 2
       path: 3862088446
       attribute: 2324865467
       script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -691,6 +662,15 @@ AnimationClip:
       isPPtrCurve: 1
       isIntCurve: 0
       isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 2917683188
+      attribute: 2015549526
+      script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+      typeID: 114
+      customType: 0
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: 0}
     - {fileID: 0}
@@ -706,6 +686,12 @@ AnimationClip:
     - {fileID: -590961510, guid: 33aadd90a5de3424a90f37dde20b17ca, type: 3}
     - {fileID: -1697092821, guid: 33aadd90a5de3424a90f37dde20b17ca, type: 3}
     - {fileID: -1646387269, guid: 33aadd90a5de3424a90f37dde20b17ca, type: 3}
+    - {fileID: 21300000, guid: e8a92ce5824c8534a9a0d0a7460c850b, type: 3}
+    - {fileID: -286822293, guid: 267341560b49ca544ae68fe76af5cb09, type: 3}
+    - {fileID: -1944357838, guid: 267341560b49ca544ae68fe76af5cb09, type: 3}
+    - {fileID: -675799179, guid: 267341560b49ca544ae68fe76af5cb09, type: 3}
+    - {fileID: -722682711, guid: 267341560b49ca544ae68fe76af5cb09, type: 3}
+    - {fileID: 1637133689, guid: 267341560b49ca544ae68fe76af5cb09, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -1281,45 +1267,6 @@ AnimationClip:
     path: LoseCanvas/GameOverText
     classID: 1
     script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 2.1666667
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Color.a
-    path: LoseCanvas/Bits
-    classID: 114
-    script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 0
   m_EulerEditorCurves:
   - serializedVersion: 2
