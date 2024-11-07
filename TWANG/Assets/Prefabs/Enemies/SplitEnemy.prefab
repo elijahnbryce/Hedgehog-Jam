@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 5862401595959805984}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.005, y: -0.321, z: -0.0032901492}
+  m_LocalPosition: {x: 0, y: -0.5, z: -0.0032901492}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -237,13 +237,6 @@ MonoBehaviour:
       conList: 0200000001000000
       distanceToTarget: 10
       statesEntered: 3
-  - state: {fileID: 11400000, guid: 63ebf3475f3032c44bfeb43c87e06233, type: 2}
-    active: 0
-    entityStateChangers:
-    - toState: {fileID: 11400000, guid: 20989384614256e4997208225efff5d1, type: 2}
-      conList: 
-      distanceToTarget: 4
-      statesEntered: 1
   - state: {fileID: 11400000, guid: 2537a1f30004b7f43a402f3143d405ae, type: 2}
     active: 1
     entityStateChangers: []

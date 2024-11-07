@@ -15,10 +15,10 @@ public class GlueTrap : MonoBehaviour
 
     void Start()
     {
-	    player = GameObject.Find("Player");
-	    pm = player.GetComponent<PlayerMovement>();
+        player = GameObject.Find("Player");
+        pm = player.GetComponent<PlayerMovement>();
         StartCoroutine(GlueDropSequence());
-        
+
     }
 
     private IEnumerator GlueDropSequence()
@@ -40,16 +40,18 @@ public class GlueTrap : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-	
-	if (other.gameObject.CompareTag("Player")) {
-		pm.MovementSpeed /= 3;
-	}	
+        //this is kind of ass code, fix later!!!
+        if (other.gameObject.CompareTag("Player"))
+        {
+            pm.MovementSpeed /= 3;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player")) {	
-        	pm.MovementSpeed *= 3;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            pm.MovementSpeed *= 3;
         }
-    } 
+    }
 }

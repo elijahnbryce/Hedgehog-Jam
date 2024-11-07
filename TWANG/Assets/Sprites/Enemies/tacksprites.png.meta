@@ -1,0 +1,1900 @@
+fileFormatVersion: 2
+guid: 2184a8bbe9d48594999b1a2388eb2e7b
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tacksprites_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 216
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c526393f0a2d6284c861d365f02495e5
+      internalID: -573284129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 216
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8174b4192ba0be34399e33f56c071c12
+      internalID: -286560997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_2
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 216
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2fcfa58637fbd3438e5a1ae672ccce8
+      internalID: 674361308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_3
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 216
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e58a4b5209b97a4e9f281f445f540d7
+      internalID: 727410040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 216
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acc5d4f50362f5449bb1fa6bb47e793c
+      internalID: 700688668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_5
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 216
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b782ec48a8fe34d499d11e2cc6b35a43
+      internalID: 1897303524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_6
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 216
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b950a872e370734bb4a65ba2542aca8
+      internalID: 461264132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_7
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 216
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eff50d25e2fc02d42842308b6711f929
+      internalID: -1762824748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed6b5f0928400aa4b82e36457fde548b
+      internalID: -1446089212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_9
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 192
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d43edbbe2c4ad5547aab8015b3c82a21
+      internalID: 327152595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_10
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 192
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c417a335b5b38954590b81d57ba76eb8
+      internalID: 2111752129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_11
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 192
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65b094c71ab60a64f9c5c2a77920bf1f
+      internalID: 132228459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_12
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 192
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10102457e803d4341bea154c09ba0e46
+      internalID: -1015546482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_13
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 192
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7888afc51e770264c9a1d482f95440c3
+      internalID: 793954441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_14
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 192
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f96eb8ddc98f0d1439686ec02a677a91
+      internalID: -662227662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_15
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 192
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2271e1c80472d8a4e840cdc9388858e5
+      internalID: -373819249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 168
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3360bc181e6c06479a72dfd39df2f9b
+      internalID: -1224867996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_17
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 168
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 736ea808e15d6954d86979e51ff6eb68
+      internalID: 792458845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_18
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 168
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdeedee7bb69e4c4a8615ebc22394b5b
+      internalID: 2106929144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_19
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 168
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5d406bb9bf2ca04d9c0fbb3ab7b9727
+      internalID: -425936311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_20
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 168
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05684fbdf7231b046b5ba9f1befdb3b7
+      internalID: -249103366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_21
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 168
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 120f9549e02d31c48b0f113ad2894916
+      internalID: -509679010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_22
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 168
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 023fb26b5275bbe40b29f7b87eb3e0ff
+      internalID: -1250609318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_23
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 168
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf0d4db7b380dcf4d902c90db6c661ef
+      internalID: -1908296322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 144
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1ddeae7094ffde488277ba354884f8a
+      internalID: 1481032998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_25
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 144
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4780bb25d9e4b2a4db8aa7664dca7be7
+      internalID: -1261480468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_26
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 144
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bae690959eff7e4ca1f4c9bec13c8f8
+      internalID: 1641563369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_27
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 144
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9734c75b815fca84489655bcac540475
+      internalID: -477241933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_28
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 144
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51bea17894b010a428820869e151dcd0
+      internalID: -1333540308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_29
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 144
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e04aa4de7479f4b499891f778d058f3b
+      internalID: 1369034252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_30
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 144
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c7e5387bd691b04f8b8178f9ff578c9
+      internalID: -1155248476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_31
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 144
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a51c1721b46cf849ae7b5a9094f22bb
+      internalID: -1580150667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: badd293590e421e4b8b248fda6388381
+      internalID: 92206795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_33
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 120
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf3948129468b0444bd8db4d748f71f5
+      internalID: -468882555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_34
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 120
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41bc172d7c91fc34091ea142cc96b0e3
+      internalID: -148824377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_35
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 120
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fef04af00ecb2ff468dd9c0285015798
+      internalID: 1878307637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_36
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 120
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b9ed394315610c4abc3afb5515809fa
+      internalID: -868358065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_37
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 120
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4498c3c2dee587d44838affa0a05540b
+      internalID: 1391858157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_38
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 120
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f68ae3cb323fe647abac3a76017986a
+      internalID: -865407789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_39
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 120
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 483c9126927e68f479dbc414a2fe127d
+      internalID: 1598168124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a198b5c8d0639f4e8029ed66835bf5d
+      internalID: -1545432587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_41
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 96
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fca6f79bb57430943a9a4a5e03257cbe
+      internalID: 2105300655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_42
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 96
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d64888924aac17c4aaafd4ece5102998
+      internalID: -1405400999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_43
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 96
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee0fcc83bbd601a48afe8501c70026ba
+      internalID: -1038174319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_44
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c03210f99f7fcd468b09db7590246c8
+      internalID: -1792072228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_45
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 96
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8595f730599726c48bc93d14af3a1993
+      internalID: -652055289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_46
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 96
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 470631802f029724c987b9b2285f63e1
+      internalID: 622060312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_47
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 96
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9fc30e60f40f704caa7f0ba726a7c74
+      internalID: 1814923044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 72
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d148d90cfa20c6458db241d3f74006b
+      internalID: -369623154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_49
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 72
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 232d54f0a17ad2c45a24a9577e3fceb9
+      internalID: -182044906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_50
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 72
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49659bc2128fece4da4e0fba3364dee8
+      internalID: 1393721839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_51
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 72
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5f87daba5ab8064995689f8c581e5d5
+      internalID: -1590609120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_52
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 72
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdcccb71330a4324b9f7cf32e8f02afe
+      internalID: 1427207089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_53
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 72
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3a820106fa10904585144125f428d3e
+      internalID: 1838516068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_54
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 72
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 549de6aa96a56d8488138de8c1997003
+      internalID: -1563006244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_55
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 72
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aef943693804f54bad05b632225e952
+      internalID: 1905420553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43cce2fc21d75cb419de6feba84f2556
+      internalID: -1758210583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_57
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 48
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 763a6c16e056398408763f6d28f5e8ba
+      internalID: -1278534529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_58
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6adfa1eaf4cc8f4e8814b12c3801c2f
+      internalID: -1762493834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_59
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 48
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8336db5fa49ef9a46ac4045d48338442
+      internalID: 595873240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_60
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 48
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28f02ce85a637474caed9476c4f80c8f
+      internalID: -1728817569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_61
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 48
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccd41114e44ad44449e80c02a1b6c757
+      internalID: 1352456828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_62
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 48
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c1a1f733de77be42b972b02ec96ae6e
+      internalID: 1139998954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_63
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 48
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbcb9f6e027eb024db6e97904f98fb0e
+      internalID: -626602887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_64
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b66d7bc87d70a3744a62bfe66c0a76ee
+      internalID: 1831492746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_65
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 045883febb839214c907d2607d51b636
+      internalID: -334849008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_66
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbc80d74191c8bf429d8f2c2ff95fb13
+      internalID: 594108688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_67
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce476713929d9ca47a11384198e28d34
+      internalID: -39785737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_68
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dc21ead94abc6343ba010317122549f
+      internalID: -810390615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_69
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acc5db9af897e9d42b47597e0f0ae77f
+      internalID: -417700113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_70
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37360daf123afd44a8616cfe408ea10a
+      internalID: -101101088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_71
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6d19c3f29b833443ac54ee9b7dbeb6e
+      internalID: -325661111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_72
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad0e04dcc2697df4a9dfae34cba7b429
+      internalID: 17474096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_73
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 178f85ce2e62166499221e5073b4bb91
+      internalID: 1954762229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_74
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6eda558bfc07ccc45957ebbdef1481ce
+      internalID: 634794854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_75
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93f18af275f5bd849a814e2cb40a4a85
+      internalID: 774122252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_76
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6cb84c75059fa641a44157a35cfbef7
+      internalID: -987142387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_77
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c76e22ee85ae05f4b815c03ef4e3c06c
+      internalID: 1941784972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_78
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83b4c1efa2bc66d44a92b767338b951d
+      internalID: 1386216741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tacksprites_79
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bd1ac099963cad40ac32774a8fb19af
+      internalID: -1059720351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      tacksprites_0: -573284129
+      tacksprites_1: -286560997
+      tacksprites_10: 2111752129
+      tacksprites_11: 132228459
+      tacksprites_12: -1015546482
+      tacksprites_13: 793954441
+      tacksprites_14: -662227662
+      tacksprites_15: -373819249
+      tacksprites_16: -1224867996
+      tacksprites_17: 792458845
+      tacksprites_18: 2106929144
+      tacksprites_19: -425936311
+      tacksprites_2: 674361308
+      tacksprites_20: -249103366
+      tacksprites_21: -509679010
+      tacksprites_22: -1250609318
+      tacksprites_23: -1908296322
+      tacksprites_24: 1481032998
+      tacksprites_25: -1261480468
+      tacksprites_26: 1641563369
+      tacksprites_27: -477241933
+      tacksprites_28: -1333540308
+      tacksprites_29: 1369034252
+      tacksprites_3: 727410040
+      tacksprites_30: -1155248476
+      tacksprites_31: -1580150667
+      tacksprites_32: 92206795
+      tacksprites_33: -468882555
+      tacksprites_34: -148824377
+      tacksprites_35: 1878307637
+      tacksprites_36: -868358065
+      tacksprites_37: 1391858157
+      tacksprites_38: -865407789
+      tacksprites_39: 1598168124
+      tacksprites_4: 700688668
+      tacksprites_40: -1545432587
+      tacksprites_41: 2105300655
+      tacksprites_42: -1405400999
+      tacksprites_43: -1038174319
+      tacksprites_44: -1792072228
+      tacksprites_45: -652055289
+      tacksprites_46: 622060312
+      tacksprites_47: 1814923044
+      tacksprites_48: -369623154
+      tacksprites_49: -182044906
+      tacksprites_5: 1897303524
+      tacksprites_50: 1393721839
+      tacksprites_51: -1590609120
+      tacksprites_52: 1427207089
+      tacksprites_53: 1838516068
+      tacksprites_54: -1563006244
+      tacksprites_55: 1905420553
+      tacksprites_56: -1758210583
+      tacksprites_57: -1278534529
+      tacksprites_58: -1762493834
+      tacksprites_59: 595873240
+      tacksprites_6: 461264132
+      tacksprites_60: -1728817569
+      tacksprites_61: 1352456828
+      tacksprites_62: 1139998954
+      tacksprites_63: -626602887
+      tacksprites_64: 1831492746
+      tacksprites_65: -334849008
+      tacksprites_66: 594108688
+      tacksprites_67: -39785737
+      tacksprites_68: -810390615
+      tacksprites_69: -417700113
+      tacksprites_7: -1762824748
+      tacksprites_70: -101101088
+      tacksprites_71: -325661111
+      tacksprites_72: 17474096
+      tacksprites_73: 1954762229
+      tacksprites_74: 634794854
+      tacksprites_75: 774122252
+      tacksprites_76: -987142387
+      tacksprites_77: 1941784972
+      tacksprites_78: 1386216741
+      tacksprites_79: -1059720351
+      tacksprites_8: -1446089212
+      tacksprites_9: 327152595
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
