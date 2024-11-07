@@ -13497,10 +13497,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 733555051}
-    - target: {fileID: 6171777554977391171, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
-      propertyPath: _pauseMenu
-      value: 
-      objectReference: {fileID: 6409006113749980439}
     - target: {fileID: 6202294633346888344, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
