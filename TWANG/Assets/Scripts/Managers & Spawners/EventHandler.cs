@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEditor;
+using System;
 
 public class EventHandler : MonoBehaviour
 {
+    public static Action<bool> onPauseUpdate;
 
     [Header("Canvas")]
     [SerializeField] private GameObject pauseMen;
@@ -37,14 +40,14 @@ public class EventHandler : MonoBehaviour
 		UpdateCursor();
 	}
 
-	public void UIFalse()
+    public void UIFalse()
     {
         //nxtCan.SetActive(false);
         ovrCan.SetActive(false);
         //hsInput.gameObject.SetActive(false);
         //winCan.SetActive(false);
         loseCan.SetActive(false);
-        pauseMen.SetActive(false);
+        OnPauseChanged(false);
     }
 
     public void DisplayHealth(int hp)
@@ -127,7 +130,9 @@ public class EventHandler : MonoBehaviour
 	public void OnPauseChanged(bool p)
 	{
 		pauseMen.SetActive(p);
-		UpdateCursor();
+        onPauseUpdate?.Invoke(p);
+
+        UpdateCursor();
 	}
 
     public void Restart()
