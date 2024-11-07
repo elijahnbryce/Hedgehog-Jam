@@ -130,6 +130,7 @@ public class EventHandler : MonoBehaviour
 	//should be moved/renamed but don't want to break the scene references
     public void PauseGame()
     {
+        Debug.Log("Paused");
 		gm.PauseGame();
 	}
 

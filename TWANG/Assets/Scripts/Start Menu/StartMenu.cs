@@ -7,11 +7,15 @@ using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
+    [SerializeField] Button _startButton;
+
     private void Start()
     {
         Time.timeScale = 1.0f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        _startButton.onClick.AddListener(StartGame);
     }
 
     public void StartGame()
@@ -24,7 +28,7 @@ public class StartMenu : MonoBehaviour
         // Swap out with UI keyboard controls when there's more than 1 element
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartGame();
+            _startButton.onClick?.Invoke();
         }
     }
 
