@@ -33,6 +33,9 @@ public class PlayerAttack : MonoBehaviour
     public static event Action OnAttackInitiate;
     public static event Action OnAttackHalt;
 
+    private float attackCooldown = 0f;
+    private float attackCooldownTimer = 0f;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -64,6 +67,12 @@ public class PlayerAttack : MonoBehaviour
 
 	private void HandleAttackInput()
     {
+        if (attackCooldown > 0f)
+        {
+            attackCooldown -= Time.deltaTime;
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             AttackInitiate();
@@ -135,5 +144,14 @@ public class PlayerAttack : MonoBehaviour
         attacking = false;
         attackPower = 0;
         sliderValue = 0;
+    }
+
+    public void SetAttackCooldown(float cooldown)
+    {
+        this.attackCooldown = cooldown;
+    }
+    public void AddAttackCooldown(float cooldown)
+    {
+        this.attackCooldown += cooldown;
     }
 }
