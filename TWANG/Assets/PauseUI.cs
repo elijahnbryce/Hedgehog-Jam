@@ -18,9 +18,13 @@ public class PauseUI : MonoBehaviour
     bool _pauseState;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         EventHandler.onPauseUpdate += PauseUpdate;
+    }
+    void OnDisable()
+    {
+        EventHandler.onPauseUpdate -= PauseUpdate;
     }
 
     private void Update()
@@ -51,6 +55,16 @@ public class PauseUI : MonoBehaviour
         }
     }
 
+    void ResetPositions()
+    {
+        // Reset positions of UI elements
+        _timeoutTitle.anchoredPosition = new Vector3(0, 350);
+        for (int i = 0; i < _pauseButtonImages.Length; i++)
+        {
+            _pauseButtonImages[i].anchoredPosition = new Vector3(0, -350);
+        }
+    }
+
     Sequence openSeq;
     void PauseUpdate(bool pauseState)
     {
@@ -58,12 +72,7 @@ public class PauseUI : MonoBehaviour
         if (_selected < 0 || _selected >= _hoverElements.Length || _hoverElements.Length == 0) return;
         _selected = 0;
 
-        // Reset positions of UI elements
-        _timeoutTitle.anchoredPosition = new Vector3(0, 350);
-        for (int i = 0; i < _pauseButtonImages.Length; i++)
-        {
-            _pauseButtonImages[i].anchoredPosition = new Vector3(0, -350);
-        }
+        ResetPositions();
 
         if(openSeq != null)
         {
