@@ -3931,14 +3931,13 @@ GameObject:
   - component: {fileID: 4416564250810350279}
   - component: {fileID: 1019168386796467878}
   - component: {fileID: 1594340546890012422}
-  - component: {fileID: 1471566146549740336}
   m_Layer: 5
   m_Name: PauseCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6247386224674570162
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4030,28 +4029,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1471566146549740336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8282936724484751128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed304a5a0e653d240b842ed4596e6050, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hoverElements:
-  - {fileID: 8635060714280747453}
-  - {fileID: 6945771126616445701}
-  - {fileID: 6300380466500460320}
-  _animateTime: 1
-  _timeoutTitle: {fileID: 2524838589806769979}
-  _pauseButtonImages:
-  - {fileID: 4427693973921760155}
-  - {fileID: 6191063022348579331}
-  - {fileID: 1286022283865488128}
 --- !u!1 &8523209620357140320
 GameObject:
   m_ObjectHideFlags: 0
@@ -4136,6 +4113,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7285658957687995750}
+  - component: {fileID: 6171777554977391171}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -4151,7 +4129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8527213940459957532}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4161,6 +4139,28 @@ Transform:
   - {fileID: 2727829603769553366}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6171777554977391171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8527213940459957532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed304a5a0e653d240b842ed4596e6050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hoverElements:
+  - {fileID: 8635060714280747453}
+  - {fileID: 6945771126616445701}
+  - {fileID: 6300380466500460320}
+  _animateTime: 0.5
+  _timeoutTitle: {fileID: 2524838589806769979}
+  _pauseButtonImages:
+  - {fileID: 4427693973921760155}
+  - {fileID: 6191063022348579331}
+  - {fileID: 1286022283865488128}
 --- !u!1 &8565286565888024661
 GameObject:
   m_ObjectHideFlags: 0
