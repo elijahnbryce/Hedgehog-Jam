@@ -114,7 +114,7 @@ public class EventHandler : MonoBehaviour
         gm.gameOver = true;
         ovrCan.SetActive(true);
         loseCan.SetActive(true);
-        endScore.text = finalScore.ToString();
+        endScore.text = finalScore.ToString("C2");
         ts.DisplayTime(endTime);
         endKills.text = gm.enemiesKilled.ToString();
         gradeText.text = GetGrade(finalScore, guideScore);
