@@ -31,7 +31,7 @@ public class PauseUI : MonoBehaviour
     {
         if (!_pauseState) return;
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             _selected--;
             if (_selected < 0)
@@ -39,7 +39,7 @@ public class PauseUI : MonoBehaviour
                 _selected = _hoverElements.Length - 1;
             }
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             _selected++;
             if (_selected >= _hoverElements.Length)

@@ -40,6 +40,12 @@ public class EventHandler : MonoBehaviour
 		UpdateCursor();
 	}
 
+    void UpdateCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     public void UIFalse()
     {
         //nxtCan.SetActive(false);
@@ -148,25 +154,11 @@ public class EventHandler : MonoBehaviour
 
     public void QuitApp()
     {
-#if UNITY_WEBGL
-		if(SceneManager.GetActiveScene().buildIndex != 0)
-			SceneManager.LoadScene(0);
+#if UNITY_WEBGL || UNITY_EDITOR
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+            SceneManager.LoadScene(0);
 #else
 		Application.Quit();
 #endif
     }
-
-	public void UpdateCursor()
-	{
-		if (gm.gamePaused || gm.gameOver)
-		{
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
-		}
-		else
-		{
-			//Cursor.lockState = CursorLockMode.None;  //tbd
-			Cursor.visible = false;
-		}
-	}
 }
