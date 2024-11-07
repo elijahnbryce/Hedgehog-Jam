@@ -1,8 +1,8 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class PauseUI : MonoBehaviour
 {    
@@ -38,9 +38,14 @@ public class PauseUI : MonoBehaviour
     {
         _pauseState = pauseState;
 
-        ResetPositions();
 
-        if(openSeq != null)
+        
+    }
+
+    void OnPauseAnim()
+    {
+        ResetPositions();
+        if (openSeq != null)
         {
             openSeq.Kill();
         }
@@ -53,5 +58,10 @@ public class PauseUI : MonoBehaviour
             openSeq.Insert((_animateTime / (float)_pauseButtonImages.Length) * i, _pauseButtonImages[i].DOAnchorPosY(0, _animateTime));
         }
         openSeq.Play();
+    }
+
+    void OnUnpauseAnim()
+    {
+
     }
 }
