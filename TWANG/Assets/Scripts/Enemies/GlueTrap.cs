@@ -38,20 +38,20 @@ public class GlueTrap : MonoBehaviour
         Destroy(this.gameObject, 5f);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        //this is kind of ass code, fix later!!!
-        if (other.gameObject.CompareTag("Player"))
-        {
-            pm.MovementSpeed /= 3;
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    //this is kind of ass code, fix later!!!
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        pm.MovementSpeed /= 3;
+    //    }
+    //}
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            pm.MovementSpeed *= 3;
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D other)
+    //{
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        pm.MovementSpeed *= 3;
+    //    }
+    //}
 }

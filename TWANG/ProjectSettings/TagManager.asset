@@ -12,6 +12,7 @@ TagManager:
   - Coin
   - Landed Band
   - Level Boundary
+  - Glue
   layers:
   - Default
   - TransparentFX

@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rigidBody;
     private Vector2 facingDirection = Vector2.right; // Start facing right
     private bool facingDir = true;
+
+    private bool glued = false;
     public bool FacingDir => facingDir;
 	private bool Attacking => PlayerAttack.Instance.Attacking;
     private Vector2 secondCurrentPos, secondTargetPos;
@@ -124,7 +126,18 @@ public class PlayerMovement : MonoBehaviour
             case "Landed Band":
                 HandlePickupBand(collision.gameObject);
                 break;
+            case "Glue":
+                if(!glued)
+                    StartCoroutine(nameof(Glue));
+                break;
         }
+    }
+
+    private IEnumerator Glue()
+    {
+        glued = true;
+        yield return new WaitForSeconds(2f);
+        glued = false;
     }
 
     private void HandlePickupBand(GameObject band)
@@ -217,7 +230,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Apply movement
-        var speedMult = CalculateSpeedMultiplier();
+        var speedMult = CalculateSpeedMultiplier() * (glued ? 0.5f : 1f);
         rigidBody.velocity = movement * MovementSpeed * speedMult;
 
         // Update second hand target based on raycast
