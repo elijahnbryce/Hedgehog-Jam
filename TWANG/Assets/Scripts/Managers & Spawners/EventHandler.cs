@@ -61,9 +61,9 @@ public class EventHandler : MonoBehaviour
         healthText.text = "Lives: " + hp.ToString();
     }
 
-    public void DisplayScore(int lvlScore)
+    public void DisplayScore(float lvlScore)
     {
-        goalText.text = "Score: " + lvlScore.ToString();
+        goalText.text = "Score: " + lvlScore.ToString("C");
     }
 
     public void CheckHS(int totalScore)
@@ -91,7 +91,7 @@ public class EventHandler : MonoBehaviour
         hsInput.gameObject.SetActive(false);
     }
 
-    private string GetGrade(int score, int guide)
+    private string GetGrade(float score, int guide)
     {
         Debug.Log(guide);
         
@@ -108,13 +108,13 @@ public class EventHandler : MonoBehaviour
         return letter;
     }
 
-    public void LoseGame(int finalScore, int guideScore)
+    public void LoseGame(float finalScore, int guideScore)
     {
-        Debug.Log("Lost Game");
+        Debug.Log($"Lost Game. Score {finalScore}");
         gm.gameOver = true;
         ovrCan.SetActive(true);
         loseCan.SetActive(true);
-        endScore.text = finalScore.ToString("C2");
+        endScore.text = finalScore.ToString("C");
         ts.DisplayTime(endTime);
         endKills.text = gm.enemiesKilled.ToString();
         gradeText.text = GetGrade(finalScore, guideScore);
