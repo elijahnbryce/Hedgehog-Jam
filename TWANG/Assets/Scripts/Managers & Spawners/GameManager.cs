@@ -12,9 +12,9 @@ public class GameManager : MonoBehaviour
     [Header("Game Status")]
     [SerializeField] private static int fullHealth = 3;
     public int health = fullHealth, wave = 0, startEnemies = 0, enemiesKilled = 0, enemyTypes;
-    public bool gameOver, waveStarted, gamePaused;
+    public bool gameOver, waveStarted;
 
-    public bool GameRunning => (waveStarted && !gamePaused && !gameOver);
+    public bool GameRunning => (waveStarted && !PauseUI.Instance.IsGamePaused && !gameOver);
     public bool BetweenRounds { get; set; }
 
 	private float levelScore, totalScore = 0;
@@ -56,30 +56,9 @@ public class GameManager : MonoBehaviour
         if (!gameOver
 			&& (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)))
         {
-            PauseGame();
+            PauseUI.ToggleGamePause?.Invoke();
         }
     }
-
-	public void PauseGame()
-	{
-		if (gameOver) return;
-		if (gamePaused)
-		{
-            // Stop player shooting on unpause
-            PlayerAttack.Instance.AddAttackCooldown(0.1f);
-			gamePaused = false;
-			Time.timeScale = 1;
-            SoundManager.Instance.SwitchToRegularMusic();
-		}
-		else
-		{
-			Time.timeScale = 0;
-			gamePaused = true;
-            SoundManager.Instance.SwitchToMenuMusic();
-		}
-		eV.OnPauseChanged(gamePaused);
-	}
-
     public void Kill()
     {
         Instance = null;
@@ -108,7 +87,7 @@ public class GameManager : MonoBehaviour
         ts.TimerStart();
 
         gameOver = false;
-        gamePaused = false;
+        PauseUI.SetPauseState(false);
     }
 
     public void NewWave()

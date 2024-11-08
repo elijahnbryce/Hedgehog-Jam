@@ -8,8 +8,6 @@ using System;
 
 public class EventHandler : MonoBehaviour
 {
-    public static Action<bool> onPauseUpdate;
-
     [Header("Canvas")]
     [SerializeField] private GameObject pauseMen;
     [SerializeField] private GameObject loseCan, ovrCan;
@@ -53,7 +51,7 @@ public class EventHandler : MonoBehaviour
         //hsInput.gameObject.SetActive(false);
         //winCan.SetActive(false);
         loseCan.SetActive(false);
-        OnPauseChanged(false);
+        PauseUI.SetPauseState(false);
     }
 
     public void DisplayHealth(int hp)
@@ -126,21 +124,6 @@ public class EventHandler : MonoBehaviour
     {
         SceneManager.LoadScene(sceneNum);
     }
-
-	//should be moved/renamed but don't want to break the scene references
-    public void PauseGame()
-    {
-        Debug.Log("Paused");
-		gm.PauseGame();
-	}
-
-	public void OnPauseChanged(bool p)
-	{
-		//pauseMen.SetActive(p);
-        onPauseUpdate?.Invoke(p);
-
-        UpdateCursor();
-	}
 
     public void Restart()
     {

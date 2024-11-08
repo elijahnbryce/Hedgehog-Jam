@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 public class PauseUI : MonoBehaviour
 {
+    public static PauseUI Instance;
+    public static Action ToggleGamePause;
+    public static Action<bool> SetPauseState;
+
+    public bool IsGamePaused => _isGamePaused;
+
     [Header("Animating Elements")]
     [SerializeField] GameObject _pauseMenu;
     [SerializeField] float _animateTime = 1f;
@@ -13,19 +20,29 @@ public class PauseUI : MonoBehaviour
     [SerializeField] RectTransform _timeoutTitle;
     [SerializeField] RectTransform[] _pauseButtonImages;
 
-    bool _pauseState;
+    bool _isGamePaused;
 
     const float offscreenTitleY = 350f;
     const float pauseButtonY = -350f;
 
-    // Start is called before the first frame update
-    void OnEnable()
+    private void Awake()
     {
-        EventHandler.onPauseUpdate += PauseUpdate;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+
+        ToggleGamePause = TogglePause;
+        SetPauseState = SetPause;
     }
-    void OnDisable()
+
+    private void Start()
     {
-        EventHandler.onPauseUpdate -= PauseUpdate;
+        PauseUpdate();
     }
 
     void ResetPositions()
@@ -38,17 +55,34 @@ public class PauseUI : MonoBehaviour
         }
     }
 
-    Sequence openSeq;
-    void PauseUpdate(bool pauseState)
+    public void SetPause(bool pause)
     {
-        _pauseState = pauseState;
+        _isGamePaused = pause;
+        PauseUpdate();
+    }
 
-        if (_pauseState)
+    void TogglePause()
+    {
+       _isGamePaused = !_isGamePaused;
+        PauseUpdate();
+    }
+
+    Sequence openSeq;
+    void PauseUpdate()
+    {
+        if (GameManager.Instance.gameOver) return;
+        if (_isGamePaused)
         {
+            Time.timeScale = 0;
+            SoundManager.Instance.SwitchToMenuMusic();
             OnPauseAnim();
         }
         else
         {
+            // Stop player shooting on unpause
+            PlayerAttack.Instance.AddAttackCooldown(0.1f);
+            Time.timeScale = 1;
+            SoundManager.Instance.SwitchToRegularMusic();
             OnUnpauseAnim();
         }
     }
