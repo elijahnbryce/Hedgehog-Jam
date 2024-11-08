@@ -140,8 +140,7 @@ public class Spawner : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        // Draw spawn bounds in editor
-        Gizmos.color = Color.yellow;
+        Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(
             (spawnBoundsMin + spawnBoundsMax) / 2f,
             spawnBoundsMax - spawnBoundsMin

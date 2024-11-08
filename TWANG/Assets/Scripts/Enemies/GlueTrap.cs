@@ -1,57 +1,86 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using DG.Tweening;
 
 public class GlueTrap : MonoBehaviour
 {
-    private GameObject player;
-    private PlayerMovement pm;
+    [SerializeField] private Collider2D trigger;
+    [SerializeField] private float dropTime = 0.5f;
+    [SerializeField] private GameObject drop;
+    [SerializeField] private GameObject spot;
+    [SerializeField] private List<Sprite> spotSprites;
 
-    public Collider2D trigger;
-    public float dropTime = 0.5f;
+    private const float DROP_SCALE_TIME = 0.3f;
+    private static readonly Vector3 DROP_SQUASH_SCALE = new Vector3(1.3f, 0.7f, 1f);
+    private const float SPOT_PULSE_SCALE = 1.2f;
+    private const float SPOT_PULSE_TIME = 0.5f;
 
-    public GameObject drop;
-    public GameObject spot;
-
-    void Start()
+    private void Start()
     {
-        player = GameObject.Find("Player");
-        pm = player.GetComponent<PlayerMovement>();
         StartCoroutine(GlueDropSequence());
-
     }
 
     private IEnumerator GlueDropSequence()
     {
         Vector3 dropFromPosition = drop.transform.position;
         Vector3 dropToPosition = spot.transform.position;
-        for (float time = 0; time < dropTime; time += Time.deltaTime)
-        {
-            Vector3 currentPosition = Vector3.Lerp(dropFromPosition, dropToPosition, time / dropTime);
-            drop.transform.position = currentPosition;
-            yield return null;
-        }
+        Vector3 originalDropScale = drop.transform.localScale;
+
+        Sequence dropSequence = DOTween.Sequence();
+
+        dropSequence.Append(drop.transform.DOScale(originalDropScale * 1.2f, 0.2f));
+
+        dropSequence.Append(drop.transform.DOMove(dropToPosition, dropTime)
+            .SetEase(Ease.OutBounce)
+            .OnComplete(() => {
+                drop.transform.DOScale(DROP_SQUASH_SCALE, DROP_SCALE_TIME)
+                    .OnComplete(() => {
+                        drop.transform.DOScale(originalDropScale, DROP_SCALE_TIME);
+                    });
+            }));
+
+        yield return dropSequence.WaitForCompletion();
+
         drop.SetActive(false);
         spot.SetActive(true);
         trigger.enabled = true;
 
-        Destroy(this.gameObject, 5f);
+        var spotSR = spot.GetComponent<SpriteRenderer>();
+        Vector3 originalSpotScale = spot.transform.localScale;
+
+        void PulseSpot()
+        {
+            spot.transform.DOScale(originalSpotScale * SPOT_PULSE_SCALE, SPOT_PULSE_TIME / 2)
+                .SetEase(Ease.OutQuad)
+                .OnComplete(() => {
+                    spot.transform.DOScale(originalSpotScale, SPOT_PULSE_TIME / 2)
+                        .SetEase(Ease.InQuad);
+                });
+        }
+
+        spotSR.sprite = spotSprites[0];
+        PulseSpot();
+        yield return new WaitForSeconds(2);
+
+        spotSR.sprite = spotSprites[1];
+        PulseSpot();
+        yield return new WaitForSeconds(2);
+
+        spotSR.sprite = spotSprites[2];
+        PulseSpot();
+
+        Sequence fadeOutSequence = DOTween.Sequence();
+        fadeOutSequence.Append(spot.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack));
+        fadeOutSequence.Join(spot.GetComponent<SpriteRenderer>().DOFade(0, 0.5f));
+
+        yield return fadeOutSequence.WaitForCompletion();
+        Destroy(gameObject);
     }
 
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    //this is kind of ass code, fix later!!!
-    //    if (other.gameObject.CompareTag("Player"))
-    //    {
-    //        pm.MovementSpeed /= 3;
-    //    }
-    //}
-
-    //private void OnTriggerExit2D(Collider2D other)
-    //{
-    //    if (other.gameObject.CompareTag("Player"))
-    //    {
-    //        pm.MovementSpeed *= 3;
-    //    }
-    //}
+    private void OnDestroy()
+    {
+        DOTween.Kill(drop.transform);
+        DOTween.Kill(spot.transform);
+    }
 }

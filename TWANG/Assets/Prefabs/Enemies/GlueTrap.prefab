@@ -219,6 +219,10 @@ MonoBehaviour:
   dropTime: 0.2
   drop: {fileID: 7176947623236532235}
   spot: {fileID: 2761609869627475939}
+  spotSprites:
+  - {fileID: -847371519, guid: 7d7b2be5539125245877896f6ae4a75a, type: 3}
+  - {fileID: -493421299, guid: 45775d7c082fa9545b9afbde47f9a2aa, type: 3}
+  - {fileID: 1640928949, guid: 45775d7c082fa9545b9afbde47f9a2aa, type: 3}
 --- !u!70 &8493393162835364258
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
