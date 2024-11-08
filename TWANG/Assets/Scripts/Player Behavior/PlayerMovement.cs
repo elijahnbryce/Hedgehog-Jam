@@ -350,7 +350,7 @@ public class PlayerMovement : MonoBehaviour
         {
             upgradeTimer -= Time.deltaTime;
 			//this should be somewhere else, keep input all in one place
-            if (!GameManager.Instance.gamePaused && Input.GetKeyDown(KeyCode.Space))
+            if (!PauseUI.Instance.IsGamePaused && Input.GetKeyDown(KeyCode.Space))
             {
                 upgradeTimer = 0;
             }
