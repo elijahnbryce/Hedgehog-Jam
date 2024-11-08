@@ -136,7 +136,7 @@ public class EventHandler : MonoBehaviour
 
 	public void OnPauseChanged(bool p)
 	{
-		pauseMen.SetActive(p);
+		//pauseMen.SetActive(p);
         onPauseUpdate?.Invoke(p);
 
         UpdateCursor();

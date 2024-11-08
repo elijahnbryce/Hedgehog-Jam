@@ -130,7 +130,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Vector2 fireDirection = ((Vector2)primaryHand.position - (Vector2)secondaryHand.position).normalized;
 
-        GameObject newProjectile = Instantiate(projectile, primaryHand.position + (Vector3)(fireDirection * 0.5f), Quaternion.identity);
+        GameObject newProjectile = Instantiate(projectile, primaryHand.position + (Vector3)(fireDirection * 1f), Quaternion.identity);
 
         //
         newProjectile.GetComponent<RubberBand>().InitializeProjectile(attackState);

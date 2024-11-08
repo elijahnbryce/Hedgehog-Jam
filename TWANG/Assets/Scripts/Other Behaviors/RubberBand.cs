@@ -26,7 +26,7 @@ public class RubberBand : MonoBehaviour
     private Rigidbody2D rb;
     void Start()
     {
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("PlayerEffect"));
+        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("PlayerEffect"));
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("LevelBoundary"), LayerMask.NameToLayer("PlayerEffect"));
 
         sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
@@ -91,10 +91,15 @@ public class RubberBand : MonoBehaviour
     {
         if (dead) return;
 
-        if (collision.gameObject.layer == 6)
+        // Player
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Physics2D.IgnoreCollision(collision.collider, collision.otherCollider);
+            Debug.Log("Band hit player");
+            dead = true;
+            Destroy(gameObject);
+            PlayerAttack.Instance.PickupBand();
         }
+
         //ass code fix later
         if (collision.gameObject.tag == "Wall")
         {
