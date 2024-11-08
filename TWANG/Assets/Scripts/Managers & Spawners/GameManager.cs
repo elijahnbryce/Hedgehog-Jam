@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
 
             BetweenRounds = true;
             UpgradeManager.Instance.SpawnUpgrades();
-            //NewWave();
+            NewWave();
         }
         else
         {

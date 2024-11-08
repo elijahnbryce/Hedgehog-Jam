@@ -13716,19 +13716,19 @@ PrefabInstance:
       objectReference: {fileID: 9077075022715136519, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
       propertyPath: enemyTypes.Array.data[0].spawnInterval
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
       propertyPath: enemyTypes.Array.data[1].spawnInterval
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
       propertyPath: enemyTypes.Array.data[2].spawnInterval
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
       propertyPath: enemyTypes.Array.data[3].spawnInterval
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
       propertyPath: enemyStructList.Array.data[0].enemyType
