@@ -4014,7 +4014,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6247386224674570162
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4244,7 +4244,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed304a5a0e653d240b842ed4596e6050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pauseMenu: {fileID: 8282936724484751128}
   _animateTime: 0.5
+  _animateOutTime: 0.2
   _timeoutTitle: {fileID: 2524838589806769979}
   _pauseButtonImages:
   - {fileID: 4427693973921760155}
