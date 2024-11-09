@@ -118,11 +118,11 @@ MonoBehaviour:
   - {fileID: -752124216, guid: d933c5def41243b4295be385b3954a09, type: 3}
   - {fileID: 900453302, guid: d933c5def41243b4295be385b3954a09, type: 3}
   - {fileID: -111609210, guid: d933c5def41243b4295be385b3954a09, type: 3}
-  landedPrefab: {fileID: 8053071496740151992, guid: c5c5064d327826d4a8593d1104a5a179, type: 3}
+  landedSprite: {fileID: 21300000, guid: 85104bdb1d7121e4f8c14b47d3da3fbd, type: 3}
   whiteMat: {fileID: 2100000, guid: 14e101fe50cb36347a5b44d432d07764, type: 2}
-  initialSpeed: 400
-  spiralGrowthRate: 7
-  rotationSpeed: 300
+  boundaryLayer:
+    serializedVersion: 2
+    m_Bits: 0
   attackPower: 6
 --- !u!1 &4435838740883492816
 GameObject:
