@@ -8,6 +8,8 @@ using System;
 
 public class EventHandler : MonoBehaviour
 {
+    public static EventHandler Instance;
+
     [Header("Canvas")]
     [SerializeField] private GameObject pauseMen;
     [SerializeField] private GameObject loseCan, ovrCan;
@@ -24,6 +26,14 @@ public class EventHandler : MonoBehaviour
 
 	private void Awake()
 	{
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
 		gm = GetComponent<GameManager>();
 	}
 

@@ -13,6 +13,11 @@ public class PauseUI : MonoBehaviour
 
     public bool IsGamePaused => _isGamePaused;
 
+    [Header("Buttons")]
+    [SerializeField] Button _resumeBTN;
+    [SerializeField] Button _restartBTN;
+    [SerializeField] Button _quitBTN;
+
     [Header("Animating Elements")]
     [SerializeField] GameObject _pauseMenu;
     [SerializeField] float _animateTime = 1f;
@@ -38,6 +43,10 @@ public class PauseUI : MonoBehaviour
 
         ToggleGamePause = TogglePause;
         SetPauseState = SetPause;
+
+        _resumeBTN.onClick.AddListener(TogglePause);
+        _restartBTN.onClick.AddListener(Restart);
+        _quitBTN.onClick.AddListener(Quit);
     }
 
     private void Start()
@@ -61,10 +70,27 @@ public class PauseUI : MonoBehaviour
         PauseUpdate();
     }
 
-    void TogglePause()
+    public void TogglePause()
     {
-       _isGamePaused = !_isGamePaused;
+        OnButton();
+        _isGamePaused = !_isGamePaused;
         PauseUpdate();
+    }
+
+    public void Restart()
+    {
+        OnButton();
+        EventHandler.Instance.Restart();
+    }
+    public void Quit()
+    {
+        OnButton();
+        EventHandler.Instance.ReturnToMenu();
+    }
+
+    void OnButton()
+    {
+        SoundManager.Instance.PlaySoundEffect("button_press");
     }
 
     Sequence openSeq;
