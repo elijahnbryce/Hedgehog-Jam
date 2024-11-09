@@ -5,18 +5,22 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System;
 
-public class PauseUI : MonoBehaviour
+public class GameUI : MonoBehaviour
 {
-    public static PauseUI Instance;
+    public static GameUI Instance;
     public static Action ToggleGamePause;
     public static Action<bool> SetPauseState;
 
     public bool IsGamePaused => _isGamePaused;
 
-    [Header("Buttons")]
-    [SerializeField] Button _resumeBTN;
-    [SerializeField] Button _restartBTN;
-    [SerializeField] Button _quitBTN;
+    [Header("Gameover Buttons")]
+    [SerializeField] Button _gameoverPlayBTN;
+    [SerializeField] Button _gameoverQuitBTN;
+
+    [Header("Pause Buttons")]
+    [SerializeField] Button _pauseResumeBTN;
+    [SerializeField] Button _pauseRestartBTN;
+    [SerializeField] Button _pauseQuitBTN;
 
     [Header("Animating Elements")]
     [SerializeField] GameObject _pauseMenu;
@@ -44,9 +48,14 @@ public class PauseUI : MonoBehaviour
         ToggleGamePause = TogglePause;
         SetPauseState = SetPause;
 
-        _resumeBTN.onClick.AddListener(TogglePause);
-        _restartBTN.onClick.AddListener(Restart);
-        _quitBTN.onClick.AddListener(Quit);
+        // Gameover
+        _gameoverPlayBTN.onClick.AddListener(Restart);
+        _gameoverQuitBTN.onClick.AddListener(Quit);
+
+        //Pause Menu
+        _pauseResumeBTN.onClick.AddListener(Unpause);
+        _pauseRestartBTN.onClick.AddListener(Restart);
+        _pauseQuitBTN.onClick.AddListener(Quit);
     }
 
     private void Start()
@@ -67,6 +76,11 @@ public class PauseUI : MonoBehaviour
     public void SetPause(bool pause)
     {
         _isGamePaused = pause;
+        PauseUpdate();
+    }
+    void Unpause()
+    {
+        _isGamePaused = false;
         PauseUpdate();
     }
 
@@ -129,8 +143,6 @@ public class PauseUI : MonoBehaviour
         {
             openSeq.Insert((_animateTime / (float)_pauseButtonImages.Length) * i, _pauseButtonImages[i].DOAnchorPosY(0, _animateTime));
         }
-
-
         openSeq.Play();
     }
 

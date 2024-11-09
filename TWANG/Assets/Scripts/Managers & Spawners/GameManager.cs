@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public int health = fullHealth, wave = 0, startEnemies = 0, enemiesKilled = 0, enemyTypes;
     public bool gameOver, waveStarted;
 
-    public bool GameRunning => (waveStarted && !PauseUI.Instance.IsGamePaused && !gameOver);
+    public bool GameRunning => (waveStarted && !GameUI.Instance.IsGamePaused && !gameOver);
     public bool BetweenRounds { get; set; }
 
 	private float levelScore, totalScore = 0;
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         if (!gameOver
 			&& (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)))
         {
-            PauseUI.ToggleGamePause?.Invoke();
+            GameUI.ToggleGamePause?.Invoke();
         }
     }
     public void Kill()
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
         ts.TimerStart();
 
         gameOver = false;
-        PauseUI.SetPauseState(false);
+        GameUI.SetPauseState(false);
     }
 
     public void NewWave()

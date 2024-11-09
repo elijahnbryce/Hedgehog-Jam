@@ -61,7 +61,7 @@ public class EventHandler : MonoBehaviour
         //hsInput.gameObject.SetActive(false);
         //winCan.SetActive(false);
         loseCan.SetActive(false);
-        PauseUI.SetPauseState(false);
+        GameUI.SetPauseState(false);
     }
 
     public void DisplayHealth(int hp)
