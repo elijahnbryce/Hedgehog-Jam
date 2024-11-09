@@ -1,40 +1,42 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using System.Collections.Generic;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [Header("Attack Settings")]
-    [SerializeField] private Slider attackSlider;
-    [SerializeField] private GameObject projectile;
-    [SerializeField] private DragController rubberRender;
-    [SerializeField] private Transform primaryHand;
-    [SerializeField] private Transform secondaryHand;
-    [SerializeField] private float maxStretchDistance = 6f;
-    private bool hasBand = true;
-    public bool HasBand { get { return hasBand; } }
-
-    private float sliderValue;
-    private float attackPower;
-    private bool attacking;
-    private int attackState;
-    private Color currentColor = Color.white;
-
-    private const float ATTACK_MAX = 2.5f;
-    private const float SLIDER_LERP_SPEED = 2.5f;
-    private const float PROJECTILE_BASE_FORCE = 1000f;
-    private const float MIN_ATTACK_POWER = 0.2f;
-
-    public bool Attacking => attacking;
-    public Color CurrentColor => currentColor;
     public static PlayerAttack Instance { get; private set; }
 
     public static event Action OnAttackInitiate;
     public static event Action OnAttackHalt;
+    public bool Attacking => attacking;
+    public Color CurrentColor => currentColor;
+    public bool HasBand { get { return hasBand; } }
+    
+    [Header("Attack Settings")]
+    [SerializeField] Slider attackSlider;
+    [SerializeField] RubberBand projectilePrefab;
+    [SerializeField] DragController rubberRender;
+    [SerializeField] Transform primaryHand;
+    [SerializeField] Transform secondaryHand;
+    [SerializeField] float maxStretchDistance = 6f;
 
-    private float attackCooldown = 0f;
-    private float attackCooldownTimer = 0f;
+    RubberBand currentProjectile;
+    bool hasBand = true;
+
+    float sliderValue;
+    float attackPower;
+    bool attacking;
+    int attackState;
+    Color currentColor = Color.white;
+
+    const float ATTACK_MAX = 2.5f;
+    const float SLIDER_LERP_SPEED = 2.5f;
+    const float PROJECTILE_BASE_FORCE = 1000f;
+    const float MIN_ATTACK_POWER = 0.2f;
+
+
+    float attackCooldown = 0f;
+    float attackCooldownTimer = 0f;
 
     private void Awake()
     {
@@ -130,13 +132,15 @@ public class PlayerAttack : MonoBehaviour
     {
         Vector2 fireDirection = ((Vector2)primaryHand.position - (Vector2)secondaryHand.position).normalized;
 
-        GameObject newProjectile = Instantiate(projectile, primaryHand.position + (Vector3)(fireDirection * 1f), Quaternion.identity);
+        if (currentProjectile == null)
+        {
+            currentProjectile = Instantiate(projectilePrefab);
+        }
 
-        //
-        newProjectile.GetComponent<RubberBand>().InitializeProjectile(attackState);
+        currentProjectile.transform.position = primaryHand.position + (Vector3)(fireDirection);
+        currentProjectile.gameObject.SetActive(true);
 
-        var rb = newProjectile.GetComponent<Rigidbody2D>();
-        rb.AddForce(attackPower * PROJECTILE_BASE_FORCE * fireDirection);
+        currentProjectile.InitializeProjectile(attackPower * PROJECTILE_BASE_FORCE * fireDirection);
     }
 
     private void ResetAttackState()
