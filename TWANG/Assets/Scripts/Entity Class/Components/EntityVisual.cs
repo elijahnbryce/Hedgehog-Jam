@@ -10,9 +10,13 @@ public class EntityVisual : MonoBehaviour
     public Animator animator;
     public List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
 
-    [SerializeField]
-    private List<Sprite> directionalSprites = new List<Sprite>();
+    [SerializeField] private List<Sprite> directionalSprites = new List<Sprite>();
+    [SerializeField] private List<Sprite> altDirectionalSprites = new List<Sprite>();
+
     private SpriteRenderer mainRenderer;
+
+    private float timer;
+    private bool alternate;
 
     public virtual void Initialize(Entity thisEntity)
     {
@@ -33,6 +37,13 @@ public class EntityVisual : MonoBehaviour
         {
             if (directionalSprites.Count >= 8 && mainRenderer != null)
             {
+                timer += Time.deltaTime;
+                if(timer > 0.2f)
+                {
+                    timer = 0;
+                    alternate = !alternate;
+                }
+                
                 UpdateDirectionalSprite();
             }
             else
@@ -95,6 +106,6 @@ public class EntityVisual : MonoBehaviour
         else  // down right
             spriteIndex = 5;
 
-        mainRenderer.sprite = directionalSprites[spriteIndex];
+        mainRenderer.sprite = alternate ? directionalSprites[spriteIndex] : altDirectionalSprites[spriteIndex];
     }
 }

@@ -157,12 +157,12 @@ SpriteRenderer:
   m_SortingLayerID: 731826199
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: -462511731, guid: 5b2575786bd965d4cb04e70a6b32996a, type: 3}
+  m_Sprite: {fileID: -573284129, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.92, y: 1.92}
+  m_Size: {x: 1.5, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -178,6 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8598588573186887673}
   - component: {fileID: 8802756422333349529}
+  - component: {fileID: 4772866603694250652}
   - component: {fileID: 5739259472025487281}
   - component: {fileID: 8570487963897498614}
   - component: {fileID: 8099047111318666624}
@@ -232,6 +233,41 @@ MonoBehaviour:
   - state: {fileID: 11400000, guid: 0dda8c419c8d1974a92113a274fb0293, type: 2}
     active: 1
     entityStateChangers: []
+--- !u!114 &4772866603694250652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9077075022715136519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fda53e0bfac9c4488ae2d5c365fe77e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualObject: {fileID: 4391362670481338190}
+  shadowObject: {fileID: 2751007074370866264}
+  animator: {fileID: 0}
+  spriteRenderers:
+  - {fileID: 3891933268517418264}
+  directionalSprites:
+  - {fileID: -573284129, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: -286560997, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: 674361308, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: 727410040, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: 700688668, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: 1897303524, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: 461264132, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: -1762824748, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  altDirectionalSprites:
+  - {fileID: -1446089212, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: 327152595, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: 2111752129, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: 132228459, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: -1015546482, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: 793954441, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: -662227662, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+  - {fileID: -373819249, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
 --- !u!114 &5739259472025487281
 MonoBehaviour:
   m_ObjectHideFlags: 0

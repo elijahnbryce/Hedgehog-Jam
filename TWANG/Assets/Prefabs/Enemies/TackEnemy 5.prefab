@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2239190240455860114
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3891933268517418264, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1831492746, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: directionalSprites.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: altDirectionalSprites.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: directionalSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 1831492746, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: directionalSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: -334849008, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: directionalSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 594108688, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: directionalSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: -39785737, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: directionalSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: -810390615, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: directionalSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: -417700113, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: directionalSprites.Array.data[6]
+      value: 
+      objectReference: {fileID: -101101088, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: directionalSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: -325661111, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: altDirectionalSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 17474096, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: altDirectionalSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 1954762229, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: altDirectionalSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 634794854, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: altDirectionalSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 774122252, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: altDirectionalSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: -987142387, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: altDirectionalSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 1941784972, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: altDirectionalSprites.Array.data[6]
+      value: 
+      objectReference: {fileID: 1386216741, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 4772866603694250652, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: altDirectionalSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: -1059720351, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 8598588573186887673, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598588573186887673, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598588573186887673, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598588573186887673, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598588573186887673, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598588573186887673, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598588573186887673, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598588573186887673, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598588573186887673, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598588573186887673, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9077075022715136519, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: m_Name
+      value: TackEnemy 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
