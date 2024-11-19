@@ -22,15 +22,14 @@ public class PlayerMovement : MonoBehaviour
 
     private bool glued = false;
     public bool FacingDir => facingDir;
-	private bool Attacking => PlayerAttack.Instance.Attacking;
+    private bool Attacking => PlayerAttack.Instance.Attacking;
     private Vector2 secondCurrentPos, secondTargetPos;
 
     bool secondHandReadyToMove = false;
     private Vector2 mainHandPosition;
     private float footstepCounter;
 
-    private float upgradeTimer = 8f;
-    private int upgradeIndex = 0;
+    private int upgradeIndex = -1; // Default to invalid index when no upgrade is selected
 
     private const float FOOTSTEP_INTERVAL = 0.75f;
     private const float POSITION_LERP_SPEED = 5f;
@@ -61,24 +60,33 @@ public class PlayerMovement : MonoBehaviour
         UpdateSecondHandTarget(Vector2.right);
     }
 
-	private void RegisterEventHandlers()
+    private void RegisterEventHandlers()
     {
         PlayerAttack.OnAttackInitiate += AttackStart;
         PlayerAttack.OnAttackHalt += AttackEnd;
-    }	
+    }
 
     private void Update()
     {
         footstepCounter += Time.deltaTime;
         UpdatePositions();
 
-		if (!secondHandReadyToMove)
-			secondHandReadyToMove = IsSecondHandClose();
-	}
+        if (!secondHandReadyToMove)
+            secondHandReadyToMove = IsSecondHandClose();
+
+        // Check for upgrade selection
+        if (upgradeIndex >= 0 && !GameUI.Instance.IsGamePaused && Input.GetKeyDown(KeyCode.Space))
+        {
+            UpgradeManager.Instance.ClaimUpgrade(upgradeIndex);
+            upgradeIndex = -1; // Reset after claiming
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         HandleTriggerCollision(collision);
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         HandlePhysicalCollision(collision);
@@ -89,12 +97,12 @@ public class PlayerMovement : MonoBehaviour
         HandleTriggerExit(collision);
     }
 
-	private void OnDestroy()
-	{
-		Instance = null;
-	}
+    private void OnDestroy()
+    {
+        Instance = null;
+    }
 
-	private void HandlePhysicalCollision(Collision2D collision)
+    private void HandlePhysicalCollision(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -127,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
                 HandlePickupBand(collision.gameObject);
                 break;
             case "Glue":
-                if(!glued)
+                if (!glued)
                     StartCoroutine(nameof(Glue));
                 break;
         }
@@ -148,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
         band.transform.DOMove(band.transform.position + Vector3.up, 0.2f);
         band.transform.DORotate(new Vector3(0, 0, 180), 0.2f);
         seq.Append(band.transform.DOScale(Vector2.zero, 0.2f)).SetEase(Ease.InQuad);
-        seq.AppendCallback(()=>Destroy(band));
+        seq.AppendCallback(() => Destroy(band));
 
         PlayerAttack.Instance.PickupBand();
     }
@@ -159,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
         {
             // When attacking, move secondary hand with WASD
             Vector2 movement = GetMovementInput();
-            if(secondHandReadyToMove)
+            if (secondHandReadyToMove)
                 MoveSecondaryHand(movement);
             rigidBody.velocity = Vector2.zero; // Keep primary hand still
         }
@@ -179,7 +187,7 @@ public class PlayerMovement : MonoBehaviour
             secondCurrentPos,
             secondTargetPos,
             Time.deltaTime * (Attacking ? secondaryHandSpeedWhileAttacking : secondaryHandSpeed)
-        ) ;
+        );
     }
 
     private void MoveSecondaryHand(Vector2 movement)
@@ -190,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
             Vector2 movementDirection = movement.normalized;
 
             float dotProduct = Vector2.Dot(movementDirection, -directionToMain);
-            float tensionMultiplier = Mathf.Max(0, dotProduct); 
+            float tensionMultiplier = Mathf.Max(0, dotProduct);
 
             float tensionResistance = tensionResistanceCurve.Evaluate(Vector2.Distance(mainHandPosition, secondCurrentPos) / followingDistance);
 
@@ -296,10 +304,10 @@ public class PlayerMovement : MonoBehaviour
         secondTargetPos = (Vector2)transform.position + direction;
     }
 
-	private bool IsSecondHandClose()
-	{
-		return Vector2.Distance(mainHandPosition, secondHand.position) < 1.5f;
-	}
+    private bool IsSecondHandClose()
+    {
+        return Vector2.Distance(mainHandPosition, secondHand.position) < 1.5f;
+    }
 
     private void AttackEnd()
     {
@@ -322,14 +330,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void CancelUpgradeSelection()
     {
-        StopCoroutine(nameof(UpgradeCountdown));
-        upgradeTimer = 8f;
+        upgradeIndex = -1; // Reset upgrade selection when leaving trigger
     }
 
     private void HandleUpgradeSelection(Collider2D collision)
     {
         upgradeIndex = int.Parse(collision.gameObject.name);
-        StartCoroutine(nameof(UpgradeCountdown));
     }
 
     private void HandleEnemyCollision()
@@ -342,20 +348,5 @@ public class PlayerMovement : MonoBehaviour
     {
         collision.GetComponent<Coin>().ClaimCoin();
         Debug.Log("Picked up coin.");
-    }
-
-    private IEnumerator UpgradeCountdown()
-    {
-        while (upgradeTimer > 0)
-        {
-            upgradeTimer -= Time.deltaTime;
-			//this should be somewhere else, keep input all in one place
-            if (!GameUI.Instance.IsGamePaused && Input.GetKeyDown(KeyCode.Space))
-            {
-                upgradeTimer = 0;
-            }
-            yield return null;
-        }
-        UpgradeManager.Instance.ClaimUpgrade(upgradeIndex);
     }
 }

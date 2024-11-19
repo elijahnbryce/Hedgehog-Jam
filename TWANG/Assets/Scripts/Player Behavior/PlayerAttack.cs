@@ -9,11 +9,9 @@ public class PlayerAttack : MonoBehaviour
     public static event Action OnAttackInitiate;
     public static event Action OnAttackHalt;
     public bool Attacking => attacking;
-    public Color CurrentColor => currentColor;
     public bool HasBand { get { return hasBand; } }
     
     [Header("Attack Settings")]
-    [SerializeField] Slider attackSlider;
     [SerializeField] RubberBand projectilePrefab;
     [SerializeField] DragController rubberRender;
     [SerializeField] Transform primaryHand;
@@ -23,20 +21,14 @@ public class PlayerAttack : MonoBehaviour
     RubberBand currentProjectile;
     bool hasBand = true;
 
-    float sliderValue;
     float attackPower;
     bool attacking;
-    int attackState;
-    Color currentColor = Color.white;
 
-    const float ATTACK_MAX = 2.5f;
-    const float SLIDER_LERP_SPEED = 2.5f;
     const float PROJECTILE_BASE_FORCE = 1000f;
     const float MIN_ATTACK_POWER = 0.2f;
 
 
     float attackCooldown = 0f;
-    float attackCooldownTimer = 0f;
 
     private void Awake()
     {
@@ -91,11 +83,6 @@ public class PlayerAttack : MonoBehaviour
         float distance = handsDelta.magnitude;
 
         attackPower = Mathf.Clamp01(distance / maxStretchDistance);
-
-        sliderValue = Mathf.Lerp(sliderValue, attackPower, Time.deltaTime * SLIDER_LERP_SPEED);
-        attackSlider.value = sliderValue;
-
-        attackState = Mathf.FloorToInt(sliderValue * 4);
     }
 
     public void PickupBand()
@@ -110,7 +97,6 @@ public class PlayerAttack : MonoBehaviour
 
         attacking = true;
         attackPower = 0;
-        sliderValue = 0;
         SoundManager.Instance.PlaySoundEffect("band_pull");
         OnAttackInitiate?.Invoke();
     }
@@ -147,7 +133,6 @@ public class PlayerAttack : MonoBehaviour
     {
         attacking = false;
         attackPower = 0;
-        sliderValue = 0;
     }
 
     public void SetAttackCooldown(float cooldown)

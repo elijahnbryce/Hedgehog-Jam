@@ -13,6 +13,7 @@ TagManager:
   - Landed Band
   - Level Boundary
   - Glue
+  - Midair Band
   layers:
   - Default
   - TransparentFX
