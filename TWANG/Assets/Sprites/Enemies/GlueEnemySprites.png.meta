@@ -126,10 +126,10 @@ TextureImporter:
       name: GlueEnemySprites_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 5
-        width: 25
-        height: 27
+        x: 0
+        y: 0
+        width: 48
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,7 +137,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8af010b4e5051eb4bbd778b1ab988606
+      spriteID: 3c5a925f8abec0c479a5213635004c61
       internalID: -2021416421
       vertices: []
       indices: 
@@ -147,10 +147,10 @@ TextureImporter:
       name: GlueEnemySprites_1
       rect:
         serializedVersion: 2
-        x: 57
-        y: 5
-        width: 31
-        height: 27
+        x: 48
+        y: 0
+        width: 48
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,7 +158,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ba48fef5cc02cb4cad0da044193633f
+      spriteID: ff8ca2d3c5987d641b3bb7ec65b5841d
       internalID: -963081360
       vertices: []
       indices: 
