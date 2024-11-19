@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
         wave++;
 
         startEnemies = 1 + (wave * 2);
-        HelperClass.DebugColored("startenemies:" + startEnemies);
+        Debug.Log("startenemies:" + startEnemies);
         enemyTypes = Mathf.Min(3, Mathf.CeilToInt(wave / 3f) + 1);
         //sp.StartSpawn(startEnemies, enemyTypes);
         sp.StartSpawn(startEnemies);

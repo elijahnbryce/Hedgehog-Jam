@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: altDirectionalSprites.Array.data[7]
       value: 
       objectReference: {fileID: 1814923044, guid: 2184a8bbe9d48594999b1a2388eb2e7b, type: 3}
+    - target: {fileID: 5739259472025487281, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+      propertyPath: corpses.Array.data[0]
+      value: 
+      objectReference: {fileID: 4150950650143267452, guid: 6f05bc1a950e6624abf10f5b2afdbdef, type: 3}
     - target: {fileID: 8598588573186887673, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

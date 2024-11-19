@@ -15,6 +15,8 @@ public class EntityStats : MonoBehaviour
     public float attackPower = 1f;
     public float attackPowerMult = 1f;
 
+    public List<GameObject> corpses = new();
+
     public virtual void Initialize(Entity thisEntity)
     {
         selfEntity = thisEntity;
@@ -60,13 +62,47 @@ public class EntityStats : MonoBehaviour
     {
         GameManager gm = GameManager.Instance;
         float scoreBoost = gm.GetPowerMult(UpgradeType.Rainbow);
-        //play death animation
-        //destroy
-        gm.RemoveEnemy(selfEntity.gameObject);
-        //gm.UpdateScore(Mathf.RoundToInt(10 * scoreBoost));
-        //Destroy(selfEntity.gameObject);
 
-        CoinManager.Instance.SpawnCoins(transform.position);
-        SoundManager.Instance.PlaySoundEffect("enemy_die");
+        if (corpses.Count > 0)
+        {
+            List<GameObject> newCorpses = new();
+
+            if (corpses.Count == 1)
+            {
+                var newCorpse = Instantiate(corpses[0], transform.position, Quaternion.identity);
+                newCorpses.Add(newCorpse);
+            }
+            else if (corpses.Count == 2)
+            {
+                float spacing = 1f;
+                Vector3 leftPosition = transform.position + Vector3.left * (spacing / 2f);
+                Vector3 rightPosition = transform.position + Vector3.right * (spacing / 2f);
+
+                var leftCorpse = Instantiate(corpses[0], leftPosition, Quaternion.identity);
+                var rightCorpse = Instantiate(corpses[1], rightPosition, Quaternion.identity);
+
+                newCorpses.Add(leftCorpse);
+                newCorpses.Add(rightCorpse);
+            }
+            else
+            {
+                Debug.LogError("Issue spawning corpses.");
+            }
+
+            foreach (var corpse in newCorpses)
+            {
+                gm.AddEnemy(corpse);
+            }
+
+            gm.RemoveEnemy(selfEntity.gameObject);
+        }
+        else
+        {
+            gm.RemoveEnemy(selfEntity.gameObject);
+            //Destroy(selfEntity.gameObject);
+
+            CoinManager.Instance.SpawnCoins(transform.position);
+            SoundManager.Instance.PlaySoundEffect("enemy_die");
+        }
     }
 }
