@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 308879241284405186, guid: faf90ba0625ee4449b30416a8b51d62f, type: 3}
       propertyPath: m_Name
-      value: TackCorpse 5
+      value: TackChrysalis 5
       objectReference: {fileID: 0}
     - target: {fileID: 2696081713308812251, guid: faf90ba0625ee4449b30416a8b51d62f, type: 3}
       propertyPath: m_Sprite
@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: sprites.Array.data[7]
       value: 
       objectReference: {fileID: 186439042, guid: cb002bb421b3ff44690bf7a3079d3470, type: 3}
+    - target: {fileID: 5288571313440498373, guid: faf90ba0625ee4449b30416a8b51d62f, type: 3}
+      propertyPath: corpses.Array.data[0]
+      value: 
+      objectReference: {fileID: 3629208567844288231, guid: 273bb370c042241408e3e0bc0765b7d9, type: 3}
     - target: {fileID: 5435912223042302629, guid: faf90ba0625ee4449b30416a8b51d62f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

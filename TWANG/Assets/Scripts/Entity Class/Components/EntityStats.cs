@@ -74,7 +74,7 @@ public class EntityStats : MonoBehaviour
             }
             else if (corpses.Count == 2)
             {
-                float spacing = 1f;
+                float spacing = 2f;
                 Vector3 leftPosition = transform.position + Vector3.left * (spacing / 2f);
                 Vector3 rightPosition = transform.position + Vector3.right * (spacing / 2f);
 

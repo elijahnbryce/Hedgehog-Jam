@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Start.unity
     guid: fa26b5a8891e4d14d88ae0e8b7ef1416
   - enabled: 1
-    path: Assets/Scenes/enemy refactor.unity
-    guid: 9d297c534bf254247a96017d068dbbf7
-  - enabled: 1
     path: Assets/Scenes/elan.unity
     guid: cb3c9a08882839542961b9847623e26f
   m_configObjects: {}

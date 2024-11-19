@@ -225,8 +225,19 @@ MonoBehaviour:
   entityStates:
   - state: {fileID: 11400000, guid: 20989384614256e4997208225efff5d1, type: 2}
     active: 1
-    entityStateChangers: []
-  - state: {fileID: 11400000, guid: 2537a1f30004b7f43a402f3143d405ae, type: 2}
+    entityStateChangers:
+    - toState: {fileID: 11400000, guid: 63ebf3475f3032c44bfeb43c87e06233, type: 2}
+      conList: 00000000
+      distanceToTarget: 4
+      statesEntered: 1
+  - state: {fileID: 11400000, guid: 63ebf3475f3032c44bfeb43c87e06233, type: 2}
+    active: 0
+    entityStateChangers:
+    - toState: {fileID: 11400000, guid: 20989384614256e4997208225efff5d1, type: 2}
+      conList: 
+      distanceToTarget: 4
+      statesEntered: 1
+  - state: {fileID: 11400000, guid: 086d3fd502dfd3745bfcb5be7ed4eab7, type: 2}
     active: 1
     entityStateChangers: []
   - state: {fileID: 11400000, guid: 0dda8c419c8d1974a92113a274fb0293, type: 2}
@@ -245,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 4
-  movementSpeed: 2
+  movementSpeed: 0
   movementSpeedMult: 1
   effectiveMovementSpeed: 0
   attackPower: 1
