@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private bool isInvicible = false;
     [SerializeField] private static float multBonus = 1.2f;
 
-    private Camera cam;
+
 
     private void Awake()
     {
@@ -43,7 +43,9 @@ public class GameManager : MonoBehaviour
 		}
 		eV = GetComponent<EventHandler>();
 		ts = GetComponent<Timer>();
-	}
+
+        DOTween.SetTweensCapacity(500, 50);
+    }
 
     private void Start()
     {
@@ -69,16 +71,13 @@ public class GameManager : MonoBehaviour
     private void SetLevel()
     {
         Debug.Log("SETTING LVL");
-        cam = Camera.main;
         EverythingFalse();
         Time.timeScale = 1;
-        //timer = 0
 
         UpdateScore(0);
         UpdateHealth(0);
 
         NewWave();
-        //enemyTypes = sp.enemyStructList.Count;
     }
 
     private void EverythingFalse()
@@ -99,9 +98,9 @@ public class GameManager : MonoBehaviour
         EraserManager.Instance.SpawnConfig();
 
         wave++;
-        int toSpawn = Mathf.FloorToInt(10 / wave) + 1;
 
-        startEnemies = 3 + (wave * 2);
+        startEnemies = 1 + (wave * 2);
+        HelperClass.DebugColored("startenemies:" + startEnemies);
         enemyTypes = Mathf.Min(3, Mathf.CeilToInt(wave / 3f) + 1);
         //sp.StartSpawn(startEnemies, enemyTypes);
         sp.StartSpawn(startEnemies);
@@ -153,7 +152,7 @@ public class GameManager : MonoBehaviour
 
             BetweenRounds = true;
             UpgradeManager.Instance.SpawnUpgrades();
-            NewWave();
+            //NewWave();
         }
         else
         {
@@ -249,7 +248,6 @@ public class GameManager : MonoBehaviour
         if (change < 0)
         {
             SoundManager.Instance.PlaySoundEffect("player_damage");
-            GameObject.Find("Desk Background").transform.DOShakePosition(0.15f, .25f);
         }
         health += change;
         eV.DisplayHealth(health);

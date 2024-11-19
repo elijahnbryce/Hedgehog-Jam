@@ -7,10 +7,9 @@ public class Sticker : MonoBehaviour
 {
     [SerializeField] private Transform mask;
     [SerializeField] private Transform front, back, shadow;
-
     [SerializeField] private float duration = 2f;
-
     private Tween maskT, backT;
+    private Sequence stickerSequence;
 
     public void Set()
     {
@@ -21,8 +20,15 @@ public class Sticker : MonoBehaviour
 
         SetSprites();
 
+        // Create a sequence for this sticker's animations
+        stickerSequence = DOTween.Sequence();
+
         maskT = stickerTween(mask, maskTarg);
         backT = stickerTween(back, backTarg);
+
+        // Add tweens to the sequence
+        stickerSequence.Join(maskT);
+        stickerSequence.Join(backT);
 
         StickAnim();
     }
@@ -45,39 +51,32 @@ public class Sticker : MonoBehaviour
         shadow.GetComponent<SpriteRenderer>().sprite = s;
     }
 
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Y))
-        //{
-        //    StickerAnim(peel);
-        //    peel = !peel;
-        //}
-    }
-
     public void StickerAnim(bool down)
     {
         if (!down)
         {
-            DOTween.PlayAll();
-            //maskT.Restart();
-            //backT.Restart();
+            stickerSequence?.Play();
         }
         else
         {
-            DOTween.PlayBackwardsAll();
-            //maskT.PlayBackwards();
-            //backT.PlayBackwards();
+            stickerSequence?.PlayBackwards();
         }
     }
 
     public void StickAnim()
     {
         shadow.gameObject.SetActive(true);
-        DOTween.RestartAll();
+        stickerSequence?.Restart();
     }
 
     public void PeelAnim()
     {
-        DOTween.PlayBackwardsAll();
+        stickerSequence?.PlayBackwards();
+    }
+
+    private void OnDestroy()
+    {
+        // Clean up the sequence when the sticker is destroyed
+        stickerSequence?.Kill();
     }
 }

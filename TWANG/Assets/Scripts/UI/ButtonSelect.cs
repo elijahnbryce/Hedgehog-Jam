@@ -9,7 +9,7 @@ public class ButtonSelect : MonoBehaviour, ISelectHandler, IDeselectHandler
     private MenuSelect selectManager;
 
     [SerializeField] private float distance = 10f;
-    [Range(0f, 2f), SerializeField] private float duration = .1f, scale = 1.1f;
+    [Range(0f, 2f), SerializeField] private float duration = .1f;
 
     private Transform startPos;
     private float endY;

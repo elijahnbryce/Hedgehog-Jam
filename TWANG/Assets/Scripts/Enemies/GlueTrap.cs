@@ -64,11 +64,9 @@ public class GlueTrap : MonoBehaviour
         yield return new WaitForSeconds(2);
 
         spotSR.sprite = spotSprites[1];
-        PulseSpot();
         yield return new WaitForSeconds(2);
 
         spotSR.sprite = spotSprites[2];
-        PulseSpot();
 
         Sequence fadeOutSequence = DOTween.Sequence();
         fadeOutSequence.Append(spot.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack));

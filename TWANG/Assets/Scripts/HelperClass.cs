@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public static class HelperClass
@@ -41,4 +42,33 @@ public static class HelperClass
         else
             return sprite.texture;
     }
+
+    public static void DebugColored(string message) {
+        DebugColored(message, HelperDebugColors.RED);
+    }
+    public static void DebugColored(string message, HelperDebugColors color)
+    {
+        string hexColor = GetColorHexFromEnum(color);
+        Debug.Log($"<color={hexColor}>{message}</color>");
+    }
+
+    private static string GetColorHexFromEnum(HelperDebugColors color)
+    {
+        return color switch
+        {
+            HelperDebugColors.RED => "#FF0000",
+            HelperDebugColors.YELLOW => "#FFFF00",
+            HelperDebugColors.GREEN => "#00FF00",
+            HelperDebugColors.BLUE => "#0000FF",
+            _ => "#FFFFFF"
+        };
+    }
+}
+
+public enum HelperDebugColors
+{
+    RED,
+    YELLOW,
+    GREEN,
+    BLUE,
 }

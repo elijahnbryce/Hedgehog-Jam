@@ -46,6 +46,7 @@ public class Spawner : MonoBehaviour
 
     public void StartSpawn(int enemyAmt)
     {
+        doneSpawning = false;
         spawnLim = enemyAmt;
         intervalMod = (Mathf.Max(47f, (125f - (1.6f * spawnLim))) / 100f);
         Debug.Log($"Interval modifier: {intervalMod}");

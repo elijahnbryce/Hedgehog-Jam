@@ -143,8 +143,6 @@ public class UpgradeManager : MonoBehaviour
         newSticker.transform.position = stickerFinalPos;
         newSticker.GetComponent<Sticker>().Set();
         SoundManager.Instance.PlaySoundEffect("sticker_apply");
-
-        //new wave shouldnt be called here, because of coin claiming
     }
 }
 
@@ -156,17 +154,6 @@ public struct UpgradeStruct
     public Sprite PaperSprite;
     public int AmountClaimed;
 }
-
-/*
- * heart - full health: resets health to 4 when claimed
-shoe - speed increase: 10% speed increase capped at 2x speed
-pizza - heal (??) Perhaps on the first damage taken heal 1 health
-rainbow - point multiplier
-star - invincible for 10s: the first 10s of the round player will be unable to take damage
-lightning - elijah's lightning attack: lightning splash damage 10% chance for applying
-fire - damage bonus: 10% chance to deal double damage with a fire band
-knife - piercing: when a band kills, it keeps going x times where x is the amount of times this upgrade was claimed
- */
 
 public enum UpgradeType
 {
