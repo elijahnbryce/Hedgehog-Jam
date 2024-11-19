@@ -6047,7 +6047,7 @@ Camera:
   m_HDR: 1
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
+  m_ForceIntoRT: 1
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -17089,6 +17089,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64ad28c20b47a184ea2fd1ba666fff1a, type: 3}
+--- !u!1001 &8675840467494094280
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 364422493769903813, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 364422493769903813, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 364422493769903813, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 364422493769903813, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 364422493769903813, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 364422493769903813, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 364422493769903813, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 364422493769903813, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 364422493769903813, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 364422493769903813, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8070089882779460863, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+      propertyPath: m_Name
+      value: GumParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 8070089882779460863, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -17102,3 +17163,4 @@ SceneRoots:
   - {fileID: 450063945}
   - {fileID: 1664551033}
   - {fileID: 805925629}
+  - {fileID: 8675840467494094280}
