@@ -13,8 +13,8 @@ public struct DirectionalFrames
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private float timeBetweenFrames = 0.2f;
-    [SerializeField] private SpriteRenderer primaryHandSR;
-    [SerializeField] private SpriteRenderer secondaryHandSR;
+    [SerializeField] public SpriteRenderer primaryHandSR;
+    [SerializeField] public SpriteRenderer secondaryHandSR;
     private SpriteRenderer secondaryHandShadowSR;
     [SerializeField] private List<Sprite> primaryHandSprites = new();
     [SerializeField] private List<Sprite> primaryHandGrabSprites = new();

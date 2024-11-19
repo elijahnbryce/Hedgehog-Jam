@@ -17,13 +17,14 @@ public class GameManager : MonoBehaviour
     public bool GameRunning => (waveStarted && !GameUI.Instance.IsGamePaused && !gameOver);
     public bool BetweenRounds { get; set; }
 
-	private float levelScore, totalScore = 0;
+    private float levelScore, totalScore = 0;
 
     public List<GameObject> enemyList = new List<GameObject>();
     public Dictionary<UpgradeType, int> upgradeList = new();
     private Timer ts;
     private bool isInvicible = false;
     [SerializeField] private static float multBonus = 1.2f;
+    [SerializeField] private float invincibilityDuration = 2f;
 
 
 
@@ -33,16 +34,16 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("Game Manager Already Exists");
             Destroy(gameObject);
-			return;
+            return;
         }
         else
         {
             Debug.Log("Game Manager Set");
             Instance = this;
-			//DontDestroyOnLoad(gameObject);
-		}
-		eV = GetComponent<EventHandler>();
-		ts = GetComponent<Timer>();
+            //DontDestroyOnLoad(gameObject);
+        }
+        eV = GetComponent<EventHandler>();
+        ts = GetComponent<Timer>();
 
         DOTween.SetTweensCapacity(500, 50);
     }
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (!gameOver
-			&& (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)))
+            && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)))
         {
             GameUI.ToggleGamePause?.Invoke();
         }
@@ -104,8 +105,8 @@ public class GameManager : MonoBehaviour
         enemyTypes = Mathf.Min(3, Mathf.CeilToInt(wave / 3f) + 1);
         //sp.StartSpawn(startEnemies, enemyTypes);
         sp.StartSpawn(startEnemies);
-		waveStarted = true;
-	}
+        waveStarted = true;
+    }
 
     private float CalcLevelScore(float score)
     {
@@ -157,7 +158,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Time.timeScale = 0;
-			gameOver = true;
+            gameOver = true;
             eV.LoseGame(totalScore, GetGuideScore());
         }
     }
@@ -216,7 +217,7 @@ public class GameManager : MonoBehaviour
         switch (upgrade)
         {
             case UpgradeType.Heart:
-                UpdateHealth(fullHealth-health);
+                UpdateHealth(fullHealth - health);
                 return true;
             case UpgradeType.Evil_Pizza:
                 UpdateHealth();
@@ -245,24 +246,87 @@ public class GameManager : MonoBehaviour
     public void UpdateHealth(int change = -1)
     {
         if (isInvicible) { return; }
+
         if (change < 0)
         {
             SoundManager.Instance.PlaySoundEffect("player_damage");
+            StartCoroutine(InvincibilityFrames());
         }
+
         health += change;
         eV.DisplayHealth(health);
-
-        //if (upgradeList.ContainsKey(UpgradeType.Pizza))
-        //{
-        //    DecPowerUp(UpgradeType.Pizza);
-        //    UpdateHealth(1);
-        //}
 
         if (health <= 0)
         {
             health = 0;
             EndLevel(false, levelScore);
         }
+    }
+
+    private IEnumerator InvincibilityFrames()
+    {
+        isInvicible = true;
+        var playerAnimation = PlayerAnimation.Instance;
+        var spriteRenderers = new SpriteRenderer[]
+        {
+        playerAnimation.primaryHandSR,
+        playerAnimation.secondaryHandSR
+        };
+
+        float fadeTime = 0.25f; // 1.5s total / 6 transitions = 0.25s per fade
+        float endAlpha = 0.5f;
+
+        // 3 full cycles
+        for (int cycle = 0; cycle < 3; cycle++)
+        {
+            // Fade to 50% transparent
+            float elapsed = 0f;
+            float startAlpha = 1f;
+
+            while (elapsed < fadeTime)
+            {
+                elapsed += Time.deltaTime;
+                float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / fadeTime);
+
+                foreach (var renderer in spriteRenderers)
+                {
+                    var color = renderer.color;
+                    color.a = alpha;
+                    renderer.color = color;
+                }
+
+                yield return null;
+            }
+
+            // Fade back to fully opaque
+            elapsed = 0f;
+            startAlpha = endAlpha;
+
+            while (elapsed < fadeTime)
+            {
+                elapsed += Time.deltaTime;
+                float alpha = Mathf.Lerp(startAlpha, 1f, elapsed / fadeTime);
+
+                foreach (var renderer in spriteRenderers)
+                {
+                    var color = renderer.color;
+                    color.a = alpha;
+                    renderer.color = color;
+                }
+
+                yield return null;
+            }
+        }
+
+        // Ensure sprites are fully visible when done
+        foreach (var renderer in spriteRenderers)
+        {
+            var color = renderer.color;
+            color.a = 1f;
+            renderer.color = color;
+        }
+
+        isInvicible = false;
     }
 
     public void UpdateScore(float change = 1)

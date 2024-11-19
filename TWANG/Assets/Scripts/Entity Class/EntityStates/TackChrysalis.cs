@@ -28,8 +28,8 @@ public class TackChrysalis : EntityState //must inherit from "EntityState"
             var num = int.Parse(Regex.Match(selfEntity.gameObject.name, @"\d").Value) - 1;
             //this is ass code fix later
 
-            Instantiate(tacks[num], selfEntity.transform.position, selfEntity.transform.rotation);
-
+            var newTack = Instantiate(tacks[num], selfEntity.transform.position, selfEntity.transform.rotation);
+            GameManager.Instance.AddEnemy(newTack);
             GameManager.Instance.RemoveEnemy(selfEntity.gameObject);
         }
     }
