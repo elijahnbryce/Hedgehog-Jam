@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4243660536294943418}
   - component: {fileID: 8215417829244527986}
   m_Layer: 10
-  m_Name: TackCorpse 1
+  m_Name: TackChrysalis 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,13 @@ MonoBehaviour:
   stateMachine: {fileID: 0}
   physical: {fileID: 0}
   visual: {fileID: 0}
-  entityStates: []
+  entityStates:
+  - state: {fileID: 11400000, guid: b4847f57764392b44bf0eb1ffce0423b, type: 2}
+    active: 1
+    entityStateChangers: []
+  - state: {fileID: 11400000, guid: 0dda8c419c8d1974a92113a274fb0293, type: 2}
+    active: 1
+    entityStateChangers: []
 --- !u!114 &5288571313440498373
 MonoBehaviour:
   m_ObjectHideFlags: 0

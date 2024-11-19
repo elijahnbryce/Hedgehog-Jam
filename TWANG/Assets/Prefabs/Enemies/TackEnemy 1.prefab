@@ -230,9 +230,6 @@ MonoBehaviour:
   - state: {fileID: 11400000, guid: 2537a1f30004b7f43a402f3143d405ae, type: 2}
     active: 1
     entityStateChangers: []
-  - state: {fileID: 11400000, guid: 0dda8c419c8d1974a92113a274fb0293, type: 2}
-    active: 1
-    entityStateChangers: []
 --- !u!114 &4772866603694250652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,8 +283,7 @@ MonoBehaviour:
   effectiveMovementSpeed: 0
   attackPower: 1
   attackPowerMult: 1
-  corpses:
-  - {fileID: 308879241284405186, guid: faf90ba0625ee4449b30416a8b51d62f, type: 3}
+  corpses: []
 --- !u!50 &8570487963897498614
 Rigidbody2D:
   serializedVersion: 4

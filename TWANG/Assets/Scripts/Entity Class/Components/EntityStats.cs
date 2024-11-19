@@ -101,6 +101,8 @@ public class EntityStats : MonoBehaviour
             gm.RemoveEnemy(selfEntity.gameObject);
             //Destroy(selfEntity.gameObject);
 
+            if (gameObject.name.Contains("Chrysalis"))
+                return;
             CoinManager.Instance.SpawnCoins(transform.position);
             SoundManager.Instance.PlaySoundEffect("enemy_die");
         }

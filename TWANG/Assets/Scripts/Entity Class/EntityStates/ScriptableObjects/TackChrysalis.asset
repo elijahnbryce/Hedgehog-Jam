@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdd9833cf3e89ce4baca653a60ce116e, type: 3}
+  m_Name: TackChrysalis
+  m_EditorClassIdentifier: 
+  selfEntity: {fileID: 0}
+  entityStateChangers: []
+  tacks:
+  - {fileID: 9077075022715136519, guid: 095a5540e2744864ca6ae11ae9058d9b, type: 3}
+  - {fileID: 661225180658805458, guid: fb618a136ecf54a43b15021966403d24, type: 3}
+  - {fileID: 6197797632362210382, guid: e8b234e0a00d7f94abf3bd4c393dd336, type: 3}
+  - {fileID: 1179545317956503255, guid: 2be5ae92d0e74a9428314aa3317390ba, type: 3}
+  - {fileID: 7127804085124019605, guid: 403715fe4ad425d4eab86accdeab5088, type: 3}

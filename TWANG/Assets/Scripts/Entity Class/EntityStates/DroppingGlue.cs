@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 [Serializable]
 //example format of how states should be defined. Regarding which methods to implement, check EntityState.cs.
