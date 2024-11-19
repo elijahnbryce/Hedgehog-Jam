@@ -6,8 +6,8 @@ using UnityEngine;
 using UnityEngine.Windows;
 
 [Serializable]
-[CreateAssetMenu(menuName = "EntityState/TackChrysalis", fileName = "TackChrysalis")] 
-public class TackChrysalis : EntityState //must inherit from "EntityState"
+[CreateAssetMenu(menuName = "EntityState/TackChrysalis", fileName = "TackChrysalis")]
+public class TackChrysalis : EntityState
 {
     public List<GameObject> tacks = new();
 
@@ -19,19 +19,16 @@ public class TackChrysalis : EntityState //must inherit from "EntityState"
 
     public IEnumerator Hatch()
     {
-        while (true)
-        {
-            //yield return new WaitForSeconds(2);
-            var time = 0.2f * 8 * 3;
-            yield return new WaitForSeconds(time);
+        var time = 0.2f * 8 * 4;
+        yield return new WaitForSeconds(time);
 
-            var num = int.Parse(Regex.Match(selfEntity.gameObject.name, @"\d").Value) - 1;
-            //this is ass code fix later
+        var num = int.Parse(Regex.Match(selfEntity.gameObject.name, @"\d").Value) - 1;
 
-            var newTack = Instantiate(tacks[num], selfEntity.transform.position, selfEntity.transform.rotation);
-            GameManager.Instance.AddEnemy(newTack);
-            GameManager.Instance.RemoveEnemy(selfEntity.gameObject);
-        }
+        GameObject newTack = Instantiate(tacks[num], selfEntity.transform.position, selfEntity.transform.rotation);
+        GameManager.Instance.AddEnemy(newTack);
+
+        GameManager.Instance.RemoveEnemy(selfEntity.gameObject);
+
+        yield break;
     }
 }
-

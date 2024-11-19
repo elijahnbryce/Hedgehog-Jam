@@ -16,6 +16,7 @@ public class EntityStats : MonoBehaviour
     public float attackPowerMult = 1f;
 
     public List<GameObject> corpses = new();
+    public ParticleSystem particles;
 
     public virtual void Initialize(Entity thisEntity)
     {
@@ -60,6 +61,8 @@ public class EntityStats : MonoBehaviour
 
     public virtual void Die()
     {
+        bool coins = true;
+
         GameManager gm = GameManager.Instance;
         float scoreBoost = gm.GetPowerMult(UpgradeType.Rainbow);
 
@@ -74,6 +77,10 @@ public class EntityStats : MonoBehaviour
             }
             else if (corpses.Count == 2)
             {
+                var particle = Instantiate(particles, transform.position, Quaternion.identity).gameObject;
+                Destroy(particle, 2f);
+
+                coins = false;
                 float spacing = 2f;
                 Vector3 leftPosition = transform.position + Vector3.left * (spacing / 2f);
                 Vector3 rightPosition = transform.position + Vector3.right * (spacing / 2f);
@@ -99,12 +106,10 @@ public class EntityStats : MonoBehaviour
         else
         {
             gm.RemoveEnemy(selfEntity.gameObject);
-            //Destroy(selfEntity.gameObject);
-
-            if (gameObject.name.Contains("Chrysalis"))
-                return;
-            CoinManager.Instance.SpawnCoins(transform.position);
-            SoundManager.Instance.PlaySoundEffect("enemy_die");
         }
+
+        if(coins)
+            CoinManager.Instance.SpawnCoins(transform.position);
+        SoundManager.Instance.PlaySoundEffect("enemy_die");
     }
 }

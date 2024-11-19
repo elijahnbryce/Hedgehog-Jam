@@ -163,31 +163,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddEnemy(GameObject enemy)
-    {
-        enemyList.Add(enemy);
-    }
-
     public void RemoveEnemy(GameObject enemy)
     {
+        if (!enemyList.Contains(enemy))
+        {
+            Debug.LogWarning($"Trying to remove non-existent enemy: {enemy.name}");
+            return;
+        }
+
         enemiesKilled++;
         enemyList.Remove(enemy);
-        Destroy(enemy);
 
-        if (upgradeList.ContainsKey(UpgradeType.Pizza))
+        Debug.Log($"Enemy removed: {enemy.name}. Remaining enemies: {enemyList.Count}. Done spawning: {sp.DoneSpawning}");
+
+        // Only destroy if it hasn't been destroyed already
+        if (enemy != null && enemy.gameObject != null)
         {
-            //if (health < fullHealth || ((float)(startEnemies - enemyList.Count) % 10f) == 0f) { UpdateHealth(1); }
-            if (health < fullHealth)
-            {
-                DecPowerUp(UpgradeType.Pizza);
-                UpdateHealth(1);
-            }
+            Destroy(enemy);
         }
-        Debug.Log(sp.DoneSpawning + " c: " + enemyList.Count);
+
         if (sp.DoneSpawning && enemyList.Count == 0)
         {
+            Debug.Log("All enemies eliminated - ending level");
             EndLevel(true, levelScore);
         }
+    }
+
+    public void AddEnemy(GameObject enemy)
+    {
+        if (enemyList.Contains(enemy))
+        {
+            Debug.LogWarning($"Trying to add duplicate enemy: {enemy.name}");
+            return;
+        }
+
+        enemyList.Add(enemy);
+        Debug.Log($"Enemy added: {enemy.name}. Total enemies: {enemyList.Count}");
     }
 
     public void AddPowerUP(UpgradeType upgrade)

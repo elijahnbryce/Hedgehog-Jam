@@ -22,7 +22,8 @@ public class TackHelper : MonoBehaviour
             currentWeight += 1f / Mathf.Pow(2, i);
             if (randomValue <= currentWeight)
             {
-                Instantiate(prefabs[i], transform.position, Quaternion.identity);
+                var newTack = Instantiate(prefabs[i], transform.position, Quaternion.identity);
+                GameManager.Instance.AddEnemy(newTack);
                 break;
             }
         }

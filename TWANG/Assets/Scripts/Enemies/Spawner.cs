@@ -120,14 +120,13 @@ public class Spawner : MonoBehaviour
             EnemyType selectedEnemy = SelectRandomEnemyType();
             Vector2 spawnPosition = GetRandomSpawnPosition();
 
-            // Spawn indicator
             GameObject indicator = Instantiate(spawnIndicatorPrefab, spawnPosition, Quaternion.identity);
             yield return new WaitForSeconds(1f); // Wait for indicator
             Destroy(indicator);
 
-            // Spawn enemy
             GameObject newEnemy = Instantiate(selectedEnemy.enemyPrefab, spawnPosition, Quaternion.identity);
-            gm.AddEnemy(newEnemy);
+            if(!newEnemy.name.Contains("Helper"))
+                gm.AddEnemy(newEnemy);
 
             spawnLim--;
             doneSpawning = spawnLim <= 0;

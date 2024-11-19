@@ -264,6 +264,7 @@ MonoBehaviour:
   corpses:
   - {fileID: 5595570835928015912, guid: 8611657e40816da4e93f75e5b815017a, type: 3}
   - {fileID: 5595570835928015912, guid: 8611657e40816da4e93f75e5b815017a, type: 3}
+  particles: {fileID: 5983640466850005775, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
 --- !u!50 &8251578215289338633
 Rigidbody2D:
   serializedVersion: 4
