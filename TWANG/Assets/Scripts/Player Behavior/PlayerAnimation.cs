@@ -130,7 +130,7 @@ public class PlayerAnimation : MonoBehaviour
         }
         else
         {
-            secondaryHandSR.sprite = PlayerAttack.Instance.HasBand
+            secondaryHandSR.sprite = PlayerAttack.Instance.Attacking
              ? secondaryHoldingSprites[directionIndex]
              : secondaryHandSprites[directionIndex];
         }
