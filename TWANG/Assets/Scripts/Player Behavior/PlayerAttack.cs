@@ -1,6 +1,7 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -9,24 +10,22 @@ public class PlayerAttack : MonoBehaviour
     public static event Action OnAttackInitiate;
     public static event Action OnAttackHalt;
     public bool Attacking => attacking;
-    public bool HasBand { get { return hasBand; } }
     
     [Header("Attack Settings")]
     [SerializeField] RubberBand projectilePrefab;
+    [SerializeField] int _maxProjectiles;
     [SerializeField] DragController rubberRender;
     [SerializeField] Transform primaryHand;
     [SerializeField] Transform secondaryHand;
     [SerializeField] float maxStretchDistance = 6f;
 
-    RubberBand currentProjectile;
-    bool hasBand = true;
-
+    List<RubberBand> projectilePool = new List<RubberBand>();
     float attackPower;
     bool attacking;
 
     const float PROJECTILE_BASE_FORCE = 1000f;
     const float MIN_ATTACK_POWER = 0.2f;
-
+    int _remainingProjectiles;
 
     float attackCooldown = 0f;
 
@@ -38,6 +37,11 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    private void Start()
+    {
+        _remainingProjectiles = _maxProjectiles;
     }
 
     private void Update()
@@ -88,12 +92,12 @@ public class PlayerAttack : MonoBehaviour
     public void PickupBand()
     {
         CameraManager.Instance.ScreenShake(0.1f);
-        hasBand = true;
+        _remainingProjectiles++;
     }
 
     private void AttackInitiate()
     {
-        if (GameManager.Instance.BetweenRounds || !hasBand) return;
+        if (GameManager.Instance.BetweenRounds || _remainingProjectiles <= 0) return;
 
         attacking = true;
         attackPower = 0;
@@ -106,7 +110,6 @@ public class PlayerAttack : MonoBehaviour
         if (attackPower >= MIN_ATTACK_POWER)
         {
             FireProjectile();
-            hasBand = false;
             SoundManager.Instance.PlaySoundEffect("band_release");
         }
 
@@ -118,15 +121,27 @@ public class PlayerAttack : MonoBehaviour
     {
         Vector2 fireDirection = ((Vector2)primaryHand.position - (Vector2)secondaryHand.position).normalized;
 
-        if (currentProjectile == null)
+        RubberBand proj = GetPooledProjectile();
+
+        proj.transform.position = primaryHand.position + (Vector3)(fireDirection);
+        proj.gameObject.SetActive(true);
+
+        proj.InitializeProjectile(attackPower * PROJECTILE_BASE_FORCE * fireDirection);
+        _remainingProjectiles--;
+    }
+
+    RubberBand GetPooledProjectile()
+    {
+        for (int i = 0; i < projectilePool.Count; i++)
         {
-            currentProjectile = Instantiate(projectilePrefab);
+            if (!projectilePool[i].gameObject.activeInHierarchy)
+            {
+                return projectilePool[i];
+            }
         }
-
-        currentProjectile.transform.position = primaryHand.position + (Vector3)(fireDirection);
-        currentProjectile.gameObject.SetActive(true);
-
-        currentProjectile.InitializeProjectile(attackPower * PROJECTILE_BASE_FORCE * fireDirection);
+        RubberBand newPoolProj =  Instantiate(projectilePrefab);
+        projectilePool.Add(newPoolProj);
+        return newPoolProj;
     }
 
     private void ResetAttackState()
