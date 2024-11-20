@@ -10,10 +10,13 @@ public class PlayerAttack : MonoBehaviour
     public static event Action OnAttackInitiate;
     public static event Action OnAttackHalt;
     public bool Attacking => attacking;
-    
+
+    public int maxProjectiles => _maxProjectiles;
+    public int remainingProjectiles => _shotProjectiles;
+
     [Header("Attack Settings")]
     [SerializeField] RubberBand projectilePrefab;
-    [SerializeField] int _maxProjectiles;
+    [SerializeField] int _maxProjectiles = 1;
     [SerializeField] DragController rubberRender;
     [SerializeField] Transform primaryHand;
     [SerializeField] Transform secondaryHand;
@@ -25,7 +28,7 @@ public class PlayerAttack : MonoBehaviour
 
     const float PROJECTILE_BASE_FORCE = 1000f;
     const float MIN_ATTACK_POWER = 0.2f;
-    int _remainingProjectiles;
+    int _shotProjectiles;
 
     float attackCooldown = 0f;
 
@@ -39,31 +42,26 @@ public class PlayerAttack : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        _remainingProjectiles = _maxProjectiles;
-    }
-
     private void Update()
     {
-		if (!GameManager.Instance.GameRunning)
-			return;
+        if (!GameManager.Instance.GameRunning)
+            return;
 
         HandleAttackInput();
-		if (attacking)
-		{
-			UpdateAttackState();
-		}
+        if (attacking)
+        {
+            UpdateAttackState();
+        }
     }
 
-	private void OnDestroy()
-	{
-		Instance = null;
-		OnAttackInitiate = null;
-		OnAttackHalt = null;
-	}
+    private void OnDestroy()
+    {
+        Instance = null;
+        OnAttackInitiate = null;
+        OnAttackHalt = null;
+    }
 
-	private void HandleAttackInput()
+    private void HandleAttackInput()
     {
         if (attackCooldown > 0f)
         {
@@ -92,12 +90,26 @@ public class PlayerAttack : MonoBehaviour
     public void PickupBand()
     {
         CameraManager.Instance.ScreenShake(0.1f);
-        _remainingProjectiles++;
+        
+        // Min 0
+        if (_shotProjectiles > 0)
+            _shotProjectiles--;
+    }
+
+    public void IncreaseMaxProjectiles()
+    {
+        _maxProjectiles++;
+    }
+    public void DecreaseMaxProjectiles()
+    {
+        // Must have at least 1 projectile
+        if (_maxProjectiles > 1)
+            _maxProjectiles--;
     }
 
     private void AttackInitiate()
     {
-        if (GameManager.Instance.BetweenRounds || _remainingProjectiles <= 0) return;
+        if (GameManager.Instance.BetweenRounds || _shotProjectiles > maxProjectiles) return;
 
         attacking = true;
         attackPower = 0;
@@ -127,7 +139,7 @@ public class PlayerAttack : MonoBehaviour
         proj.gameObject.SetActive(true);
 
         proj.InitializeProjectile(attackPower * PROJECTILE_BASE_FORCE * fireDirection);
-        _remainingProjectiles--;
+        _shotProjectiles++;
     }
 
     RubberBand GetPooledProjectile()
@@ -139,7 +151,7 @@ public class PlayerAttack : MonoBehaviour
                 return projectilePool[i];
             }
         }
-        RubberBand newPoolProj =  Instantiate(projectilePrefab);
+        RubberBand newPoolProj = Instantiate(projectilePrefab);
         projectilePool.Add(newPoolProj);
         return newPoolProj;
     }
