@@ -1,13 +1,20 @@
 using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class GlueTrap : MonoBehaviour
 {
     [SerializeField] private Collider2D trigger;
+    [SerializeField] private float dropTime = 0.5f;
     [SerializeField] private GameObject drop;
     [SerializeField] private GameObject spot;
     [SerializeField] private List<Sprite> spotSprites;
+
+    private const float DROP_SCALE_TIME = 0.3f;
+    private static readonly Vector3 DROP_SQUASH_SCALE = new Vector3(1.3f, 0.7f, 1f);
+    private const float SPOT_PULSE_SCALE = 1.2f;
+    private const float SPOT_PULSE_TIME = 0.5f;
 
     private void Start()
     {
@@ -16,24 +23,62 @@ public class GlueTrap : MonoBehaviour
 
     private IEnumerator GlueDropSequence()
     {
+        Vector3 dropFromPosition = drop.transform.position;
         Vector3 dropToPosition = spot.transform.position;
+        Vector3 originalDropScale = drop.transform.localScale;
 
-        drop.transform.position = dropToPosition;
+        Sequence dropSequence = DOTween.Sequence();
 
-        yield return new WaitForSeconds(3f);
+        dropSequence.Append(drop.transform.DOScale(originalDropScale * 1.2f, 0.2f));
+
+        dropSequence.Append(drop.transform.DOMove(dropToPosition, dropTime)
+            .SetEase(Ease.OutBounce)
+            .OnComplete(() => {
+                drop.transform.DOScale(DROP_SQUASH_SCALE, DROP_SCALE_TIME)
+                    .OnComplete(() => {
+                        drop.transform.DOScale(originalDropScale, DROP_SCALE_TIME);
+                    });
+            }));
+
+        yield return dropSequence.WaitForCompletion();
 
         drop.SetActive(false);
         spot.SetActive(true);
         trigger.enabled = true;
 
         var spotSR = spot.GetComponent<SpriteRenderer>();
+        Vector3 originalSpotScale = spot.transform.localScale;
 
-        foreach (Sprite sprite in spotSprites)
+        void PulseSpot()
         {
-            spotSR.sprite = sprite;
-            yield return new WaitForSeconds(0.2f);
+            spot.transform.DOScale(originalSpotScale * SPOT_PULSE_SCALE, SPOT_PULSE_TIME / 2)
+                .SetEase(Ease.OutQuad)
+                .OnComplete(() => {
+                    spot.transform.DOScale(originalSpotScale, SPOT_PULSE_TIME / 2)
+                        .SetEase(Ease.InQuad);
+                });
         }
 
+        spotSR.sprite = spotSprites[0];
+        PulseSpot();
+        yield return new WaitForSeconds(2);
+
+        spotSR.sprite = spotSprites[1];
+        yield return new WaitForSeconds(2);
+
+        spotSR.sprite = spotSprites[2];
+
+        Sequence fadeOutSequence = DOTween.Sequence();
+        fadeOutSequence.Append(spot.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack));
+        fadeOutSequence.Join(spot.GetComponent<SpriteRenderer>().DOFade(0, 0.5f));
+
+        yield return fadeOutSequence.WaitForCompletion();
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        DOTween.Kill(drop.transform);
+        DOTween.Kill(spot.transform);
     }
 }

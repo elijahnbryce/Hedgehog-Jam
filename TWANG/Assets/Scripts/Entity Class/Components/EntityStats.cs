@@ -90,15 +90,15 @@ public class EntityStats : MonoBehaviour
 
                 newCorpses.Add(leftCorpse);
                 newCorpses.Add(rightCorpse);
+
+                foreach (var corpse in newCorpses)
+                {
+                    gm.AddEnemy(corpse);
+                }
             }
             else
             {
                 Debug.LogError("Issue spawning corpses.");
-            }
-
-            foreach (var corpse in newCorpses)
-            {
-                gm.AddEnemy(corpse);
             }
 
             gm.RemoveEnemy(selfEntity.gameObject);
