@@ -71,7 +71,7 @@ public class Spawner : MonoBehaviour
 
             foreach (Collider2D overlap in overlaps)
             {
-                if (overlap.CompareTag("Enemy") || overlap.gameObject.layer == LayerMask.NameToLayer("Player"))
+                if (overlap.CompareTag("Enemy") || overlap.gameObject.layer == LayerMask.NameToLayer("Wall") || overlap.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
                     isValidSpawn = false;
                     break;

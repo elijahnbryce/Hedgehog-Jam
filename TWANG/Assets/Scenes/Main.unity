@@ -17000,6 +17000,74 @@ PrefabInstance:
       propertyPath: configs.Array.data[4]
       value: 
       objectReference: {fileID: 8668633962621477111, guid: a9a578724f8df7e42bd7dba93e5ce03c, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: -275671149, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: -818260516, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: -856770949, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: -1967501079, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 207843261, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: -1030685312, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[6]
+      value: 
+      objectReference: {fileID: -1145262508, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: 1514505880, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[8]
+      value: 
+      objectReference: {fileID: -808417699, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[9]
+      value: 
+      objectReference: {fileID: -1732661853, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[10]
+      value: 
+      objectReference: {fileID: -338886777, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[11]
+      value: 
+      objectReference: {fileID: -1347610850, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[12]
+      value: 
+      objectReference: {fileID: -1065773020, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[13]
+      value: 
+      objectReference: {fileID: -758757538, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[14]
+      value: 
+      objectReference: {fileID: 1359552396, guid: 9969a1d6203f1284f882339711265a70, type: 3}
+    - target: {fileID: 1417420325493279400, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
+      propertyPath: indicatorSprites.Array.data[15]
+      value: 
+      objectReference: {fileID: -1671151975, guid: 9969a1d6203f1284f882339711265a70, type: 3}
     - target: {fileID: 8178268451299117078, guid: 2203cb098af103145a4b34dace63d54b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
