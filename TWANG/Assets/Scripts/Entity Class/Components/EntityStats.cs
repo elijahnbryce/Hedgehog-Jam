@@ -64,6 +64,7 @@ public class EntityStats : MonoBehaviour
         bool coins = true;
 
         GameManager gm = GameManager.Instance;
+        gm.StartSlowMotionEffect();
         float scoreBoost = gm.GetPowerMult(UpgradeType.Rainbow);
 
         if (corpses.Count > 0)

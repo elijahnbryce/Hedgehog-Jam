@@ -852,7 +852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1245749864814320524, guid: 83b293226f9b45c4fa0dbbd409367b95, type: 3}
-  _maxProjectiles: 3
+  _maxProjectiles: 1
   rubberRender: {fileID: 1555989744}
   primaryHand: {fileID: 619850928}
   secondaryHand: {fileID: 158979404}
@@ -16463,6 +16463,18 @@ PrefabInstance:
       propertyPath: sp
       value: 
       objectReference: {fileID: 1978291972}
+    - target: {fileID: 8442450651302021323, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
+      propertyPath: slowMotionDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8442450651302021323, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
+      propertyPath: slowMotionTimeScale
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8442450651302021323, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
+      propertyPath: invincibilityDuration
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
