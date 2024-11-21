@@ -852,7 +852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1245749864814320524, guid: 83b293226f9b45c4fa0dbbd409367b95, type: 3}
-  _maxProjectiles: 1
+  _maxProjectiles: 0
   rubberRender: {fileID: 1555989744}
   primaryHand: {fileID: 619850928}
   secondaryHand: {fileID: 158979404}
