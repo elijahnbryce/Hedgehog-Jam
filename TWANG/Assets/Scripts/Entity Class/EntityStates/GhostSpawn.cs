@@ -14,14 +14,11 @@ public class GhostSpawn : EntityState
     {
         base.Initialize(thisEntity, stateChangers);
 
-        // Disable collider immediately
         selfEntity.physical.rootCollider.enabled = false;
 
-        // Set initial position before starting the coroutine
         Vector3 curPos = selfEntity.visual.visualObject.transform.localPosition;
         selfEntity.visual.visualObject.transform.localPosition += new Vector3(0, offset, 0);
 
-        // Start the falling animation
         selfEntity.StartCoroutine(Ghost(curPos));
     }
 

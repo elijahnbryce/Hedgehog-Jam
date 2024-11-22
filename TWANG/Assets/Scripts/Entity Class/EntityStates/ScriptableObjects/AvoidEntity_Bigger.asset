@@ -15,3 +15,6 @@ MonoBehaviour:
   selfEntity: {fileID: 0}
   entityStateChangers: []
   radiusSize: 3
+  maxRadiusChange: 0.2
+  avoidanceForce: 2
+  maxSpeed: 5

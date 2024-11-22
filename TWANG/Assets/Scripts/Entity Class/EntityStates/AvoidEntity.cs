@@ -1,56 +1,69 @@
-using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 [CreateAssetMenu(menuName = "EntityState/AvoidEntity", fileName = "Split")]
-
-public class AvoidEntity : EntityState 
+public class AvoidEntity : EntityState
 {
-	public float radiusSize = 2;
-	private float radiusRand;
-	private float radiusDec;
-		
-	public override void Initialize(Entity thisEntity, List<EntityStateChanger> stateChangers)
-	{
-		base.Initialize(thisEntity, stateChangers);
+    public float radiusSize = 2f;
+    public float maxRadiusChange = 0.2f;  // Limit how much radius can change per frame
+    public float avoidanceForce = 5f;     // Tune this value to control avoidance strength
+    public float maxSpeed = 5f;           // Maximum speed cap
+    private float currentRadius;
 
-		CircleCollider2D cc = selfEntity.gameObject.AddComponent<CircleCollider2D>();
-		
-		cc.radius = radiusSize;
-		
-		cc.isTrigger = true;
-		cc.enabled = false;
-			
-	}
-	
-	public override void FixedUpdate()
-	{
-		radiusRand = UnityEngine.Random.Range(-1f, 1f);
+    public override void Initialize(Entity thisEntity, List<EntityStateChanger> stateChangers)
+    {
+        base.Initialize(thisEntity, stateChangers);
+        CircleCollider2D cc = selfEntity.gameObject.AddComponent<CircleCollider2D>();
+        cc.radius = radiusSize;
+        cc.isTrigger = true;
+        cc.enabled = false;
+        currentRadius = radiusSize;
+    }
 
-		Vector3 direction = Vector3.zero;
-		
-		radiusSize += radiusRand;
-		radiusDec = Mathf.Clamp((selfEntity.transform.position - selfEntity.ai.targets[0].targetGameObject.transform.position).magnitude, 0f, radiusSize);
+    public override void FixedUpdate()
+    {
+        // Smooth radius changes
+        float radiusChange = UnityEngine.Random.Range(-maxRadiusChange, maxRadiusChange);
+        currentRadius = Mathf.Lerp(currentRadius, radiusSize + radiusChange, Time.fixedDeltaTime);
 
-		foreach (Collider2D col in selfEntity.physical.colliderInfo) {
-			//Vector2 opposingDirection = selfEntity.transform.position - col.gameObject.transform.position;
-			//
-			//opposingDirection = ((radiusSize - opposingDirection.magnitude) * opposingDirection.normalized * Time.deltaTime);
+        // Calculate avoidance radius based on distance to target
+        float avoidanceRadius = Mathf.Clamp(
+            (selfEntity.transform.position - selfEntity.ai.targets[0].targetGameObject.transform.position).magnitude,
+            0f,
+            currentRadius
+        );
 
-			//selfEntity.physical.rb.AddForce(opposingDirection, ForceMode2D.Force);
-			//
+        Vector2 avoidanceDirection = Vector2.zero;
 
-			//ass code fix later
-			if (col.CompareTag("Enemy") && col.GetComponent<Collider2D>()) {	
-				float ratio = Mathf.Clamp01((col.gameObject.transform.position - selfEntity.transform.position).magnitude / radiusDec);
-				direction -= ratio * (col.gameObject.transform.position - selfEntity.transform.position);
-			}
+        foreach (Collider2D col in selfEntity.physical.colliderInfo)
+        {
+            if (col.CompareTag("Enemy") && col.GetComponent<Collider2D>())
+            {
+                Vector2 awayFromCollider = (Vector2)selfEntity.transform.position - (Vector2)col.transform.position;
+                float distance = awayFromCollider.magnitude;
 
-		}
-		
-		selfEntity.physical.rb.AddForce(direction, ForceMode2D.Impulse);
-		
-	}
-	
+                if (distance < avoidanceRadius && distance > 0.01f)
+                {
+                    // Calculate avoidance force with smooth falloff
+                    float strength = 1f - (distance / avoidanceRadius);
+                    strength = Mathf.Pow(strength, 2); // Square for smoother falloff
+                    avoidanceDirection += awayFromCollider.normalized * strength;
+                }
+            }
+        }
+
+        // Apply smoothed force
+        Vector2 currentVelocity = selfEntity.physical.rb.velocity;
+        Vector2 targetVelocity = avoidanceDirection * avoidanceForce;
+
+        // Limit maximum speed
+        targetVelocity = Vector2.ClampMagnitude(targetVelocity, maxSpeed);
+
+        // Smooth velocity change
+        Vector2 smoothedVelocity = Vector2.Lerp(currentVelocity, targetVelocity, Time.fixedDeltaTime * 5f);
+
+        // Use velocity change instead of direct force application
+        selfEntity.physical.rb.velocity = smoothedVelocity;
+    }
 }

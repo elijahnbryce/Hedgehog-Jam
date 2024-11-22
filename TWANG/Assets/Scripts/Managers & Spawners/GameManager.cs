@@ -33,7 +33,8 @@ public class GameManager : MonoBehaviour
     private float baseTimeScale = 1f;
     private bool inSlowMotion = false;
 
-
+    [SerializeField] Vector2 spawnBoundsMin = new Vector2(-9f, -6f);
+    [SerializeField] Vector2 spawnBoundsMax = new Vector2(9f, 6f);
 
     private void Awake()
     {
@@ -87,6 +88,11 @@ public class GameManager : MonoBehaviour
         UpdateHealth(0);
 
         NewWave();
+    }
+
+    public List<Vector2> GetSpawnBounds()
+    {
+        return new List<Vector2> { spawnBoundsMin, spawnBoundsMax };
     }
 
     public void SetTimeScale(float scale)
@@ -362,5 +368,14 @@ public class GameManager : MonoBehaviour
     {
         if (fullHealth == 0) return 0f;
         return (float)health / fullHealth;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(
+            (spawnBoundsMin + spawnBoundsMax) / 2f,
+            spawnBoundsMax - spawnBoundsMin
+        );
     }
 }
