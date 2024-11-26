@@ -22,6 +22,11 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] Transform secondaryHand;
     [SerializeField] float maxStretchDistance = 6f;
 
+    [Header("Overrides")]
+    // Used for tutorial
+    [Tooltip("Allows shooting even while 'game/wave' isn't running")]
+    [SerializeField] bool alwaysAllowShooting = false;
+
     List<RubberBand> projectilePool = new List<RubberBand>();
     float attackPower;
     bool attacking;
@@ -44,7 +49,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.GameRunning)
+        if (!GameManager.Instance.GameRunning && !alwaysAllowShooting)
             return;
 
         HandleAttackInput();

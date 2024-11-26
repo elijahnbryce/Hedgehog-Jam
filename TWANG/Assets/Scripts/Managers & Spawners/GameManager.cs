@@ -106,8 +106,10 @@ public class GameManager : MonoBehaviour
 
     private void EverythingFalse()
     {
-        eV.UIFalse();
-        ts.TimerStart();
+        if (eV != null)
+            eV.UIFalse();
+        if(ts != null)
+            ts.TimerStart();
 
         gameOver = false;
         GameUI.SetPauseState(false);
@@ -351,7 +353,9 @@ public class GameManager : MonoBehaviour
         change = change * GetPowerMult(UpgradeType.Rainbow) * GetPowerMult(UpgradeType.Confusion);
         levelScore += change;
         Debug.Log($"Score is now: {levelScore}");
-        eV.DisplayScore(levelScore);
+
+        if(eV != null)
+            eV.DisplayScore(levelScore);
     }
 
     public void SetHealth(int val = 0)
