@@ -26,6 +26,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private static float multBonus = 1.2f;
     [SerializeField] private float invincibilityDuration = 2f;
 
+    [Header("Effect Settings")]
+    [SerializeField] private float flickerInterval = 0.1f;
+    [SerializeField] private float slowMotionDuration = 0.05f;
+    [SerializeField] private float slowMotionTimeScale = 0.25f;
+    private float baseTimeScale = 1f;
+    private bool inSlowMotion = false;
+
+    [SerializeField] Vector2 spawnBoundsMin = new Vector2(-9f, -6f);
+    [SerializeField] Vector2 spawnBoundsMax = new Vector2(9f, 6f);
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -38,12 +48,13 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Game Manager Set");
             Instance = this;
-            //DontDestroyOnLoad(gameObject);
         }
         eV = GetComponent<EventHandler>();
         ts = GetComponent<Timer>();
-
+        baseTimeScale = Time.timeScale;
         DOTween.SetTweensCapacity(500, 50);
+        Application.targetFrameRate = 45;
+        QualitySettings.vSyncCount = 0;
     }
 
     private void Start()
@@ -77,6 +88,20 @@ public class GameManager : MonoBehaviour
         UpdateHealth(0);
 
         NewWave();
+    }
+
+    public List<Vector2> GetSpawnBounds()
+    {
+        return new List<Vector2> { spawnBoundsMin, spawnBoundsMax };
+    }
+
+    public void SetTimeScale(float scale)
+    {
+        if (!inSlowMotion)
+        {
+            baseTimeScale = scale;
+            Time.timeScale = scale;
+        }
     }
 
     private void EverythingFalse()
@@ -262,6 +287,7 @@ public class GameManager : MonoBehaviour
         {
             SoundManager.Instance.PlaySoundEffect("player_damage");
             StartCoroutine(InvincibilityFrames());
+            StartSlowMotionEffect();
         }
 
         health += change;
@@ -273,71 +299,51 @@ public class GameManager : MonoBehaviour
             EndLevel(false, levelScore);
         }
     }
-
     private IEnumerator InvincibilityFrames()
     {
         isInvicible = true;
         var playerAnimation = PlayerAnimation.Instance;
         var spriteRenderers = new SpriteRenderer[]
         {
-        playerAnimation.primaryHandSR,
-        playerAnimation.secondaryHandSR
+            playerAnimation.primaryHandSR,
+            playerAnimation.secondaryHandSR
         };
 
-        float fadeTime = 0.25f; // 1.5s total / 6 transitions = 0.25s per fade
-        float endAlpha = 0.5f;
-
-        // 3 full cycles
-        for (int cycle = 0; cycle < 3; cycle++)
+        float invincibilityTime = invincibilityDuration;
+        while (invincibilityTime > 0)
         {
-            // Fade to 50% transparent
-            float elapsed = 0f;
-            float startAlpha = 1f;
-
-            while (elapsed < fadeTime)
+            foreach (var renderer in spriteRenderers)
             {
-                elapsed += Time.deltaTime;
-                float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / fadeTime);
-
-                foreach (var renderer in spriteRenderers)
-                {
-                    var color = renderer.color;
-                    color.a = alpha;
-                    renderer.color = color;
-                }
-
-                yield return null;
+                renderer.enabled = !renderer.enabled;
             }
-
-            // Fade back to fully opaque
-            elapsed = 0f;
-            startAlpha = endAlpha;
-
-            while (elapsed < fadeTime)
-            {
-                elapsed += Time.deltaTime;
-                float alpha = Mathf.Lerp(startAlpha, 1f, elapsed / fadeTime);
-
-                foreach (var renderer in spriteRenderers)
-                {
-                    var color = renderer.color;
-                    color.a = alpha;
-                    renderer.color = color;
-                }
-
-                yield return null;
-            }
+            yield return new WaitForSeconds(flickerInterval);
+            invincibilityTime -= flickerInterval;
         }
 
-        // Ensure sprites are fully visible when done
         foreach (var renderer in spriteRenderers)
         {
-            var color = renderer.color;
-            color.a = 1f;
-            renderer.color = color;
+            renderer.enabled = true;
         }
 
         isInvicible = false;
+    }
+
+    public void StartSlowMotionEffect()
+    {
+        if (inSlowMotion) return;
+        StartCoroutine(SlowMotionEffect());
+    }
+
+    private IEnumerator SlowMotionEffect()
+    {
+        inSlowMotion = true;
+        float originalScale = Time.timeScale;
+        Time.timeScale = slowMotionTimeScale;
+
+        yield return new WaitForSecondsRealtime(slowMotionDuration);
+
+        Time.timeScale = baseTimeScale;
+        inSlowMotion = false;
     }
 
     public void UpdateScore(float change = 1)
@@ -364,5 +370,14 @@ public class GameManager : MonoBehaviour
     {
         if (fullHealth == 0) return 0f;
         return (float)health / fullHealth;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(
+            (spawnBoundsMin + spawnBoundsMax) / 2f,
+            spawnBoundsMax - spawnBoundsMin
+        );
     }
 }

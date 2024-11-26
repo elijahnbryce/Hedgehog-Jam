@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class Coin : MonoBehaviour
 {
-    // animation timing constants
+    // Existing animation timing constants
     private const float ANIMATION_FRAME_DURATION = 0.2f;
     private const float SPAWN_SCALE_DURATION = 0.25f;
     private const float COLLECT_MOVE_DURATION = 0.4f;
@@ -17,21 +17,33 @@ public class Coin : MonoBehaviour
     private const float COLLECT_SCALE_DURATION = 0.2f;
     private const int TOTAL_FRAMES = 4;
 
+    // New spawn arc animation constants
+    private const float SPAWN_ARC_DURATION = 0.5f;
+    private const float SPAWN_ARC_HEIGHT = 1.5f;
+    private const float SPAWN_HORIZONTAL_DISTANCE = 0.5f;
+
     // internal state tracking
     private float animationTimer = ANIMATION_FRAME_DURATION;
     private int currentFrame;
     private float coinValue;
     private List<Sprite> coinSprites = new();
     private SpriteRenderer spriteRenderer;
+    private Vector3 targetPosition;
+
+    private Sequence activeSequence;
 
     // serialized fields
     [SerializeField] private Material whiteMat;
 
-    // todo: replace with scriptableobject implementation
     public void InitializeCoin(CoinStruct coin)
     {
         SetupCoinProperties(coin);
         transform.localScale = Vector2.zero;
+        // Store the target position (where we want the coin to land)
+        targetPosition = transform.position;
+        // Offset the initial position slightly to the left or right randomly
+        float randomDirection = Random.Range(0f, 1f) > 0.5f ? 1f : -1f;
+        transform.position += Vector3.right * SPAWN_HORIZONTAL_DISTANCE * randomDirection;
         StartCoroutine(nameof(PlaySpawnAnimationCoroutine));
     }
 
@@ -50,8 +62,33 @@ public class Coin : MonoBehaviour
 
     private void PlaySpawnAnimation()
     {
+        // Kill any existing sequence
+        activeSequence?.Kill();
+
+        // Scale up from zero
         transform.DOScale(Vector2.one, SPAWN_SCALE_DURATION);
-        transform.DOPunchPosition(Vector2.up / 2, SPAWN_SCALE_DURATION);
+
+        // Create the arc jump sequence
+        activeSequence = DOTween.Sequence();
+
+        // Create the arc movement
+        activeSequence.Append(transform.DOPath(
+            CreateArcPath(),
+            SPAWN_ARC_DURATION,
+            PathType.CatmullRom
+        ).SetEase(Ease.OutQuad));
+
+        // Add a small bounce at the end
+        activeSequence.Append(transform.DOPunchPosition(Vector2.up * 0.2f, 0.2f, 1, 0));
+    }
+
+    private Vector3[] CreateArcPath()
+    {
+        Vector3[] path = new Vector3[3];
+        path[0] = transform.position;
+        path[1] = Vector3.Lerp(transform.position, targetPosition, 0.5f) + Vector3.up * SPAWN_ARC_HEIGHT;
+        path[2] = targetPosition;
+        return path;
     }
 
     private void Start()
@@ -123,10 +160,13 @@ public class Coin : MonoBehaviour
 
     private void CreateCollectSequence()
     {
-        var sequence = DOTween.Sequence();
-        sequence.Append(transform.DOPunchScale(Vector2.one * 0.25f, COLLECT_PUNCH_DURATION));
-        sequence.Append(transform.DOScale(Vector2.zero, COLLECT_SCALE_DURATION));
-        sequence.AppendCallback(OnCollectComplete);
+        // Kill any existing sequence
+        activeSequence?.Kill();
+
+        activeSequence = DOTween.Sequence();
+        activeSequence.Append(transform.DOPunchScale(Vector2.one * 0.25f, COLLECT_PUNCH_DURATION));
+        activeSequence.Append(transform.DOScale(Vector2.zero, COLLECT_SCALE_DURATION));
+        activeSequence.AppendCallback(OnCollectComplete);
     }
 
     private void OnCollectComplete()
@@ -145,5 +185,13 @@ public class Coin : MonoBehaviour
     {
         Debug.Log($"Added {coinValue} to score");
         GameManager.Instance.UpdateScore(coinValue);
+    }
+
+    private void OnDestroy()
+    {
+        // Kill all tweens associated with this transform
+        transform.DOKill();
+        // Kill the active sequence if it exists
+        activeSequence?.Kill();
     }
 }

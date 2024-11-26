@@ -71,7 +71,7 @@ public class Spawner : MonoBehaviour
 
             foreach (Collider2D overlap in overlaps)
             {
-                if (overlap.CompareTag("Enemy") || overlap.gameObject.layer == LayerMask.NameToLayer("Player"))
+                if (overlap.CompareTag("Enemy") || overlap.gameObject.layer == LayerMask.NameToLayer("Wall") || overlap.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
                     isValidSpawn = false;
                     break;
@@ -113,6 +113,14 @@ public class Spawner : MonoBehaviour
         return enemyTypes[0]; // Fallback to first enemy type
     }
 
+    private bool AreEnemiesPresent()
+    {
+        // Find all GameObjects with the "Enemy" tag
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        // Return true if there are any enemies, false otherwise
+        return enemies.Length > 0;
+    }
+
     private IEnumerator SpawnEnemy()
     {
         while (!doneSpawning)
@@ -125,7 +133,7 @@ public class Spawner : MonoBehaviour
             Destroy(indicator);
 
             GameObject newEnemy = Instantiate(selectedEnemy.enemyPrefab, spawnPosition, Quaternion.identity);
-            if(!newEnemy.name.Contains("Helper"))
+            if (!newEnemy.name.Contains("Helper"))
                 gm.AddEnemy(newEnemy);
 
             spawnLim--;
@@ -133,7 +141,16 @@ public class Spawner : MonoBehaviour
 
             if (!doneSpawning)
             {
-                yield return new WaitForSeconds(selectedEnemy.spawnInterval * intervalMod);
+                // Only wait for the interval if there are enemies present
+                if (AreEnemiesPresent())
+                {
+                    yield return new WaitForSeconds(selectedEnemy.spawnInterval * intervalMod);
+                }
+                else
+                {
+                    // If no enemies are present, continue immediately to the next spawn
+                    yield return null;
+                }
             }
         }
     }

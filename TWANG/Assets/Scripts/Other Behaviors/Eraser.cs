@@ -12,20 +12,30 @@ public class Eraser : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            if(UnityEngine.Random.value < 0.3f)
+            if(UnityEngine.Random.value < 0.2f)
             {
                 child.GetComponent<SpriteRenderer>().sprite = EraserManager.Instance.GetCrackedSprite(GetNumberFromString(child.GetComponent<SpriteRenderer>().sprite.name));
             }
             var colliderObj = new GameObject();
+            var indicatorObj = new GameObject();
+
             colliderObj.transform.parent = child;
+            indicatorObj.transform.parent = child;
             colliderObj.transform.localPosition = Vector2.zero;
+            indicatorObj.transform.localPosition = Vector2.up * 0.2f;
+
             //colliderObj.layer = LayerMask.NameToLayer("Wall");
             colliderObj.tag = "Wall";
             //hehe
             colliderObj.name = "coll";
+            indicatorObj.name = "indicator";
             var sr = colliderObj.AddComponent<SpriteRenderer>();
+            var sr2 = indicatorObj.AddComponent<SpriteRenderer>();
+
             child.GetComponent<SpriteRenderer>().sortingLayerName = "Environment";
             sr.sprite = EraserManager.Instance.GetColliderSprite(GetNumberFromString(child.GetComponent<SpriteRenderer>().sprite.name));
+            sr2.sprite = EraserManager.Instance.GetIndicatorSprite(GetNumberFromString(child.GetComponent<SpriteRenderer>().sprite.name));
+            
             sr.enabled = false;
 
             colliderObj.AddComponent<PolygonCollider2D>();
@@ -35,11 +45,6 @@ public class Eraser : MonoBehaviour
 
         transform.parent = EraserManager.Instance.transform;
     }
-
-    //void Update()
-    //{
-
-    //}
 
     public static int GetNumberFromString(string input)
     {

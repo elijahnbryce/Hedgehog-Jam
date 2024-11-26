@@ -18,6 +18,9 @@ public class EntityStats : MonoBehaviour
     public List<GameObject> corpses = new();
     public ParticleSystem particles;
 
+    public GameObject followingObject;
+    public List<Entity> connectedEntities;
+
     public virtual void Initialize(Entity thisEntity)
     {
         selfEntity = thisEntity;
@@ -46,6 +49,11 @@ public class EntityStats : MonoBehaviour
         if (health <= 0)
         {
             Die();
+
+            foreach(var connected in connectedEntities)
+            {
+                connected.stats.Die();
+            }
         }
     }
 
@@ -64,6 +72,7 @@ public class EntityStats : MonoBehaviour
         bool coins = true;
 
         GameManager gm = GameManager.Instance;
+        gm.StartSlowMotionEffect();
         float scoreBoost = gm.GetPowerMult(UpgradeType.Rainbow);
 
         if (corpses.Count > 0)

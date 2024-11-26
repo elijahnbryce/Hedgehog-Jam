@@ -27,6 +27,7 @@ public class EraserManager : MonoBehaviour
     [SerializeField] private List<Sprite> sprites = new();
     [SerializeField] private List<Sprite> colliderSprites = new();
     [SerializeField] private List<Sprite> crackedSprites = new();
+    [SerializeField] private List<Sprite> indicatorSprites = new();
     [SerializeField] private List<GameObject> configs = new();
     [SerializeField] private Material whiteMat, defaultMat;
     [SerializeField] private ParticleSystem eraserParticles;
@@ -62,6 +63,7 @@ public class EraserManager : MonoBehaviour
     // Public accessors for sprite collections
     public Sprite GetColliderSprite(int index) => colliderSprites[index];
     public Sprite GetCrackedSprite(int index) => crackedSprites[index];
+    public Sprite GetIndicatorSprite(int index) => indicatorSprites[index];
 
     /// <summary>
     /// Spawns a new random eraser configuration

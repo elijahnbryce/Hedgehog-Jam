@@ -2,19 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 [Serializable]
-//example format of how states should be defined. Regarding which methods to implement, check EntityState.cs.
-[CreateAssetMenu(menuName = "EntityState/DroppingGlue", fileName = "DroppingGlue")] //menuName = "EntityState/StateName"
-public class DroppingGlue : EntityState //must inherit from "EntityState"
+[CreateAssetMenu(menuName = "EntityState/DroppingGlue", fileName = "DroppingGlue")]
+public class DroppingGlue : EntityState
 {
     public GameObject gluePrefab;
+    //public float minDropHeight = 5f; 
+    private float minDropHeight;
 
     public override void Enter()
     {
         base.Enter();
         selfEntity.StartCoroutine(IntervalDropGlue());
-        
+        minDropHeight = GameManager.Instance.GetSpawnBounds()[0][1];
     }
 
     public IEnumerator IntervalDropGlue()
@@ -22,9 +22,13 @@ public class DroppingGlue : EntityState //must inherit from "EntityState"
         while (true)
         {
             yield return new WaitForSeconds(2);
-            Instantiate(gluePrefab, selfEntity.transform.position + new Vector3(0, -0.8f), selfEntity.transform.rotation);
+
+            if (selfEntity.transform.position.y >= minDropHeight)
+            {
+                Instantiate(gluePrefab, selfEntity.transform.position + new Vector3(0, -0.8f), selfEntity.transform.rotation);
+            }
+
             if (!isActive) { break; }
         }
     }
 }
-
