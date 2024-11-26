@@ -26,8 +26,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private static float multBonus = 1.2f;
     [SerializeField] private float invincibilityDuration = 2f;
 
-
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -96,7 +94,9 @@ public class GameManager : MonoBehaviour
         ts.StartTime();
         Time.timeScale = 1;
         BetweenRounds = false;
-        EraserManager.Instance.SpawnConfig();
+
+        if (EraserManager.Instance != null)
+            EraserManager.Instance.SpawnConfig();
 
         wave++;
 
