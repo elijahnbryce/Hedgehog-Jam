@@ -82,6 +82,8 @@ MonoBehaviour:
   corpses:
   - {fileID: 1007396995159915113, guid: 996dbccc9b610ce4581e0abbcaad2a2b, type: 3}
   particles: {fileID: 0}
+  followingObject: {fileID: 0}
+  connectedEntities: []
 --- !u!50 &4243660536294943418
 Rigidbody2D:
   serializedVersion: 4
@@ -218,7 +220,7 @@ SpriteRenderer:
   m_SortingLayerID: 731826199
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: 246694730, guid: cb002bb421b3ff44690bf7a3079d3470, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -226,7 +228,7 @@ SpriteRenderer:
   m_Size: {x: 1.5, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &4164617729893552428
