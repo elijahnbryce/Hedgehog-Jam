@@ -12,10 +12,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TackChrysalis 2
       objectReference: {fileID: 0}
-    - target: {fileID: 2696081713308812251, guid: faf90ba0625ee4449b30416a8b51d62f, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 1505327690, guid: cb002bb421b3ff44690bf7a3079d3470, type: 3}
     - target: {fileID: 4164617729893552428, guid: faf90ba0625ee4449b30416a8b51d62f, type: 3}
       propertyPath: sprites.Array.size
       value: 8

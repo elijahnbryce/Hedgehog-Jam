@@ -115,6 +115,8 @@ public class RubberBand : MonoBehaviour
                 {
                     transform.DOShakeScale(0.1f);
                     _maxBounces--;
+
+                    SeekEnemies();
                 }
                 break;
             case "Level Boundary":
@@ -126,16 +128,33 @@ public class RubberBand : MonoBehaviour
                 if (landed) break;
 
                 if (collision.transform.TryGetComponent(out Entity e))
+                {
                     e.stats.TakeDamage((int)attackPower);
+                    if (e.stats.health <= 0)
+                    {
+                        ProjectileLand();
+                    }
+                }
 
-                if (!GameManager.Instance.upgradeList.ContainsKey(UpgradeType.Ghost))
-                {
+                //is this dumb?
+                else if (_maxBounces <= 0)
                     ProjectileLand();
-                }
-                else
+                else if (_maxBounces > 0)
                 {
-                    GameManager.Instance.DecPowerUp(UpgradeType.Ghost);
+                    transform.DOShakeScale(0.1f);
+                    _maxBounces--;
+
+                    SeekEnemies();
                 }
+
+                //if (!GameManager.Instance.upgradeList.ContainsKey(UpgradeType.Ghost))
+                //{
+                //    ProjectileLand();
+                //}
+                //else
+                //{
+                //    GameManager.Instance.DecPowerUp(UpgradeType.Ghost);
+                //}
                 break;
         }
     }
@@ -167,24 +186,24 @@ public class RubberBand : MonoBehaviour
 
         seq.Play();
     }
-    //private bool SeekEnemies()
-    //{
-    //    float radius = 5f;
+    private bool SeekEnemies()
+    {
+        float radius = 5f;
 
-    //    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius);
 
-    //    bool found = false;
-    //    foreach (Collider2D collider in hitColliders)
-    //    {
-    //        if (!found && collider.CompareTag("Enemy"))
-    //        {
-    //            found = true;
-    //            var prevVelocity = rb.velocity.magnitude;
-    //            rb.velocity = Vector2.zero;
-    //            rb.velocity = (collider.transform.position - transform.position).normalized * prevVelocity;
-    //        }
-    //    }
+        bool found = false;
+        foreach (Collider2D collider in hitColliders)
+        {
+            if (!found && collider.CompareTag("Enemy"))
+            {
+                found = true;
+                var prevVelocity = rb.velocity.magnitude;
+                rb.velocity = Vector2.zero;
+                rb.velocity = (collider.transform.position - transform.position).normalized * 15;
+            }
+        }
 
-    //    return found;
-    //}
+        return found;
+    }
 }
