@@ -6077,7 +6077,7 @@ Camera:
   m_HDR: 1
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -11034,6 +11034,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 733555052}
     m_Modifications:
+    - target: {fileID: 4731270300754267812, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7285658957687995750, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
