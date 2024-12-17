@@ -815,6 +815,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 079f6b710788a424abf3d2374d5d2ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boundaryLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   projectilePrefab: {fileID: 1245749864814320524, guid: 83b293226f9b45c4fa0dbbd409367b95, type: 3}
   _maxProjectiles: 0
   rubberRender: {fileID: 1555989744}
