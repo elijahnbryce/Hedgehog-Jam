@@ -19,7 +19,7 @@ public class CameraManager : MonoBehaviour
         playerTransform = PlayerMovement.Instance.transform;
         minPos = -1 * maxPos;
 
-        PlayerAttack.OnAttackInitiate += AttackStart;
+        PlayerAttack.OnAttackAim += AttackStart;
         PlayerAttack.OnAttackHalt += AttackEnd;
     }
 

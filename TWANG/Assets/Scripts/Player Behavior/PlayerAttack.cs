@@ -7,8 +7,10 @@ public class PlayerAttack : MonoBehaviour
 {
     public static PlayerAttack Instance { get; private set; }
 
-    public static event Action OnAttackInitiate;
+    public static event Action OnAttack;
+    public static event Action OnAttackAim;
     public static event Action OnAttackHalt;
+    public static event Action OnPickup;
     public bool Attacking => attacking;
 
     public int maxProjectiles => _maxProjectiles;
@@ -71,7 +73,8 @@ public class PlayerAttack : MonoBehaviour
     private void OnDestroy()
     {
         Instance = null;
-        OnAttackInitiate = null;
+        OnAttackAim = null;
+        OnAttack = null;
         OnAttackHalt = null;
     }
 
@@ -138,9 +141,12 @@ public class PlayerAttack : MonoBehaviour
     public void PickupBand()
     {
         CameraManager.Instance.ScreenShake(0.1f);
-        
+
         if (_shotProjectiles > 0)
+        {
             _shotProjectiles--;
+        }
+        OnPickup?.Invoke();
     }
 
     public void IncreaseMaxProjectiles()
@@ -160,7 +166,7 @@ public class PlayerAttack : MonoBehaviour
         attacking = true;
         attackPower = 0;
         SoundManager.Instance.PlaySoundEffect("band_pull");
-        OnAttackInitiate?.Invoke();
+        OnAttackAim?.Invoke();
     }
 
     private void AttackHalt()
@@ -192,13 +198,15 @@ public class PlayerAttack : MonoBehaviour
 
         proj.InitializeProjectile(attackPower * PROJECTILE_BASE_FORCE * fireDirection);
         _shotProjectiles++;
+
+        OnAttack?.Invoke();
     }
 
     private void ResetAttackState()
     {
         attacking = false;
         attackPower = 0;
-        cachedTargetEntity = null; 
+        cachedTargetEntity = null;
     }
 
     RubberBand GetPooledProjectile()

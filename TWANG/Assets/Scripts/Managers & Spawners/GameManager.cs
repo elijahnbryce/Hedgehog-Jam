@@ -131,7 +131,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("startenemies:" + startEnemies);
         enemyTypes = Mathf.Min(3, Mathf.CeilToInt(wave / 3f) + 1);
         //sp.StartSpawn(startEnemies, enemyTypes);
-        sp.StartSpawn(startEnemies);
+        if(sp != null)
+            sp.StartSpawn(startEnemies);
         waveStarted = true;
     }
 
@@ -293,7 +294,9 @@ public class GameManager : MonoBehaviour
         }
 
         health += change;
-        eV.DisplayHealth(health);
+
+        if(eV != null)
+            eV.DisplayHealth(health);
 
         if (health <= 0)
         {
