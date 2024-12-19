@@ -130,10 +130,7 @@ public class RubberBand : MonoBehaviour
                 if (collision.transform.TryGetComponent(out Entity e))
                 {
                     e.stats.TakeDamage((int)attackPower);
-                    if (e.stats.health <= 0)
-                    {
-                        ProjectileLand();
-                    }
+                    ProjectileLand();
                 }
 
                 //is this dumb?
