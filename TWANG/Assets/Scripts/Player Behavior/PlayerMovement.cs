@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void RegisterEventHandlers()
     {
-        PlayerAttack.OnAttackInitiate += AttackStart;
+        PlayerAttack.OnAttackAim += AttackStart;
         PlayerAttack.OnAttackHalt += AttackEnd;
     }
 

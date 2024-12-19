@@ -7,8 +7,10 @@ public class PlayerAttack : MonoBehaviour
 {
     public static PlayerAttack Instance { get; private set; }
 
-    public static event Action OnAttackInitiate;
+    public static event Action OnAttack;
+    public static event Action OnAttackAim;
     public static event Action OnAttackHalt;
+    public static event Action OnPickup;
     public bool Attacking => attacking;
 
     public int maxProjectiles => _maxProjectiles;
@@ -23,6 +25,10 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] Transform secondaryHand;
     [SerializeField] float maxStretchDistance = 6f;
 
+    [Header("Overrides")]
+    // Used for tutorial
+    [Tooltip("Allows shooting even while 'game/wave' isn't running")]
+    [SerializeField] bool alwaysAllowShooting = false;
     [Header("Aim Assist Settings")]
     [SerializeField] private float aimAssistAngleThreshold = 10f; // Maximum angle for aim assist in degrees
     [SerializeField] private float aimAssistStrength = 0.2f; // Visual aim assist strength (0-1)
@@ -54,7 +60,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.GameRunning)
+        if (!GameManager.Instance.GameRunning && !alwaysAllowShooting)
             return;
 
         HandleAttackInput();
@@ -67,7 +73,8 @@ public class PlayerAttack : MonoBehaviour
     private void OnDestroy()
     {
         Instance = null;
-        OnAttackInitiate = null;
+        OnAttackAim = null;
+        OnAttack = null;
         OnAttackHalt = null;
     }
 
@@ -134,9 +141,12 @@ public class PlayerAttack : MonoBehaviour
     public void PickupBand()
     {
         CameraManager.Instance.ScreenShake(0.1f);
-        
+
         if (_shotProjectiles > 0)
+        {
             _shotProjectiles--;
+        }
+        OnPickup?.Invoke();
     }
 
     public void IncreaseMaxProjectiles()
@@ -156,7 +166,7 @@ public class PlayerAttack : MonoBehaviour
         attacking = true;
         attackPower = 0;
         SoundManager.Instance.PlaySoundEffect("band_pull");
-        OnAttackInitiate?.Invoke();
+        OnAttackAim?.Invoke();
     }
 
     private void AttackHalt()
@@ -188,13 +198,15 @@ public class PlayerAttack : MonoBehaviour
 
         proj.InitializeProjectile(attackPower * PROJECTILE_BASE_FORCE * fireDirection);
         _shotProjectiles++;
+
+        OnAttack?.Invoke();
     }
 
     private void ResetAttackState()
     {
         attacking = false;
         attackPower = 0;
-        cachedTargetEntity = null; 
+        cachedTargetEntity = null;
     }
 
     RubberBand GetPooledProjectile()

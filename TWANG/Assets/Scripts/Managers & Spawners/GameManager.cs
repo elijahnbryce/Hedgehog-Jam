@@ -106,8 +106,10 @@ public class GameManager : MonoBehaviour
 
     private void EverythingFalse()
     {
-        eV.UIFalse();
-        ts.TimerStart();
+        if (eV != null)
+            eV.UIFalse();
+        if(ts != null)
+            ts.TimerStart();
 
         gameOver = false;
         GameUI.SetPauseState(false);
@@ -119,7 +121,9 @@ public class GameManager : MonoBehaviour
         ts.StartTime();
         Time.timeScale = 1;
         BetweenRounds = false;
-        EraserManager.Instance.SpawnConfig();
+
+        if (EraserManager.Instance != null)
+            EraserManager.Instance.SpawnConfig();
 
         wave++;
 
@@ -127,7 +131,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("startenemies:" + startEnemies);
         enemyTypes = Mathf.Min(3, Mathf.CeilToInt(wave / 3f) + 1);
         //sp.StartSpawn(startEnemies, enemyTypes);
-        sp.StartSpawn(startEnemies);
+        if(sp != null)
+            sp.StartSpawn(startEnemies);
         waveStarted = true;
     }
 
@@ -289,7 +294,9 @@ public class GameManager : MonoBehaviour
         }
 
         health += change;
-        eV.DisplayHealth(health);
+
+        if(eV != null)
+            eV.DisplayHealth(health);
 
         if (health <= 0)
         {
@@ -349,7 +356,9 @@ public class GameManager : MonoBehaviour
         change = change * GetPowerMult(UpgradeType.Rainbow) * GetPowerMult(UpgradeType.Confusion);
         levelScore += change;
         Debug.Log($"Score is now: {levelScore}");
-        eV.DisplayScore(levelScore);
+
+        if(eV != null)
+            eV.DisplayScore(levelScore);
     }
 
     public void SetHealth(int val = 0)

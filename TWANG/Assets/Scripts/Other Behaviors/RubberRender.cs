@@ -13,7 +13,7 @@ public class DragController : MonoBehaviour
 
     private void Start()
     {
-        PlayerAttack.OnAttackInitiate += DragStart;
+        PlayerAttack.OnAttackAim += DragStart;
         PlayerAttack.OnAttackHalt += DragEnd;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
