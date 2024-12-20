@@ -21,4 +21,4 @@ public class AimObjective : GameObjective
             CompletedObjective();
         }
     }
-} 
+}

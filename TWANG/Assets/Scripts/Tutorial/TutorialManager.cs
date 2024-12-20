@@ -13,7 +13,8 @@ public class TutorialManager : MonoBehaviour
     {
         new MoveObjective(),
         new AimObjective(),
-        new ShootObjective(3)
+        new ShootObjective(3),
+        new PickupObjective(3)
     };
     int currentObjective = -1;
 
