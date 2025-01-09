@@ -4,46 +4,26 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-/// <summary>
-/// handles the behavior and animation of collectible coins in the game
-/// </summary>
 public class Coin : MonoBehaviour
 {
-    // Existing animation timing constants
-    private const float ANIMATION_FRAME_DURATION = 0.2f;
-    private const float SPAWN_SCALE_DURATION = 0.25f;
-    private const float COLLECT_MOVE_DURATION = 0.4f;
-    private const float COLLECT_PUNCH_DURATION = 0.2f;
-    private const float COLLECT_SCALE_DURATION = 0.2f;
-    private const int TOTAL_FRAMES = 4;
-
-    // New spawn arc animation constants
-    private const float SPAWN_ARC_DURATION = 0.5f;
-    private const float SPAWN_ARC_HEIGHT = 1.5f;
-    private const float SPAWN_HORIZONTAL_DISTANCE = 0.5f;
-
-    // internal state tracking
-    private float animationTimer = ANIMATION_FRAME_DURATION;
     private int currentFrame;
     private float coinValue;
+    private float animationTimer;
     private List<Sprite> coinSprites = new();
     private SpriteRenderer spriteRenderer;
     private Vector3 targetPosition;
-
+    private PlayerMovement pm;
     private Sequence activeSequence;
 
-    // serialized fields
     [SerializeField] private Material whiteMat;
 
     public void InitializeCoin(CoinStruct coin)
     {
         SetupCoinProperties(coin);
         transform.localScale = Vector2.zero;
-        // Store the target position (where we want the coin to land)
         targetPosition = transform.position;
-        // Offset the initial position slightly to the left or right randomly
         float randomDirection = Random.Range(0f, 1f) > 0.5f ? 1f : -1f;
-        transform.position += Vector3.right * SPAWN_HORIZONTAL_DISTANCE * randomDirection;
+        transform.position += Vector3.right * 0.5f * randomDirection;
         StartCoroutine(nameof(PlaySpawnAnimationCoroutine));
     }
 
@@ -62,23 +42,10 @@ public class Coin : MonoBehaviour
 
     private void PlaySpawnAnimation()
     {
-        // Kill any existing sequence
         activeSequence?.Kill();
-
-        // Scale up from zero
-        transform.DOScale(Vector2.one, SPAWN_SCALE_DURATION);
-
-        // Create the arc jump sequence
+        transform.DOScale(Vector2.one, 0.25f);
         activeSequence = DOTween.Sequence();
-
-        // Create the arc movement
-        activeSequence.Append(transform.DOPath(
-            CreateArcPath(),
-            SPAWN_ARC_DURATION,
-            PathType.CatmullRom
-        ).SetEase(Ease.OutQuad));
-
-        // Add a small bounce at the end
+        activeSequence.Append(transform.DOPath(CreateArcPath(), 0.5f, PathType.CatmullRom).SetEase(Ease.OutQuad));
         activeSequence.Append(transform.DOPunchPosition(Vector2.up * 0.2f, 0.2f, 1, 0));
     }
 
@@ -86,7 +53,7 @@ public class Coin : MonoBehaviour
     {
         Vector3[] path = new Vector3[3];
         path[0] = transform.position;
-        path[1] = Vector3.Lerp(transform.position, targetPosition, 0.5f) + Vector3.up * SPAWN_ARC_HEIGHT;
+        path[1] = Vector3.Lerp(transform.position, targetPosition, 0.5f) + Vector3.up * 1.5f;
         path[2] = targetPosition;
         return path;
     }
@@ -94,6 +61,7 @@ public class Coin : MonoBehaviour
     private void Start()
     {
         InitializeSpriteRenderer();
+        pm = PlayerMovement.Instance;
     }
 
     private void InitializeSpriteRenderer()
@@ -104,31 +72,27 @@ public class Coin : MonoBehaviour
     private void Update()
     {
         UpdateCoinAnimation();
+        CheckPlayerProximity();
+    }
+
+    private void CheckPlayerProximity()
+    {
+        float distance = Vector3.Distance(transform.position, pm.PlayerPosition);
+        if (distance <= 6f)
+        {
+            Vector3 direction = ((Vector3)pm.PlayerPosition - transform.position).normalized;
+            transform.position += direction * Time.deltaTime * 5f;
+        }
     }
 
     private void UpdateCoinAnimation()
     {
-        UpdateAnimationTimer();
-        UpdateSpriteFrame();
-    }
-
-    private void UpdateAnimationTimer()
-    {
         animationTimer -= Time.deltaTime;
         if (animationTimer < 0)
         {
-            animationTimer = ANIMATION_FRAME_DURATION;
-            AdvanceAnimationFrame();
+            animationTimer = 0.2f;
+            currentFrame = (currentFrame + 1) % 4;
         }
-    }
-
-    private void AdvanceAnimationFrame()
-    {
-        currentFrame = (currentFrame + 1) % TOTAL_FRAMES;
-    }
-
-    private void UpdateSpriteFrame()
-    {
         spriteRenderer.sprite = coinSprites[currentFrame];
     }
 
@@ -151,21 +115,16 @@ public class Coin : MonoBehaviour
 
     private void PlayCollectAnimation()
     {
-        // animate upward movement
-        transform.DOMove(transform.position + Vector3.up, COLLECT_MOVE_DURATION);
-
-        // create collection animation sequence
+        transform.DOMove(transform.position + Vector3.up, 0.4f);
         CreateCollectSequence();
     }
 
     private void CreateCollectSequence()
     {
-        // Kill any existing sequence
         activeSequence?.Kill();
-
         activeSequence = DOTween.Sequence();
-        activeSequence.Append(transform.DOPunchScale(Vector2.one * 0.25f, COLLECT_PUNCH_DURATION));
-        activeSequence.Append(transform.DOScale(Vector2.zero, COLLECT_SCALE_DURATION));
+        activeSequence.Append(transform.DOPunchScale(Vector2.one * 0.25f, 0.2f));
+        activeSequence.Append(transform.DOScale(Vector2.zero, 0.2f));
         activeSequence.AppendCallback(OnCollectComplete);
     }
 
@@ -189,9 +148,7 @@ public class Coin : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Kill all tweens associated with this transform
         transform.DOKill();
-        // Kill the active sequence if it exists
         activeSequence?.Kill();
     }
 }
