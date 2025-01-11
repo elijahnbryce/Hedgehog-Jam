@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     public Dictionary<UpgradeType, int> upgradeList = new();
     private Timer ts;
     private bool isInvicible = false;
-    [SerializeField] private static float multBonus = 1.2f;
     [SerializeField] private float invincibilityDuration = 2f;
 
     [Header("Effect Settings")]
@@ -278,7 +277,10 @@ public class GameManager : MonoBehaviour
     private IEnumerator StarPower()
     {
         isInvicible = true;
-        yield return new WaitForSeconds(10f * upgradeList[UpgradeType.Star]);
+        var effect = UpgradeManager.Instance.InvincibilityEffect;
+        effect.SetActive(true);
+        yield return new WaitForSeconds(10f);
+        effect.SetActive(false);
         isInvicible = false;
     }
 

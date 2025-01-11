@@ -261,10 +261,10 @@ MonoBehaviour:
   effectiveMovementSpeed: 0
   attackPower: 1
   attackPowerMult: 1
-  corpses:
-  - {fileID: 5595570835928015912, guid: 8611657e40816da4e93f75e5b815017a, type: 3}
-  - {fileID: 5595570835928015912, guid: 8611657e40816da4e93f75e5b815017a, type: 3}
+  corpses: []
   particles: {fileID: 5983640466850005775, guid: e66fe75f07470e747b9a6fef9d608b0d, type: 3}
+  followingObject: {fileID: 0}
+  connectedEntities: []
 --- !u!50 &8251578215289338633
 Rigidbody2D:
   serializedVersion: 4

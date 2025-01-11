@@ -14,6 +14,7 @@ public class Coin : MonoBehaviour
     private Vector3 targetPosition;
     private PlayerMovement pm;
     private Sequence activeSequence;
+    private bool collected = false;
 
     [SerializeField] private Material whiteMat;
 
@@ -78,7 +79,7 @@ public class Coin : MonoBehaviour
     private void CheckPlayerProximity()
     {
         float distance = Vector3.Distance(transform.position, pm.PlayerPosition);
-        if (distance <= 6f)
+        if (distance <= 4.5f)
         {
             Vector3 direction = ((Vector3)pm.PlayerPosition - transform.position).normalized;
             transform.position += direction * Time.deltaTime * 5f;
@@ -98,6 +99,8 @@ public class Coin : MonoBehaviour
 
     public void ClaimCoin()
     {
+        if (collected) return;
+        collected = true;
         DisableCollision();
         SetCollectMaterial();
         PlayCollectAnimation();

@@ -266,7 +266,7 @@ public class PlayerMovement : MonoBehaviour
     {
         var gm = GameManager.Instance;
         var healthRatio = Mathf.Clamp01(gm.GetHealthRatio() * 2);
-        return healthRatio * gm.GetPowerMult(UpgradeType.Lightning, 1.5f);
+        return healthRatio * gm.GetPowerMult(UpgradeType.Lightning, 1.15f);
     }
 
     private void UpdateSecondHandTarget(Vector2 movement)
