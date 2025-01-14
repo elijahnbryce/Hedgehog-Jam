@@ -277,10 +277,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator StarPower()
     {
         isInvicible = true;
-        var effect = UpgradeManager.Instance.InvincibilityEffect;
-        effect.SetActive(true);
         yield return new WaitForSeconds(10f);
-        effect.SetActive(false);
         isInvicible = false;
     }
 

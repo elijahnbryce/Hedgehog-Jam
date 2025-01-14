@@ -50,7 +50,7 @@ public class EntityStats : MonoBehaviour
         {
             Die();
 
-            foreach(var connected in connectedEntities)
+            foreach (var connected in connectedEntities)
             {
                 connected.stats.Die();
             }
@@ -117,8 +117,14 @@ public class EntityStats : MonoBehaviour
             gm.RemoveEnemy(selfEntity.gameObject);
         }
 
-        if(coins)
+        if (coins)
             CoinManager.Instance.SpawnCoins(transform.position);
         SoundManager.Instance.PlaySoundEffect("enemy_die");
+
+        if (particles)
+        {
+            var particle = Instantiate(particles, transform.position, Quaternion.identity).gameObject;
+            Destroy(particle, 2f);
+        }
     }
 }

@@ -13,11 +13,6 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private Vector2 bounds;
     private int maxAttempts = 30;
 
-    [SerializeField] private GameObject invincibilityEffect;
-    public GameObject InvincibilityEffect { get { return invincibilityEffect; } }
-    [SerializeField] private GameObject confusionEffect;
-    public GameObject ConfusionEffect { get { return confusionEffect; } }
-
     private List<Vector2> points = new List<Vector2>();
     public static UpgradeManager Instance { get; private set; }
     private void Awake()
@@ -27,8 +22,6 @@ public class UpgradeManager : MonoBehaviour
     }
     void Start()
     {
-        invincibilityEffect.SetActive(false);
-        confusionEffect.SetActive(false);
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
@@ -170,8 +163,8 @@ public enum UpgradeType
 {
     Heart = 0,
     Pizza = 1,
-    Rainbow = 2,
-    Star = 3, 
+    Rainbow = 2, 
+    Star = 3, //should work
     Lightning = 4, //
     Fire = 5,
     Ghost = 6,
