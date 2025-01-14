@@ -52,7 +52,7 @@ public class EntityStats : MonoBehaviour
 
             foreach (var connected in connectedEntities)
             {
-                connected.stats.Die();
+                connected.stats.Die(true);
             }
         }
     }
@@ -69,11 +69,18 @@ public class EntityStats : MonoBehaviour
 
     public virtual void Die()
     {
+        Die(false);
+    }
+
+    public virtual void Die(bool ignore)
+    {
         bool coins = true;
 
         GameManager gm = GameManager.Instance;
-        gm.StartSlowMotionEffect();
-        float scoreBoost = gm.GetPowerMult(UpgradeType.Rainbow);
+        if (!ignore)
+        {
+            gm.StartSlowMotionEffect();
+        }
 
         if (corpses.Count > 0)
         {
@@ -86,24 +93,26 @@ public class EntityStats : MonoBehaviour
             }
             else if (corpses.Count == 2)
             {
-                var particle = Instantiate(particles, transform.position, Quaternion.identity).gameObject;
-                Destroy(particle, 2f);
+                //old code for the splitting gum enemy
 
-                coins = false;
-                float spacing = 2f;
-                Vector3 leftPosition = transform.position + Vector3.left * (spacing / 2f);
-                Vector3 rightPosition = transform.position + Vector3.right * (spacing / 2f);
+                //var particle = Instantiate(particles, transform.position, Quaternion.identity).gameObject;
+                //Destroy(particle, 2f);
 
-                var leftCorpse = Instantiate(corpses[0], leftPosition, Quaternion.identity);
-                var rightCorpse = Instantiate(corpses[1], rightPosition, Quaternion.identity);
+                //coins = false;
+                //float spacing = 2f;
+                //Vector3 leftPosition = transform.position + Vector3.left * (spacing / 2f);
+                //Vector3 rightPosition = transform.position + Vector3.right * (spacing / 2f);
 
-                newCorpses.Add(leftCorpse);
-                newCorpses.Add(rightCorpse);
+                //var leftCorpse = Instantiate(corpses[0], leftPosition, Quaternion.identity);
+                //var rightCorpse = Instantiate(corpses[1], rightPosition, Quaternion.identity);
 
-                foreach (var corpse in newCorpses)
-                {
-                    gm.AddEnemy(corpse);
-                }
+                //newCorpses.Add(leftCorpse);
+                //newCorpses.Add(rightCorpse);
+
+                //foreach (var corpse in newCorpses)
+                //{
+                //    gm.AddEnemy(corpse);
+                //}
             }
             else
             {
@@ -117,7 +126,7 @@ public class EntityStats : MonoBehaviour
             gm.RemoveEnemy(selfEntity.gameObject);
         }
 
-        if (coins)
+        if (coins && !ignore)
             CoinManager.Instance.SpawnCoins(transform.position);
         SoundManager.Instance.PlaySoundEffect("enemy_die");
 

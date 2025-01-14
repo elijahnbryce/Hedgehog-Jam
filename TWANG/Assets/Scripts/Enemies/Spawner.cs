@@ -136,6 +136,14 @@ public class Spawner : MonoBehaviour
             if (!newEnemy.name.Contains("Helper"))
                 gm.AddEnemy(newEnemy);
 
+            if (newEnemy.name.Contains("Parent"))
+            {
+                foreach(Transform child in newEnemy.transform)
+                {
+                    gm.AddEnemy(child.gameObject);
+                }
+            }
+
             spawnLim--;
             doneSpawning = spawnLim <= 0;
 
