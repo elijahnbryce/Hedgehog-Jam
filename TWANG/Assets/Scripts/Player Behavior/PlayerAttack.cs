@@ -13,13 +13,9 @@ public class PlayerAttack : MonoBehaviour
     public static event Action OnPickup;
     public bool Attacking => attacking;
 
-    public int maxProjectiles => _maxProjectiles;
-    public int remainingProjectiles => _shotProjectiles;
-
     [Header("Attack Settings")]
     [SerializeField] private LayerMask boundaryLayer;
     [SerializeField] RubberBand projectilePrefab;
-    [SerializeField] int _maxProjectiles = 1;
     [SerializeField] DragController rubberRender;
     [SerializeField] Transform primaryHand;
     [SerializeField] Transform secondaryHand;
@@ -44,7 +40,6 @@ public class PlayerAttack : MonoBehaviour
 
     const float PROJECTILE_BASE_FORCE = 1000f;
     const float MIN_ATTACK_POWER = 0.2f;
-    int _shotProjectiles;
 
     float attackCooldown = 0f;
 
@@ -141,27 +136,12 @@ public class PlayerAttack : MonoBehaviour
     public void PickupBand()
     {
         CameraManager.Instance.ScreenShake(0.1f);
-
-        if (_shotProjectiles > 0)
-        {
-            _shotProjectiles--;
-        }
         OnPickup?.Invoke();
-    }
-
-    public void IncreaseMaxProjectiles()
-    {
-        _maxProjectiles++;
-    }
-    public void DecreaseMaxProjectiles()
-    {
-        if (_maxProjectiles > 1)
-            _maxProjectiles--;
     }
 
     private void AttackInitiate()
     {
-        if (GameManager.Instance.BetweenRounds || _shotProjectiles > maxProjectiles) return;
+        if (GameManager.Instance.BetweenRounds) return;
 
         attacking = true;
         attackPower = 0;
@@ -197,7 +177,6 @@ public class PlayerAttack : MonoBehaviour
         proj.gameObject.SetActive(true);
 
         proj.InitializeProjectile(attackPower * PROJECTILE_BASE_FORCE * fireDirection);
-        _shotProjectiles++;
 
         OnAttack?.Invoke();
     }
