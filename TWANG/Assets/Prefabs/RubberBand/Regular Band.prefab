@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2071459202057396340}
   - component: {fileID: 1245749864814320524}
   m_Layer: 14
-  m_Name: Band Projectile 2
+  m_Name: Regular Band
   m_TagString: Midair Band
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

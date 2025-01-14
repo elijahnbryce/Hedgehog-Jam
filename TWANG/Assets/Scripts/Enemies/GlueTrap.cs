@@ -47,20 +47,8 @@ public class GlueTrap : MonoBehaviour
         trigger.enabled = true;
 
         var spotSR = spot.GetComponent<SpriteRenderer>();
-        Vector3 originalSpotScale = spot.transform.localScale;
-
-        void PulseSpot()
-        {
-            spot.transform.DOScale(originalSpotScale * SPOT_PULSE_SCALE, SPOT_PULSE_TIME / 2)
-                .SetEase(Ease.OutQuad)
-                .OnComplete(() => {
-                    spot.transform.DOScale(originalSpotScale, SPOT_PULSE_TIME / 2)
-                        .SetEase(Ease.InQuad);
-                });
-        }
 
         spotSR.sprite = spotSprites[0];
-        PulseSpot();
         yield return new WaitForSeconds(2);
 
         spotSR.sprite = spotSprites[1];
@@ -70,7 +58,6 @@ public class GlueTrap : MonoBehaviour
 
         Sequence fadeOutSequence = DOTween.Sequence();
         fadeOutSequence.Append(spot.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack));
-        fadeOutSequence.Join(spot.GetComponent<SpriteRenderer>().DOFade(0, 0.5f));
 
         yield return fadeOutSequence.WaitForCompletion();
         Destroy(gameObject);

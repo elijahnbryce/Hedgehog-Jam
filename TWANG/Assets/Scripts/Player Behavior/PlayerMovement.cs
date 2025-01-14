@@ -108,6 +108,10 @@ public class PlayerMovement : MonoBehaviour
         {
             HandleEnemyCollision();
         }
+        else if(collision.gameObject.CompareTag("Midair Band") || collision.gameObject.CompareTag("Landed Band"))
+        {
+            HandlePickupBand(collision.gameObject);
+        }
     }
 
     private void HandleTriggerExit(Collider2D collision)
@@ -131,9 +135,12 @@ public class PlayerMovement : MonoBehaviour
             case "Coin":
                 HandleCoinCollection(collision);
                 break;
-            case "Landed Band":
-                HandlePickupBand(collision.gameObject);
-                break;
+            //case "Landed Band":
+            //    HandlePickupBand(collision.gameObject);
+            //    break; // this might be deprecated?
+            //case "Midair Band":
+            //    HandlePickupBand(collision.gameObject);
+            //    break;
             case "Glue":
                 if (!glued)
                     StartCoroutine(nameof(Glue));

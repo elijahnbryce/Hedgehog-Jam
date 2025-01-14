@@ -99,13 +99,14 @@ public class RubberBand : MonoBehaviour
                 Debug.Log("Band hit player");
                 if (PlayerAttack.Instance.HoldingBand)
                 {
-                    ProjectileLand();
+                    Physics2D.IgnoreCollision(collision.collider, collision.otherCollider);
+                    //ProjectileLand();
                 }
-                else
-                {
-                    this.gameObject.SetActive(false);
-                    PlayerAttack.Instance.PickupBand();
-                }
+                //else
+                //{
+                //    this.gameObject.SetActive(false);
+                //    PlayerAttack.Instance.PickupBand();
+                //}
                 break;
             case "Wall":
                 if (landed) break;
