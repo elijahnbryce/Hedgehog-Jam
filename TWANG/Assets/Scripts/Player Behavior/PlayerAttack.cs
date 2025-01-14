@@ -10,8 +10,8 @@ public class PlayerAttack : MonoBehaviour
     public static event Action OnAttack;
     public static event Action OnAttackAim;
     public static event Action OnAttackHalt;
-    public static event Action OnPickup;
     public bool Attacking => attacking;
+    public bool HoldingBand => holdingBand;
 
     [Header("Attack Settings")]
     [SerializeField] private LayerMask boundaryLayer;
@@ -20,6 +20,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] Transform primaryHand;
     [SerializeField] Transform secondaryHand;
     [SerializeField] float maxStretchDistance = 6f;
+    [SerializeField] private GameObject bandPrefab; 
 
     [Header("Overrides")]
     // Used for tutorial
@@ -34,9 +35,10 @@ public class PlayerAttack : MonoBehaviour
     private Vector2 originalAimDirection;
     private Vector2 assistedAimDirection;
 
-    List<RubberBand> projectilePool = new List<RubberBand>();
     float attackPower;
+
     bool attacking;
+    bool holdingBand = true;
 
     const float PROJECTILE_BASE_FORCE = 1000f;
     const float MIN_ATTACK_POWER = 0.2f;
@@ -81,7 +83,7 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && holdingBand)
         {
             AttackInitiate();
         }
@@ -128,7 +130,6 @@ public class PlayerAttack : MonoBehaviour
             cachedTargetEntity = null;
         }
 
-        // Use assisted aim direction for visual feedback
         handsDelta = -assistedAimDirection * distance;
         attackPower = Mathf.Clamp01(distance / maxStretchDistance);
     }
@@ -136,7 +137,8 @@ public class PlayerAttack : MonoBehaviour
     public void PickupBand()
     {
         CameraManager.Instance.ScreenShake(0.1f);
-        OnPickup?.Invoke();
+        //OnPickup?.Invoke();
+        holdingBand = true;
     }
 
     private void AttackInitiate()
@@ -154,7 +156,6 @@ public class PlayerAttack : MonoBehaviour
         if (attackPower >= MIN_ATTACK_POWER)
         {
             FireProjectile();
-            SoundManager.Instance.PlaySoundEffect("band_release");
         }
 
         OnAttackHalt?.Invoke();
@@ -163,6 +164,9 @@ public class PlayerAttack : MonoBehaviour
 
     private void FireProjectile()
     {
+        holdingBand = false;
+        SoundManager.Instance.PlaySoundEffect("band_release");
+
         Vector2 fireDirection = ((Vector2)primaryHand.position - (Vector2)secondaryHand.position).normalized;
 
         if (cachedTargetEntity != null)
@@ -171,7 +175,7 @@ public class PlayerAttack : MonoBehaviour
             fireDirection = Vector2.Lerp(fireDirection, directionToTarget, aimSnapStrength);
         }
 
-        RubberBand proj = GetPooledProjectile();
+        RubberBand proj = Instantiate(bandPrefab).GetComponent<RubberBand>();
 
         proj.transform.position = primaryHand.position + (Vector3)(fireDirection);
         proj.gameObject.SetActive(true);
@@ -186,20 +190,6 @@ public class PlayerAttack : MonoBehaviour
         attacking = false;
         attackPower = 0;
         cachedTargetEntity = null;
-    }
-
-    RubberBand GetPooledProjectile()
-    {
-        for (int i = 0; i < projectilePool.Count; i++)
-        {
-            if (!projectilePool[i].gameObject.activeInHierarchy)
-            {
-                return projectilePool[i];
-            }
-        }
-        RubberBand newPoolProj = Instantiate(projectilePrefab);
-        projectilePool.Add(newPoolProj);
-        return newPoolProj;
     }
 
     public void SetAttackCooldown(float cooldown)

@@ -150,6 +150,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandlePickupBand(GameObject band)
     {
+        if (PlayerAttack.Instance.HoldingBand)
+        {
+            return;
+        }
+
         Destroy(band.GetComponent<Collider2D>());
 
         var seq = DOTween.Sequence();

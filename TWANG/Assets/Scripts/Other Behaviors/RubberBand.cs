@@ -61,7 +61,6 @@ public class RubberBand : MonoBehaviour
     {
         float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
 
-        // Normalize angle to positive
         if (angle < 0) angle += 360f;
 
         if (angle > 180f)
@@ -86,7 +85,6 @@ public class RubberBand : MonoBehaviour
         else if (angle >= 142.5f && angle < 165f)  // 150°
             spriteIndex = 3;
 
-        // Update the sprite
         if (spriteIndex < rubberBandSprites.Count)
         {
             sr.sprite = rubberBandSprites[spriteIndex];
@@ -99,8 +97,15 @@ public class RubberBand : MonoBehaviour
         {
             case "Player":
                 Debug.Log("Band hit player");
-                this.gameObject.SetActive(false);
-                PlayerAttack.Instance.PickupBand();
+                if (PlayerAttack.Instance.HoldingBand)
+                {
+                    ProjectileLand();
+                }
+                else
+                {
+                    this.gameObject.SetActive(false);
+                    PlayerAttack.Instance.PickupBand();
+                }
                 break;
             case "Wall":
                 if (landed) break;
