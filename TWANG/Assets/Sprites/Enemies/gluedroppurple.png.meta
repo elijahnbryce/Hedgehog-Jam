@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 45775d7c082fa9545b9afbde47f9a2aa
+guid: 4b18e910024dbab468da83bf43b3d403
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,49 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gluedrop_0
+      name: gluedroppurple_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c8dfafc53cb8a044b1f19b296a2e812
+      internalID: -1623320576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gluedroppurple_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9025b90629f70a48962c88d52cf565c
+      internalID: -881577495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gluedroppurple_2
       rect:
         serializedVersion: 2
         x: 32
@@ -137,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34d14f3535e2a3d40b7e318298a3b481
-      internalID: -493421299
+      spriteID: 5438ecd2b51eb3241a656adacef3cbac
+      internalID: -556970757
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gluedrop_1
+      name: gluedroppurple_3
       rect:
         serializedVersion: 2
         x: 48
@@ -158,8 +200,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca5edc1078ed72f47972dc89d70c0d30
-      internalID: 1640928949
+      spriteID: 70e4c404e80008542b0f95991950e81a
+      internalID: -996870890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gluedroppurple_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dd20627b0c3dda488f8643f495a25ae
+      internalID: -1284858614
       vertices: []
       indices: 
       edges: []
@@ -175,8 +238,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      gluedrop_0: -493421299
-      gluedrop_1: 1640928949
+      gluedroppurple_0: -1623320576
+      gluedroppurple_1: -881577495
+      gluedroppurple_2: -556970757
+      gluedroppurple_3: -996870890
+      gluedroppurple_4: -1284858614
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
