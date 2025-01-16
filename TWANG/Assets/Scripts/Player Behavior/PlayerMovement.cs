@@ -2,22 +2,28 @@ using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] public float MovementSpeed = 10f;
-    [SerializeField] private float secondaryHandSpeed = 5f; // Controls how fast secondary hand moves
+    [SerializeField] private float secondaryHandSpeed = 5f;
     [SerializeField] private float secondaryHandSpeedWhileAttacking = 90f;
     [SerializeField] private float followingDistance = 6f;
     [SerializeField] private AnimationCurve tensionResistanceCurve;
+    [SerializeField] private float trailUpdateInterval = 0.1f;
+    [SerializeField] private int maxTrailPoints = 10;
+    [SerializeField] private float minDistanceForTrailPoint = 1f;
 
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Transform secondHand;
+    private Queue<Vector2> previousPositions = new();
+    private float previousTimer = 0;
 
     private Rigidbody2D rigidBody;
-    private Vector2 facingDirection = Vector2.right; // Start facing right
+    private Vector2 facingDirection = Vector2.right;
     private bool facingDir = true;
 
     private bool glued = false;
@@ -29,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 mainHandPosition;
     private float footstepCounter;
 
-    private int upgradeIndex = -1; // Default to invalid index when no upgrade is selected
+    private int upgradeIndex = -1;
 
     private const float FOOTSTEP_INTERVAL = 0.75f;
     private const float POSITION_LERP_SPEED = 5f;
@@ -55,9 +61,8 @@ public class PlayerMovement : MonoBehaviour
         CanMove = true;
         rigidBody = GetComponent<Rigidbody2D>();
         RegisterEventHandlers();
-
-        // Initialize second hand position
-        UpdateSecondHandTarget(Vector2.right);
+        UpdateSecondHandTarget();
+        mainHandPosition = transform.position;
     }
 
     private void RegisterEventHandlers()
@@ -74,11 +79,30 @@ public class PlayerMovement : MonoBehaviour
         if (!secondHandReadyToMove)
             secondHandReadyToMove = IsSecondHandClose();
 
-        // Check for upgrade selection
         if (upgradeIndex >= 0 && !GameUI.Instance.IsGamePaused && Input.GetKeyDown(KeyCode.Space))
         {
             UpgradeManager.Instance.ClaimUpgrade(upgradeIndex);
-            upgradeIndex = -1; // Reset after claiming
+            upgradeIndex = -1;
+        }
+
+        // Update trail for second hand
+        UpdateTrail();
+    }
+
+    private void FixedUpdate()
+    {
+        if (Attacking)
+        {
+            // When attacking, move secondary hand with WASD
+            Vector2 movement = GetMovementInput();
+            if (secondHandReadyToMove)
+                MoveSecondaryHand(movement);
+            rigidBody.velocity = Vector2.zero; // Keep primary hand still
+        }
+        else
+        {
+            // Normal movement
+            HandleMovement();
         }
     }
 
@@ -99,6 +123,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDestroy()
     {
+        PlayerAttack.OnAttackAim -= AttackStart;
+        PlayerAttack.OnAttackHalt -= AttackEnd;
         Instance = null;
     }
 
@@ -108,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
         {
             HandleEnemyCollision();
         }
-        else if(collision.gameObject.CompareTag("Midair Band") || collision.gameObject.CompareTag("Landed Band"))
+        else if (collision.gameObject.CompareTag("Midair Band") || collision.gameObject.CompareTag("Landed Band"))
         {
             HandlePickupBand(collision.gameObject);
         }
@@ -135,12 +161,6 @@ public class PlayerMovement : MonoBehaviour
             case "Coin":
                 HandleCoinCollection(collision);
                 break;
-            //case "Landed Band":
-            //    HandlePickupBand(collision.gameObject);
-            //    break; // this might be deprecated?
-            //case "Midair Band":
-            //    HandlePickupBand(collision.gameObject);
-            //    break;
             case "Glue":
                 if (!glued)
                     StartCoroutine(nameof(Glue));
@@ -170,23 +190,44 @@ public class PlayerMovement : MonoBehaviour
         seq.Append(band.transform.DOScale(Vector2.zero, 0.2f)).SetEase(Ease.InQuad);
         seq.AppendCallback(() => Destroy(band));
 
-        PlayerAttack.Instance.PickupBand();
+        PlayerAttack.Instance.PickupBand(band.GetComponent<RubberBand>().BandType);
     }
 
-    private void FixedUpdate()
+    private void UpdateTrail()
     {
-        if (Attacking)
+        previousTimer -= Time.deltaTime;
+        if (previousTimer <= 0)
         {
-            // When attacking, move secondary hand with WASD
-            Vector2 movement = GetMovementInput();
-            if (secondHandReadyToMove)
-                MoveSecondaryHand(movement);
-            rigidBody.velocity = Vector2.zero; // Keep primary hand still
+            previousTimer = trailUpdateInterval;
+
+            // Only add position if we've moved enough
+            if (previousPositions.Count == 0 || Vector2.Distance(mainHandPosition, transform.position) >= minDistanceForTrailPoint)
+            {
+                mainHandPosition = transform.position;
+                previousPositions.Enqueue(mainHandPosition);
+
+                // Maintain maximum trail length
+                while (previousPositions.Count > maxTrailPoints)
+                {
+                    previousPositions.Dequeue();
+                }
+            }
         }
-        else
+    }
+
+    private void UpdateSecondHandTarget()
+    {
+        if (!Attacking && previousPositions.Count > 0)
         {
-            // Normal movement
-            HandleMovement();
+            Vector2 nextTarget = previousPositions.Peek();
+            float distToTarget = Vector2.Distance(secondCurrentPos, nextTarget);
+            float dist2 = Vector2.Distance(nextTarget, mainHandPosition);
+
+            if (distToTarget >= minDistanceForTrailPoint && dist2 >= minDistanceForTrailPoint)
+            {
+                secondTargetPos = nextTarget;
+                previousPositions.Dequeue();
+            }
         }
     }
 
@@ -194,35 +235,18 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerPosition = transform.position;
 
-        // Smoothly move secondary hand to target
-        secondHand.position = secondCurrentPos = Vector3.Slerp(
+        // Update second hand position with smoother interpolation
+        float speed = Attacking ? secondaryHandSpeedWhileAttacking : secondaryHandSpeed;
+        secondHand.position = secondCurrentPos = Vector2.Lerp(
             secondCurrentPos,
             secondTargetPos,
-            Time.deltaTime * (Attacking ? secondaryHandSpeedWhileAttacking : secondaryHandSpeed)
+            Time.deltaTime * speed
         );
-    }
 
-    private void MoveSecondaryHand(Vector2 movement)
-    {
-        if (movement.magnitude > 0)
+        // Update target position for second hand
+        if (!Attacking)
         {
-            Vector2 directionToMain = (mainHandPosition - secondCurrentPos).normalized;
-            Vector2 movementDirection = movement.normalized;
-
-            float dotProduct = Vector2.Dot(movementDirection, -directionToMain);
-            float tensionMultiplier = Mathf.Max(0, dotProduct);
-
-            float tensionResistance = tensionResistanceCurve.Evaluate(Vector2.Distance(mainHandPosition, secondCurrentPos) / followingDistance);
-
-            Vector2 newPos = (Vector2)secondHand.position + (movement * MovementSpeed * Time.fixedDeltaTime * (1 - (tensionResistance * tensionMultiplier)));
-
-            Vector2 toMain = (Vector2)transform.position - newPos;
-            if (toMain.magnitude > followingDistance)
-            {
-                newPos = (Vector2)transform.position - toMain.normalized * followingDistance;
-            }
-
-            secondTargetPos = newPos;
+            UpdateSecondHandTarget();
         }
     }
 
@@ -234,7 +258,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (movement.magnitude > 0)
         {
-            // Update facing direction when moving
             facingDirection = movement.normalized;
             Moving = true;
 
@@ -252,9 +275,6 @@ public class PlayerMovement : MonoBehaviour
         // Apply movement
         var speedMult = CalculateSpeedMultiplier() * (glued ? 0.5f : 1f);
         rigidBody.velocity = movement * MovementSpeed * speedMult;
-
-        // Update second hand target based on raycast
-        UpdateSecondHandTarget(movement);
     }
 
     private Vector2 GetMovementInput()
@@ -281,29 +301,30 @@ public class PlayerMovement : MonoBehaviour
         return healthRatio * gm.GetPowerMult(UpgradeType.Lightning, 1.15f);
     }
 
-    private void UpdateSecondHandTarget(Vector2 movement)
+    private void MoveSecondaryHand(Vector2 movement)
     {
-        Vector2 rayDirection;
-
         if (movement.magnitude > 0)
         {
-            rayDirection = -movement.normalized; // Opposite of movement
-        }
-        else
-        {
-            rayDirection = -facingDirection; // Use stored facing direction
-        }
+            Vector2 directionToMain = (mainHandPosition - secondCurrentPos).normalized;
+            Vector2 movementDirection = movement.normalized;
 
-        int layerMask = ~((1 << 6) | (1 << 12));
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, followingDistance, layerMask);
+            float dotProduct = Vector2.Dot(movementDirection, -directionToMain);
+            float tensionMultiplier = Mathf.Max(0, dotProduct);
 
-        if (hit.collider != null)
-        {
-            secondTargetPos = hit.point;
-        }
-        else
-        {
-            secondTargetPos = (Vector2)transform.position + (rayDirection * followingDistance);
+            float distance = Vector2.Distance(mainHandPosition, secondCurrentPos);
+            float tensionResistance = tensionResistanceCurve.Evaluate(distance / followingDistance);
+
+            Vector2 newPos = (Vector2)secondHand.position +
+                (movement * MovementSpeed * Time.fixedDeltaTime * (1 - (tensionResistance * tensionMultiplier)));
+
+            // Ensure second hand stays within maximum distance
+            Vector2 toMain = (Vector2)transform.position - newPos;
+            if (toMain.magnitude > followingDistance)
+            {
+                newPos = (Vector2)transform.position - toMain.normalized * followingDistance;
+            }
+
+            secondTargetPos = newPos;
         }
     }
 
@@ -311,6 +332,7 @@ public class PlayerMovement : MonoBehaviour
     {
         secondHandReadyToMove = false;
         mainHandPosition = transform.position;
+        previousPositions.Clear(); // Clear trail when attacking
 
         Vector2 direction = (secondCurrentPos - (Vector2)transform.position).normalized;
         secondTargetPos = (Vector2)transform.position + direction;
@@ -323,8 +345,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void AttackEnd()
     {
-        // Reset second hand position
-        UpdateSecondHandTarget(facingDirection);
+        mainHandPosition = transform.position;
+        UpdateSecondHandTarget();
     }
 
     public Vector2 GetDirectionOfPrimaryHand()
@@ -342,7 +364,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CancelUpgradeSelection()
     {
-        upgradeIndex = -1; // Reset upgrade selection when leaving trigger
+        upgradeIndex = -1;
     }
 
     private void HandleUpgradeSelection(Collider2D collision)

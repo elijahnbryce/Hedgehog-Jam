@@ -123,6 +123,7 @@ MonoBehaviour:
   boundaryLayer:
     serializedVersion: 2
     m_Bits: 0
+  bandType: 0
   attackPower: 6
 --- !u!1 &4435838740883492816
 GameObject:

@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UIElements;
-using System.IO.Pipes;
-using Unity.Burst.CompilerServices;
 
 public class RubberBand : MonoBehaviour
 {
@@ -12,7 +9,8 @@ public class RubberBand : MonoBehaviour
     [SerializeField] Sprite landedSprite;
     [SerializeField] Material whiteMat;
     [SerializeField] LayerMask boundaryLayer;
-
+    [SerializeField] private RubberBandType bandType;
+    public RubberBandType BandType => bandType;
     private bool landed = false;
     private Material defaultMat;
     private SpriteRenderer sr;

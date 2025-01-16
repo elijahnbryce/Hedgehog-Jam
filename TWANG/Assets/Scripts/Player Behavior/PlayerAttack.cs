@@ -12,15 +12,15 @@ public class PlayerAttack : MonoBehaviour
     public static event Action OnAttackHalt;
     public bool Attacking => attacking;
     public bool HoldingBand => holdingBand;
+    private RubberBandType heldBandType = RubberBandType.Normal;
+    public RubberBandType HeldBandType => heldBandType;
 
     [Header("Attack Settings")]
     [SerializeField] private LayerMask boundaryLayer;
-    [SerializeField] RubberBand projectilePrefab;
     [SerializeField] DragController rubberRender;
     [SerializeField] Transform primaryHand;
     [SerializeField] Transform secondaryHand;
     [SerializeField] float maxStretchDistance = 6f;
-    [SerializeField] private GameObject bandPrefab; 
 
     [Header("Overrides")]
     // Used for tutorial
@@ -53,6 +53,8 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
         Instance = this;
+
+        heldBandType = RubberBandType.Normal;
     }
 
     private void Update()
@@ -134,11 +136,12 @@ public class PlayerAttack : MonoBehaviour
         attackPower = Mathf.Clamp01(distance / maxStretchDistance);
     }
 
-    public void PickupBand()
+    public void PickupBand(RubberBandType bandType)
     {
         CameraManager.Instance.ScreenShake(0.1f);
         //OnPickup?.Invoke();
         holdingBand = true;
+        heldBandType = bandType;
     }
 
     private void AttackInitiate()
@@ -165,6 +168,8 @@ public class PlayerAttack : MonoBehaviour
     private void FireProjectile()
     {
         holdingBand = false;
+        heldBandType = 0;
+
         SoundManager.Instance.PlaySoundEffect("band_release");
 
         Vector2 fireDirection = ((Vector2)primaryHand.position - (Vector2)secondaryHand.position).normalized;
@@ -175,7 +180,7 @@ public class PlayerAttack : MonoBehaviour
             fireDirection = Vector2.Lerp(fireDirection, directionToTarget, aimSnapStrength);
         }
 
-        RubberBand proj = Instantiate(bandPrefab).GetComponent<RubberBand>();
+        RubberBand proj = Instantiate(RubberBandManager.Instance.GetBandPrefab(heldBandType)).GetComponent<RubberBand>();
 
         proj.transform.position = primaryHand.position + (Vector3)(fireDirection);
         proj.gameObject.SetActive(true);

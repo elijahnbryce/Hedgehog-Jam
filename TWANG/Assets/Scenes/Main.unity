@@ -819,12 +819,10 @@ MonoBehaviour:
   boundaryLayer:
     serializedVersion: 2
     m_Bits: 1024
-  projectilePrefab: {fileID: 1245749864814320524, guid: 83b293226f9b45c4fa0dbbd409367b95, type: 3}
   rubberRender: {fileID: 1555989744}
   primaryHand: {fileID: 619850928}
   secondaryHand: {fileID: 158979404}
   maxStretchDistance: 6
-  bandPrefab: {fileID: 839808035120542771, guid: 83b293226f9b45c4fa0dbbd409367b95, type: 3}
   alwaysAllowShooting: 0
   aimAssistAngleThreshold: 15
   aimAssistStrength: 0.4
@@ -869,6 +867,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  trailUpdateInterval: 0.1
+  maxTrailPoints: 10
+  minDistanceForTrailPoint: 0.5
   spriteRenderer: {fileID: 2140771168}
   secondHand: {fileID: 158979404}
   CanMove: 0
@@ -6557,6 +6558,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfe965ece54ec744af98ee8005659b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rubberBands:
+  - PickupCost: 0
+    BandType: 0
+    BandPrefab: {fileID: 839808035120542771, guid: 83b293226f9b45c4fa0dbbd409367b95, type: 3}
+  - PickupCost: 0
+    BandType: 1
+    BandPrefab: {fileID: 8588333353081423988, guid: 23956ff7d39c2a94a8fac179bd5485b5, type: 3}
 --- !u!1 &1668311572
 GameObject:
   m_ObjectHideFlags: 0
