@@ -1579,6 +1579,22 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 3254830307521290085, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254830307521290085, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254830307521290085, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254830307521290085, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4427693973921760155, guid: 3b23c96f9f6b42d46a9a0d0e0c978940, type: 3}
       propertyPath: m_SizeDelta.x
       value: 320
@@ -7801,6 +7817,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4a19dfbc4cce9843be4995309f109b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1821101317 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8442450651302021323, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
+  m_PrefabInstance: {fileID: 1821101315}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4075dc4959c3046845b0f2b7f21ba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1946417611
 GameObject:
   m_ObjectHideFlags: 0
@@ -8019,6 +8046,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 1821101317}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
       propertyPath: spawnBoundsMax.x
       value: 10

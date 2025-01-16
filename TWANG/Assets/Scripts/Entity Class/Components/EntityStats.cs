@@ -30,15 +30,8 @@ public class EntityStats : MonoBehaviour
 
     private void Update()
     {
-        //if (health <= 0)
-        //{
-        //    Die();
-        //}
-
         effectiveMovementSpeed = movementSpeed * movementSpeedMult;
     }
-
-    //component-specific methods
 
     public virtual void TakeDamage(int damage)
     {
@@ -52,7 +45,7 @@ public class EntityStats : MonoBehaviour
 
             foreach (var connected in connectedEntities)
             {
-                connected.stats.Die(true);
+                connected.stats.Die(false);
             }
         }
     }
@@ -90,29 +83,6 @@ public class EntityStats : MonoBehaviour
             {
                 var newCorpse = Instantiate(corpses[0], transform.position, Quaternion.identity);
                 newCorpses.Add(newCorpse);
-            }
-            else if (corpses.Count == 2)
-            {
-                //old code for the splitting gum enemy
-
-                //var particle = Instantiate(particles, transform.position, Quaternion.identity).gameObject;
-                //Destroy(particle, 2f);
-
-                //coins = false;
-                //float spacing = 2f;
-                //Vector3 leftPosition = transform.position + Vector3.left * (spacing / 2f);
-                //Vector3 rightPosition = transform.position + Vector3.right * (spacing / 2f);
-
-                //var leftCorpse = Instantiate(corpses[0], leftPosition, Quaternion.identity);
-                //var rightCorpse = Instantiate(corpses[1], rightPosition, Quaternion.identity);
-
-                //newCorpses.Add(leftCorpse);
-                //newCorpses.Add(rightCorpse);
-
-                //foreach (var corpse in newCorpses)
-                //{
-                //    gm.AddEnemy(corpse);
-                //}
             }
             else
             {

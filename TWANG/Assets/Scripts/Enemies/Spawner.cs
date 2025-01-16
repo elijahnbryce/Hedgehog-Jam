@@ -16,13 +16,12 @@ public class Spawner : MonoBehaviour
     {
         public GameObject enemyPrefab;
         public float spawnInterval;
-        public float weight; // Weight for random selection
+        public float weight; 
     }
 
     public Vector2 spawnBoundsMin = new Vector2(-9f, -6f);
     public Vector2 spawnBoundsMax = new Vector2(9f, 6f);
     public float spawnCheckRadius = 4f;
-    public GameObject spawnIndicatorPrefab;
     public List<EnemyType> enemyTypes = new List<EnemyType>();
 
     private void Awake()
@@ -55,7 +54,7 @@ public class Spawner : MonoBehaviour
 
     private Vector2 GetRandomSpawnPosition()
     {
-        int maxAttempts = 30; // Prevent infinite loops
+        int maxAttempts = 30; 
         int attempts = 0;
 
         while (attempts < maxAttempts)
@@ -65,7 +64,6 @@ public class Spawner : MonoBehaviour
                 Random.Range(spawnBoundsMin.y, spawnBoundsMax.y)
             );
 
-            // Check for overlapping entities
             Collider2D[] overlaps = Physics2D.OverlapCircleAll(randomPos, spawnCheckRadius);
             bool isValidSpawn = true;
 
@@ -87,7 +85,7 @@ public class Spawner : MonoBehaviour
         }
 
         Debug.LogWarning("Could not find valid spawn position after " + maxAttempts + " attempts");
-        return Vector2.zero; // Fallback position
+        return Vector2.zero; 
     }
 
     private EnemyType SelectRandomEnemyType()
@@ -128,9 +126,9 @@ public class Spawner : MonoBehaviour
             EnemyType selectedEnemy = SelectRandomEnemyType();
             Vector2 spawnPosition = GetRandomSpawnPosition();
 
-            GameObject indicator = Instantiate(spawnIndicatorPrefab, spawnPosition, Quaternion.identity);
-            yield return new WaitForSeconds(1f); // Wait for indicator
-            Destroy(indicator);
+            //GameObject indicator = Instantiate(spawnIndicatorPrefab, spawnPosition, Quaternion.identity);
+            //yield return new WaitForSeconds(1f); // Wait for indicator
+            //Destroy(indicator);
 
             GameObject newEnemy = Instantiate(selectedEnemy.enemyPrefab, spawnPosition, Quaternion.identity);
             if (!newEnemy.name.Contains("Helper"))

@@ -139,7 +139,6 @@ public class PlayerAttack : MonoBehaviour
     public void PickupBand(RubberBandType bandType)
     {
         CameraManager.Instance.ScreenShake(0.1f);
-        //OnPickup?.Invoke();
         holdingBand = true;
         heldBandType = bandType;
     }

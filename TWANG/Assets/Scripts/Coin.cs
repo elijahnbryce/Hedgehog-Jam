@@ -72,17 +72,27 @@ public class Coin : MonoBehaviour
 
     private void Update()
     {
-        UpdateCoinAnimation();
-        CheckPlayerProximity();
+        if (!collected)
+        {
+            UpdateCoinAnimation();
+            CheckPlayerProximity();
+        }
     }
 
     private void CheckPlayerProximity()
     {
+        if (collected) return; 
+
         float distance = Vector3.Distance(transform.position, pm.PlayerPosition);
         if (distance <= 4.5f)
         {
             Vector3 direction = ((Vector3)pm.PlayerPosition - transform.position).normalized;
             transform.position += direction * Time.deltaTime * 5f;
+
+            if (distance <= 0.5f)  
+            {
+                ClaimCoin();
+            }
         }
     }
 
@@ -101,6 +111,9 @@ public class Coin : MonoBehaviour
     {
         if (collected) return;
         collected = true;
+
+        activeSequence?.Kill();
+
         DisableCollision();
         SetCollectMaterial();
         PlayCollectAnimation();
@@ -118,17 +131,16 @@ public class Coin : MonoBehaviour
 
     private void PlayCollectAnimation()
     {
-        transform.DOMove(transform.position + Vector3.up, 0.4f);
         CreateCollectSequence();
     }
 
     private void CreateCollectSequence()
     {
-        activeSequence?.Kill();
         activeSequence = DOTween.Sequence();
+        activeSequence.Append(transform.DOMove(transform.position + Vector3.up, 0.2f)); 
         activeSequence.Append(transform.DOPunchScale(Vector2.one * 0.25f, 0.2f));
         activeSequence.Append(transform.DOScale(Vector2.zero, 0.2f));
-        activeSequence.AppendCallback(OnCollectComplete);
+        activeSequence.OnComplete(OnCollectComplete);  
     }
 
     private void OnCollectComplete()
