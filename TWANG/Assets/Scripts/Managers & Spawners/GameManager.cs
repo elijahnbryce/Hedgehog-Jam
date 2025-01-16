@@ -294,8 +294,8 @@ public class GameManager : MonoBehaviour
 
         health += change;
 
-        if(eV != null)
-            eV.DisplayHealth(health);
+        //if(eV != null)
+        //    eV.DisplayHealth(health);
 
         if (health <= 0)
         {
@@ -356,8 +356,8 @@ public class GameManager : MonoBehaviour
         levelScore += change;
         Debug.Log($"Score is now: {levelScore}");
 
-        if(eV != null)
-            eV.DisplayScore(levelScore);
+        //if(eV != null)
+        //    eV.DisplayScore(levelScore);
     }
 
     public void SetHealth(int val = 0)

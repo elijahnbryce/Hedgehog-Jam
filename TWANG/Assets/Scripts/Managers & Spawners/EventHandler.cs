@@ -64,40 +64,40 @@ public class EventHandler : MonoBehaviour
         GameUI.SetPauseState(false);
     }
 
-    public void DisplayHealth(int hp)
-    {
-        healthText.text = "Lives: " + hp.ToString();
-    }
+    //public void DisplayHealth(int hp)
+    //{
+    //    healthText.text = "Lives: " + hp.ToString();
+    //}
 
-    public void DisplayScore(float lvlScore)
-    {
-        goalText.text = "Score: " + lvlScore.ToString("C");
-    }
+    //public void DisplayScore(float lvlScore)
+    //{
+    //    goalText.text = "Score: " + lvlScore.ToString("C");
+    //}
 
-    public void CheckHS(int totalScore)
-    {
-        //cam.GetComponent<AudioSource>().Stop();
-        ovrCan.SetActive(true);
-        int highScore = PlayerPrefs.GetInt("HIGHSCORE");
-        if (totalScore > highScore)
-        {
-            PlayerPrefs.SetInt("HIGHSCORE", totalScore);
-            hsText.text = "New High Score!";
-            hsInput.gameObject.SetActive(true);
-        }
-        else
-        {
-            hsText.text = "*+ " + PlayerPrefs.GetString("HIGHSCORENAME") + ": " + highScore + " +*";
-        }
-        // lvlText.text = gm.getGLVL().ToString();
-    }
+    //public void CheckHS(int totalScore)
+    //{
+    //    //cam.GetComponent<AudioSource>().Stop();
+    //    ovrCan.SetActive(true);
+    //    int highScore = PlayerPrefs.GetInt("HIGHSCORE");
+    //    if (totalScore > highScore)
+    //    {
+    //        PlayerPrefs.SetInt("HIGHSCORE", totalScore);
+    //        hsText.text = "New High Score!";
+    //        hsInput.gameObject.SetActive(true);
+    //    }
+    //    else
+    //    {
+    //        hsText.text = "*+ " + PlayerPrefs.GetString("HIGHSCORENAME") + ": " + highScore + " +*";
+    //    }
+    //    // lvlText.text = gm.getGLVL().ToString();
+    //}
 
-    public void NewHighScore()
-    {
-        string hsName = hsInput.text;
-        PlayerPrefs.SetString("HIGHSCORENAME", hsName);
-        hsInput.gameObject.SetActive(false);
-    }
+    //public void NewHighScore()
+    //{
+    //    string hsName = hsInput.text;
+    //    PlayerPrefs.SetString("HIGHSCORENAME", hsName);
+    //    hsInput.gameObject.SetActive(false);
+    //}
 
     private string GetGrade(float score, int guide)
     {
