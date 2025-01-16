@@ -49,20 +49,17 @@ public class GlueTrap : MonoBehaviour
         var spotSR = spot.GetComponent<SpriteRenderer>();
 
         spotSR.sprite = spotSprites[0];
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
 
         spotSR.sprite = spotSprites[1];
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.2f);
 
         spotSR.sprite = spotSprites[2];
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.2f);
 
         spotSR.sprite = spotSprites[3];
+        yield return new WaitForSeconds(0.2f);
 
-        Sequence fadeOutSequence = DOTween.Sequence();
-        fadeOutSequence.Append(spot.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack));
-
-        yield return fadeOutSequence.WaitForCompletion();
         Destroy(gameObject);
     }
 

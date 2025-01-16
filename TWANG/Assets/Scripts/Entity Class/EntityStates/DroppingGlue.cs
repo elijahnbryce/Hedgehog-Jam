@@ -7,14 +7,13 @@ using UnityEngine;
 public class DroppingGlue : EntityState
 {
     public GameObject gluePrefab;
-    //public float minDropHeight = 5f; 
     private float minDropHeight;
 
     public override void Enter()
     {
         base.Enter();
         selfEntity.StartCoroutine(IntervalDropGlue());
-        minDropHeight = GameManager.Instance.GetSpawnBounds()[0][1];
+        minDropHeight = GameManager.Instance.GetSpawnBounds()[0][1] + 1; //offset fixes issue
     }
 
     public IEnumerator IntervalDropGlue()

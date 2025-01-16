@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private bool facingDir = true;
 
     private bool glued = false;
+    private float glueMult; //range 0-1
     public bool FacingDir => facingDir;
     private bool Attacking => PlayerAttack.Instance.Attacking;
     private Vector2 secondCurrentPos, secondTargetPos;
@@ -85,7 +86,6 @@ public class PlayerMovement : MonoBehaviour
             upgradeIndex = -1;
         }
 
-        // Update trail for second hand
         UpdateTrail();
     }
 
@@ -93,15 +93,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Attacking)
         {
-            // When attacking, move secondary hand with WASD
             Vector2 movement = GetMovementInput();
             if (secondHandReadyToMove)
                 MoveSecondaryHand(movement);
-            rigidBody.velocity = Vector2.zero; // Keep primary hand still
+            rigidBody.velocity = Vector2.zero; 
         }
         else
         {
-            // Normal movement
             HandleMovement();
         }
     }
@@ -170,8 +168,14 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Glue()
     {
+        //gluemult from 1 to 0
+        glueMult = 0.9f;
         glued = true;
+
+        DOTween.To(() => glueMult, x => glueMult = x, 0f, 2f).SetEase(Ease.InExpo);
+
         yield return new WaitForSeconds(2f);
+
         glued = false;
     }
 
@@ -272,8 +276,7 @@ public class PlayerMovement : MonoBehaviour
             Moving = false;
         }
 
-        // Apply movement
-        var speedMult = CalculateSpeedMultiplier() * (glued ? 0.5f : 1f);
+        var speedMult = CalculateSpeedMultiplier() * (glued ? 1 - glueMult : 1f);
         rigidBody.velocity = movement * MovementSpeed * speedMult;
     }
 
@@ -317,7 +320,6 @@ public class PlayerMovement : MonoBehaviour
             Vector2 newPos = (Vector2)secondHand.position +
                 (movement * MovementSpeed * Time.fixedDeltaTime * (1 - (tensionResistance * tensionMultiplier)));
 
-            // Ensure second hand stays within maximum distance
             Vector2 toMain = (Vector2)transform.position - newPos;
             if (toMain.magnitude > followingDistance)
             {
@@ -332,7 +334,7 @@ public class PlayerMovement : MonoBehaviour
     {
         secondHandReadyToMove = false;
         mainHandPosition = transform.position;
-        previousPositions.Clear(); // Clear trail when attacking
+        previousPositions.Clear(); 
 
         Vector2 direction = (secondCurrentPos - (Vector2)transform.position).normalized;
         secondTargetPos = (Vector2)transform.position + direction;

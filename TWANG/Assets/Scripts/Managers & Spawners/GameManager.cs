@@ -352,12 +352,8 @@ public class GameManager : MonoBehaviour
 
     public void UpdateScore(float change = 1)
     {
-        change = change * GetPowerMult(UpgradeType.Rainbow) * GetPowerMult(UpgradeType.Confusion);
         levelScore += change;
         Debug.Log($"Score is now: {levelScore}");
-
-        //if(eV != null)
-        //    eV.DisplayScore(levelScore);
     }
 
     public void SetHealth(int val = 0)
