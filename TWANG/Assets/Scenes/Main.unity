@@ -1088,7 +1088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &654373493
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7700,7 +7700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -45.2, y: 13.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1953391223
@@ -7831,7 +7831,7 @@ PrefabInstance:
       objectReference: {fileID: 2050084924944321026, guid: a4c7a06f5541f3941b670de429a6e445, type: 3}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
       propertyPath: enemyTypes.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
       propertyPath: enemyTypes.Array.data[0].weight
@@ -7847,6 +7847,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
       propertyPath: enemyTypes.Array.data[3].weight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
+      propertyPath: enemyTypes.Array.data[4].weight
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
@@ -7866,6 +7870,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4587169468521337805, guid: 698a4fc7924bb0742aa1cb9274e2ee03, type: 3}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
+      propertyPath: enemyTypes.Array.data[4].enemyPrefab
+      value: 
+      objectReference: {fileID: 8793193217833648078, guid: 16226bc838711974893da760404f20b8, type: 3}
+    - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
       propertyPath: enemyTypes.Array.data[0].spawnInterval
       value: 5
       objectReference: {fileID: 0}
@@ -7879,6 +7887,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
       propertyPath: enemyTypes.Array.data[3].spawnInterval
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
+      propertyPath: enemyTypes.Array.data[4].spawnInterval
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4748896835306059623, guid: 7db3f321eb9c94a47b4eb22955f86975, type: 3}
