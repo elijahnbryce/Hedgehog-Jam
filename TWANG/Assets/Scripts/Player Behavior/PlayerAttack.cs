@@ -27,9 +27,9 @@ public class PlayerAttack : MonoBehaviour
     [Tooltip("Allows shooting even while 'game/wave' isn't running")]
     [SerializeField] bool alwaysAllowShooting = false;
     [Header("Aim Assist Settings")]
-    [SerializeField] private float aimAssistAngleThreshold = 10f; // Maximum angle for aim assist in degrees
-    [SerializeField] private float aimAssistStrength = 0.2f; // Visual aim assist strength (0-1)
-    [SerializeField] private float aimSnapStrength = 0.8f; // Firing snap strength (0-1)
+    [SerializeField] private float aimAssistAngleThreshold = 10f; 
+    [SerializeField] private float aimAssistStrength = 0.2f; 
+    [SerializeField] private float aimSnapStrength = 0.8f; 
 
     private Entity cachedTargetEntity;
     private Vector2 originalAimDirection;
@@ -67,6 +67,8 @@ public class PlayerAttack : MonoBehaviour
         {
             UpdateAttackState();
         }
+
+        Physics2D.IgnoreLayerCollision(6, 14, holdingBand);
     }
 
     private void OnDestroy()
@@ -166,8 +168,10 @@ public class PlayerAttack : MonoBehaviour
 
     private void FireProjectile()
     {
+        RubberBandType bandTypeToFire = heldBandType;
+
         holdingBand = false;
-        heldBandType = 0;
+
 
         SoundManager.Instance.PlaySoundEffect("band_release");
 
@@ -180,6 +184,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         RubberBand proj = Instantiate(RubberBandManager.Instance.GetBandPrefab(heldBandType)).GetComponent<RubberBand>();
+        heldBandType = 0;
 
         proj.transform.position = primaryHand.position + (Vector3)(fireDirection);
         proj.gameObject.SetActive(true);

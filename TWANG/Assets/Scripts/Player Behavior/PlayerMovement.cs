@@ -247,7 +247,6 @@ public class PlayerMovement : MonoBehaviour
             Time.deltaTime * speed
         );
 
-        // Update target position for second hand
         if (!Attacking)
         {
             UpdateSecondHandTarget();

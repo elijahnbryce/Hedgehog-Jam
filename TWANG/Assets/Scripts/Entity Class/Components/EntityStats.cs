@@ -33,12 +33,21 @@ public class EntityStats : MonoBehaviour
         effectiveMovementSpeed = movementSpeed * movementSpeedMult;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Charred"))
+        {
+            //Destroy(collision.gameObject);
+            TakeDamage(2);
+        }
+    }
+
     public virtual void TakeDamage(int damage)
     {
         Debug.Log("Enemy Take Damage: " + damage);
         GameManager gm = GameManager.Instance;
-        float damageBoost = gm.GetPowerMult(UpgradeType.Fire);
-        health -= damage * damageBoost;
+        //float damageBoost = gm.GetPowerMult(UpgradeType.Fire);
+        health -= damage;
         if (health <= 0)
         {
             Die();
