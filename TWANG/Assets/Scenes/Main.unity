@@ -8006,6 +8006,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flame Band
       objectReference: {fileID: 0}
+    - target: {fileID: 2260430264407771946, guid: 2ec1cec72a7e6d54081921f3d43e90f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4713235871174577093, guid: 2ec1cec72a7e6d54081921f3d43e90f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.06388044
