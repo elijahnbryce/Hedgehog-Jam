@@ -131,9 +131,8 @@ public class Spawner : MonoBehaviour
             //Destroy(indicator);
 
             GameObject newEnemy = Instantiate(selectedEnemy.enemyPrefab, spawnPosition, Quaternion.identity);
-            if (!newEnemy.name.Contains("Helper"))
-                gm.AddEnemy(newEnemy);
 
+            //this behavior is for the pencil enemy
             if (newEnemy.name.Contains("Parent"))
             {
                 foreach(Transform child in newEnemy.transform)
@@ -141,6 +140,8 @@ public class Spawner : MonoBehaviour
                     gm.AddEnemy(child.gameObject);
                 }
             }
+            else if (!newEnemy.name.Contains("Helper"))
+                gm.AddEnemy(newEnemy);
 
             spawnLim--;
             doneSpawning = spawnLim <= 0;

@@ -7790,6 +7790,10 @@ PrefabInstance:
       value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 8442450651302021323, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
+      propertyPath: confusionIndicator
+      value: 
+      objectReference: {fileID: 1248285684}
+    - target: {fileID: 8442450651302021323, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
       propertyPath: slowMotionDuration
       value: 0.1
       objectReference: {fileID: 0}
@@ -7801,6 +7805,10 @@ PrefabInstance:
       propertyPath: invincibilityDuration
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8442450651302021323, guid: 9ba859ac2c721f04aadcbb3cbd9802c4, type: 3}
+      propertyPath: invincibilityIndicator
+      value: 
+      objectReference: {fileID: 1502731821}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

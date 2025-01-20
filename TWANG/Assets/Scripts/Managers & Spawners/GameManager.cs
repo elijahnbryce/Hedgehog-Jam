@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public Dictionary<UpgradeType, int> upgradeList = new();
     private Timer ts;
     private bool isInvicible = false;
+    private bool isConfused = false;
+    [HideInInspector] public bool IsConfused { get { return isConfused; } }
     [SerializeField] private float invincibilityDuration = 2f;
 
     [Header("Effect Settings")]
@@ -34,6 +36,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Vector2 spawnBoundsMin = new Vector2(-9f, -6f);
     [SerializeField] Vector2 spawnBoundsMax = new Vector2(9f, 6f);
+
+    [SerializeField] private GameObject invincibilityIndicator;
+    [SerializeField] private GameObject confusionIndicator;
 
     private void Awake()
     {
@@ -264,6 +269,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(StarPower());
                 return true;
             case UpgradeType.Confusion:
+                StartCoroutine(ConfusionPower());
                 return true;
         }
         return false;
@@ -276,9 +282,16 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StarPower()
     {
-        isInvicible = true;
-        yield return new WaitForSeconds(10f);
-        isInvicible = false;
+        invincibilityIndicator.SetActive(isInvicible = true);
+        yield return new WaitForSeconds(15f);
+        invincibilityIndicator.SetActive(isInvicible = false);
+    }
+
+    private IEnumerator ConfusionPower()
+    {
+        confusionIndicator.SetActive(isConfused = true);
+        yield return new WaitForSeconds(15f);
+        confusionIndicator.SetActive(isConfused = false);
     }
 
     public void UpdateHealth(int change = -1)

@@ -49,7 +49,7 @@ public class UpgradeManager : MonoBehaviour
             newSeq.AppendInterval(ind * 0.1f);
             newSeq.Append(child.DOMove(child.position - (Vector3.up * 10), 0.25f));
             newSeq.AppendCallback(() => SoundManager.Instance.PlaySoundEffect("upgrades_spawn"));
-            child.DOShakeRotation(0.25f);
+            //child.DOShakeRotation(0.25f);
             var strct = upgrades[ind];
             child.GetChild(0).GetComponent<SpriteRenderer>().sprite = strct.UpgradeSprite;
             child.GetComponent<SpriteRenderer>().sprite = strct.PaperSprite;
@@ -96,26 +96,8 @@ public class UpgradeManager : MonoBehaviour
             }
         }
 
-        switch (upgrade)
-        {
-            //repeated code, fix later
-            case UpgradeType.Penny:
-                CoinManager.Instance.SpawnCoin(CoinType.Penny, PlayerMovement.Instance.PlayerPosition - Vector2.up * 2);
-                break;
-            case UpgradeType.Nickel:
-                CoinManager.Instance.SpawnCoin(CoinType.Nickel, PlayerMovement.Instance.PlayerPosition - Vector2.up * 2);
-                break;
-            case UpgradeType.Dime:
-                CoinManager.Instance.SpawnCoin(CoinType.Dime, PlayerMovement.Instance.PlayerPosition - Vector2.up * 2);
-                break;
-            case UpgradeType.Quarter:
-                CoinManager.Instance.SpawnCoin(CoinType.Quarter, PlayerMovement.Instance.PlayerPosition - Vector2.up * 2);
-                break;
-            default:
-                gm.AddPowerUP(upgrade);
-                SpawnSticker(upgrade, transform.GetChild(ind).GetChild(0).position);
-                break;
-        }
+        gm.AddPowerUP(upgrade);
+        SpawnSticker(upgrade, transform.GetChild(ind).GetChild(0).position);
 
         UnspawnUpgrades();
         GameManager.Instance.NewWave();
@@ -164,15 +146,11 @@ public enum UpgradeType
     Heart = 0,
     Pizza = 1,
     Rainbow = 2, 
-    Star = 3, //should work
+    Star = 3, //
     Lightning = 4, //
     Fire = 5,
     Ghost = 6,
     Question = 7,
-    Confusion = 8,
+    Confusion = 8, //
     Evil_Pizza = 9,
-    Penny = 10,
-    Nickel = 11,
-    Dime = 12,
-    Quarter = 13
 }

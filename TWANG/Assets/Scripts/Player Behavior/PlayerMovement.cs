@@ -283,10 +283,8 @@ public class PlayerMovement : MonoBehaviour
     {
         var movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        if (GameManager.Instance.upgradeList.ContainsKey(UpgradeType.Confusion))
-        {
+        if (GameManager.Instance.IsConfused)
             movement *= -Vector2.one;
-        }
 
         if (movement.magnitude > 1)
         {
