@@ -651,8 +651,8 @@ MonoBehaviour:
   m_RefResolutionY: 180
   m_UpscaleRT: 1
   m_PixelSnapping: 1
-  m_CropFrameX: 1
-  m_CropFrameY: 1
+  m_CropFrameX: 0
+  m_CropFrameY: 0
   m_StretchFill: 0
 --- !u!81 &683599812
 AudioListener:
@@ -709,7 +709,7 @@ Camera:
   m_HDR: 1
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -787,6 +787,8 @@ MonoBehaviour:
   slowMotionTimeScale: 0.25
   spawnBoundsMin: {x: -9, y: -6}
   spawnBoundsMax: {x: 9, y: 6}
+  invincibilityIndicator: {fileID: 0}
+  confusionIndicator: {fileID: 0}
 --- !u!114 &684673951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,8 +1041,6 @@ MonoBehaviour:
   boundaryLayer:
     serializedVersion: 2
     m_Bits: 0
-  projectilePrefab: {fileID: 1245749864814320524, guid: 83b293226f9b45c4fa0dbbd409367b95, type: 3}
-  _maxProjectiles: 3
   rubberRender: {fileID: 907368803}
   primaryHand: {fileID: 765487382}
   secondaryHand: {fileID: 238892580}
@@ -1089,6 +1089,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  trailUpdateInterval: 0.1
+  maxTrailPoints: 10
+  minDistanceForTrailPoint: 1
   spriteRenderer: {fileID: 217809464}
   secondHand: {fileID: 238892580}
   CanMove: 0
@@ -6871,7 +6874,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -16}
+  m_AnchoredPosition: {x: 0, y: -8}
   m_SizeDelta: {x: -16, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1665103297
@@ -6921,8 +6924,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7234,11 +7237,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 16
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 960, y: 540}
+  m_ReferenceResolution: {x: 320, y: 180}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -7254,9 +7257,9 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 683599813}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -7264,7 +7267,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1557625079
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &1889156119
