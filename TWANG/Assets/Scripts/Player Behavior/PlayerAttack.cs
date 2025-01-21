@@ -10,6 +10,8 @@ public class PlayerAttack : MonoBehaviour
     public static event Action OnAttack;
     public static event Action OnAttackAim;
     public static event Action OnAttackHalt;
+    public static event Action OnPickup;
+
     public bool Attacking => attacking;
     public bool HoldingBand => holdingBand;
     private RubberBandType heldBandType = RubberBandType.Normal;
@@ -143,6 +145,7 @@ public class PlayerAttack : MonoBehaviour
         CameraManager.Instance.ScreenShake(0.1f);
         holdingBand = true;
         heldBandType = bandType;
+        OnPickup?.Invoke();
     }
 
     private void AttackInitiate()
@@ -183,15 +186,21 @@ public class PlayerAttack : MonoBehaviour
             fireDirection = Vector2.Lerp(fireDirection, directionToTarget, aimSnapStrength);
         }
 
-        RubberBand proj = Instantiate(RubberBandManager.Instance.GetBandPrefab(heldBandType)).GetComponent<RubberBand>();
-        heldBandType = 0;
+        GameObject projGO = Instantiate(RubberBandManager.Instance.GetBandPrefab(heldBandType));
+        if (projGO.TryGetComponent(out RubberBand proj))
+        {
+            heldBandType = 0;
 
-        proj.transform.position = primaryHand.position + (Vector3)(fireDirection);
-        proj.gameObject.SetActive(true);
+            proj.transform.position = primaryHand.position + (Vector3)(fireDirection);
+            proj.gameObject.SetActive(true);
 
-        proj.InitializeProjectile(attackPower * PROJECTILE_BASE_FORCE * fireDirection);
+            proj.InitializeProjectile(attackPower * PROJECTILE_BASE_FORCE * fireDirection);
 
-        OnAttack?.Invoke();
+            OnAttack?.Invoke();
+        } else
+        {
+            Debug.LogWarning($"Rubberband prefab missing 'RubberBand' component for type '{heldBandType.ToString()}'");
+        }
     }
 
     private void ResetAttackState()

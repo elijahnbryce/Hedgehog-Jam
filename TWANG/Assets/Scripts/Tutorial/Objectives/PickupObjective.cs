@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using UnityEngine;
 
 public class PickupObjective : GameObjective
 {
@@ -17,6 +17,7 @@ public class PickupObjective : GameObjective
     private void PlayerAttack_OnPickup()
     {
         Progress++;
+        Debug.Log($"{Progress}/{this.ProgressCompletion}");
         if (Progress >= this.ProgressCompletion)
         {
             PlayerAttack.OnPickup -= PlayerAttack_OnPickup;

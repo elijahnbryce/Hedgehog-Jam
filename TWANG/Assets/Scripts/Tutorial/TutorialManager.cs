@@ -44,6 +44,7 @@ public class TutorialManager : MonoBehaviour
         if (currentObjective >= tutorialObjectives.Length)
         {
             // Completed all objectives
+            AllObjectivesComplete();
             return;
         }
 
@@ -56,13 +57,19 @@ public class TutorialManager : MonoBehaviour
 
     void ProgressUpdate(int progress)
     {
-        GameObjective obj = tutorialObjectives[currentObjective];
         UpdateText();
     }
 
     void UpdateText()
     {
+        if (currentObjective >= tutorialObjectives.Length) return;
         GameObjective obj = tutorialObjectives[currentObjective];
         _objectiveText.text = $"{obj.Name}\n{obj.Description}: {obj.Progress}/{obj.ProgressCompletion}";
+    }
+
+    void AllObjectivesComplete()
+    {
+        Debug.Log("Objectives complete");
+        _objectiveText.text = "";
     }
 }
