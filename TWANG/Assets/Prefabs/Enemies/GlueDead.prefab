@@ -8,10 +8,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 730948860203734777, guid: 996dbccc9b610ce4581e0abbcaad2a2b, type: 3}
+      propertyPath: sprites.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 730948860203734777, guid: 996dbccc9b610ce4581e0abbcaad2a2b, type: 3}
+      propertyPath: sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 312814559, guid: 7c04d52d3af573640b7b3e69b12daa48, type: 3}
+    - target: {fileID: 730948860203734777, guid: 996dbccc9b610ce4581e0abbcaad2a2b, type: 3}
+      propertyPath: sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 2062374987, guid: 7c04d52d3af573640b7b3e69b12daa48, type: 3}
+    - target: {fileID: 730948860203734777, guid: 996dbccc9b610ce4581e0abbcaad2a2b, type: 3}
+      propertyPath: sprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 194711219, guid: 7c04d52d3af573640b7b3e69b12daa48, type: 3}
+    - target: {fileID: 730948860203734777, guid: 996dbccc9b610ce4581e0abbcaad2a2b, type: 3}
+      propertyPath: sprites.Array.data[3]
+      value: 
+      objectReference: {fileID: -1928166113, guid: 7c04d52d3af573640b7b3e69b12daa48, type: 3}
     - target: {fileID: 1007396995159915113, guid: 996dbccc9b610ce4581e0abbcaad2a2b, type: 3}
       propertyPath: m_Name
-      value: TackDead 1
+      value: GlueDead
       objectReference: {fileID: 0}
+    - target: {fileID: 7044820894434036516, guid: 996dbccc9b610ce4581e0abbcaad2a2b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 312814559, guid: 7c04d52d3af573640b7b3e69b12daa48, type: 3}
     - target: {fileID: 7526812582436739377, guid: 996dbccc9b610ce4581e0abbcaad2a2b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

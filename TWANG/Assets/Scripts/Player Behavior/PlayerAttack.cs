@@ -10,16 +10,13 @@ public class PlayerAttack : MonoBehaviour
     public static event Action OnAttack;
     public static event Action OnAttackAim;
     public static event Action OnAttackHalt;
-    public static event Action OnPickup;
     public bool Attacking => attacking;
-
-    public int maxProjectiles => _maxProjectiles;
-    public int remainingProjectiles => _shotProjectiles;
+    public bool HoldingBand => holdingBand;
+    private RubberBandType heldBandType = RubberBandType.Normal;
+    public RubberBandType HeldBandType => heldBandType;
 
     [Header("Attack Settings")]
     [SerializeField] private LayerMask boundaryLayer;
-    [SerializeField] RubberBand projectilePrefab;
-    [SerializeField] int _maxProjectiles = 1;
     [SerializeField] DragController rubberRender;
     [SerializeField] Transform primaryHand;
     [SerializeField] Transform secondaryHand;
@@ -30,21 +27,21 @@ public class PlayerAttack : MonoBehaviour
     [Tooltip("Allows shooting even while 'game/wave' isn't running")]
     [SerializeField] bool alwaysAllowShooting = false;
     [Header("Aim Assist Settings")]
-    [SerializeField] private float aimAssistAngleThreshold = 10f; // Maximum angle for aim assist in degrees
-    [SerializeField] private float aimAssistStrength = 0.2f; // Visual aim assist strength (0-1)
-    [SerializeField] private float aimSnapStrength = 0.8f; // Firing snap strength (0-1)
+    [SerializeField] private float aimAssistAngleThreshold = 10f; 
+    [SerializeField] private float aimAssistStrength = 0.2f; 
+    [SerializeField] private float aimSnapStrength = 0.8f; 
 
     private Entity cachedTargetEntity;
     private Vector2 originalAimDirection;
     private Vector2 assistedAimDirection;
 
-    List<RubberBand> projectilePool = new List<RubberBand>();
     float attackPower;
+
     bool attacking;
+    bool holdingBand = true;
 
     const float PROJECTILE_BASE_FORCE = 1000f;
     const float MIN_ATTACK_POWER = 0.2f;
-    int _shotProjectiles;
 
     float attackCooldown = 0f;
 
@@ -56,6 +53,8 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
         Instance = this;
+
+        heldBandType = RubberBandType.Normal;
     }
 
     private void Update()
@@ -68,6 +67,8 @@ public class PlayerAttack : MonoBehaviour
         {
             UpdateAttackState();
         }
+
+        Physics2D.IgnoreLayerCollision(6, 14, holdingBand);
     }
 
     private void OnDestroy()
@@ -86,7 +87,7 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && holdingBand)
         {
             AttackInitiate();
         }
@@ -133,35 +134,20 @@ public class PlayerAttack : MonoBehaviour
             cachedTargetEntity = null;
         }
 
-        // Use assisted aim direction for visual feedback
         handsDelta = -assistedAimDirection * distance;
         attackPower = Mathf.Clamp01(distance / maxStretchDistance);
     }
 
-    public void PickupBand()
+    public void PickupBand(RubberBandType bandType)
     {
         CameraManager.Instance.ScreenShake(0.1f);
-
-        if (_shotProjectiles > 0)
-        {
-            _shotProjectiles--;
-        }
-        OnPickup?.Invoke();
-    }
-
-    public void IncreaseMaxProjectiles()
-    {
-        _maxProjectiles++;
-    }
-    public void DecreaseMaxProjectiles()
-    {
-        if (_maxProjectiles > 1)
-            _maxProjectiles--;
+        holdingBand = true;
+        heldBandType = bandType;
     }
 
     private void AttackInitiate()
     {
-        if (GameManager.Instance.BetweenRounds || _shotProjectiles > maxProjectiles) return;
+        if (GameManager.Instance.BetweenRounds) return;
 
         attacking = true;
         attackPower = 0;
@@ -174,7 +160,6 @@ public class PlayerAttack : MonoBehaviour
         if (attackPower >= MIN_ATTACK_POWER)
         {
             FireProjectile();
-            SoundManager.Instance.PlaySoundEffect("band_release");
         }
 
         OnAttackHalt?.Invoke();
@@ -183,6 +168,13 @@ public class PlayerAttack : MonoBehaviour
 
     private void FireProjectile()
     {
+        RubberBandType bandTypeToFire = heldBandType;
+
+        holdingBand = false;
+
+
+        SoundManager.Instance.PlaySoundEffect("band_release");
+
         Vector2 fireDirection = ((Vector2)primaryHand.position - (Vector2)secondaryHand.position).normalized;
 
         if (cachedTargetEntity != null)
@@ -191,13 +183,13 @@ public class PlayerAttack : MonoBehaviour
             fireDirection = Vector2.Lerp(fireDirection, directionToTarget, aimSnapStrength);
         }
 
-        RubberBand proj = GetPooledProjectile();
+        RubberBand proj = Instantiate(RubberBandManager.Instance.GetBandPrefab(heldBandType)).GetComponent<RubberBand>();
+        heldBandType = 0;
 
         proj.transform.position = primaryHand.position + (Vector3)(fireDirection);
         proj.gameObject.SetActive(true);
 
         proj.InitializeProjectile(attackPower * PROJECTILE_BASE_FORCE * fireDirection);
-        _shotProjectiles++;
 
         OnAttack?.Invoke();
     }
@@ -207,20 +199,6 @@ public class PlayerAttack : MonoBehaviour
         attacking = false;
         attackPower = 0;
         cachedTargetEntity = null;
-    }
-
-    RubberBand GetPooledProjectile()
-    {
-        for (int i = 0; i < projectilePool.Count; i++)
-        {
-            if (!projectilePool[i].gameObject.activeInHierarchy)
-            {
-                return projectilePool[i];
-            }
-        }
-        RubberBand newPoolProj = Instantiate(projectilePrefab);
-        projectilePool.Add(newPoolProj);
-        return newPoolProj;
     }
 
     public void SetAttackCooldown(float cooldown)

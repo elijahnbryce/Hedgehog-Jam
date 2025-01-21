@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UIElements;
-using System.IO.Pipes;
-using Unity.Burst.CompilerServices;
 
 public class RubberBand : MonoBehaviour
 {
@@ -12,6 +9,12 @@ public class RubberBand : MonoBehaviour
     [SerializeField] Sprite landedSprite;
     [SerializeField] Material whiteMat;
     [SerializeField] LayerMask boundaryLayer;
+    [SerializeField] private RubberBandType bandType;
+    [SerializeField] private GameObject prefab;
+
+    float timer = 0.075f;
+    public RubberBandType BandType => bandType;
+    private RubberBandStruct bandProperties;
 
     private bool landed = false;
     private Material defaultMat;
@@ -21,11 +24,18 @@ public class RubberBand : MonoBehaviour
     public float attackPower = 1f;
 
     private Rigidbody2D rb;
+    Collider2D playerCollider, myCollider;
     void Awake()
     {
         sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         defaultMat = sr.material;
+        myCollider = GetComponent<Collider2D>();
+    }
+    private void Start()
+    {
+        bandProperties = RubberBandManager.Instance.GetRubberBand(bandType);
+        playerCollider = PlayerMovement.Instance.GetComponent<CircleCollider2D>();
     }
 
     void Update()
@@ -33,6 +43,21 @@ public class RubberBand : MonoBehaviour
         CheckBoundary();
         if (landed) return;
         UpdateRubberBandSprite();
+
+        //if (!GetComponent<Collider2D>())
+        //    return;
+        //else
+        //    myCollider = GetComponent<Collider2D>();
+
+        ////this is ass code, there must be another way
+        //if (PlayerAttack.Instance.HoldingBand)
+        //{
+        //    Physics2D.IgnoreCollision(playerCollider, myCollider, true);
+        //}
+        //else
+        //{
+        //    Physics2D.IgnoreCollision(playerCollider, myCollider, false);
+        //}
     }
 
     void CheckBoundary()
@@ -55,13 +80,29 @@ public class RubberBand : MonoBehaviour
 
         rb.AddForce(dir);
         _maxBounces = maxBounces;
+        
+        switch (bandType)
+        {
+            case RubberBandType.Flaming:
+                break;
+        }
     }
 
     void UpdateRubberBandSprite()
     {
+        if (bandType.Equals(RubberBandType.Flaming))
+        {
+            timer -= Time.deltaTime;
+            if (timer < 0)
+            {
+                timer = 0.075f;
+                var charred = Instantiate(prefab, transform.position, Quaternion.identity);
+                Destroy(charred, 3f);
+            }
+        }
+
         float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
 
-        // Normalize angle to positive
         if (angle < 0) angle += 360f;
 
         if (angle > 180f)
@@ -86,7 +127,6 @@ public class RubberBand : MonoBehaviour
         else if (angle >= 142.5f && angle < 165f)  // 150°
             spriteIndex = 3;
 
-        // Update the sprite
         if (spriteIndex < rubberBandSprites.Count)
         {
             sr.sprite = rubberBandSprites[spriteIndex];
@@ -99,8 +139,11 @@ public class RubberBand : MonoBehaviour
         {
             case "Player":
                 Debug.Log("Band hit player");
-                this.gameObject.SetActive(false);
-                PlayerAttack.Instance.PickupBand();
+                //else
+                //{
+                //    this.gameObject.SetActive(false);
+                //    PlayerAttack.Instance.PickupBand();
+                //}
                 break;
             case "Wall":
                 if (landed) break;
@@ -144,6 +187,8 @@ public class RubberBand : MonoBehaviour
                     SeekEnemies();
                 }
 
+                HandleSpecialEffects(e);
+
                 //if (!GameManager.Instance.upgradeList.ContainsKey(UpgradeType.Ghost))
                 //{
                 //    ProjectileLand();
@@ -153,6 +198,30 @@ public class RubberBand : MonoBehaviour
                 //    GameManager.Instance.DecPowerUp(UpgradeType.Ghost);
                 //}
                 break;
+        }
+    }
+
+    private void HandleSpecialEffects(Entity target)
+    {
+        switch (bandType)
+        {
+            case RubberBandType.Flaming:
+                // Apply burning effect
+                break;
+        }
+    }
+
+    private void SplitBand()
+    {
+        // Create smaller projectiles in different directions
+        for (int i = 0; i < 3; i++)
+        {
+            float angle = i * 45f - 45f; // Spread pattern
+            Vector2 direction = Quaternion.Euler(0, 0, angle) * rb.velocity.normalized;
+
+            GameObject splitBand = Instantiate(bandProperties.BandPrefab, transform.position, Quaternion.identity);
+            RubberBand splitComponent = splitBand.GetComponent<RubberBand>();
+            splitComponent.InitializeProjectile(direction * rb.velocity.magnitude * 0.5f);
         }
     }
 

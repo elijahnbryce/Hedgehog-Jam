@@ -15,6 +15,7 @@ TagManager:
   - Glue
   - Midair Band
   - RubberBand
+  - Charred
   layers:
   - Default
   - TransparentFX

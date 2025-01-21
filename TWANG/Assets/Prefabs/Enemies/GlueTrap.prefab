@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &7176947623236532235
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 550146273
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1311600888, guid: 7d7b2be5539125245877896f6ae4a75a, type: 3}
+  m_Sprite: {fileID: 1534660689, guid: f24a36af802615d45a51667fe729e9e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -220,9 +220,10 @@ MonoBehaviour:
   drop: {fileID: 7176947623236532235}
   spot: {fileID: 2761609869627475939}
   spotSprites:
-  - {fileID: -847371519, guid: 7d7b2be5539125245877896f6ae4a75a, type: 3}
-  - {fileID: -493421299, guid: 45775d7c082fa9545b9afbde47f9a2aa, type: 3}
-  - {fileID: 1640928949, guid: 45775d7c082fa9545b9afbde47f9a2aa, type: 3}
+  - {fileID: 693889115, guid: f24a36af802615d45a51667fe729e9e0, type: 3}
+  - {fileID: -40017997, guid: f24a36af802615d45a51667fe729e9e0, type: 3}
+  - {fileID: -1610761901, guid: f24a36af802615d45a51667fe729e9e0, type: 3}
+  - {fileID: -1184285390, guid: f24a36af802615d45a51667fe729e9e0, type: 3}
 --- !u!70 &8493393162835364258
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
